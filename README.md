@@ -53,4 +53,4 @@ This package contains different kinds of components which are divided into follo
 
 ## Demo:
 
-To check how this package can be utilized in creating a Flutter application, checkout [Captain Password](https://github.com/horizech/flutter_up)
+To check how this package can be utilized in creating a Flutter application, checkout [Captain Password](https://github.com/horizech/captainpassword)
