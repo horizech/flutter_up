@@ -1,0 +1,4 @@
+enum UpTextDirection {
+  left,
+  right,
+}
