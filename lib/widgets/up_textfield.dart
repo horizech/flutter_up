@@ -27,35 +27,36 @@ class UpTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
+        fit: FlexFit.loose,
         child: TextFormField(
-      keyboardType: keyboardType,
-      autofillHints: autofillHint != null && autofillHint!.isNotEmpty
-          ? <String>[autofillHint!]
-          : null,
-      validator: (value) {
-        if (fixedLengths != null &&
-            !fixedLengths!.contains(controller.text.length)) {
-          String lengths = fixedLengths!
-              .map((x) => x.toString())
-              .reduce((value, element) => ('$value,') + element.toString());
-          if (fixedLengths!.length == 1) {
-            return 'Length should be $lengths';
-          } else {
-            return 'Length should be one of $lengths';
-          }
-        } else if (value!.length < minLength) {
-          if (minLength == 1) {
-            return 'Please enter $lable';
-          } else {
-            return 'Length should be at least $minLength';
-          }
-        }
-        return null;
-      },
-      obscureText: obscureText,
-      readOnly: readOnly,
-      decoration: decoration,
-      controller: controller,
-    ));
+          keyboardType: keyboardType,
+          autofillHints: autofillHint != null && autofillHint!.isNotEmpty
+              ? <String>[autofillHint!]
+              : null,
+          validator: (value) {
+            if (fixedLengths != null &&
+                !fixedLengths!.contains(controller.text.length)) {
+              String lengths = fixedLengths!
+                  .map((x) => x.toString())
+                  .reduce((value, element) => ('$value,') + element.toString());
+              if (fixedLengths!.length == 1) {
+                return 'Length should be $lengths';
+              } else {
+                return 'Length should be one of $lengths';
+              }
+            } else if (value!.length < minLength) {
+              if (minLength == 1) {
+                return 'Please enter $lable';
+              } else {
+                return 'Length should be at least $minLength';
+              }
+            }
+            return null;
+          },
+          obscureText: obscureText,
+          readOnly: readOnly,
+          decoration: decoration,
+          controller: controller,
+        ));
   }
 }

@@ -109,8 +109,9 @@ Widget _upTextButton(
                     Theme.of(context).colorScheme.secondary),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius:
-                    isRounded ? BorderRadius.circular(18.0) : BorderRadius.zero,
+                borderRadius: isRounded
+                    ? BorderRadius.circular(roundedBorderRadius)
+                    : BorderRadius.zero,
                 side: BorderSide(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -149,8 +150,9 @@ Widget _upIconButton(
                     Theme.of(context).colorScheme.secondary),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius:
-                    isRounded ? BorderRadius.circular(18.0) : BorderRadius.zero,
+                borderRadius: isRounded
+                    ? BorderRadius.circular(roundedBorderRadius)
+                    : BorderRadius.zero,
                 side: BorderSide(color: Theme.of(context).primaryColor),
               ),
             ),
@@ -187,8 +189,9 @@ Widget _upOutlinedButton(
                     Theme.of(context).colorScheme.secondary),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius:
-                    isRounded ? BorderRadius.circular(18.0) : BorderRadius.zero,
+                borderRadius: isRounded
+                    ? BorderRadius.circular(roundedBorderRadius)
+                    : BorderRadius.zero,
                 side: BorderSide(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -221,8 +224,9 @@ Widget _upFloatingButton(
               ? getColorsFromType(colorType).foregroundColor
               : Theme.of(context).colorScheme.secondary,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                isRounded ? BorderRadius.circular(18.0) : BorderRadius.zero,
+            borderRadius: isRounded
+                ? BorderRadius.circular(roundedBorderRadius)
+                : BorderRadius.zero,
             side: BorderSide(color: Theme.of(context).primaryColor),
           ),
           onPressed: () {
