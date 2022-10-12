@@ -55,4 +55,18 @@ class UpDialogService {
       _dialogCompleter.remove(completerId);
     }
   }
+
+  closeAllDialogs(BuildContext context) {
+    if (_dialogCompleter.isNotEmpty) {
+      for (var completerId in _dialogCompleter.keys) {
+        try {
+          Navigator.of(context, rootNavigator: true).pop();
+          _dialogCompleter[completerId]?.complete();
+        } catch (e) {
+          debugPrint(e.toString());
+        }
+      }
+      _dialogCompleter.clear();
+    }
+  }
 }
