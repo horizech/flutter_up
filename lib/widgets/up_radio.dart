@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_text_direction.dart';
 
 class UpRadio extends StatefulWidget {
-  final String? lable;
+  final String? label;
   final Function onChange;
-  final UpTextDirection lableDirection;
+  final UpTextDirection labelDirection;
   final String value;
   bool isSelected;
   final String groupValue;
@@ -13,9 +13,9 @@ class UpRadio extends StatefulWidget {
   UpRadio({
     Key? key,
     required this.value,
-    this.lable,
+    this.label,
     required this.onChange,
-    this.lableDirection = UpTextDirection.right,
+    this.labelDirection = UpTextDirection.right,
     this.isSelected = false,
     required this.groupValue,
     this.fillColor = Colors.black,
@@ -32,8 +32,8 @@ class _UpRadioState extends State<UpRadio> {
       alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        widget.lableDirection == UpTextDirection.left
-            ? Text(widget.lable ?? "")
+        widget.labelDirection == UpTextDirection.left
+            ? Text(widget.label ?? "")
             : const Text(""),
         Radio(
             value: widget.value,
@@ -54,8 +54,8 @@ class _UpRadioState extends State<UpRadio> {
                 });
               }
             }),
-        widget.lableDirection == UpTextDirection.right
-            ? Text(widget.lable ?? "")
+        widget.labelDirection == UpTextDirection.right
+            ? Text(widget.label ?? "")
             : const Text(""),
       ],
     );

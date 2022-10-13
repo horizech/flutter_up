@@ -10,10 +10,36 @@ GetIt _locator = GetIt.instance;
 // ignore: non_constant_identifier_names
 GetIt get ServiceManager => _locator;
 
-setupFlutterUpLocators() {
-  _locator.registerLazySingleton(() => UpUrlService());
-  _locator.registerLazySingleton(() => UpScaffoldHelperService());
-  _locator.registerLazySingleton(() => UpNavigationService());
-  _locator.registerLazySingleton(() => UpDialogService());
-  _locator.registerLazySingleton(() => UpSearchService());
+enum FlutterUpLocators {
+  upUrlService,
+  upScaffoldHelperService,
+  upNavigationService,
+  upDialogService,
+  upSearchService
+}
+
+setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
+  if (locators != null && locators.isNotEmpty) {
+    for (var locator in locators) {
+      if (locator == FlutterUpLocators.upUrlService) {
+        _locator.registerLazySingleton(() => UpUrlService());
+      }
+
+      if (locator == FlutterUpLocators.upScaffoldHelperService) {
+        _locator.registerLazySingleton(() => UpScaffoldHelperService());
+      }
+
+      if (locator == FlutterUpLocators.upNavigationService) {
+        _locator.registerLazySingleton(() => UpNavigationService());
+      }
+
+      if (locator == FlutterUpLocators.upDialogService) {
+        _locator.registerLazySingleton(() => UpDialogService());
+      }
+
+      if (locator == FlutterUpLocators.upSearchService) {
+        _locator.registerLazySingleton(() => UpSearchService());
+      }
+    }
+  }
 }

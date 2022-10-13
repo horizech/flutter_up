@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_text_direction.dart';
 
 class UpCheckbox extends StatefulWidget {
-  final String? lable;
+  final String? label;
   final Function onChange;
-  final UpTextDirection lableDirection;
+  final UpTextDirection labelDirection;
   final bool value;
   final Color activeColor;
   final Color checkColor;
@@ -18,9 +18,9 @@ class UpCheckbox extends StatefulWidget {
   const UpCheckbox({
     Key? key,
     required this.value,
-    this.lable,
+    this.label,
     required this.onChange,
-    this.lableDirection = UpTextDirection.right,
+    this.labelDirection = UpTextDirection.right,
     this.activeColor = Colors.black,
     this.checkColor = Colors.white,
     this.isRounded = false,
@@ -42,8 +42,8 @@ class _UpCheckboxState extends State<UpCheckbox> {
       alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        widget.lableDirection == UpTextDirection.left
-            ? Text(widget.lable ?? "")
+        widget.labelDirection == UpTextDirection.left
+            ? Text(widget.label ?? "")
             : const Text(""),
         widget.isDisable == true
             ? const Checkbox(value: false, onChanged: null)
@@ -63,8 +63,8 @@ class _UpCheckboxState extends State<UpCheckbox> {
                 onChanged: (bool? newcheck) {
                   widget.onChange(newcheck);
                 }),
-        widget.lableDirection == UpTextDirection.right
-            ? Text(widget.lable ?? "")
+        widget.labelDirection == UpTextDirection.right
+            ? Text(widget.label ?? "")
             : const Text(""),
       ],
     );
