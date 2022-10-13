@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UpTextField extends StatelessWidget {
-  final InputDecoration decoration;
+  final InputDecoration? decoration;
   final bool obscureText;
   final bool readOnly;
   final TextEditingController controller;
@@ -13,7 +13,7 @@ class UpTextField extends StatelessWidget {
 
   const UpTextField({
     Key? key,
-    required this.decoration,
+    this.decoration,
     this.obscureText = false,
     this.readOnly = false,
     required this.controller,
