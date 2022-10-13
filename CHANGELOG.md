@@ -1,3 +1,6 @@
+## 0.2.1
+- Added closeAllDialogs function.
+
 ## 0.2.0
 - Added UpFlutterApp component.
 - Added more components.
