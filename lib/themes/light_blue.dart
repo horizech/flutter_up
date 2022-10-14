@@ -17,13 +17,13 @@ ThemeData lightBlueTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.blue,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       textStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
-      primary: Colors.blue,
-      onPrimary: Colors.white,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: const BorderSide(color: Colors.blue, width: 1)),

@@ -4,6 +4,9 @@ import 'package:flutter_up/dialogs/up_about_app.dart';
 import 'package:flutter_up/dialogs/up_base.dart';
 import 'package:flutter_up/dialogs/up_info.dart';
 import 'package:flutter_up/dialogs/up_loading.dart';
+import 'package:flutter_up/enums/up_button_type.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/enums/up_text_direction.dart';
 import 'package:flutter_up/helpers/up_clipboard.dart';
 import 'package:flutter_up/helpers/up_console.dart';
 
@@ -16,8 +19,13 @@ import 'package:flutter_up/services/up_search.dart';
 
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/models/up_app_bar_item.dart';
+import 'package:flutter_up/widgets/up_button.dart';
+import 'package:flutter_up/widgets/up_checkbox.dart';
 
 import 'package:flutter_up/widgets/up_drop_down_menu.dart';
+import 'package:flutter_up/widgets/up_loading_button.dart';
+import 'package:flutter_up/widgets/up_orientational_column_row.dart';
+import 'package:flutter_up/widgets/up_radio.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 import 'package:flutter_up/locator.dart';
@@ -138,7 +146,13 @@ class ServicesExamples {
   /// To setup locator and set credential key
   void serviceManagerExample() {
     /// Initialize locators (ServiceManager)
-    setupFlutterUpLocators();
+    setupFlutterUpLocators([
+      FlutterUpLocators.upDialogService,
+      FlutterUpLocators.upNavigationService,
+      FlutterUpLocators.upScaffoldHelperService,
+      FlutterUpLocators.upSearchService,
+      FlutterUpLocators.upUrlService
+    ]);
 
     /// Add any extra service that you have created
     ServiceManager.registerLazySingleton(() => MyService());
@@ -245,7 +259,12 @@ class WidgetsExamples {
 
   flexibleTextFieldExample() {
     return UpTextField(
+      keyboardType: TextInputType.text,
+      label: "Password",
+      minLength: 1,
+      autofillHint: AutofillHints.password,
       readOnly: false,
+      isFlexible: true,
       fixedLengths: const [16],
       decoration: InputDecoration(
           labelText: 'Password',
@@ -261,6 +280,79 @@ class WidgetsExamples {
           )),
       obscureText: !_passwordVisible,
       controller: _passwordTextEditingController,
+    );
+  }
+
+  //UpCheckbox
+  upCheckboxExample() {
+    return UpCheckbox(
+      borderColor: Colors.transparent,
+      labelDirection: UpTextDirection.left,
+      isDisable: true,
+      label: "Number",
+      activeColor: Colors.black,
+      checkColor: Colors.white,
+      value: true,
+      isRounded: true,
+      borderWidth: 1.5,
+      roundedBorderRadius: 8,
+      onChange: (newcheck) {
+        // Do something
+      },
+    );
+  }
+
+  //UpRadio
+  upRadioExample() {
+    return UpRadio(
+      label: "Male",
+      value: "Male",
+      labelDirection: UpTextDirection.left,
+      fillColor: Colors.white,
+      isSelected: true,
+      groupValue: "Gender",
+      onChange: (radioValue) {
+        //Do something
+      },
+    );
+  }
+
+  //UpButton
+  upButtonExample() {
+    return UpButton(
+      buttonType: UpButtonType.elevated,
+      isButtonDisable: false,
+      isRounded: true,
+      roundedBorderRadius: 8,
+      colorType: ColorType.warn,
+      onPress: () {
+        //Do something
+      },
+      child: const Text("Button"),
+    );
+  }
+
+  //UpLoadingButton
+  upLoadingButtonExample() {
+    return UpLoadingButton(
+      isError: false,
+      text: "Login",
+      isLoading: false,
+      isSuccess: true,
+      onPress: () {
+        //Do something
+      },
+    );
+  }
+
+  //upOrientationalColumnRow
+  upOrientationalColumnRowExample() {
+    return const UpOrientationalColumnRow(
+      widths: [200, 0],
+      children: [
+        Text("child 1"),
+        Text("child 2"),
+      ],
     );
   }
 

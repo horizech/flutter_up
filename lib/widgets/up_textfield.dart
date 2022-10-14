@@ -12,6 +12,7 @@ class UpTextField extends StatelessWidget {
   final String? label;
   final bool isFlexible;
   final Function(String?)? onSaved;
+  final Function(String?)? onChanged;
 
   const UpTextField({
     Key? key,
@@ -26,6 +27,7 @@ class UpTextField extends StatelessWidget {
     this.label = "",
     this.isFlexible = false,
     this.onSaved,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class UpTextField extends StatelessWidget {
               autofillHint,
               label,
               onSaved,
+              onChanged,
             ),
           )
         : _upTextField(
@@ -56,7 +59,8 @@ class UpTextField extends StatelessWidget {
             fixedLengths,
             autofillHint,
             label,
-            onSaved);
+            onSaved,
+            onChanged);
   }
 }
 
@@ -71,9 +75,11 @@ Widget _upTextField(
   String? autofillHint,
   String? label,
   Function(String?)? onSaved,
+  Function(String?)? onChanged,
 ) {
   return TextFormField(
     onSaved: onSaved,
+    onChanged: onChanged,
     keyboardType: keyboardType,
     autofillHints: autofillHint != null && autofillHint.isNotEmpty
         ? <String>[autofillHint]

@@ -2,23 +2,29 @@ import 'package:flutter/material.dart';
 
 class UpOrientationalColumnRow extends StatelessWidget {
   final List<Widget> children;
-
-  const UpOrientationalColumnRow({Key? key, required this.children})
+  final List<double> widths;
+  const UpOrientationalColumnRow(
+      {Key? key, required this.children, this.widths = const []})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
-    return orientation == Orientation.portrait
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: children)
-        : Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: children);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return width > height
+        ? Row(
+            children: widths.isNotEmpty
+                ? children.asMap().entries.map<Widget>((entry) {
+                    if (widths.length > entry.key && widths[entry.key] > 0) {
+                      return SizedBox(
+                          width: widths[entry.key], child: entry.value);
+                    } else {
+                      return Flexible(child: entry.value);
+                    }
+                  }).toList()
+                : children.map<Widget>((w) => Flexible(child: w)).toList())
+        : Column(
+            children: children,
+          );
   }
 }

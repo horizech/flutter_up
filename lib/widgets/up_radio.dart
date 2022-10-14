@@ -41,10 +41,6 @@ class _UpRadioState extends State<UpRadio> {
                 (Set<MaterialState> states) {
               return widget.fillColor;
             }),
-            // fillColor: MaterialStateProperty.resolveWith<Color>(
-            //     (Set<MaterialState> states) {
-            //   return widget.isSelected ? Colors.grey : Colors.black;
-            // }),
             groupValue: widget.groupValue,
             onChanged: (radioValue) {
               widget.onChange(radioValue);
