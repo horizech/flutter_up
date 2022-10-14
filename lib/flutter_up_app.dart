@@ -31,7 +31,9 @@ class FlutterUpApp extends StatelessWidget {
       builder: (context, theme) {
         return FlutterUpConfig(
           child: MaterialApp(
-            navigatorKey: ServiceManager<UpNavigationService>().navigatorKey,
+            navigatorKey: ServiceManager.isRegistered<UpNavigationService>()
+                ? ServiceManager<UpNavigationService>().navigatorKey
+                : GlobalKey<NavigatorState>(),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
             routes: routes,
