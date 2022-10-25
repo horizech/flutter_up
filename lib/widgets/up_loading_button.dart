@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
 
 class UpLoadingButton extends StatelessWidget {
   final String text;
@@ -6,15 +7,27 @@ class UpLoadingButton extends StatelessWidget {
   final bool isSuccess;
   final bool isError;
   final Function onPress;
+  final UpColorType? colorType;
+  final bool? isButtonDisable;
+  final bool isRounded;
+  final double roundedBorderRadius;
+  final Color borderColor;
+  final double borderWidth;
 
-  const UpLoadingButton(
-      {Key? key,
-      required this.text,
-      required this.isLoading,
-      required this.isSuccess,
-      required this.isError,
-      required this.onPress})
-      : super(key: key);
+  const UpLoadingButton({
+    Key? key,
+    required this.text,
+    required this.isLoading,
+    required this.isSuccess,
+    required this.isError,
+    required this.onPress,
+    this.colorType,
+    this.isButtonDisable = false,
+    this.isRounded = false,
+    this.roundedBorderRadius = 18,
+    this.borderColor = Colors.transparent,
+    this.borderWidth = 1,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +54,32 @@ class UpLoadingButton extends StatelessWidget {
                     : SizedBox(
                         width: 200,
                         child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: colorType != null
+                                ? MaterialStateProperty.all<Color>(
+                                    getColorsFromType(colorType!)
+                                        .backgroundColor)
+                                : MaterialStateProperty.all<Color>(
+                                    Theme.of(context).primaryColor),
+                            foregroundColor: colorType != null
+                                ? MaterialStateProperty.all<Color>(
+                                    getColorsFromType(colorType!)
+                                        .foregroundColor)
+                                : MaterialStateProperty.all<Color>(
+                                    Theme.of(context).colorScheme.secondary),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: isRounded
+                                    ? BorderRadius.circular(roundedBorderRadius)
+                                    : BorderRadius.zero,
+                                side: BorderSide(
+                                  color: borderColor,
+                                  width: borderWidth,
+                                ),
+                              ),
+                            ),
+                          ),
                           onPressed: () {
                             onPress();
                           },

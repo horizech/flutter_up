@@ -9,7 +9,7 @@ class UpSecurity {
     iv = IV.fromUtf8(ivKey);
   }
 
-  static String encrypt(String key, String text) {
+  static String encrypt({required String key, required String text}) {
     if (iv != null) {
       String result;
       if (key.length != 16) {
@@ -30,7 +30,7 @@ class UpSecurity {
     }
   }
 
-  static String? decrypt(String key, String text) {
+  static String? decrypt({required String key, required String text}) {
     String result;
     if (key.length != 16) {
       return null;

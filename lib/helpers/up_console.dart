@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 enum UpConsoleLevel { info, debug, error }
 
-UpConsoleLevel currentUpConsoleLevel = UpConsoleLevel.debug;
+UpConsoleLevel currentUpupConsoleLevel = UpConsoleLevel.debug;
 
-console(UpConsoleLevel level, String text) {
-  if (level.index >= currentUpConsoleLevel.index) {
+upConsole(UpConsoleLevel level, String text) {
+  if (level.index >= currentUpupConsoleLevel.index) {
     debugPrint(text);
   }
 }

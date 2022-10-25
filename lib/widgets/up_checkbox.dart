@@ -3,13 +3,12 @@ import 'package:flutter_up/enums/up_text_direction.dart';
 
 class UpCheckbox extends StatefulWidget {
   final String? label;
-  final Function onChange;
+  final Function? onChange;
   final UpTextDirection labelDirection;
-  final bool value;
-  final Color activeColor;
-  final Color checkColor;
+  final bool? initialValue;
+  final Color? activeColor;
+  final Color? checkColor;
   final bool isRounded;
-  final Color? fillColor;
   final double roundedBorderRadius;
   final double borderWidth;
   final Color borderColor;
@@ -17,14 +16,13 @@ class UpCheckbox extends StatefulWidget {
 
   const UpCheckbox({
     Key? key,
-    required this.value,
+    this.initialValue,
     this.label,
-    required this.onChange,
+    this.onChange,
     this.labelDirection = UpTextDirection.right,
-    this.activeColor = Colors.black,
-    this.checkColor = Colors.white,
+    this.activeColor,
+    this.checkColor,
     this.isRounded = false,
-    this.fillColor,
     this.isDisable = false,
     this.roundedBorderRadius = 10,
     this.borderWidth = 1,
@@ -36,6 +34,13 @@ class UpCheckbox extends StatefulWidget {
 }
 
 class _UpCheckboxState extends State<UpCheckbox> {
+  bool? value = false;
+  @override
+  void initState() {
+    super.initState();
+    value = widget.initialValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -46,22 +51,34 @@ class _UpCheckboxState extends State<UpCheckbox> {
             ? Text(widget.label ?? "")
             : const Text(""),
         widget.isDisable == true
-            ? const Checkbox(value: false, onChanged: null)
+            ? Checkbox(
+                value: widget.initialValue ?? false,
+                onChanged: null,
+                shape: RoundedRectangleBorder(
+                    borderRadius: widget.isRounded == true
+                        ? BorderRadius.circular(widget.roundedBorderRadius)
+                        : BorderRadius.zero),
+              )
             : Checkbox(
                 shape: RoundedRectangleBorder(
                     borderRadius: widget.isRounded == true
                         ? BorderRadius.circular(widget.roundedBorderRadius)
                         : BorderRadius.zero),
-                value: widget.value,
-                activeColor: widget.activeColor,
-                checkColor: widget.checkColor,
+                value: value,
+                activeColor:
+                    widget.activeColor ?? (Theme.of(context).primaryColor),
+                checkColor: widget.checkColor ??
+                    Theme.of(context).colorScheme.secondary,
                 side: BorderSide(
                   width: widget.borderWidth,
                   color: widget.borderColor,
                 ),
                 // fillColor: MaterialStateProperty<Color>fillColor,
-                onChanged: (bool? newcheck) {
-                  widget.onChange(newcheck);
+                onChanged: (bool? newCheck) {
+                  setState(() {
+                    value = newCheck;
+                  });
+                  widget.onChange!(newCheck);
                 }),
         widget.labelDirection == UpTextDirection.right
             ? Text(widget.label ?? "")

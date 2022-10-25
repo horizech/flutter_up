@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_search.dart';
 
-class UpSearchWidget extends StatefulWidget {
+class UpSearch extends StatefulWidget {
   final TextEditingController controller;
   final ValueChanged<String>? valueChanged;
 
-  const UpSearchWidget({Key? key, required this.controller, this.valueChanged})
+  const UpSearch({Key? key, required this.controller, this.valueChanged})
       : super(key: key);
 
   @override
-  UpSearchWidgetState createState() {
-    return UpSearchWidgetState();
+  UpSearchState createState() {
+    return UpSearchState();
   }
 }
 
-class UpSearchWidgetState extends State<UpSearchWidget> {
+class UpSearchState extends State<UpSearch> {
   // String _curValue = "";
 
   // UpSearchWidgetState() {

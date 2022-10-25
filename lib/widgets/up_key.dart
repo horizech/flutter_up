@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 
-class UpKeyWidget extends StatefulWidget {
+class UpKey extends StatefulWidget {
   final TextEditingController controller;
   final ValueChanged<String>? valueChanged;
+  final String? lableText;
+  final String? hintText;
 
-  const UpKeyWidget({Key? key, required this.controller, this.valueChanged})
+  const UpKey(
+      {Key? key,
+      required this.controller,
+      this.valueChanged,
+      this.lableText,
+      this.hintText})
       : super(key: key);
 
   @override
-  UpKeyWidgetState createState() {
-    return UpKeyWidgetState(); // (_UpKeyWidget);
+  UpKeyState createState() {
+    return UpKeyState(); // (_UpKeyWidget);
   }
 }
 
-class UpKeyWidgetState extends State<UpKeyWidget> {
+class UpKeyState extends State<UpKey> {
   bool _keyVisible = false;
 
   @override
@@ -23,34 +30,23 @@ class UpKeyWidgetState extends State<UpKeyWidget> {
       child: TextField(
         controller: widget.controller,
         decoration: InputDecoration(
-          labelText: "AES Encryption Key",
-          hintText: 'AES Key',
+          labelText: widget.lableText ?? "Password",
+          hintText: widget.hintText ?? 'Password',
           suffixIcon: IconButton(
               icon: Icon(
                 _keyVisible ? Icons.visibility : Icons.visibility_off,
-                semanticLabel: _keyVisible ? 'Hide key' : 'Show key',
+                semanticLabel: _keyVisible ? 'Hide Password' : 'Show Password',
               ),
               onPressed: () {
                 setState(() {
                   _keyVisible = !_keyVisible;
                 });
               }),
-          // labelStyle: TextStyle(
-          //   fontFamily: 'Roboto Medium',
-          //   fontSize: 16.0,
-          //   color: Color(0x99000000),
-          //   letterSpacing: 0.4,
-          // ),
         ),
         keyboardType: TextInputType.visiblePassword,
         obscureText: !_keyVisible,
-
-        // inputFormatters: <TextInputFormatter>[
-        //   WhitelistingTextInputFormatter.
-        // ], // Only numbers can be entered
         onChanged: (input) {
           widget.valueChanged!(input);
-          // setState(() {});
         },
       ),
     );

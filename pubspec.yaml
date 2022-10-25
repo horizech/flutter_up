@@ -19,6 +19,7 @@ dependencies:
   rxdart: ^0.26.0
   url_launcher: ^6.1.6
   uuid: ^3.0.6
+  dart_code_viewer2: ^1.0.0
 
 dev_dependencies:
   flutter_test:

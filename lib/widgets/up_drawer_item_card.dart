@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/models/up_drawer_item.dart';
 
-class UpUpDrawerItemCard extends StatelessWidget {
-  const UpUpDrawerItemCard({Key? key, required this.item}) : super(key: key);
+class UpDrawerItemCard extends StatelessWidget {
+  const UpDrawerItemCard({Key? key, required this.item}) : super(key: key);
 
   final UpDrawerItem item;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 
-copyTextToClipboard(String text) {
-  copyToClipboard(ClipboardData(text: text));
+upCopyTextToClipboard(String text) {
+  upCopyToClipboard(ClipboardData(text: text));
 }
 
-copyToClipboard(ClipboardData data) {
+upCopyToClipboard(ClipboardData data) {
   Clipboard.setData(data);
 }

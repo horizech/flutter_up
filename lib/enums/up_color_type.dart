@@ -1,10 +1,11 @@
 //Colors Type
 import 'package:flutter/material.dart';
 
-enum ColorType {
+enum UpColorType {
   basic,
   primary,
   accent,
+  dark,
   warn,
 }
 
@@ -15,17 +16,17 @@ class ColorParams {
   ColorParams({required this.backgroundColor, required this.foregroundColor});
 }
 
-ColorParams getColorsFromType(ColorType type) {
+ColorParams getColorsFromType(UpColorType type) {
   switch (type) {
-    case ColorType.accent:
+    case UpColorType.accent:
       return ColorParams(
           backgroundColor: Colors.white, foregroundColor: Colors.black);
 
-    case ColorType.warn:
+    case UpColorType.warn:
       return ColorParams(
           backgroundColor: Colors.red, foregroundColor: Colors.white);
 
-    case ColorType.primary:
+    case UpColorType.primary:
     default:
       return ColorParams(
           backgroundColor: Colors.black, foregroundColor: Colors.white);

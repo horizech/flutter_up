@@ -6,7 +6,10 @@ class UpLoadingDialog extends UpBaseDialog {
   @override
   void show(BuildContext context, String completerId, {dynamic data}) {
     showDialog(
-        context: context,
-        builder: (context) => UpLoadingCard(text: data['text']));
+      context: context,
+      builder: (context) => UpLoadingCard(
+        text: data['text'],
+      ),
+    );
   }
 }

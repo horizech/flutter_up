@@ -16,9 +16,10 @@ class UpInfoDialog extends UpBaseDialog {
                   child: const Text("OK"),
                   onPressed: () {
                     ServiceManager<UpDialogService>().completeDialog(
-                        context: context,
-                        completerId: completerId,
-                        result: {'success': true});
+                      context: context,
+                      completerId: completerId,
+                      result: {'success': true},
+                    );
                   },
                 )
               ],

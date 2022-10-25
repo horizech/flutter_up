@@ -19,6 +19,7 @@ import 'package:flutter_up/services/up_search.dart';
 
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/models/up_app_bar_item.dart';
+import 'package:flutter_up/themes/up_themes.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
 
@@ -29,12 +30,11 @@ import 'package:flutter_up/widgets/up_radio.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 import 'package:flutter_up/locator.dart';
-import 'package:flutter_up/themes.dart';
 
 /// Example Service
 class MyService {
   info() {
-    console(UpConsoleLevel.info, "Hello World!");
+    upConsole(UpConsoleLevel.info, "Hello World!");
   }
 }
 
@@ -97,7 +97,7 @@ class MyDialog extends UpBaseDialog {
 /// Using themes
 /// flutter_up comes with a few default themes which can be accessed using
 class MyTheme {
-  static ThemeData myTheme = FlutterUpThemes.themeRed;
+  static ThemeData myTheme = UpThemes.lightRed.themeData;
 }
 
 /// Using various models
@@ -178,7 +178,7 @@ class ServicesExamples {
     /// Wait for result
     dynamic result =
         await ServiceManager<UpNavigationService>().navigateTo("LOGINSIGNUP");
-    console(UpConsoleLevel.info, result);
+    upConsole(UpConsoleLevel.info, result);
   }
 
   /// Dialog Service
@@ -189,9 +189,9 @@ class ServicesExamples {
         .onDialogComplete(completerId)!
         .then((value) {
       if (value != null && value['success'] == true) {
-        console(UpConsoleLevel.info, 'Success!');
+        upConsole(UpConsoleLevel.info, 'Success!');
       } else {
-        console(UpConsoleLevel.error, 'Error');
+        upConsole(UpConsoleLevel.error, 'Error');
       }
     });
   }
@@ -212,21 +212,24 @@ class ServicesExamples {
   urlServiceExample() async {
     bool result =
         await ServiceManager<UpUrlService>().openUrl("https://google.com/");
-    console(UpConsoleLevel.info, result.toString());
+    upConsole(UpConsoleLevel.info, result.toString());
   }
 }
 
 /// Helpers
 helpersExample(BuildContext context) {
-  /// Console
-  console(UpConsoleLevel.info, 'Hello World!');
+  /// upConsole
+  upConsole(UpConsoleLevel.info, 'Hello World!');
 
   /// Toast
-  showUpToast(context, "Not implemented yet!");
+  showUpToast(
+    context: context,
+    text: "Not implemented yet!",
+  );
 
   /// Clipboard
-  copyTextToClipboard("Hi!");
-  copyToClipboard(const ClipboardData());
+  upCopyTextToClipboard("Hi!");
+  upCopyToClipboard(const ClipboardData());
 
   /// UpSecurity
   /// UpSecurity helper uses AES 256 bit encryption
@@ -236,12 +239,14 @@ helpersExample(BuildContext context) {
   UpSecurity.initialize("___AES_IV_KEY___");
 
   /// Descrypt text
-  String? decryptedResult = UpSecurity.decrypt("EncText", "1234567890123456");
-  console(UpConsoleLevel.debug, decryptedResult!);
+  String? decryptedResult =
+      UpSecurity.decrypt(text: "EncText", key: "1234567890123456");
+  upConsole(UpConsoleLevel.debug, decryptedResult!);
 
   /// Encrypt text
-  String encryptedResult = UpSecurity.encrypt("Text", "1234567890123456");
-  console(UpConsoleLevel.debug, encryptedResult);
+  String encryptedResult =
+      UpSecurity.encrypt(text: "Text", key: "1234567890123456");
+  upConsole(UpConsoleLevel.debug, encryptedResult);
 }
 
 class WidgetsExamples {
@@ -292,7 +297,7 @@ class WidgetsExamples {
       label: "Number",
       activeColor: Colors.black,
       checkColor: Colors.white,
-      value: true,
+      initialValue: true,
       isRounded: true,
       borderWidth: 1.5,
       roundedBorderRadius: 8,
@@ -309,7 +314,6 @@ class WidgetsExamples {
       value: "Male",
       labelDirection: UpTextDirection.left,
       fillColor: Colors.white,
-      isSelected: true,
       groupValue: "Gender",
       onChange: (radioValue) {
         //Do something
@@ -324,7 +328,7 @@ class WidgetsExamples {
       isButtonDisable: false,
       isRounded: true,
       roundedBorderRadius: 8,
-      colorType: ColorType.warn,
+      colorType: UpColorType.warn,
       onPress: () {
         //Do something
       },
@@ -380,7 +384,7 @@ class WidgetsExamples {
               child: Row(children: [
                 Icon(
                   item.icon,
-                  color: FlutterUpThemes.themeRed.primaryColor,
+                  color: UpThemes.lightRed.themeData.primaryColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),

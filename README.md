@@ -20,7 +20,7 @@ This package contains different kinds of components which are divided into follo
 - Helpers
 
   - Clipboard
-  - Console
+  - upConsole
   - DateTime
   - UpSecurity
   - Toast
