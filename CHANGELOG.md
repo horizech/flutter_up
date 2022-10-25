@@ -1,3 +1,7 @@
+## 0.3.0
+- Updated Widgets.
+- Added manually adding required services.
+
 ## 0.2.1
 - Added closeAllDialogs function.
 
