@@ -169,16 +169,16 @@ class ServicesExamples {
         navigatorKey: ServiceManager<UpNavigationService>().navigatorKey);
 
     /// Go back
-    ServiceManager<UpNavigationService>().goBack();
-    ServiceManager<UpNavigationService>().goBack(result: true);
+    // ServiceManager<UpNavigationService>().goBack();
+    // ServiceManager<UpNavigationService>().goBack(result: true);
 
-    /// Navigate to route
-    ServiceManager<UpNavigationService>().navigateTo("HOME");
+    // /// Navigate to route
+    // ServiceManager<UpNavigationService>().navigateTo("HOME");
 
-    /// Wait for result
-    dynamic result =
-        await ServiceManager<UpNavigationService>().navigateTo("LOGINSIGNUP");
-    upConsole(UpConsoleLevel.info, result);
+    // /// Wait for result
+    // dynamic result =
+    //     await ServiceManager<UpNavigationService>().navigateTo("LOGINSIGNUP");
+    // upConsole(UpConsoleLevel.info, result);
   }
 
   /// Dialog Service

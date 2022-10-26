@@ -2,7 +2,9 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_up/config/flutter_up_config.dart';
 import 'package:flutter_up/locator.dart';
+import 'package:flutter_up/models/up_route.dart';
 import 'package:flutter_up/themes/up_themes.dart';
+import 'package:go_router/go_router.dart';
 import 'services/up_navigation.dart';
 
 class FlutterUpApp extends StatelessWidget {
@@ -10,7 +12,7 @@ class FlutterUpApp extends StatelessWidget {
   final int? defaultThemeId;
   final String title;
   final Widget? home;
-  final Map<String, Widget Function(BuildContext)> routes;
+  final List<UpRoute> upRoutes;
   final String? initialRoute;
 
   const FlutterUpApp({
@@ -19,7 +21,7 @@ class FlutterUpApp extends StatelessWidget {
     this.defaultThemeId,
     this.title = "",
     this.home,
-    required this.routes,
+    required this.upRoutes,
     this.initialRoute,
   }) : super(key: key);
 
@@ -34,16 +36,21 @@ class FlutterUpApp extends StatelessWidget {
       defaultThemeId: defaultThemeId ?? UpThemes.light.id,
       builder: (context, theme) {
         return FlutterUpConfig(
-          child: MaterialApp(
-            navigatorKey: ServiceManager.isRegistered<UpNavigationService>()
-                ? ServiceManager<UpNavigationService>().navigatorKey
-                : GlobalKey<NavigatorState>(),
+          child: MaterialApp.router(
+            routerConfig: GoRouter(
+              navigatorKey: ServiceManager.isRegistered<UpNavigationService>()
+                  ? ServiceManager<UpNavigationService>().navigatorKey
+                  : GlobalKey<NavigatorState>(),
+              routes: UpRoute.generateRoutes(upRoutes),
+              initialLocation: initialRoute,
+            ),
+
             debugShowCheckedModeBanner: false,
-            initialRoute: initialRoute,
-            routes: routes,
+            // initialRoute: initialRoute,
+            // routes: routes,
             title: title,
             theme: theme,
-            home: home,
+            // home: home,
           ),
         );
       },

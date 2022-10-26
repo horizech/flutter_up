@@ -36,19 +36,28 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
       return UpToastParams(
         backgroundColor: Colors.red[200]!,
         foregroundColor: const Color.fromARGB(255, 79, 6, 1),
-        icon: const Icon(Icons.dangerous),
+        icon: const Icon(
+          Icons.dangerous,
+          color: Color.fromARGB(255, 79, 6, 1),
+        ),
       );
     case UpToastType.success:
       return UpToastParams(
         backgroundColor: Colors.green[200]!,
         foregroundColor: Colors.green,
-        icon: const Icon(Icons.done),
+        icon: const Icon(
+          Icons.done,
+          color: Colors.green,
+        ),
       );
     case UpToastType.warning:
       return UpToastParams(
         backgroundColor: Colors.orange[200]!,
         foregroundColor: Colors.orange,
-        icon: const Icon(Icons.warning),
+        icon: const Icon(
+          Icons.warning,
+          color: Colors.orange,
+        ),
       );
     case UpToastType.light:
       return UpToastParams(
@@ -62,6 +71,7 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
         foregroundColor: Colors.blue,
         icon: const Icon(
           Icons.info,
+          color: Colors.blue,
         ),
       );
     case UpToastType.dark:

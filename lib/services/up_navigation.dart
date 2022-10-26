@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class UpNavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   // late final String initialRoute;
 
-  Future<dynamic> navigateTo(String routeName,
-      {bool replace = false, dynamic arguments}) {
+  navigateTo(String routeName, {bool replace = false, dynamic arguments}) {
     if (replace) {
-      return navigatorKey.currentState!
-          .popAndPushNamed(routeName, arguments: arguments);
+      if (arguments != null) {
+        navigatorKey.currentContext!.replaceNamed(routeName, params: arguments);
+      } else {
+        navigatorKey.currentContext!.replaceNamed(routeName);
+      }
+      // return navigatorKey.currentState!
+      //     .popAndPushNamed(routeName, arguments: arguments);
     } else {
-      return navigatorKey.currentState!
-          .pushNamed(routeName, arguments: arguments);
+      if (arguments != null) {
+        (navigatorKey.currentContext!).goNamed(routeName, params: arguments);
+      } else {
+        (navigatorKey.currentContext!).goNamed(routeName);
+      }
+      // return navigatorKey.currentState!
+      //     .pushNamed(routeName, arguments: arguments);
     }
   }
 
   goBack({result}) {
+    if (navigatorKey.currentContext!.canPop()) {
+      navigatorKey.currentContext!.pop();
+    }
+    /*
     if (result != null) {
       // navigatorKey.currentState!.popUntil(ModalRoute.withName(initialRoute));
+      // navigatorKey.currentContext!.pop();
 
-      navigatorKey.currentState!.pop(result);
     } else {
-      navigatorKey.currentState!.pop();
+      navigatorKey.currentContext!.pop();
     }
+    */
   }
 }
