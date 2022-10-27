@@ -11,7 +11,6 @@ class FlutterUpApp extends StatelessWidget {
   final ThemeCollection? themeCollection;
   final int? defaultThemeId;
   final String title;
-  final Widget? home;
   final List<UpRoute> upRoutes;
   final String? initialRoute;
 
@@ -20,7 +19,6 @@ class FlutterUpApp extends StatelessWidget {
     this.themeCollection,
     this.defaultThemeId,
     this.title = "",
-    this.home,
     required this.upRoutes,
     this.initialRoute,
   }) : super(key: key);
@@ -44,13 +42,9 @@ class FlutterUpApp extends StatelessWidget {
               routes: UpRoute.generateRoutes(upRoutes),
               initialLocation: initialRoute,
             ),
-
             debugShowCheckedModeBanner: false,
-            // initialRoute: initialRoute,
-            // routes: routes,
             title: title,
             theme: theme,
-            // home: home,
           ),
         );
       },

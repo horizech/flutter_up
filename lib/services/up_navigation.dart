@@ -5,23 +5,77 @@ class UpNavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   // late final String initialRoute;
 
-  navigateTo(String routeName, {bool replace = false, dynamic arguments}) {
+  navigateToNamed(
+    String routeName, {
+    bool replace = false,
+    Map<String, String>? params,
+    Map<String, dynamic>? queryParams,
+  }) {
     if (replace) {
-      if (arguments != null) {
-        navigatorKey.currentContext!.replaceNamed(routeName, params: arguments);
+      if (params != null && queryParams != null) {
+        navigatorKey.currentContext!.replaceNamed(
+          routeName,
+          params: params,
+          queryParams: queryParams,
+        );
       } else {
-        navigatorKey.currentContext!.replaceNamed(routeName);
+        if (params != null) {
+          (navigatorKey.currentContext!).goNamed(
+            routeName,
+            params: params,
+          );
+        } else if (queryParams != null) {
+          (navigatorKey.currentContext!).goNamed(
+            routeName,
+            queryParams: queryParams,
+          );
+        } else {
+          navigatorKey.currentContext!.replaceNamed(
+            routeName,
+          );
+        }
       }
-      // return navigatorKey.currentState!
-      //     .popAndPushNamed(routeName, arguments: arguments);
     } else {
-      if (arguments != null) {
-        (navigatorKey.currentContext!).goNamed(routeName, params: arguments);
+      if (params != null && queryParams != null) {
+        (navigatorKey.currentContext!).goNamed(
+          routeName,
+          params: params,
+          queryParams: queryParams,
+        );
       } else {
-        (navigatorKey.currentContext!).goNamed(routeName);
+        if (params != null) {
+          (navigatorKey.currentContext!).goNamed(
+            routeName,
+            params: params,
+          );
+        } else if (queryParams != null) {
+          (navigatorKey.currentContext!).goNamed(
+            routeName,
+            queryParams: queryParams,
+          );
+        } else {
+          (navigatorKey.currentContext!).goNamed(
+            routeName,
+          );
+        }
       }
       // return navigatorKey.currentState!
       //     .pushNamed(routeName, arguments: arguments);
+    }
+  }
+
+  navigateTo({
+    required String path,
+    bool replace = false,
+  }) {
+    if (replace) {
+      navigatorKey.currentContext!.replace(
+        path,
+      );
+    } else {
+      (navigatorKey.currentContext!).go(
+        path,
+      );
     }
   }
 
