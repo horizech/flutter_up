@@ -79,7 +79,7 @@ class UpNavigationService {
     }
   }
 
-  goBack({result}) {
+  goBack() {
     if (navigatorKey.currentContext!.canPop()) {
       navigatorKey.currentContext!.pop();
     }

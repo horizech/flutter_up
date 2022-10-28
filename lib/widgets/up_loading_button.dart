@@ -17,9 +17,9 @@ class UpLoadingButton extends StatelessWidget {
   const UpLoadingButton({
     Key? key,
     required this.text,
-    required this.isLoading,
-    required this.isSuccess,
-    required this.isError,
+    this.isLoading = false,
+    this.isSuccess = false,
+    this.isError = false,
     required this.onPress,
     this.colorType,
     this.isButtonDisable = false,

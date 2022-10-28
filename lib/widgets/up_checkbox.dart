@@ -5,7 +5,7 @@ class UpCheckbox extends StatefulWidget {
   final String? label;
   final Function? onChange;
   final UpTextDirection labelDirection;
-  final bool? initialValue;
+  bool? initialValue;
   final Color? activeColor;
   final Color? checkColor;
   final bool isRounded;
@@ -14,9 +14,9 @@ class UpCheckbox extends StatefulWidget {
   final Color borderColor;
   final bool isDisable;
 
-  const UpCheckbox({
+  UpCheckbox({
     Key? key,
-    this.initialValue,
+    this.initialValue = false,
     this.label,
     this.onChange,
     this.labelDirection = UpTextDirection.right,
@@ -34,13 +34,6 @@ class UpCheckbox extends StatefulWidget {
 }
 
 class _UpCheckboxState extends State<UpCheckbox> {
-  bool? value = false;
-  @override
-  void initState() {
-    super.initState();
-    value = widget.initialValue;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -64,7 +57,7 @@ class _UpCheckboxState extends State<UpCheckbox> {
                     borderRadius: widget.isRounded == true
                         ? BorderRadius.circular(widget.roundedBorderRadius)
                         : BorderRadius.zero),
-                value: value,
+                value: widget.initialValue,
                 activeColor:
                     widget.activeColor ?? (Theme.of(context).primaryColor),
                 checkColor: widget.checkColor ??
@@ -76,9 +69,12 @@ class _UpCheckboxState extends State<UpCheckbox> {
                 // fillColor: MaterialStateProperty<Color>fillColor,
                 onChanged: (bool? newCheck) {
                   setState(() {
-                    value = newCheck;
+                    widget.initialValue = newCheck ?? false;
                   });
-                  widget.onChange!(newCheck);
+
+                  if (widget.onChange != null) {
+                    widget.onChange!(newCheck);
+                  }
                 }),
         widget.labelDirection == UpTextDirection.right
             ? Text(widget.label ?? "")
