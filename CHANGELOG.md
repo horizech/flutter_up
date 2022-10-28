@@ -1,7 +1,12 @@
+## 0.5.0
+
+- Updated Navigation and routing.
+- Updated toasts, progress bar and other widgets.
+
 ## 0.4.0
 
-- Updated widgets
-- Updated theme styles and UI
+- Updated widgets.
+- Updated theme styles and UI.
 
 ## 0.3.0
 
