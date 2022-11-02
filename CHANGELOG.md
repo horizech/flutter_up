@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Bugfixes.
+
 ## 0.5.0
 
 - Updated Navigation and routing.
