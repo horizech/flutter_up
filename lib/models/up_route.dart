@@ -6,7 +6,6 @@ class UpRoute {
   final String path;
   final Widget Function(BuildContext, UpRouterState) pageBuilder;
   final String? name;
-
   final Function? shouldRedirect;
   final String? redirectRoute;
   final List<UpRoute>? routes;
