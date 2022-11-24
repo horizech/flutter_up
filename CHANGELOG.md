@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Fixed bug in navigation.
+
 ## 0.6.0
 
 - Added isPortrait.
