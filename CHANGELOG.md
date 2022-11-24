@@ -1,3 +1,8 @@
+## 0.6.0
+
+- Added isPortrait.
+- Fixed URL check.
+
 ## 0.5.1
 
 - Bugfixes.
