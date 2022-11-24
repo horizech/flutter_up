@@ -13,7 +13,7 @@ class UpNavigationService {
   }) {
     if (replace) {
       if (params != null && queryParams != null) {
-        navigatorKey.currentContext!.replaceNamed(
+        navigatorKey.currentContext!.goNamed(
           routeName,
           params: params,
           queryParams: queryParams,
@@ -30,7 +30,7 @@ class UpNavigationService {
             queryParams: queryParams,
           );
         } else {
-          navigatorKey.currentContext!.replaceNamed(
+          navigatorKey.currentContext!.goNamed(
             routeName,
           );
         }
@@ -80,8 +80,10 @@ class UpNavigationService {
   }
 
   goBack() {
-    if (navigatorKey.currentContext!.canPop()) {
-      navigatorKey.currentContext!.pop();
+    if (navigatorKey.currentContext != null) {
+      if (navigatorKey.currentContext!.canPop()) {
+        navigatorKey.currentContext!.pop();
+      }
     }
     /*
     if (result != null) {
