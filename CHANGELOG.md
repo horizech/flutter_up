@@ -1,3 +1,7 @@
+## 0.6.2
+
+- Updated layout helper.
+
 ## 0.6.1
 
 - Fixed bug in navigation.
