@@ -13,14 +13,16 @@ class FlutterUpApp extends StatelessWidget {
   final String title;
   final List<UpRoute> upRoutes;
   final String? initialRoute;
+  GlobalKey<NavigatorState>? parentNavigatorKey;
 
-  const FlutterUpApp({
+  FlutterUpApp({
     Key? key,
     this.themeCollection,
     this.defaultThemeId,
     this.title = "",
     required this.upRoutes,
     this.initialRoute,
+    this.parentNavigatorKey,
   }) : super(key: key);
 
   @override
@@ -37,9 +39,12 @@ class FlutterUpApp extends StatelessWidget {
           child: MaterialApp.router(
             routerConfig: GoRouter(
               navigatorKey: ServiceManager.isRegistered<UpNavigationService>()
-                  ? ServiceManager<UpNavigationService>().navigatorKey
+                  ? (ServiceManager<UpNavigationService>().navigatorKey)
                   : GlobalKey<NavigatorState>(),
-              routes: UpRoute.generateRoutes(upRoutes),
+              routes: UpRoute.generateRoutes(
+                upRoutes,
+                parentNavigatorKey,
+              ),
               initialLocation: initialRoute,
             ),
             debugShowCheckedModeBanner: false,

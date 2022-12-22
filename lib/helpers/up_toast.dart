@@ -31,6 +31,7 @@ showUpToast({
         icon,
         padding,
       ),
+
       gravity: ToastGravity.BOTTOM,
       toastDuration: duration ?? const Duration(seconds: 2),
       // positionedToastBuilder: (context, child) {
@@ -67,8 +68,8 @@ Widget _upToast(
           isRounded ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
       color: getToast(context, upToastType!).backgroundColor,
     ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
+    child: Wrap(
+      // mainAxisSize: MainAxisSize.min,
       children: [
         icon ??
             getToast(context, upToastType).icon ??

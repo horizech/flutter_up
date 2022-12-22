@@ -11,56 +11,56 @@ class UpNavigationService {
     Map<String, String>? params,
     Map<String, dynamic>? queryParams,
   }) {
-    if (replace) {
-      if (params != null && queryParams != null) {
-        navigatorKey.currentContext!.goNamed(
-          routeName,
-          params: params,
-          queryParams: queryParams,
-        );
-      } else {
-        if (params != null) {
-          (navigatorKey.currentContext!).goNamed(
-            routeName,
-            params: params,
-          );
-        } else if (queryParams != null) {
-          (navigatorKey.currentContext!).goNamed(
-            routeName,
-            queryParams: queryParams,
-          );
-        } else {
+    if (navigatorKey.currentContext != null) {
+      if (replace) {
+        if (params != null && queryParams != null) {
           navigatorKey.currentContext!.goNamed(
             routeName,
-          );
-        }
-      }
-    } else {
-      if (params != null && queryParams != null) {
-        (navigatorKey.currentContext!).goNamed(
-          routeName,
-          params: params,
-          queryParams: queryParams,
-        );
-      } else {
-        if (params != null) {
-          (navigatorKey.currentContext!).goNamed(
-            routeName,
             params: params,
-          );
-        } else if (queryParams != null) {
-          (navigatorKey.currentContext!).goNamed(
-            routeName,
             queryParams: queryParams,
           );
         } else {
+          if (params != null) {
+            (navigatorKey.currentContext!).goNamed(
+              routeName,
+              params: params,
+            );
+          } else if (queryParams != null) {
+            (navigatorKey.currentContext!).goNamed(
+              routeName,
+              queryParams: queryParams,
+            );
+          } else {
+            navigatorKey.currentContext!.goNamed(
+              routeName,
+            );
+          }
+        }
+      } else {
+        if (params != null && queryParams != null) {
           (navigatorKey.currentContext!).goNamed(
             routeName,
+            params: params,
+            queryParams: queryParams,
           );
+        } else {
+          if (params != null) {
+            (navigatorKey.currentContext!).goNamed(
+              routeName,
+              params: params,
+            );
+          } else if (queryParams != null) {
+            (navigatorKey.currentContext!).goNamed(
+              routeName,
+              queryParams: queryParams,
+            );
+          } else {
+            (navigatorKey.currentContext!).goNamed(
+              routeName,
+            );
+          }
         }
       }
-      // return navigatorKey.currentState!
-      //     .pushNamed(routeName, arguments: arguments);
     }
   }
 
@@ -68,14 +68,16 @@ class UpNavigationService {
     required String path,
     bool replace = false,
   }) {
-    if (replace) {
-      navigatorKey.currentContext!.replace(
-        path,
-      );
-    } else {
-      (navigatorKey.currentContext!).go(
-        path,
-      );
+    if (navigatorKey.currentContext != null) {
+      if (replace) {
+        navigatorKey.currentContext!.replace(
+          path,
+        );
+      } else {
+        (navigatorKey.currentContext!).go(
+          path,
+        );
+      }
     }
   }
 

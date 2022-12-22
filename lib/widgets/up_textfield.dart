@@ -13,22 +13,26 @@ class UpTextField extends StatelessWidget {
   final bool isFlexible;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
+  final int maxLines;
+  final int? minLines;
 
-  const UpTextField({
-    Key? key,
-    this.decoration,
-    this.obscureText = false,
-    this.readOnly = false,
-    this.controller,
-    this.keyboardType = TextInputType.text,
-    this.minLength = 0,
-    this.fixedLengths,
-    this.autofillHint,
-    this.label = "",
-    this.isFlexible = false,
-    this.onSaved,
-    this.onChanged,
-  }) : super(key: key);
+  const UpTextField(
+      {Key? key,
+      this.decoration,
+      this.obscureText = false,
+      this.readOnly = false,
+      this.controller,
+      this.keyboardType = TextInputType.text,
+      this.minLength = 0,
+      this.fixedLengths,
+      this.autofillHint,
+      this.label = "",
+      this.isFlexible = false,
+      this.onSaved,
+      this.onChanged,
+      this.maxLines = 1,
+      this.minLines})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +40,19 @@ class UpTextField extends StatelessWidget {
         ? Flexible(
             fit: FlexFit.loose,
             child: _upTextField(
-              decoration,
-              obscureText,
-              readOnly,
-              controller,
-              keyboardType,
-              minLength,
-              fixedLengths,
-              autofillHint,
-              label,
-              onSaved,
-              onChanged,
-            ),
+                decoration,
+                obscureText,
+                readOnly,
+                controller,
+                keyboardType,
+                minLength,
+                fixedLengths,
+                autofillHint,
+                label,
+                onSaved,
+                onChanged,
+                maxLines,
+                minLines),
           )
         : _upTextField(
             decoration,
@@ -60,7 +65,9 @@ class UpTextField extends StatelessWidget {
             autofillHint,
             label,
             onSaved,
-            onChanged);
+            onChanged,
+            maxLines,
+            minLines);
   }
 }
 
@@ -76,6 +83,8 @@ Widget _upTextField(
   String? label,
   Function(String?)? onSaved,
   Function(String?)? onChanged,
+  int? maxLines,
+  int? minLines,
 ) {
   return TextFormField(
     onSaved: onSaved,
@@ -108,5 +117,7 @@ Widget _upTextField(
     readOnly: readOnly,
     decoration: decoration,
     controller: controller,
+    maxLines: maxLines,
+    minLines: minLines,
   );
 }

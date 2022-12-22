@@ -19,10 +19,12 @@ class UpRoute {
     this.routes,
   });
 
-  static List<RouteBase> generateRoutes(List<UpRoute> upRoutes) {
+  static List<RouteBase> generateRoutes(
+      List<UpRoute> upRoutes, GlobalKey<NavigatorState>? parentNavigatorKey) {
     List<RouteBase> routes = upRoutes
         .map(
           (e) => GoRoute(
+            // parentNavigatorKey: parentNavigatorKey,
             path: e.path,
             builder: (BuildContext context, GoRouterState state) =>
                 e.pageBuilder(
@@ -35,7 +37,10 @@ class UpRoute {
             ),
             name: e.name,
             routes: e.routes != null && e.routes!.isNotEmpty
-                ? generateRoutes(e.routes!)
+                ? generateRoutes(
+                    e.routes!,
+                    parentNavigatorKey,
+                  )
                 : <RouteBase>[],
             redirect: (context, state) {
               if (e.shouldRedirect != null && e.redirectRoute != null) {
