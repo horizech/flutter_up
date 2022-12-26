@@ -34,11 +34,11 @@ class UpUrlService {
     // Uri newUri = Uri(path: newUrl);
 
     // Launch if the url is valid
-    if (await canLaunchUrl(Uri.parse(newUrl))) {
-      launchUrl(Uri.parse(newUrl));
-      return true;
-    } else {
-      return false;
-    }
+    // if (await launchUrl(Uri.parse(newUrl))) {
+    await launchUrl(Uri.parse(newUrl));
+    // return true;
+    // } else {
+    // return false;
+    // }
   }
 }
