@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_up/contants.dart';
+import 'package:flutter_up/locator.dart';
+import 'package:flutter_up/services/up_layout.dart';
 
 class UpLayout {
   static bool isPortrait(BuildContext context) {
@@ -16,4 +19,21 @@ class UpLayout {
     bool isLandscap = isPortrait(context);
     return !isLandscap;
   }
+
+  static bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width <
+      (ServiceManager<UpLayoutService>().mobileLimit ??
+          UpConstants.kDefaultMobileLimit);
+  static bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.width <
+          (ServiceManager<UpLayoutService>().tabletLimit ??
+              UpConstants.kDefaultTabletLimit) &&
+      MediaQuery.of(context).size.width >=
+          (ServiceManager<UpLayoutService>().mobileLimit ??
+              UpConstants.kDefaultMobileLimit);
+
+  static bool isDesktop(BuildContext context) =>
+      MediaQuery.of(context).size.width >=
+      (ServiceManager<UpLayoutService>().tabletLimit ??
+          UpConstants.kDefaultTabletLimit);
 }

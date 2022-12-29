@@ -1,3 +1,4 @@
+import 'package:flutter_up/services/up_layout.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_up/services/up_dialog.dart';
 import 'package:flutter_up/services/up_scaffold_helper.dart';
@@ -15,7 +16,8 @@ enum FlutterUpLocators {
   upScaffoldHelperService,
   upNavigationService,
   upDialogService,
-  upSearchService
+  upSearchService,
+  upLayoutService,
 }
 
 setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
@@ -39,6 +41,9 @@ setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
 
       if (locator == FlutterUpLocators.upSearchService) {
         _locator.registerLazySingleton(() => UpSearchService());
+      }
+      if (locator == FlutterUpLocators.upLayoutService) {
+        _locator.registerLazySingleton(() => UpLayoutService());
       }
     }
   }
