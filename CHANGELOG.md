@@ -1,3 +1,7 @@
+## 0.6.4
+
+- Updated UpUrl service.
+
 ## 0.6.3
 
 - Updated Toast and TextField.
