@@ -14,6 +14,8 @@ showUpToast({
   EdgeInsetsGeometry? padding,
   Icon? icon,
   Duration? duration,
+  double width = 300,
+  double? height,
 }) {
   try {
     // FlutterToastr.show(text, context);
@@ -30,6 +32,8 @@ showUpToast({
         upToastType,
         icon,
         padding,
+        width,
+        height,
       ),
 
       gravity: ToastGravity.BOTTOM,
@@ -52,15 +56,18 @@ removeAllQueuedToasts() {
 }
 
 Widget _upToast(
-  BuildContext context,
-  String text,
-  bool isRounded,
-  double borderRadius,
-  UpToastType? upToastType,
-  Icon? icon,
-  EdgeInsetsGeometry? padding,
-) {
+    BuildContext context,
+    String text,
+    bool isRounded,
+    double borderRadius,
+    UpToastType? upToastType,
+    Icon? icon,
+    EdgeInsetsGeometry? padding,
+    double? width,
+    double? height) {
   return Container(
+    width: width,
+    height: height,
     padding:
         padding ?? const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
     decoration: BoxDecoration(
