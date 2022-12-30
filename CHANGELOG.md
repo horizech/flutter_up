@@ -1,3 +1,8 @@
+## 0.6.5
+
+- Added UpLayout service.
+- Added UpResponsive page.
+
 ## 0.6.4
 
 - Updated UpUrl service.
