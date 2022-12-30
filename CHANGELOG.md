@@ -1,3 +1,7 @@
+## 0.6.6
+
+- Updated UpToast.
+
 ## 0.6.5
 
 - Added UpLayout service.

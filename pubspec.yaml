@@ -1,7 +1,7 @@
 name: flutter_up
 description: Horizech Flutter App Engine is a flutter kit with many ready to use components.
-version: 0.6.5
-homepage: https://horizech.com
+version: 0.6.6
+homepage: https://flutterup.dev
 repository: https://github.com/horizech/flutter_up
 #publish_to: "none"
 environment:
