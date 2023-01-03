@@ -1,3 +1,6 @@
+## 0.6.7
+- Updated UpLayout.
+
 ## 0.6.6
 
 - Updated UpToast.
