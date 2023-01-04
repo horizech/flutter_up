@@ -1,5 +1,6 @@
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
 const Color _themeRedPrimaryColor = Color.fromARGB(255, 172, 14, 40);
@@ -43,6 +44,8 @@ const MaterialColor _themeVintagePrimaryWhite = MaterialColor(
 const int _themeVintagePrimaryWhiteValue = 0xFFFFFFFF;
 
 class UpThemes {
+  /*
+  
   static final UpThemeData light = UpThemeData(
     id: 0,
     themeData: ThemeData.light(),
@@ -235,9 +238,26 @@ class UpThemes {
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
     ),
   );
-
+  */
   static final UpThemeData vintage = UpThemeData(
-    id: 5,
+    id: 0,
+    primary: UpStyle(
+      foregroundColor: _themeVintagePrimaryBlack[500]!,
+      backgroundColor: _themeVintagePrimaryWhite[500]!,
+      borderColor: Colors.cyan[700]!,
+      hoverBackgroundColor: _themeVintagePrimaryBlack[500]!,
+      hoverForegroundColor: _themeVintagePrimaryWhite[500]!,
+      hoverBorderColor: Colors.pink[500]!,
+      borderRadius: 24,
+      borderWidth: 2,
+      isRounded: true,
+    ),
+    secondary: UpStyle(
+      foregroundColor: _themeVintagePrimaryWhite[500]!,
+      backgroundColor: _themeVintagePrimaryBlack[500]!,
+      hoverForegroundColor: _themeVintagePrimaryBlack[500]!,
+      hoverBackgroundColor: _themeVintagePrimaryWhite[500]!,
+    ),
     themeData: ThemeData(
       primaryColor: _themeVintagePrimaryBlack,
       inputDecorationTheme: const InputDecorationTheme(
@@ -325,11 +345,11 @@ class UpThemes {
   );
 
   static final predefinedThemesCollection = generateThemeCollection(themes: [
-    lightBlue,
-    lightRed,
-    lightYellow,
-    dark,
-    light,
+    // lightBlue,
+    // lightRed,
+    // lightYellow,
+    // dark,
+    // light,
     vintage,
   ]);
 

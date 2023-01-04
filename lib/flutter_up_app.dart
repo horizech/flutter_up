@@ -33,9 +33,10 @@ class FlutterUpApp extends StatelessWidget {
 
     return DynamicTheme(
       themeCollection: themeCollection ?? UpThemes.predefinedThemesCollection,
-      defaultThemeId: defaultThemeId ?? UpThemes.light.id,
+      defaultThemeId: defaultThemeId ?? UpThemes.vintage.id,
       builder: (context, theme) {
         return FlutterUpConfig(
+          themeData: UpThemes.vintage,
           child: MaterialApp.router(
             routerConfig: GoRouter(
               navigatorKey: ServiceManager.isRegistered<UpNavigationService>()

@@ -19,6 +19,7 @@ import 'package:flutter_up/services/up_search.dart';
 
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/models/up_app_bar_item.dart';
+import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_themes.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
@@ -97,7 +98,7 @@ class MyDialog extends UpBaseDialog {
 /// Using themes
 /// flutter_up comes with a few default themes which can be accessed using
 class MyTheme {
-  static ThemeData myTheme = UpThemes.lightRed.themeData;
+  static ThemeData myTheme = UpThemes.vintage.themeData;
 }
 
 /// Using various models
@@ -325,9 +326,11 @@ class WidgetsExamples {
   upButtonExample() {
     return UpButton(
       buttonType: UpButtonType.elevated,
-      isButtonDisable: false,
-      isRounded: true,
-      roundedBorderRadius: 8,
+      styles: UpStyle(
+        isDisabled: false,
+        isRounded: true,
+        borderRadius: 8,
+      ),
       colorType: UpColorType.warn,
       onPress: () {
         //Do something
@@ -384,7 +387,7 @@ class WidgetsExamples {
               child: Row(children: [
                 Icon(
                   item.icon,
-                  color: UpThemes.lightRed.themeData.primaryColor,
+                  color: UpThemes.vintage.themeData.primaryColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
