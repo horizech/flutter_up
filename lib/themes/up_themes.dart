@@ -250,9 +250,13 @@ class UpThemes {
       hoverBorderColor: Colors.pink[500]!,
       borderRadius: 24,
       borderWidth: 2,
+      errorBorderColor: Colors.red,
+      focusedBorderColor: _themeVintagePrimaryBlack[500]!,
       isRounded: true,
     ),
     secondary: UpStyle(
+        borderRadius: 0,
+      borderWidth: 2,
       foregroundColor: _themeVintagePrimaryWhite[500]!,
       backgroundColor: _themeVintagePrimaryBlack[500]!,
       hoverForegroundColor: _themeVintagePrimaryBlack[500]!,

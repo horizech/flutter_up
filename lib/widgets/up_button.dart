@@ -1,88 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_up/config/flutter_up_config.dart';
-import 'package:flutter_up/contants.dart';
 import 'package:flutter_up/enums/up_button_type.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/themes/up_themes.dart';
 
 class UpButton extends StatelessWidget {
-  final Function onPress;
+  final Function onPressed;
   final Widget child;
   final UpColorType? colorType;
-  final UpButtonType buttonType;
-  final UpStyle? styles;
+  final UpButtonType type;
+  final UpStyle? style;
   final String? text;
 
   const UpButton(
       {Key? key,
       this.text,
-      required this.onPress,
+      required this.onPressed,
       required this.child,
       this.colorType,
-      this.buttonType = UpButtonType.elevated,
-      this.styles})
+      this.type = UpButtonType.elevated,
+      this.style})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    switch (buttonType) {
+    switch (type) {
       case UpButtonType.text:
         return TextButton(
           onPressed: () {
-            if (!(styles?.isDisabled ?? false)) onPress();
+            if (!(style?.isDisabled ?? false)) onPressed();
           },
           style: UpStyle.getButtonStyle(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
           child: child,
         );
       case UpButtonType.icon:
         return IconButton(
           onPressed: () {
-            if (!(styles?.isDisabled ?? false)) onPress();
+            if (!(style?.isDisabled ?? false)) onPressed();
           },
           icon: child,
           style: UpStyle.getButtonStyle(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
         );
       case UpButtonType.outlined:
         return OutlinedButton(
           onPressed: () {
-            if (!(styles?.isDisabled ?? false)) onPress();
+            if (!(style?.isDisabled ?? false)) onPressed();
           },
           style: UpStyle.getButtonStyle(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
           child: child,
         );
       case UpButtonType.floating:
         return FloatingActionButton(
           onPressed: () {
-            if (!(styles?.isDisabled ?? false)) onPress();
+            if (!(style?.isDisabled ?? false)) onPressed();
           },
           backgroundColor: UpStyle.getBackgroundColor(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
           foregroundColor: UpStyle.getForegroundColor(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
           shape: UpStyle.getRoundedRectangleBorder(context,
-              styles: styles, colorType: colorType),
+              style: style, colorType: colorType),
           child: child,
         );
       case UpButtonType.elevated:
       default:
         return _upButton(
-          child: child,
           colorType: colorType,
-          styles: styles,
+          style: style,
           text: text,
-          isDisabled: styles?.isDisabled ?? false,
-          onPressed: onPress,
-        );
-        return ElevatedButton(
-          onPressed: () {
-            if (!(styles?.isDisabled ?? false)) onPress();
-          },
-          style: UpStyle.getButtonStyle(context,
-              styles: styles, colorType: colorType),
+          isDisabled: style?.isDisabled ?? false,
+          onPressed: onPressed,
           child: child,
         );
     }
@@ -92,7 +81,7 @@ class UpButton extends StatelessWidget {
 class _upButton extends StatefulWidget {
   const _upButton({
     required this.child,
-    this.styles,
+    this.style,
     this.colorType,
     this.text,
     this.isDisabled = false,
@@ -100,7 +89,7 @@ class _upButton extends StatefulWidget {
   });
   final Widget child;
   final bool isDisabled;
-  final UpStyle? styles;
+  final UpStyle? style;
   final UpColorType? colorType;
   final String? text;
   final Function? onPressed;
@@ -110,8 +99,8 @@ class _upButton extends StatefulWidget {
 }
 
 class __upButtonState extends State<_upButton> {
-  int _enterCounter = 0;
-  int _exitCounter = 0;
+  final int _enterCounter = 0;
+  final int _exitCounter = 0;
   double x = 0.0;
   double y = 0.0;
 
@@ -157,30 +146,33 @@ class __upButtonState extends State<_upButton> {
               shape: BoxShape.rectangle,
               color: isHovered
                   ? UpStyle.getHoverBackgroundColor(context,
-                      styles: widget.styles, colorType: widget.colorType)
+                      style: widget.style, colorType: widget.colorType)
                   : UpStyle.getBackgroundColor(context,
-                      styles: widget.styles, colorType: widget.colorType),
+                      style: widget.style, colorType: widget.colorType),
               border: Border.all(
                 style: BorderStyle.solid,
                 color: isHovered
                     ? UpStyle.getHoverBorderColor(context,
-                        styles: widget.styles, colorType: widget.colorType)
+                        style: widget.style, colorType: widget.colorType)
                     : UpStyle.getBorderColor(context,
-                        styles: widget.styles, colorType: widget.colorType),
+                        style: widget.style, colorType: widget.colorType),
                 width: UpStyle.getBorderWidth(context,
-                    styles: widget.styles, colorType: widget.colorType),
+                    style: widget.style, colorType: widget.colorType),
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(
-                  UpStyle.getBorderRadius(context,
-                      styles: widget.styles, colorType: widget.colorType),
+                  UpStyle.getBorderRadius(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
                 ), //                 <--- border radius here
               ),
               boxShadow: isHovered
                   ? <BoxShadow>[
                       BoxShadow(
                         color: UpStyle.getBackgroundColor(context,
-                                styles: widget.styles,
+                                style: widget.style,
                                 colorType: widget.colorType)
                             .withOpacity(0.2), // 0.1
                         blurRadius: 4, //1
@@ -197,10 +189,10 @@ class __upButtonState extends State<_upButton> {
                   style: TextStyle(
                     color: isHovered
                         ? UpStyle.getHoverForegroundColor(context,
-                            styles: widget.styles, colorType: widget.colorType)
+                            style: widget.style, colorType: widget.colorType)
                         : UpStyle.getForegroundColor(
                             context,
-                            styles: widget.styles,
+                            style: widget.style,
                             colorType: widget.colorType,
                           ),
                   ),

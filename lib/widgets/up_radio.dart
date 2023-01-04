@@ -26,13 +26,6 @@ class UpRadio extends StatefulWidget {
 }
 
 class _UpRadioState extends State<UpRadio> {
-  // String? _groupValue;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _groupValue = widget.groupValue;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -58,14 +51,6 @@ class _UpRadioState extends State<UpRadio> {
               setState(() {
                 widget.groupValue = radioValue.toString();
               });
-              // setState(() {
-              //   widget.groupValue = radioValue.toString();
-              // });
-              //  else {
-              //     setState(() {
-              //       _groupValue = "";
-              //     });
-              //   }
             }),
         widget.labelDirection == UpTextDirection.right
             ? Text(widget.label ?? "")

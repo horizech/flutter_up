@@ -15,4 +15,5 @@ class UpConstants {
   static double kDefaultStyleBorderRadius = 18;
   static bool kDefaultStyleIsRounded = false;
   static bool kDefaultStyleIsDisabled = false;
+  static double kDefaultStyleIconSize = 12;
 }

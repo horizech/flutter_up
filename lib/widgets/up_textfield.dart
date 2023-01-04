@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/enums/up_input_type.dart';
+import 'package:flutter_up/themes/up_style.dart';
 
 class UpTextField extends StatelessWidget {
-  final InputDecoration? decoration;
+  final UpInputType? type;
   final bool obscureText;
   final bool readOnly;
   final TextEditingController? controller;
@@ -14,25 +17,38 @@ class UpTextField extends StatelessWidget {
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
   final int maxLines;
-  final int? minLines;
+  final UpColorType? colorType;
+  final UpStyle? style;
+  final Function()? onTap;
+  final IconData? suffixIcon;
+  final IconData? icon;
+  final IconData? prefixIcon;
 
-  const UpTextField(
-      {Key? key,
-      this.decoration,
-      this.obscureText = false,
-      this.readOnly = false,
-      this.controller,
-      this.keyboardType = TextInputType.text,
-      this.minLength = 0,
-      this.fixedLengths,
-      this.autofillHint,
-      this.label = "",
-      this.isFlexible = false,
-      this.onSaved,
-      this.onChanged,
-      this.maxLines = 1,
-      this.minLines})
-      : super(key: key);
+  final String? hint;
+
+  const UpTextField({
+    Key? key,
+    this.type,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.controller,
+    this.keyboardType = TextInputType.text,
+    this.minLength = 0,
+    this.fixedLengths,
+    this.autofillHint,
+    this.onTap,
+    this.label = "",
+    this.isFlexible = false,
+    this.onSaved,
+    this.onChanged,
+    this.maxLines = 1,
+    this.colorType,
+    this.style,
+    this.hint,
+    this.icon,
+    this.prefixIcon,
+    this.suffixIcon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +56,30 @@ class UpTextField extends StatelessWidget {
         ? Flexible(
             fit: FlexFit.loose,
             child: _upTextField(
-                decoration,
-                obscureText,
-                readOnly,
-                controller,
-                keyboardType,
-                minLength,
-                fixedLengths,
-                autofillHint,
-                label,
-                onSaved,
-                onChanged,
-                maxLines,
-                minLines),
-          )
+              context,
+              type,
+              obscureText,
+              readOnly,
+              controller,
+              keyboardType,
+              minLength,
+              fixedLengths,
+              autofillHint,
+              label,
+              onSaved,
+              onChanged,
+              onTap,
+              maxLines,
+              colorType,
+              style,
+              hint,
+              icon,
+              prefixIcon,
+              suffixIcon,
+            ))
         : _upTextField(
-            decoration,
+            context,
+            type,
             obscureText,
             readOnly,
             controller,
@@ -66,13 +90,21 @@ class UpTextField extends StatelessWidget {
             label,
             onSaved,
             onChanged,
+            onTap,
             maxLines,
-            minLines);
+            colorType,
+            style,
+            hint,
+            icon,
+            prefixIcon,
+            suffixIcon,
+          );
   }
 }
 
 Widget _upTextField(
-  InputDecoration? decoration,
+  BuildContext context,
+  UpInputType? type,
   bool obscureText,
   bool readOnly,
   TextEditingController? controller,
@@ -83,11 +115,18 @@ Widget _upTextField(
   String? label,
   Function(String?)? onSaved,
   Function(String?)? onChanged,
+  Function()? onTap,
   int? maxLines,
-  int? minLines,
+  final UpColorType? colorType,
+  final UpStyle? style,
+  final String? hint,
+  final IconData? icon,
+  final IconData? prefixIcon,
+  final IconData? suffixIcon,
 ) {
   return TextFormField(
     onSaved: onSaved,
+    onTap: onTap,
     onChanged: onChanged,
     keyboardType: keyboardType,
     autofillHints: autofillHint != null && autofillHint.isNotEmpty
@@ -115,9 +154,92 @@ Widget _upTextField(
     },
     obscureText: obscureText,
     readOnly: readOnly,
-    decoration: decoration,
+    decoration: InputDecoration(
+      label: Text(
+        label ?? "",
+        style: TextStyle(
+          color: UpStyle.getForegroundColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+        ),
+      ),
+      suffixIcon: Icon(
+        suffixIcon,
+        color: UpStyle.getIconColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        size: UpStyle.getIconSize(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
+      prefixIcon: Icon(
+        prefixIcon,
+        color: UpStyle.getIconColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        size: UpStyle.getIconSize(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
+      icon: Icon(
+        icon,
+        color: UpStyle.getIconColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        size: UpStyle.getIconSize(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
+      hintText: hint,
+      enabledBorder: UpStyle.getBorderStyle(
+        context,
+        type: type ?? UpInputType.outline,
+        style: style,
+        colorType: colorType,
+      ),
+      labelStyle: TextStyle(
+        color: UpStyle.getForegroundColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
+      focusedBorder: UpStyle.getBorderStyle(
+        context,
+        type: type ?? UpInputType.outline,
+        style: style,
+        colorType: colorType,
+        isFocused: true,
+      ),
+      errorBorder: UpStyle.getBorderStyle(
+        context,
+        type: type ?? UpInputType.outline,
+        style: style,
+        colorType: colorType,
+        isError: true,
+      ),
+      border: UpStyle.getBorderStyle(
+        context,
+        type: type ?? UpInputType.outline,
+        style: style,
+        colorType: colorType,
+      ),
+    ),
     controller: controller,
     maxLines: maxLines,
-    minLines: minLines,
   );
 }

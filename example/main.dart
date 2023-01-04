@@ -332,7 +332,7 @@ class WidgetsExamples {
         borderRadius: 8,
       ),
       colorType: UpColorType.warn,
-      onPress: () {
+      onPressed: () {
         //Do something
       },
       child: const Text("Button"),
