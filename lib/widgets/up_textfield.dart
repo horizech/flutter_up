@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
+import 'package:flutter_up/enums/up_validation.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpTextField extends StatelessWidget {
   final UpInputType? type;
+  final UpValidation? validation;
   final bool obscureText;
   final bool readOnly;
   final TextEditingController? controller;
@@ -23,12 +25,16 @@ class UpTextField extends StatelessWidget {
   final IconData? suffixIcon;
   final IconData? icon;
   final IconData? prefixIcon;
+  final Function()? suffixAction;
+  final Function()? prefixAction;
+  final Function()? iconAction;
 
   final String? hint;
 
   const UpTextField({
     Key? key,
     this.type,
+    this.validation,
     this.obscureText = false,
     this.readOnly = false,
     this.controller,
@@ -48,6 +54,9 @@ class UpTextField extends StatelessWidget {
     this.icon,
     this.prefixIcon,
     this.suffixIcon,
+    this.suffixAction,
+    this.prefixAction,
+    this.iconAction,
   }) : super(key: key);
 
   @override
@@ -76,6 +85,9 @@ class UpTextField extends StatelessWidget {
               icon,
               prefixIcon,
               suffixIcon,
+              suffixAction,
+              prefixAction,
+              iconAction,
             ))
         : _upTextField(
             context,
@@ -98,6 +110,9 @@ class UpTextField extends StatelessWidget {
             icon,
             prefixIcon,
             suffixIcon,
+            suffixAction,
+            prefixAction,
+            iconAction,
           );
   }
 }
@@ -123,6 +138,9 @@ Widget _upTextField(
   final IconData? icon,
   final IconData? prefixIcon,
   final IconData? suffixIcon,
+  final Function()? suffixAction,
+  final Function()? prefixAction,
+  final Function()? iconAction,
 ) {
   return TextFormField(
     onSaved: onSaved,
@@ -165,43 +183,52 @@ Widget _upTextField(
           ),
         ),
       ),
-      suffixIcon: Icon(
-        suffixIcon,
-        color: UpStyle.getIconColor(
-          context,
-          style: style,
-          colorType: colorType,
-        ),
-        size: UpStyle.getIconSize(
-          context,
-          style: style,
-          colorType: colorType,
-        ),
-      ),
-      prefixIcon: Icon(
-        prefixIcon,
-        color: UpStyle.getIconColor(
-          context,
-          style: style,
-          colorType: colorType,
-        ),
-        size: UpStyle.getIconSize(
-          context,
-          style: style,
-          colorType: colorType,
+      suffixIcon: IconButton(
+        onPressed: suffixAction,
+        icon: Icon(
+          suffixIcon,
+          color: UpStyle.getIconColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          size: UpStyle.getIconSize(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
         ),
       ),
-      icon: Icon(
-        icon,
-        color: UpStyle.getIconColor(
-          context,
-          style: style,
-          colorType: colorType,
+      prefixIcon: IconButton(
+        onPressed: prefixAction,
+        icon: Icon(
+          prefixIcon,
+          color: UpStyle.getIconColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          size: UpStyle.getIconSize(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
         ),
-        size: UpStyle.getIconSize(
-          context,
-          style: style,
-          colorType: colorType,
+      ),
+      icon: IconButton(
+        onPressed: iconAction,
+        icon: Icon(
+          icon,
+          color: UpStyle.getIconColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          size: UpStyle.getIconSize(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
         ),
       ),
       hintText: hint,

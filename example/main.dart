@@ -272,18 +272,18 @@ class WidgetsExamples {
       readOnly: false,
       isFlexible: true,
       fixedLengths: const [16],
-      decoration: InputDecoration(
-          labelText: 'Password',
-          suffixIcon: IconButton(
-            icon: Icon(
-              _passwordVisible ? Icons.visibility : Icons.visibility_off,
-              semanticLabel:
-                  _passwordVisible ? 'Hide Password' : 'Show Password',
-            ),
-            onPressed: () {
-              _togglePasswordVisible();
-            },
-          )),
+      // decoration: InputDecoration(
+      //     labelText: 'Password',
+      //     suffixIcon: IconButton(
+      //       icon: Icon(
+      //         _passwordVisible ? Icons.visibility : Icons.visibility_off,
+      //         semanticLabel:
+      //             _passwordVisible ? 'Hide Password' : 'Show Password',
+      //       ),
+      //       onPressed: () {
+      //         _togglePasswordVisible();
+      //       },
+      //     )),
       obscureText: !_passwordVisible,
       controller: _passwordTextEditingController,
     );
@@ -325,8 +325,8 @@ class WidgetsExamples {
   //UpButton
   upButtonExample() {
     return UpButton(
-      buttonType: UpButtonType.elevated,
-      styles: UpStyle(
+      type: UpButtonType.elevated,
+      style: UpStyle(
         isDisabled: false,
         isRounded: true,
         borderRadius: 8,
