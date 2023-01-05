@@ -267,11 +267,10 @@ class WidgetsExamples {
     return UpTextField(
       keyboardType: TextInputType.text,
       label: "Password",
-      minLength: 1,
       autofillHint: AutofillHints.password,
       readOnly: false,
       isFlexible: true,
-      fixedLengths: const [16],
+
       // decoration: InputDecoration(
       //     labelText: 'Password',
       //     suffixIcon: IconButton(

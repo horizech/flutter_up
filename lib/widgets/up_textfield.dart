@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
-import 'package:flutter_up/enums/up_validation.dart';
+
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/validation/up_custom_validation.dart';
+import 'package:flutter_up/validation/up_valdation.dart';
 
 class UpTextField extends StatelessWidget {
   final UpInputType? type;
@@ -11,10 +13,9 @@ class UpTextField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? controller;
   final TextInputType keyboardType;
-  final int minLength;
-  final List<int>? fixedLengths;
   final String? autofillHint;
   final String? label;
+
   final bool isFlexible;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
@@ -39,8 +40,6 @@ class UpTextField extends StatelessWidget {
     this.readOnly = false,
     this.controller,
     this.keyboardType = TextInputType.text,
-    this.minLength = 0,
-    this.fixedLengths,
     this.autofillHint,
     this.onTap,
     this.label = "",
@@ -71,8 +70,6 @@ class UpTextField extends StatelessWidget {
               readOnly,
               controller,
               keyboardType,
-              minLength,
-              fixedLengths,
               autofillHint,
               label,
               onSaved,
@@ -88,6 +85,7 @@ class UpTextField extends StatelessWidget {
               suffixAction,
               prefixAction,
               iconAction,
+              validation,
             ))
         : _upTextField(
             context,
@@ -96,8 +94,6 @@ class UpTextField extends StatelessWidget {
             readOnly,
             controller,
             keyboardType,
-            minLength,
-            fixedLengths,
             autofillHint,
             label,
             onSaved,
@@ -113,35 +109,34 @@ class UpTextField extends StatelessWidget {
             suffixAction,
             prefixAction,
             iconAction,
+            validation,
           );
   }
 }
 
 Widget _upTextField(
-  BuildContext context,
-  UpInputType? type,
-  bool obscureText,
-  bool readOnly,
-  TextEditingController? controller,
-  TextInputType keyboardType,
-  int minLength,
-  List<int>? fixedLengths,
-  String? autofillHint,
-  String? label,
-  Function(String?)? onSaved,
-  Function(String?)? onChanged,
-  Function()? onTap,
-  int? maxLines,
-  final UpColorType? colorType,
-  final UpStyle? style,
-  final String? hint,
-  final IconData? icon,
-  final IconData? prefixIcon,
-  final IconData? suffixIcon,
-  final Function()? suffixAction,
-  final Function()? prefixAction,
-  final Function()? iconAction,
-) {
+    BuildContext context,
+    UpInputType? type,
+    bool obscureText,
+    bool readOnly,
+    TextEditingController? controller,
+    TextInputType keyboardType,
+    String? autofillHint,
+    String? label,
+    Function(String?)? onSaved,
+    Function(String?)? onChanged,
+    Function()? onTap,
+    int? maxLines,
+    final UpColorType? colorType,
+    final UpStyle? style,
+    final String? hint,
+    final IconData? icon,
+    final IconData? prefixIcon,
+    final IconData? suffixIcon,
+    final Function()? suffixAction,
+    final Function()? prefixAction,
+    final Function()? iconAction,
+    final UpValidation? validation) {
   return TextFormField(
     onSaved: onSaved,
     onTap: onTap,
@@ -151,22 +146,45 @@ Widget _upTextField(
         ? <String>[autofillHint]
         : null,
     validator: (value) {
-      if (fixedLengths != null &&
-          !fixedLengths.contains((controller!.text).length)) {
-        String lengths = fixedLengths
-            .map((x) => x.toString())
-            .reduce((value, element) => ('$value,') + element.toString());
-        if (fixedLengths.length == 1) {
-          return 'Length should be $lengths';
-        } else {
-          return 'Length should be one of $lengths';
-        }
-      } else if (value!.length < minLength) {
-        if (minLength == 1) {
+      if (validation != null && (validation.isRequired ?? false)) {
+        if (value == null || value == "" || value.isEmpty) {
           return 'Please enter $label';
-        } else {
-          return 'Length should be at least $minLength';
         }
+      }
+      if (validation?.minLength != null) {
+        if (validation != null &&
+            validation.fixedLengths != null &&
+            !validation.fixedLengths!.contains((controller!.text).length)) {
+          String lengths = validation.fixedLengths!
+              .map((x) => x.toString())
+              .reduce((value, element) => ('$value,') + element.toString());
+          if (validation.fixedLengths!.length == 1) {
+            return 'Length should be $lengths';
+          } else {
+            return 'Length should be one of $lengths';
+          }
+        } else {
+          if (validation != null &&
+              validation.minLength != null &&
+              value!.length < (validation.minLength ?? 0)) {
+            if (validation.minLength == 1) {
+              return 'Please enter $label';
+            } else {
+              return 'Length should be at least ${validation.minLength}';
+            }
+          }
+        }
+      }
+      if (validation != null && (validation.isEmail ?? false)) {
+        return UpValidation.emailValidation(value ?? "");
+      }
+      if (validation != null &&
+          validation.customValidation != null &&
+          validation.customValidation?.rejex != null) {
+        return UpCustomValidation.customValidation(
+          value: value ?? "",
+          validation: validation.customValidation,
+        );
       }
       return null;
     },
@@ -183,54 +201,64 @@ Widget _upTextField(
           ),
         ),
       ),
-      suffixIcon: IconButton(
-        onPressed: suffixAction,
-        icon: Icon(
-          suffixIcon,
-          color: UpStyle.getIconColor(
-            context,
-            style: style,
-            colorType: colorType,
-          ),
-          size: UpStyle.getIconSize(
-            context,
-            style: style,
-            colorType: colorType,
-          ),
-        ),
-      ),
-      prefixIcon: IconButton(
-        onPressed: prefixAction,
-        icon: Icon(
-          prefixIcon,
-          color: UpStyle.getIconColor(
-            context,
-            style: style,
-            colorType: colorType,
-          ),
-          size: UpStyle.getIconSize(
-            context,
-            style: style,
-            colorType: colorType,
+      suffixIcon: Visibility(
+        visible: suffixIcon != null,
+        child: IconButton(
+          onPressed: suffixAction,
+          icon: Icon(
+            suffixIcon,
+            color: UpStyle.getIconColor(
+              context,
+              style: style,
+              colorType: colorType,
+            ),
+            size: UpStyle.getIconSize(
+              context,
+              style: style,
+              colorType: colorType,
+            ),
           ),
         ),
       ),
-      icon: IconButton(
-        onPressed: iconAction,
-        icon: Icon(
-          icon,
-          color: UpStyle.getIconColor(
-            context,
-            style: style,
-            colorType: colorType,
-          ),
-          size: UpStyle.getIconSize(
-            context,
-            style: style,
-            colorType: colorType,
+      prefixIcon: Visibility(
+        visible: prefixIcon != null,
+        child: IconButton(
+          onPressed: prefixAction,
+          icon: Icon(
+            prefixIcon,
+            color: UpStyle.getIconColor(
+              context,
+              style: style,
+              colorType: colorType,
+            ),
+            size: UpStyle.getIconSize(
+              context,
+              style: style,
+              colorType: colorType,
+            ),
           ),
         ),
       ),
+
+      // icon: Visibility(
+      //   visible: icon != null,
+      //   child: IconButton(
+      //     onPressed: iconAction,
+      //     icon: Icon(
+      //       icon,
+      //       color: UpStyle.getIconColor(
+      //         context,
+      //         style: style,
+      //         colorType: colorType,
+      //       ),
+      //       size: UpStyle.getIconSize(
+      //         context,
+      //         style: style,
+      //         colorType: colorType,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       hintText: hint,
       enabledBorder: UpStyle.getBorderStyle(
         context,

@@ -132,39 +132,46 @@ class UpDropDownFieldWidgetState extends State<UpDropDownFieldWidget> {
             ),
           ),
         ),
-        prefixIcon: IconButton(
-          onPressed: widget.prefixAction,
-          icon: Icon(
-            widget.prefixIcon,
-            color: UpStyle.getIconColor(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
-            size: UpStyle.getIconSize(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
-          ),
-        ),
-        icon: IconButton(
-          onPressed: widget.iconAction,
-          icon: Icon(
-            widget.icon,
-            color: UpStyle.getIconColor(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
-            size: UpStyle.getIconSize(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
+
+        prefixIcon: Visibility(
+          visible: widget.prefixIcon != null,
+          child: IconButton(
+            onPressed: widget.prefixAction,
+            icon: Icon(
+              widget.prefixIcon,
+              color: UpStyle.getIconColor(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+              size: UpStyle.getIconSize(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
             ),
           ),
         ),
-        // fillColor: Colors.orange,
+        // icon: Visibility(
+        //   visible: widget.icon != null,
+        //   child: IconButton(
+        //     onPressed: widget.iconAction,
+        //     icon: Icon(
+        //       widget.icon,
+        //       color: UpStyle.getIconColor(
+        //         context,
+        //         style: widget.style,
+        //         colorType: widget.colorType,
+        //       ),
+        //       size: UpStyle.getIconSize(
+        //         context,
+        //         style: widget.style,
+        //         colorType: widget.colorType,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // // fillColor: Colors.orange,
         // focusColor: Colors.transparent,
         // hoverColor: Colors.pink,
         hintText: widget.hint,
