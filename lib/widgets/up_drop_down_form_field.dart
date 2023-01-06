@@ -76,11 +76,6 @@ class UpDropDownFieldWidgetState extends State<UpDropDownFieldWidget> {
   @override
   void initState() {
     super.initState();
-    // if (widget.value!=null widget.value.isNotEmpty) {
-    //   _curValue = widget.value;
-    // } else {
-    //   _curValue = "";
-    // }
   }
 
   @override

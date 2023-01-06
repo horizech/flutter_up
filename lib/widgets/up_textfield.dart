@@ -8,6 +8,8 @@ import 'package:flutter_up/validation/up_valdation.dart';
 
 class UpTextField extends StatelessWidget {
   final UpInputType? type;
+  final FocusNode? focusNode;
+
   final UpValidation? validation;
   final bool obscureText;
   final bool readOnly;
@@ -23,18 +25,15 @@ class UpTextField extends StatelessWidget {
   final UpColorType? colorType;
   final UpStyle? style;
   final Function()? onTap;
-  final IconData? suffixIcon;
-  final IconData? icon;
-  final IconData? prefixIcon;
-  final Function()? suffixAction;
-  final Function()? prefixAction;
-  final Function()? iconAction;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   final String? hint;
 
   const UpTextField({
     Key? key,
     this.type,
+    this.focusNode,
     this.validation,
     this.obscureText = false,
     this.readOnly = false,
@@ -50,12 +49,8 @@ class UpTextField extends StatelessWidget {
     this.colorType,
     this.style,
     this.hint,
-    this.icon,
     this.prefixIcon,
     this.suffixIcon,
-    this.suffixAction,
-    this.prefixAction,
-    this.iconAction,
   }) : super(key: key);
 
   @override
@@ -64,29 +59,25 @@ class UpTextField extends StatelessWidget {
         ? Flexible(
             fit: FlexFit.loose,
             child: _upTextField(
-              context,
-              type,
-              obscureText,
-              readOnly,
-              controller,
-              keyboardType,
-              autofillHint,
-              label,
-              onSaved,
-              onChanged,
-              onTap,
-              maxLines,
-              colorType,
-              style,
-              hint,
-              icon,
-              prefixIcon,
-              suffixIcon,
-              suffixAction,
-              prefixAction,
-              iconAction,
-              validation,
-            ))
+                context,
+                type,
+                obscureText,
+                readOnly,
+                controller,
+                keyboardType,
+                autofillHint,
+                label,
+                onSaved,
+                onChanged,
+                onTap,
+                maxLines,
+                colorType,
+                style,
+                hint,
+                focusNode,
+                validation,
+                prefixIcon,
+                suffixIcon))
         : _upTextField(
             context,
             type,
@@ -103,43 +94,38 @@ class UpTextField extends StatelessWidget {
             colorType,
             style,
             hint,
-            icon,
-            prefixIcon,
-            suffixIcon,
-            suffixAction,
-            prefixAction,
-            iconAction,
+            focusNode,
             validation,
-          );
+            prefixIcon,
+            suffixIcon);
   }
 }
 
 Widget _upTextField(
-    BuildContext context,
-    UpInputType? type,
-    bool obscureText,
-    bool readOnly,
-    TextEditingController? controller,
-    TextInputType keyboardType,
-    String? autofillHint,
-    String? label,
-    Function(String?)? onSaved,
-    Function(String?)? onChanged,
-    Function()? onTap,
-    int? maxLines,
-    final UpColorType? colorType,
-    final UpStyle? style,
-    final String? hint,
-    final IconData? icon,
-    final IconData? prefixIcon,
-    final IconData? suffixIcon,
-    final Function()? suffixAction,
-    final Function()? prefixAction,
-    final Function()? iconAction,
-    final UpValidation? validation) {
+  BuildContext context,
+  UpInputType? type,
+  bool obscureText,
+  bool readOnly,
+  TextEditingController? controller,
+  TextInputType keyboardType,
+  String? autofillHint,
+  String? label,
+  Function(String?)? onSaved,
+  Function(String?)? onChanged,
+  Function()? onTap,
+  int? maxLines,
+  final UpColorType? colorType,
+  final UpStyle? style,
+  final String? hint,
+  final FocusNode? focusNode,
+  final UpValidation? validation,
+  final Widget? prefixIcon,
+  final Widget? suffixIcon,
+) {
   return TextFormField(
     onSaved: onSaved,
     onTap: onTap,
+    focusNode: focusNode,
     onChanged: onChanged,
     keyboardType: keyboardType,
     autofillHints: autofillHint != null && autofillHint.isNotEmpty
@@ -201,64 +187,8 @@ Widget _upTextField(
           ),
         ),
       ),
-      suffixIcon: Visibility(
-        visible: suffixIcon != null,
-        child: IconButton(
-          onPressed: suffixAction,
-          icon: Icon(
-            suffixIcon,
-            color: UpStyle.getIconColor(
-              context,
-              style: style,
-              colorType: colorType,
-            ),
-            size: UpStyle.getIconSize(
-              context,
-              style: style,
-              colorType: colorType,
-            ),
-          ),
-        ),
-      ),
-      prefixIcon: Visibility(
-        visible: prefixIcon != null,
-        child: IconButton(
-          onPressed: prefixAction,
-          icon: Icon(
-            prefixIcon,
-            color: UpStyle.getIconColor(
-              context,
-              style: style,
-              colorType: colorType,
-            ),
-            size: UpStyle.getIconSize(
-              context,
-              style: style,
-              colorType: colorType,
-            ),
-          ),
-        ),
-      ),
-
-      // icon: Visibility(
-      //   visible: icon != null,
-      //   child: IconButton(
-      //     onPressed: iconAction,
-      //     icon: Icon(
-      //       icon,
-      //       color: UpStyle.getIconColor(
-      //         context,
-      //         style: style,
-      //         colorType: colorType,
-      //       ),
-      //       size: UpStyle.getIconSize(
-      //         context,
-      //         style: style,
-      //         colorType: colorType,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      suffixIcon: suffixIcon,
+      prefixIcon: prefixIcon,
       hintText: hint,
       enabledBorder: UpStyle.getBorderStyle(
         context,
