@@ -9,7 +9,6 @@ import 'package:flutter_up/validation/up_valdation.dart';
 class UpTextField extends StatelessWidget {
   final UpInputType? type;
   final FocusNode? focusNode;
-
   final UpValidation? validation;
   final bool obscureText;
   final bool readOnly;
@@ -17,7 +16,6 @@ class UpTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final String? autofillHint;
   final String? label;
-
   final bool isFlexible;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
@@ -27,7 +25,6 @@ class UpTextField extends StatelessWidget {
   final Function()? onTap;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-
   final String? hint;
 
   const UpTextField({

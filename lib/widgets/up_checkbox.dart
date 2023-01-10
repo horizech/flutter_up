@@ -9,13 +9,7 @@ class UpCheckbox extends StatefulWidget {
   final String? label;
   final Function? onChange;
   final UpTextDirection labelDirection;
-  bool? initialValue;
-  final Color? activeColor;
-  final Color? checkColor;
-  final bool isRounded;
-  final double roundedBorderRadius;
-  final double borderWidth;
-  final Color borderColor;
+  bool initialValue;
   final bool isDisable;
 
   UpCheckbox({
@@ -26,13 +20,7 @@ class UpCheckbox extends StatefulWidget {
     this.style,
     this.onChange,
     this.labelDirection = UpTextDirection.right,
-    this.activeColor,
-    this.checkColor,
-    this.isRounded = false,
     this.isDisable = false,
-    this.roundedBorderRadius = 10,
-    this.borderWidth = 1,
-    this.borderColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -40,8 +28,6 @@ class UpCheckbox extends StatefulWidget {
 }
 
 class _UpCheckboxState extends State<UpCheckbox> {
-  final int _enterCounter = 0;
-  final int _exitCounter = 0;
   double x = 0.0;
   double y = 0.0;
 
@@ -77,81 +63,84 @@ class _UpCheckboxState extends State<UpCheckbox> {
           visible: widget.labelDirection == UpTextDirection.left,
           child: Text(widget.label ?? ""),
         ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          onEnter: _incrementEnter,
-
-          // onHover: _updateLocation,
-          onExit: _incrementExit,
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-
-              color: isHovered
-                  ? UpStyle.getHoverBackgroundColor(context,
-                      style: widget.style, colorType: widget.colorType)
-                  : UpStyle.getBackgroundColor(context,
-                      style: widget.style, colorType: widget.colorType),
-              // border: Border.all(
-              //   style: BorderStyle.solid,
-              //   color: isHovered
-              //       ? UpStyle.getHoverBorderColor(context,
-              //           style: widget.style, colorType: widget.colorType)
-              //       : UpStyle.getBorderColor(context,
-              //           style: widget.style, colorType: widget.colorType),
-              //   width: UpStyle.getBorderWidth(context,
-              //       style: widget.style, colorType: widget.colorType),
-              // ),
-            ),
-            child: Center(
-              child: Checkbox(
-                  // focusColor: Colors.red,
-                  // overlayColor: MaterialStateProperty.resolveWith<Color>(
-                  //   (Set<MaterialState> states) {
-                  //     return UpStyle.getHoverBackgroundColor(
-                  //       context,
-                  //       style: widget.style,
-                  //       colorType: widget.colorType,
-                  //     );
-                  //   },
-                  // ),
-
-                  shape: UpStyle.getRoundedRectangleBorder(context,
-                      style: widget.style, colorType: widget.colorType),
-                  value: widget.initialValue,
-                  activeColor: UpStyle.getForegroundColor(
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: widget.initialValue && isHovered
+                ? UpStyle.getCheckBackgroundColor(
                     context,
                     style: widget.style,
                     colorType: widget.colorType,
-                  ),
-                  checkColor: UpStyle.getBackgroundColor(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  side: BorderSide(
-                    width: UpStyle.getBorderWidth(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                    color: UpStyle.getBorderColor(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                  ),
-                  onChanged: (bool? newCheck) {
-                    if (!(widget.style?.isDisabled ?? false)) {
-                      setState(() {
-                        widget.initialValue = newCheck ?? false;
-                      });
+                  ).withAlpha(50)
+                : isHovered
+                    ? Colors.grey[200]
+                    : Colors.transparent,
+          ),
+          height: 48.0,
+          width: 48.0,
+          child: GestureDetector(
+            onTap: (() {
+              if (!(widget.style?.isDisabled ?? false)) {
+                setState(() {
+                  widget.initialValue = (!widget.initialValue);
+                });
 
-                      if (widget.onChange != null) {
-                        widget.onChange!(newCheck);
-                      }
-                    }
-                  }),
+                if (widget.onChange != null) {
+                  widget.onChange!(!widget.initialValue);
+                }
+              }
+            }),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              onEnter: _incrementEnter,
+              onExit: _incrementExit,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: widget.initialValue
+                          ? UpStyle.getCheckBackgroundColor(context,
+                              style: widget.style, colorType: widget.colorType)
+                          : Colors.transparent,
+                      border: Border.all(
+                        style: BorderStyle.solid,
+                        color: widget.initialValue
+                            ? Colors.transparent
+                            : isHovered
+                                ? UpStyle.getFocusedBorderColor(context,
+                                    style: widget.style,
+                                    colorType: widget.colorType)
+                                : UpStyle.getBorderColor(context,
+                                    style: widget.style,
+                                    colorType: widget.colorType),
+                        width: UpStyle.getBorderWidth(context,
+                            style: widget.style, colorType: widget.colorType),
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          UpStyle.getBorderRadius(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: Visibility(
+                      visible: widget.initialValue,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Icon(Icons.check,
+                            color: UpStyle.getCheckedForegroundColor(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                            size: 25),
+                      ),
+                    )),
+              ),
             ),
           ),
         ),

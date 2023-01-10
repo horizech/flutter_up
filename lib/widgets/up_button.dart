@@ -5,7 +5,7 @@ import 'package:flutter_up/themes/up_style.dart';
 
 class UpButton extends StatelessWidget {
   final Function onPressed;
-  final Widget child;
+  final Widget? child;
   final UpColorType? colorType;
   final UpButtonType type;
   final UpStyle? style;
@@ -15,7 +15,7 @@ class UpButton extends StatelessWidget {
       {Key? key,
       this.text,
       required this.onPressed,
-      required this.child,
+      this.child,
       this.colorType,
       this.type = UpButtonType.elevated,
       this.style})
@@ -31,14 +31,14 @@ class UpButton extends StatelessWidget {
           },
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
-          child: child,
+          child: child ?? Text(text ?? ""),
         );
       case UpButtonType.icon:
         return IconButton(
           onPressed: () {
             if (!(style?.isDisabled ?? false)) onPressed();
           },
-          icon: child,
+          icon: child ?? Text(text ?? ""),
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
         );
@@ -49,7 +49,7 @@ class UpButton extends StatelessWidget {
           },
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
-          child: child,
+          child: child ?? Text(text ?? ""),
         );
       case UpButtonType.floating:
         return FloatingActionButton(
@@ -72,7 +72,6 @@ class UpButton extends StatelessWidget {
           text: text,
           isDisabled: style?.isDisabled ?? false,
           onPressed: onPressed,
-          child: child,
         );
     }
   }
@@ -80,14 +79,13 @@ class UpButton extends StatelessWidget {
 
 class _upButton extends StatefulWidget {
   const _upButton({
-    required this.child,
     this.style,
     this.colorType,
     this.text,
     this.isDisabled = false,
     this.onPressed,
   });
-  final Widget child;
+
   final bool isDisabled;
   final UpStyle? style;
   final UpColorType? colorType;

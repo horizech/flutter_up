@@ -11,14 +11,16 @@ class UpStyle {
   final double? borderWidth;
   final Color? foregroundColor;
   final Color? hoverBackgroundColor;
-  final Color? hoverBorderColor;
-  final Color? hoverForegroundColor;
+  final Color? hoveredBorderColor;
+  final Color? hoveredForegroundColor;
   final Color? focusedBorderColor;
   final Color? errorBorderColor;
   final Color? iconColor;
   final double? iconSize;
   final bool? isDisabled;
   final bool? isRounded;
+  final Color? checkedBackgroundColor;
+  final Color? checkedForegroundColor;
 
   UpStyle({
     this.backgroundColor,
@@ -27,14 +29,16 @@ class UpStyle {
     this.borderWidth,
     this.foregroundColor,
     this.hoverBackgroundColor,
-    this.hoverBorderColor,
-    this.hoverForegroundColor,
+    this.hoveredBorderColor,
+    this.hoveredForegroundColor,
     this.isDisabled,
     this.focusedBorderColor,
     this.errorBorderColor,
     this.isRounded,
     this.iconSize,
     this.borderRadius,
+    this.checkedBackgroundColor,
+    this.checkedForegroundColor,
   });
 
   static Color getBackgroundColor(
@@ -114,6 +118,38 @@ class UpStyle {
         ).iconColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
+  }
+
+  static Color getCheckBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.checkedBackgroundColor ??
+        style?.checkedBackgroundColor ??
+        getStyleByType(
+          (FlutterUpConfig.of(context)?.themeData ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).checkedBackgroundColor ??
+        style?.backgroundColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getCheckedForegroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.checkedForegroundColor ??
+        style?.checkedForegroundColor ??
+        getStyleByType(
+          (FlutterUpConfig.of(context)?.themeData ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).checkedForegroundColor ??
+        style?.foregroundColor ??
+        Theme.of(context).colorScheme.secondary;
   }
 
   static Color getErrorBorderColor(
@@ -268,13 +304,13 @@ class UpStyle {
     UpStyle? style,
     UpColorType? colorType,
   }) {
-    return override?.hoverForegroundColor ??
-        style?.hoverForegroundColor ??
+    return override?.hoveredForegroundColor ??
+        style?.hoveredForegroundColor ??
         getStyleByType(
                 (FlutterUpConfig.of(context)?.themeData ??
                     UpConstants.kDefaultTheme),
                 colorType)
-            .hoverForegroundColor ??
+            .hoveredForegroundColor ??
         Theme.of(context).primaryColor;
   }
 
@@ -284,8 +320,8 @@ class UpStyle {
     UpStyle? style,
     UpColorType? colorType,
   }) {
-    return override?.hoverBorderColor ??
-        style?.hoverBorderColor ??
+    return override?.hoveredBorderColor ??
+        style?.hoveredBorderColor ??
         getStyleByType(
                 (FlutterUpConfig.of(context)?.themeData ??
                     UpConstants.kDefaultTheme),

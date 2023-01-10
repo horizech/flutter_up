@@ -102,6 +102,9 @@ class _UpDropDownState extends State<UpDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.value.isEmpty || widget.value == widget.itemList.first.value) {
+      searchText.text = "";
+    }
     if (searchText.text.isEmpty) {
       filteredProducts = widget.itemList;
     }

@@ -1,5 +1,7 @@
 //Colors Type
 import 'package:flutter/material.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/themes/up_style.dart';
 
 enum UpToastType {
   primary,
@@ -28,8 +30,10 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
   switch (type) {
     case UpToastType.secondary:
       return UpToastParams(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Theme.of(context).primaryColor,
+        backgroundColor: UpStyle.getBackgroundColor(context,
+            colorType: UpColorType.secondary),
+        foregroundColor: UpStyle.getForegroundColor(context,
+            colorType: UpColorType.secondary),
         icon: null,
       );
     case UpToastType.danger:
@@ -81,15 +85,12 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
         icon: null,
       );
     case UpToastType.primary:
-      return UpToastParams(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-        icon: null,
-      );
     default:
       return UpToastParams(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor:
+            UpStyle.getForegroundColor(context, colorType: UpColorType.primary),
+        foregroundColor:
+            UpStyle.getBackgroundColor(context, colorType: UpColorType.primary),
         icon: null,
       );
   }
