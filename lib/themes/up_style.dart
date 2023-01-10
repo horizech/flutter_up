@@ -24,6 +24,7 @@ class UpStyle {
   final Color? radioButtonColor;
   final Color? disabledBackgroundColor;
   final Color? disabledForgroundColor;
+  final Color? tableHeaderColor;
 
   UpStyle({
     this.backgroundColor,
@@ -45,6 +46,7 @@ class UpStyle {
     this.radioButtonColor,
     this.disabledBackgroundColor,
     this.disabledForgroundColor,
+    this.tableHeaderColor,
   });
 
   static Color getBackgroundColor(
@@ -76,6 +78,23 @@ class UpStyle {
                     UpConstants.kDefaultTheme),
                 colorType)
             .radioButtonColor ??
+        style?.foregroundColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getTableHeaderColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeaderColor ??
+        style?.tableHeaderColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.themeData ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableHeaderColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
   }

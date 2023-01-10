@@ -258,6 +258,7 @@ class UpThemes {
       iconSize: 25,
       checkedForegroundColor: Colors.white,
       checkedBackgroundColor: Colors.pink,
+      tableHeaderColor: Colors.grey[100],
     ),
     secondary: UpStyle(
       foregroundColor: _themeVintagePrimaryWhite[500]!,
@@ -273,6 +274,7 @@ class UpThemes {
       isRounded: true,
       iconColor: Colors.green[400]!,
       iconSize: 25,
+      tableHeaderColor: Colors.green[100],
     ),
     warn: UpStyle(
       foregroundColor: _themeVintagePrimaryWhite[500]!,
@@ -288,6 +290,7 @@ class UpThemes {
       isRounded: true,
       iconColor: Colors.orange[400]!,
       iconSize: 25,
+      tableHeaderColor: Colors.orange[100],
     ),
     themeData: ThemeData(
       primaryColor: _themeVintagePrimaryBlack,
