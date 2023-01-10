@@ -22,6 +22,8 @@ class UpStyle {
   final Color? checkedBackgroundColor;
   final Color? checkedForegroundColor;
   final Color? radioButtonColor;
+  final Color? disabledBackgroundColor;
+  final Color? disabledForgroundColor;
 
   UpStyle({
     this.backgroundColor,
@@ -41,6 +43,8 @@ class UpStyle {
     this.checkedBackgroundColor,
     this.checkedForegroundColor,
     this.radioButtonColor,
+    this.disabledBackgroundColor,
+    this.disabledForgroundColor,
   });
 
   static Color getBackgroundColor(

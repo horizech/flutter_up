@@ -81,13 +81,12 @@ class _UpCheckboxState extends State<UpCheckbox> {
           child: GestureDetector(
             onTap: (() {
               if (!(widget.style?.isDisabled ?? false)) {
-                setState(() {
-                  widget.initialValue = (!widget.initialValue);
-                });
-
                 if (widget.onChange != null) {
                   widget.onChange!(!widget.initialValue);
                 }
+                setState(() {
+                  widget.initialValue = (!widget.initialValue);
+                });
               }
             }),
             child: MouseRegion(
@@ -137,7 +136,7 @@ class _UpCheckboxState extends State<UpCheckbox> {
                               style: widget.style,
                               colorType: widget.colorType,
                             ),
-                            size: 25),
+                            size: 20),
                       ),
                     )),
               ),
