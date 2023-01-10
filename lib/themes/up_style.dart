@@ -21,6 +21,7 @@ class UpStyle {
   final bool? isRounded;
   final Color? checkedBackgroundColor;
   final Color? checkedForegroundColor;
+  final Color? radioButtonColor;
 
   UpStyle({
     this.backgroundColor,
@@ -39,6 +40,7 @@ class UpStyle {
     this.borderRadius,
     this.checkedBackgroundColor,
     this.checkedForegroundColor,
+    this.radioButtonColor,
   });
 
   static Color getBackgroundColor(
@@ -54,6 +56,23 @@ class UpStyle {
                     UpConstants.kDefaultTheme),
                 colorType)
             .backgroundColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getRadioButtonColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.radioButtonColor ??
+        style?.radioButtonColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.themeData ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .radioButtonColor ??
+        style?.foregroundColor ??
         Theme.of(context).primaryColor;
   }
 
