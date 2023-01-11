@@ -129,10 +129,12 @@ class __upButtonState extends State<_upButton> {
     return ConstrainedBox(
       constraints: BoxConstraints.tight(const Size(320.0, 48.0)),
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        onEnter: _incrementEnter,
+        cursor: widget.style?.isDisabled == true
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.click,
+        onEnter: widget.style?.isDisabled == true ? null : _incrementEnter,
         // onHover: _updateLocation,
-        onExit: _incrementExit,
+        onExit: widget.style?.isDisabled == true ? null : _incrementExit,
         child: GestureDetector(
           onTap: () {
             if (!widget.isDisabled && widget.onPressed != null) {
@@ -145,21 +147,21 @@ class __upButtonState extends State<_upButton> {
               color: isHovered
                   ? UpStyle.getHoverBackgroundColor(context,
                       style: widget.style, colorType: widget.colorType)
-                  : UpStyle.getBackgroundColor(context,
+                  : UpStyle.getButtonBackgroundColor(context,
                       style: widget.style, colorType: widget.colorType),
               border: Border.all(
                 style: BorderStyle.solid,
                 color: isHovered
                     ? UpStyle.getHoverBorderColor(context,
                         style: widget.style, colorType: widget.colorType)
-                    : UpStyle.getBorderColor(context,
+                    : UpStyle.getButtonBorderColor(context,
                         style: widget.style, colorType: widget.colorType),
-                width: UpStyle.getBorderWidth(context,
+                width: UpStyle.getButtonBorderWidth(context,
                     style: widget.style, colorType: widget.colorType),
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(
-                  UpStyle.getBorderRadius(
+                  UpStyle.getButtonBorderRadius(
                     context,
                     style: widget.style,
                     colorType: widget.colorType,
@@ -169,7 +171,7 @@ class __upButtonState extends State<_upButton> {
               boxShadow: isHovered
                   ? <BoxShadow>[
                       BoxShadow(
-                        color: UpStyle.getBackgroundColor(context,
+                        color: UpStyle.getButtonBackgroundColor(context,
                                 style: widget.style,
                                 colorType: widget.colorType)
                             .withOpacity(0.2), // 0.1
@@ -185,15 +187,19 @@ class __upButtonState extends State<_upButton> {
                 child: Text(
                   widget.text ?? "",
                   style: TextStyle(
-                    color: isHovered
-                        ? UpStyle.getHoverForegroundColor(context,
-                            style: widget.style, colorType: widget.colorType)
-                        : UpStyle.getForegroundColor(
-                            context,
-                            style: widget.style,
-                            colorType: widget.colorType,
-                          ),
-                  ),
+                      color: isHovered
+                          ? UpStyle.getButtonHoverTextColor(context,
+                              style: widget.style, colorType: widget.colorType)
+                          : UpStyle.getButtonTextColor(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                      fontSize: UpStyle.getButtonTextSize(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      )),
                 ),
               ),
             ),

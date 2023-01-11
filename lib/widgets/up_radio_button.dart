@@ -58,7 +58,21 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                 children: [
                   Visibility(
                     visible: widget.labelDirection == UpTextDirection.left,
-                    child: Text(item.label),
+                    child: Text(
+                      item.label,
+                      style: TextStyle(
+                        color: UpStyle.getRadioButtonLabelColor(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        ),
+                        fontSize: UpStyle.getRadioButtonLabelSize(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        ),
+                      ),
+                    ),
                   ),
                   Container(
                     width: 48,
@@ -66,30 +80,36 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: item.value == widget.value && isHovered
-                            ? UpStyle.getRadioButtonColor(context,
+                            ? UpStyle.getRadioButtonFilledColor(context,
                                     style: widget.style,
                                     colorType: widget.colorType)
                                 .withAlpha(50)
                             : isHovered
-                                ? Colors.grey[200]
+                                ? UpStyle.getRadioButtonRippleColor(context,
+                                    style: widget.style,
+                                    colorType: widget.colorType)
                                 : Colors.transparent),
                     child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: _incrementEnter,
-                      onExit: _incrementExit,
+                      cursor: widget.style?.isDisabled == true
+                          ? SystemMouseCursors.basic
+                          : SystemMouseCursors.click,
+                      onEnter: widget.style?.isDisabled == true
+                          ? null
+                          : _incrementEnter,
+                      onExit: widget.style?.isDisabled == true
+                          ? null
+                          : _incrementExit,
                       child: GestureDetector(
-                        onTap: widget.style?.isDisabled ?? false
-                            ? null
-                            : () {
-                                if (!(widget.style?.isDisabled ?? false)) {
-                                  if (widget.onChange != null) {
-                                    widget.onChange!(item.value);
-                                  }
-                                  setState(() {
-                                    widget.value = item.value;
-                                  });
-                                }
-                              },
+                        onTap: () {
+                          if (!(widget.style?.isDisabled ?? false)) {
+                            if (widget.onChange != null) {
+                              widget.onChange!(item.value);
+                            }
+                            setState(() {
+                              widget.value = item.value;
+                            });
+                          }
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Container(
@@ -98,17 +118,21 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                               border: Border.all(
                                 style: BorderStyle.solid,
                                 color: item.value == widget.value
-                                    ? UpStyle.getRadioButtonColor(context,
+                                    ? UpStyle.getRadioButtonFilledColor(context,
                                         style: widget.style,
                                         colorType: widget.colorType)
                                     : isHovered
-                                        ? UpStyle.getFocusedBorderColor(context,
-                                            style: widget.style,
-                                            colorType: widget.colorType)
-                                        : UpStyle.getBorderColor(context,
+                                        ? UpStyle
+                                            .getRadioButtonHoverBorderColor(
+                                                context,
+                                                style: widget.style,
+                                                colorType: widget.colorType)
+                                        : UpStyle.getRadioButtonBorderColor(
+                                            context,
                                             style: widget.style,
                                             colorType: widget.colorType),
-                                width: UpStyle.getBorderWidth(context,
+                                width: UpStyle.getRadioButtonBorderWidth(
+                                    context,
                                     style: widget.style,
                                     colorType: widget.colorType),
                               ),
@@ -117,26 +141,14 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                                   100,
                                 ),
                               ),
-                              boxShadow: isHovered
-                                  ? <BoxShadow>[
-                                      BoxShadow(
-                                        color: UpStyle.getBackgroundColor(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType)
-                                            .withOpacity(0.2), // 0.1
-                                        blurRadius: 4, //1
-                                        offset: const Offset(0, 4), // 0,2
-                                      ),
-                                    ]
-                                  : null,
                               shape: BoxShape.rectangle,
                             ),
                             child: item.value == widget.value
                                 ? Align(
                                     alignment: Alignment.center,
                                     child: Icon(Icons.circle,
-                                        color: UpStyle.getRadioButtonColor(
+                                        color:
+                                            UpStyle.getRadioButtonFilledColor(
                                           context,
                                           colorType: widget.colorType,
                                           style: widget.style,
@@ -151,7 +163,21 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                   ),
                   Visibility(
                     visible: widget.labelDirection == UpTextDirection.right,
-                    child: Text(item.label),
+                    child: Text(
+                      item.label,
+                      style: TextStyle(
+                        color: UpStyle.getRadioButtonLabelColor(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        ),
+                        fontSize: UpStyle.getRadioButtonLabelSize(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ))

@@ -128,7 +128,12 @@ class _UpDropDownState extends State<UpDropDown> {
                 label: Text(
                   widget.label ?? "",
                   style: TextStyle(
-                    color: UpStyle.getForegroundColor(
+                    color: UpStyle.getDropdownLabelColor(
+                      context,
+                      style: widget.style,
+                      colorType: widget.colorType,
+                    ),
+                    fontSize: UpStyle.getDropdownLabelSize(
                       context,
                       style: widget.style,
                       colorType: widget.colorType,
@@ -156,34 +161,39 @@ class _UpDropDownState extends State<UpDropDown> {
                   ),
                 ),
                 hintText: widget.hint,
-                enabledBorder: UpStyle.getBorderStyle(
+                enabledBorder: UpStyle.getDropdownBorderStyle(
                   context,
                   type: widget.type ?? UpInputType.outline,
                   style: widget.style,
                   colorType: widget.colorType,
                 ),
                 labelStyle: TextStyle(
-                  color: UpStyle.getForegroundColor(
+                  color: UpStyle.getDropdownLabelColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  fontSize: UpStyle.getDropdownLabelSize(
                     context,
                     style: widget.style,
                     colorType: widget.colorType,
                   ),
                 ),
-                focusedBorder: UpStyle.getBorderStyle(
+                focusedBorder: UpStyle.getDropdownBorderStyle(
                   context,
                   type: widget.type ?? UpInputType.outline,
                   style: widget.style,
                   colorType: widget.colorType,
                   isFocused: true,
                 ),
-                errorBorder: UpStyle.getBorderStyle(
+                errorBorder: UpStyle.getDropdownBorderStyle(
                   context,
                   type: widget.type ?? UpInputType.outline,
                   style: widget.style,
                   colorType: widget.colorType,
                   isError: true,
                 ),
-                border: UpStyle.getBorderStyle(
+                border: UpStyle.getDropdownBorderStyle(
                   context,
                   type: widget.type ?? UpInputType.outline,
                   style: widget.style,

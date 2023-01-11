@@ -1,4 +1,3 @@
-import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
@@ -242,6 +241,9 @@ class UpThemes {
   static final UpThemeData vintage = UpThemeData(
     id: 0,
     primary: UpStyle(
+      appBarColor: _themeVintagePrimaryBlack[500]!,
+      appBarTitleSize: 20,
+      appBarTitleColor: _themeVintagePrimaryWhite[500]!,
       foregroundColor: _themeVintagePrimaryBlack[500]!,
       backgroundColor: _themeVintagePrimaryWhite[500]!,
       borderColor: Colors.grey[500],
@@ -256,9 +258,68 @@ class UpThemes {
       isRounded: true,
       iconColor: _themeVintagePrimaryBlack[500]!,
       iconSize: 25,
-      checkedForegroundColor: Colors.white,
-      checkedBackgroundColor: Colors.pink,
-      tableHeaderColor: Colors.grey[100],
+
+      //button
+      buttonHoverBackgroundColor: _themeVintagePrimaryBlack[500]!,
+      buttonHoverTextColor: _themeVintagePrimaryWhite[500]!,
+      buttonBackgroundColor: _themeVintagePrimaryWhite[500]!,
+      buttonHoverBorderColor: _themeVintagePrimaryBlack[500]!,
+      buttonTextColor: _themeVintagePrimaryBlack[500]!,
+      buttonBorderColor: Colors.grey[500],
+      buttonBorderRadius: 8,
+      buttonBorderWidth: 2,
+      buttonTextSize: 12,
+      buttonDisabledBorderColor: Colors.grey[300],
+      buttonDisabledTextColor: Colors.blueGrey,
+      buttonDisbaledBackgroundColor: Colors.grey[300],
+      //textfield
+      textfieldBorderRadius: 8,
+      textfieldBorderWidth: 2,
+      textfieldBorderColor: Colors.grey[500],
+      textfieldLabelColor: _themeVintagePrimaryBlack[500]!,
+      textfieldLabelSize: 12,
+      textfieldErrorBorderColor: Colors.red,
+      textfieldFocusedBorderColor: _themeVintagePrimaryBlack[500]!,
+      //dropdown
+      dropdownBorderRadius: 8,
+      dropdownBorderWidth: 2,
+      dropdownBorderColor: Colors.grey[500],
+      dropdownLabelColor: _themeVintagePrimaryBlack[500]!,
+      dropdownLabelSize: 12,
+      dropdownErrorBorderColor: Colors.red,
+      dropdownFocusedBorderColor: _themeVintagePrimaryBlack[500]!,
+      //
+      // checkBoxBackgroundColor: Colors.pink,
+      // tableHeaderColor: Colors.grey[100],
+      // disabledBackgroundColor: Colors.grey[300],
+      // disabledForgroundColor: Colors.blueGrey,
+      // disabledBorderColor: Colors.grey[300],
+      //check box
+      checkboxCheckedColor: Colors.white,
+      checkboxBorderColor: Colors.grey[500],
+      checkboxBorderRadius: 8,
+      checkboxLabelColor: _themeVintagePrimaryBlack[500]!,
+      checkboxLabelSize: 12,
+      checkboxBorderWidth: 2,
+
+      checkboxBackgroundColor: Colors.pink,
+      checkboxCheckedDisabledColor: Colors.blueGrey,
+      checkboxDisabledLabelColor: Colors.blueGrey,
+      checkboxDisabledBackgroundColor: Colors.grey[300],
+      checkboxHoverBorderColor: _themeVintagePrimaryBlack[500]!,
+      checkboxRippleColor: Colors.grey[200],
+      //radio button
+      radioButtonFilledColor: _themeVintagePrimaryBlack[500]!,
+      radioButtonBorderColor: Colors.grey[500],
+      radioButtonBorderRadius: 100,
+      radioButtonLabelColor: _themeVintagePrimaryBlack[500]!,
+      radioButtonLabelSize: 12,
+      radioButtonBorderWidth: 2,
+      radioButtonDisabledFilledColor: Colors.blueGrey,
+      radioButtonDisabledLabelColor: Colors.blueGrey,
+      radioButtonDisabledBorderColor: Colors.grey[300],
+      radioButtonHoverBorderColor: _themeVintagePrimaryBlack[500]!,
+      radioButtonRippleColor: Colors.grey[200],
     ),
     secondary: UpStyle(
       foregroundColor: _themeVintagePrimaryWhite[500]!,
@@ -378,31 +439,31 @@ class UpThemes {
     ),
   );
 
-  static final predefinedThemesCollection = generateThemeCollection(themes: [
-    // lightBlue,
-    // lightRed,
-    // lightYellow,
-    // dark,
-    // light,
-    vintage,
-  ]);
+  // static final predefinedThemesCollection = generateThemeCollection(themes: [
+  // lightBlue,
+  // lightRed,
+  // lightYellow,
+  // dark,
+  // light,
+  // vintage,
+  // ]);
 
-  static void setTheme(BuildContext context, int id) {
-    DynamicTheme.of(context)!.setTheme(id);
-  }
+  // static void setTheme(BuildContext context, int id) {
+  //   DynamicTheme.of(context)!.setTheme(id);
+  // }
 
-  static ThemeCollection generateThemeCollection({
-    required List<UpThemeData> themes,
-    ThemeData? fallbackTheme,
-  }) {
-    Map<int, ThemeData> themesMap = {};
+  // static ThemeCollection generateThemeCollection({
+  //   required List<UpThemeData> themes,
+  //   ThemeData? fallbackTheme,
+  // }) {
+  //   Map<int, ThemeData> themesMap = {};
 
-    for (var theme in themes) {
-      themesMap[theme.id] = theme.themeData;
-    }
+  //   for (var theme in themes) {
+  //     themesMap[theme.id] = theme.themeData;
+  //   }
 
-    ThemeCollection collection = ThemeCollection(
-        themes: themesMap, fallbackTheme: fallbackTheme ?? ThemeData.light());
-    return collection;
-  }
+  //   ThemeCollection collection = ThemeCollection(
+  //       themes: themesMap, fallbackTheme: fallbackTheme ?? ThemeData.light());
+  //   return collection;
+  // }
 }

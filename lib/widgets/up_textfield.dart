@@ -177,7 +177,12 @@ Widget _upTextField(
       label: Text(
         label ?? "",
         style: TextStyle(
-          color: UpStyle.getForegroundColor(
+          color: UpStyle.getTextfieldLabelColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          fontSize: UpStyle.getTextfieldLabelSize(
             context,
             style: style,
             colorType: colorType,
@@ -187,7 +192,7 @@ Widget _upTextField(
       suffixIcon: suffixIcon,
       prefixIcon: prefixIcon,
       hintText: hint,
-      enabledBorder: UpStyle.getBorderStyle(
+      enabledBorder: UpStyle.getTextfieldBorderStyle(
         context,
         type: type ?? UpInputType.outline,
         style: style,
@@ -200,21 +205,21 @@ Widget _upTextField(
           colorType: colorType,
         ),
       ),
-      focusedBorder: UpStyle.getBorderStyle(
+      focusedBorder: UpStyle.getTextfieldBorderStyle(
         context,
         type: type ?? UpInputType.outline,
         style: style,
         colorType: colorType,
         isFocused: true,
       ),
-      errorBorder: UpStyle.getBorderStyle(
+      errorBorder: UpStyle.getTextfieldBorderStyle(
         context,
         type: type ?? UpInputType.outline,
         style: style,
         colorType: colorType,
         isError: true,
       ),
-      border: UpStyle.getBorderStyle(
+      border: UpStyle.getTextfieldBorderStyle(
         context,
         type: type ?? UpInputType.outline,
         style: style,

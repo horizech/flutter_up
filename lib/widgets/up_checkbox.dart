@@ -45,14 +45,6 @@ class _UpCheckboxState extends State<UpCheckbox> {
     });
   }
 
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      isHovered = true;
-      x = details.position.dx;
-      y = details.position.dy;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -61,13 +53,27 @@ class _UpCheckboxState extends State<UpCheckbox> {
       children: [
         Visibility(
           visible: widget.labelDirection == UpTextDirection.left,
-          child: Text(widget.label ?? ""),
+          child: Text(
+            widget.label ?? "",
+            style: TextStyle(
+              color: UpStyle.getCheckboxLabelColor(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+              fontSize: UpStyle.getCheckboxLabelSize(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+            ),
+          ),
         ),
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: widget.initialValue && isHovered
-                ? UpStyle.getCheckBackgroundColor(
+                ? UpStyle.getcheckboxBackgroundColor(
                     context,
                     style: widget.style,
                     colorType: widget.colorType,
@@ -90,16 +96,19 @@ class _UpCheckboxState extends State<UpCheckbox> {
               }
             }),
             child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              onEnter: _incrementEnter,
-              onExit: _incrementExit,
+              cursor: widget.style?.isDisabled == true
+                  ? SystemMouseCursors.basic
+                  : SystemMouseCursors.click,
+              onEnter:
+                  widget.style?.isDisabled == true ? null : _incrementEnter,
+              onExit: widget.style?.isDisabled == true ? null : _incrementExit,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       color: widget.initialValue
-                          ? UpStyle.getCheckBackgroundColor(context,
+                          ? UpStyle.getcheckboxBackgroundColor(context,
                               style: widget.style, colorType: widget.colorType)
                           : Colors.transparent,
                       border: Border.all(
@@ -107,10 +116,10 @@ class _UpCheckboxState extends State<UpCheckbox> {
                         color: widget.initialValue
                             ? Colors.transparent
                             : isHovered
-                                ? UpStyle.getFocusedBorderColor(context,
+                                ? UpStyle.getcheckboxHoverBorderColor(context,
                                     style: widget.style,
                                     colorType: widget.colorType)
-                                : UpStyle.getBorderColor(context,
+                                : UpStyle.getCheckboxBorderColor(context,
                                     style: widget.style,
                                     colorType: widget.colorType),
                         width: UpStyle.getBorderWidth(context,
@@ -118,7 +127,7 @@ class _UpCheckboxState extends State<UpCheckbox> {
                       ),
                       borderRadius: BorderRadius.all(
                         Radius.circular(
-                          UpStyle.getBorderRadius(
+                          UpStyle.getCheckboxBorderRadius(
                             context,
                             style: widget.style,
                             colorType: widget.colorType,
@@ -131,7 +140,7 @@ class _UpCheckboxState extends State<UpCheckbox> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Icon(Icons.check,
-                            color: UpStyle.getCheckedForegroundColor(
+                            color: UpStyle.getCheckboxCheckedColor(
                               context,
                               style: widget.style,
                               colorType: widget.colorType,
@@ -145,7 +154,21 @@ class _UpCheckboxState extends State<UpCheckbox> {
         ),
         Visibility(
           visible: widget.labelDirection == UpTextDirection.right,
-          child: Text(widget.label ?? ""),
+          child: Text(
+            widget.label ?? "",
+            style: TextStyle(
+              color: UpStyle.getCheckboxLabelColor(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+              fontSize: UpStyle.getCheckboxLabelSize(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+            ),
+          ),
         )
       ],
     );
