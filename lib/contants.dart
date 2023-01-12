@@ -6,7 +6,9 @@ class UpConstants {
   static int kDefaultMobileLimit = 640;
   static int kDefaultTabletLimit = 1200;
 
-  static UpThemeData kDefaultTheme = UpThemes.vintage;
+  static UpThemeData kDefaultTheme = UpThemes.generateThemeByColor(
+    primaryColor: Colors.black,
+  );
 
   static Color kDefaultStyleBackgroundColor = Colors.black;
   static Color kDefaultStyleBorderColor = Colors.transparent;

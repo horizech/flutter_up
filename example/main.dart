@@ -23,11 +23,11 @@ import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_themes.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
+import 'package:flutter_up/widgets/up_dropdown.dart';
 
-import 'package:flutter_up/widgets/up_drop_down_menu.dart';
 import 'package:flutter_up/widgets/up_loading_button.dart';
 import 'package:flutter_up/widgets/up_orientational_column_row.dart';
-import 'package:flutter_up/widgets/up_radio.dart';
+import 'package:flutter_up/widgets/up_radio_button.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 import 'package:flutter_up/locator.dart';
@@ -98,7 +98,7 @@ class MyDialog extends UpBaseDialog {
 /// Using themes
 /// flutter_up comes with a few default themes which can be accessed using
 class MyTheme {
-  static ThemeData myTheme = UpThemes.vintage.themeData;
+  // static ThemeData myTheme = UpThemes.;
 }
 
 /// Using various models
@@ -291,16 +291,10 @@ class WidgetsExamples {
   //UpCheckbox
   upCheckboxExample() {
     return UpCheckbox(
-      borderColor: Colors.transparent,
       labelDirection: UpTextDirection.left,
       isDisable: true,
       label: "Number",
-      activeColor: Colors.black,
-      checkColor: Colors.white,
       initialValue: true,
-      isRounded: true,
-      borderWidth: 1.5,
-      roundedBorderRadius: 8,
       onChange: (newcheck) {
         // Do something
       },
@@ -309,12 +303,12 @@ class WidgetsExamples {
 
   //UpRadio
   upRadioExample() {
-    return UpRadio(
-      label: "Male",
+    return UpRadioButton(
+      // label: "Male",
       value: "Male",
       labelDirection: UpTextDirection.left,
-      fillColor: Colors.white,
-      groupValue: "Gender",
+      // fillColor: Colors.white,
+      items: [],
       onChange: (radioValue) {
         //Do something
       },
@@ -364,7 +358,7 @@ class WidgetsExamples {
 
   /// UpDropDownMenuWidget
   dropDownWidgetExample() {
-    return UpDropDownMenuWidget(
+    return UpDropDown(
       value: 'Arts',
       itemList: myUpLabelValuePairs,
       onChanged: (value) => {
@@ -386,7 +380,7 @@ class WidgetsExamples {
               child: Row(children: [
                 Icon(
                   item.icon,
-                  color: UpThemes.vintage.themeData.primaryColor,
+                  // color: UpThemes.vintage.themeData.primaryColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),

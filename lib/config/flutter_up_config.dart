@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
 class FlutterUpConfig extends InheritedWidget {
-  final UpThemeData themeData;
+  final UpThemeData theme;
 
   const FlutterUpConfig({
     Key? key,
-    required this.themeData,
+    required this.theme,
     required child,
   }) : super(key: key, child: child);
 
@@ -17,6 +17,6 @@ class FlutterUpConfig extends InheritedWidget {
   @override
   bool updateShouldNotify(FlutterUpConfig oldWidget) {
     //return true;
-    return themeData != oldWidget.themeData;
+    return theme != oldWidget.theme;
   }
 }

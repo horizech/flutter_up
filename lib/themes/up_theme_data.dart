@@ -2,24 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpThemeData {
-  int id;
-  ThemeData themeData;
+  // ThemeData themeData;
 
-  UpStyle primary;
-  UpStyle? secondary;
-  UpStyle? tertiary;
-  UpStyle? warn;
-  UpStyle? disabled;
-  UpStyle? link;
+  Color primaryColor;
+  Color? secondaryColor;
+  Color? tertiaryColor;
+  Color? warnColor;
+  Color? linkColor;
+  Color? successColor;
+
+  UpStyle primaryStyle;
+  UpStyle? secondaryStyle;
+  UpStyle? tertiaryStyle;
+  UpStyle? warnStyle;
+  UpStyle? linkStyle;
+  UpStyle? successStyle;
 
   UpThemeData({
-    required this.id,
-    required this.themeData,
-    required this.primary,
-    this.secondary,
-    this.tertiary,
-    this.warn,
-    this.disabled,
-    this.link,
+    // required this.themeData,
+    required this.primaryColor,
+    this.secondaryColor,
+    this.tertiaryColor,
+    this.warnColor,
+    this.linkColor,
+    this.successColor,
+    required this.primaryStyle,
+    this.secondaryStyle,
+    this.tertiaryStyle,
+    this.successStyle,
+    this.warnStyle,
+    this.linkStyle,
   });
 }

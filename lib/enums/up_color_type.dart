@@ -7,8 +7,10 @@ enum UpColorType {
   primary,
   secondary,
   tertiary,
-  dark,
+  // dark,
   warn,
+  success,
+  link,
 }
 
 class ColorParams {
@@ -38,13 +40,21 @@ ColorParams getColorsFromType(UpColorType type) {
 UpStyle getStyleByType(UpThemeData data, UpColorType? type) {
   switch (type) {
     case UpColorType.secondary:
-      return data.secondary ?? data.primary;
+      return data.secondaryStyle ?? data.primaryStyle;
 
     case UpColorType.warn:
-      return data.warn ?? data.primary;
+      return data.warnStyle ?? data.primaryStyle;
+
+    case UpColorType.success:
+      return data.successStyle ?? data.primaryStyle;
+
+    case UpColorType.link:
+      return data.linkStyle ?? data.primaryStyle;
+    case UpColorType.tertiary:
+      return data.tertiaryStyle ?? data.primaryStyle;
 
     case UpColorType.primary:
     default:
-      return data.primary;
+      return data.primaryStyle;
   }
 }

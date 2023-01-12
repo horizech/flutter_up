@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
@@ -6,464 +8,191 @@ const Color _themeRedPrimaryColor = Color.fromARGB(255, 172, 14, 40);
 const Color _themeRedAccentColor = Color.fromARGB(255, 188, 69, 89);
 const Color _themeRedLightColor = Color.fromARGB(255, 255, 237, 240);
 const Color _themeRedBGColor = Color.fromARGB(255, 255, 252, 253);
-const Color _themeRedContrastColor = Color.fromARGB(255, 1, 55, 103);
-
-const MaterialColor _themeVintagePrimaryBlack = MaterialColor(
-  _themeVintagePrimaryBlackValue,
-  <int, Color>{
-    50: Color(0xFF000000),
-    100: Color(0xFF000000),
-    200: Color(0xFF000000),
-    300: Color(0xFF000000),
-    400: Color(0xFF000000),
-    500: Color(_themeVintagePrimaryBlackValue),
-    600: Color(0xFF000000),
-    700: Color(0xFF000000),
-    800: Color(0xFF000000),
-    900: Color(0xFF000000),
-  },
-);
-const int _themeVintagePrimaryBlackValue = 0xFF000000;
-
-const MaterialColor _themeVintagePrimaryWhite = MaterialColor(
-  _themeVintagePrimaryWhiteValue,
-  <int, Color>{
-    50: Color(0xFFFFFFFF),
-    100: Color(0xFFFFFFFF),
-    200: Color(0xFFFFFFFF),
-    300: Color(0xFFFFFFFF),
-    400: Color(0xFFFFFFFF),
-    500: Color(_themeVintagePrimaryWhiteValue),
-    600: Color(0xFFFFFFFF),
-    700: Color(0xFFFFFFFF),
-    800: Color(0xFFFFFFFF),
-    900: Color(0xFFFFFFFF),
-  },
-);
-const int _themeVintagePrimaryWhiteValue = 0xFFFFFFFF;
+const Color _themeRedcontrast = Color.fromARGB(255, 1, 55, 103);
 
 class UpThemes {
-  /*
-  
-  static final UpThemeData light = UpThemeData(
-    id: 0,
-    themeData: ThemeData.light(),
-  );
+  static MaterialColor generateMaterialFromSingleColor(Color color) {
+    List strengths = <double>[.05];
+    Map<int, Color> swatch = {};
+    final int r = color.red, g = color.green, b = color.blue;
 
-  static final UpThemeData dark = UpThemeData(
-    id: 1,
-    themeData: ThemeData.dark(),
-  );
+    for (int i = 1; i < 10; i++) {
+      strengths.add(0.1 * i);
+    }
+    for (var strength in strengths) {
+      final double ds = 0.5 - strength;
+      swatch[(strength * 1000).round()] = Color.fromRGBO(
+        r + ((ds < 0 ? r : (255 - r)) * ds).round(),
+        g + ((ds < 0 ? g : (255 - g)) * ds).round(),
+        b + ((ds < 0 ? b : (255 - b)) * ds).round(),
+        1,
+      );
+    }
+    return MaterialColor(color.value, swatch);
+  }
 
-  static final UpThemeData lightBlue = UpThemeData(
-    id: 2,
-    themeData: ThemeData(
-      primaryColor: Colors.blue[500],
-      scaffoldBackgroundColor: Colors.blue[50],
-      appBarTheme: AppBarTheme(
-        color: Colors.blue[500],
-      ),
-      expansionTileTheme: ExpansionTileThemeData(
-        collapsedIconColor: Colors.blue[500],
-        collapsedTextColor: Colors.blue[500],
-        iconColor: Colors.blue[500],
-        textColor: Colors.blue[500],
-      ),
-      // buttonTheme: const ButtonThemeData(
-      //   buttonColor: _themeRedContrastColor,
-      //   textTheme: ButtonTextTheme.primary,
-      // ),
-      inputDecorationTheme: const InputDecorationTheme(
-        contentPadding: EdgeInsets.only(left: 30, top: 20, bottom: 20),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.solid,
-          ),
-        ),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.blue[100],
-          backgroundColor: Colors.blue,
-          // padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          // textStyle: const TextStyle(
-          //   fontSize: 14,
-          //   fontWeight: FontWeight.w500,
-          // ),
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(3),
-          //   side: const BorderSide(color: Colors.transparent, width: 1),
-        ),
-      ),
-
-      textTheme: TextTheme(
-        headline1: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 25,
-        ),
-        headline2: TextStyle(
-            color: Colors.black.withOpacity(1),
-            fontWeight: FontWeight.w100,
-            fontSize: 12),
-        headline3: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
-        ),
-        headline4: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        headline5: const TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        headline6: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.normal,
-          fontSize: 18,
-        ),
-      ),
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-          .copyWith(secondary: Colors.blue[100]),
-    ),
-  );
-
-  static final UpThemeData lightRed = UpThemeData(
-    id: 3,
-    themeData: ThemeData(
-      primaryColor: _themeRedPrimaryColor,
-      scaffoldBackgroundColor: _themeRedLightColor,
-      appBarTheme: const AppBarTheme(
-        color: _themeRedPrimaryColor,
-      ),
-      expansionTileTheme: const ExpansionTileThemeData(
-        collapsedIconColor: _themeRedPrimaryColor,
-        collapsedTextColor: _themeRedPrimaryColor,
-        iconColor: _themeRedPrimaryColor,
-        textColor: _themeRedPrimaryColor,
-      ),
-      // buttonTheme: const ButtonThemeData(
-      //   buttonColor: _themeRedBGColor,
-      //   textTheme: ButtonTextTheme.primary,
-      // ),
-      textTheme: const TextTheme(
-        subtitle1: TextStyle(color: _themeRedPrimaryColor),
-        caption: TextStyle(color: _themeRedAccentColor),
-        subtitle2: TextStyle(color: Colors.green),
-        headline1: TextStyle(
-            color: _themeRedPrimaryColor,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        headline2: TextStyle(color: _themeRedPrimaryColor, fontSize: 18),
-        headline3: TextStyle(color: _themeRedAccentColor, fontSize: 12),
-      ),
-      cardTheme: const CardTheme(
-          color: _themeRedBGColor, shadowColor: _themeRedContrastColor),
-      tabBarTheme: TabBarTheme(
-        unselectedLabelColor: Colors.grey[600],
-        labelColor: _themeRedPrimaryColor,
-      ),
-      cardColor: _themeRedLightColor,
-      inputDecorationTheme: const InputDecorationTheme(
-        labelStyle: TextStyle(
-            decorationColor: _themeRedPrimaryColor,
-            color: _themeRedContrastColor),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: _themeRedLightColor,
-          backgroundColor: _themeRedPrimaryColor,
-        ),
-      ),
-      listTileTheme: const ListTileThemeData(
-        selectedColor: Colors.amber,
-      ),
-      iconTheme: const IconThemeData(
-        color: _themeRedPrimaryColor,
-      ),
-      colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: _themeRedBGColor),
-    ),
-  );
-
-  static final UpThemeData lightYellow = UpThemeData(
-    id: 4,
-    themeData: ThemeData(
-      primaryColor: Colors.yellow[700],
-      appBarTheme: AppBarTheme(
-        color: Colors.yellow[700],
-      ),
-      expansionTileTheme: ExpansionTileThemeData(
-        collapsedIconColor: Colors.yellow[700],
-        collapsedTextColor: Colors.yellow[700],
-        iconColor: Colors.yellow[700],
-        textColor: Colors.yellow[700],
-      ),
-      secondaryHeaderColor: Colors.green,
-      scaffoldBackgroundColor: Colors.yellow[100],
-      textTheme: TextTheme(
-        subtitle1: TextStyle(color: Colors.yellow[900]),
-        caption: TextStyle(color: Colors.yellow[900]),
-        headline5: const TextStyle(color: Colors.blueAccent),
-        headline6: const TextStyle(color: Colors.yellow),
-        button: const TextStyle(color: Colors.lightGreen),
-        bodyText2: const TextStyle(color: Colors.lightGreen),
-        headline4: const TextStyle(color: Colors.lightGreen),
-        subtitle2: const TextStyle(color: Colors.lightGreen),
-      ),
-      tabBarTheme: TabBarTheme(
-        unselectedLabelColor: Colors.grey[600],
-        labelColor: Colors.yellow[800],
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.yellow[700],
-        ),
-      ),
-      listTileTheme: const ListTileThemeData(
-        selectedColor: Colors.amber,
-      ),
-      iconTheme: IconThemeData(
-        color: Colors.yellow[700],
-      ),
-      cardColor: Colors.white,
-      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
-    ),
-  );
-  */
-  static final UpThemeData vintage = UpThemeData(
-    id: 0,
-    primary: UpStyle(
-      appBarColor: _themeVintagePrimaryBlack[500]!,
+  static UpStyle generateStyleByMaterial(
+      MaterialColor inputColor, MaterialColor contrast) {
+    return UpStyle(
+      appBarColor: inputColor[500]!,
       appBarTitleSize: 20,
-      appBarTitleColor: _themeVintagePrimaryWhite[500]!,
-      foregroundColor: _themeVintagePrimaryBlack[500]!,
-      backgroundColor: _themeVintagePrimaryWhite[500]!,
-      borderColor: Colors.grey[500],
-      // Colors.cyan[700]!,
-      hoverBackgroundColor: _themeVintagePrimaryBlack[500]!,
-      hoveredForegroundColor: _themeVintagePrimaryWhite[500]!,
-      hoveredBorderColor: Colors.pink[500]!,
+      appBarTitleColor: contrast[500]!,
+      foregroundColor: inputColor[500]!,
+      backgroundColor: contrast[500]!,
+      borderColor: inputColor[100],
+      hoverBackgroundColor: inputColor[500]!,
+      hoveredForegroundColor: contrast[500]!,
+      hoveredBorderColor: inputColor[700]!,
       borderRadius: 8,
       borderWidth: 2,
       errorBorderColor: Colors.red,
-      focusedBorderColor: _themeVintagePrimaryBlack[500]!,
+      focusedBorderColor: inputColor[700]!,
       isRounded: true,
-      iconColor: _themeVintagePrimaryBlack[500]!,
-      iconSize: 25,
+      iconColor: inputColor[500]!,
+      iconSize: 16,
 
       //button
-      buttonHoverBackgroundColor: _themeVintagePrimaryBlack[500]!,
-      buttonHoverTextColor: _themeVintagePrimaryWhite[500]!,
-      buttonBackgroundColor: _themeVintagePrimaryWhite[500]!,
-      buttonHoverBorderColor: _themeVintagePrimaryBlack[500]!,
-      buttonTextColor: _themeVintagePrimaryBlack[500]!,
-      buttonBorderColor: Colors.grey[500],
+      buttonHoverBackgroundColor: inputColor[500]!,
+      buttonHoverTextColor: contrast[500]!,
+      buttonBackgroundColor: contrast[500]!,
+      buttonHoverBorderColor: inputColor[500]!,
+      buttonTextColor: inputColor[500]!,
+      buttonBorderColor: inputColor[100],
       buttonBorderRadius: 8,
       buttonBorderWidth: 2,
       buttonTextSize: 12,
       buttonDisabledBorderColor: Colors.grey[300],
-      buttonDisabledTextColor: Colors.blueGrey,
+      buttonDisabledTextColor: Colors.grey,
       buttonDisbaledBackgroundColor: Colors.grey[300],
       //textfield
       textfieldBorderRadius: 8,
       textfieldBorderWidth: 2,
-      textfieldBorderColor: Colors.grey[500],
-      textfieldLabelColor: _themeVintagePrimaryBlack[500]!,
+      textfieldBorderColor: inputColor[100],
+      textfieldLabelColor: inputColor[500]!,
       textfieldLabelSize: 12,
       textfieldErrorBorderColor: Colors.red,
-      textfieldFocusedBorderColor: _themeVintagePrimaryBlack[500]!,
+      textfieldFocusedBorderColor: inputColor[700]!,
       //dropdown
       dropdownBorderRadius: 8,
       dropdownBorderWidth: 2,
-      dropdownBorderColor: Colors.grey[500],
-      dropdownLabelColor: _themeVintagePrimaryBlack[500]!,
+      dropdownBorderColor: inputColor[100],
+      dropdownLabelColor: inputColor[500]!,
       dropdownLabelSize: 12,
       dropdownErrorBorderColor: Colors.red,
-      dropdownFocusedBorderColor: _themeVintagePrimaryBlack[500]!,
-      //
-      // checkBoxBackgroundColor: Colors.pink,
-      // tableHeaderColor: Colors.grey[100],
-      // disabledBackgroundColor: Colors.grey[300],
-      // disabledForgroundColor: Colors.blueGrey,
-      // disabledBorderColor: Colors.grey[300],
+      dropdownFocusedBorderColor: inputColor[700]!,
+
       //check box
-      checkboxCheckedColor: Colors.white,
-      checkboxBorderColor: Colors.grey[500],
+      checkboxCheckedColor: contrast,
+      checkboxBorderColor: inputColor[100],
       checkboxBorderRadius: 8,
-      checkboxLabelColor: _themeVintagePrimaryBlack[500]!,
+      checkboxLabelColor: inputColor[500]!,
       checkboxLabelSize: 12,
       checkboxBorderWidth: 2,
-
-      checkboxBackgroundColor: Colors.pink,
-      checkboxCheckedDisabledColor: Colors.blueGrey,
-      checkboxDisabledLabelColor: Colors.blueGrey,
+      checkboxBackgroundColor: inputColor[500],
+      checkboxCheckedDisabledColor: contrast,
+      checkboxDisabledLabelColor: Colors.grey,
       checkboxDisabledBackgroundColor: Colors.grey[300],
-      checkboxHoverBorderColor: _themeVintagePrimaryBlack[500]!,
+      checkboxHoverBorderColor: inputColor[700]!,
       checkboxRippleColor: Colors.grey[200],
+
       //radio button
-      radioButtonFilledColor: _themeVintagePrimaryBlack[500]!,
-      radioButtonBorderColor: Colors.grey[500],
+      radioButtonFilledColor: inputColor[500]!,
+      radioButtonBorderColor: inputColor[100],
       radioButtonBorderRadius: 100,
-      radioButtonLabelColor: _themeVintagePrimaryBlack[500]!,
+      radioButtonLabelColor: inputColor[500]!,
       radioButtonLabelSize: 12,
       radioButtonBorderWidth: 2,
-      radioButtonDisabledFilledColor: Colors.blueGrey,
-      radioButtonDisabledLabelColor: Colors.blueGrey,
+      radioButtonDisabledFilledColor: Colors.grey,
+      radioButtonDisabledLabelColor: Colors.grey,
       radioButtonDisabledBorderColor: Colors.grey[300],
-      radioButtonHoverBorderColor: _themeVintagePrimaryBlack[500]!,
+      radioButtonHoverBorderColor: inputColor[700]!,
       radioButtonRippleColor: Colors.grey[200],
-    ),
-    secondary: UpStyle(
-      foregroundColor: _themeVintagePrimaryWhite[500]!,
-      backgroundColor: Colors.green[400]!,
-      borderColor: Colors.green[400],
-      hoverBackgroundColor: Colors.green[900]!,
-      hoveredForegroundColor: _themeVintagePrimaryWhite[500]!,
-      hoveredBorderColor: Colors.pink[500]!,
-      borderRadius: 8,
-      borderWidth: 2,
-      errorBorderColor: Colors.red,
-      focusedBorderColor: Colors.green[900]!,
-      isRounded: true,
-      iconColor: Colors.green[400]!,
-      iconSize: 25,
-      tableHeaderColor: Colors.green[100],
-    ),
-    warn: UpStyle(
-      foregroundColor: _themeVintagePrimaryWhite[500]!,
-      backgroundColor: Colors.orange[400]!,
-      borderColor: Colors.orange[400],
-      hoverBackgroundColor: Colors.orange[700]!,
-      hoveredForegroundColor: _themeVintagePrimaryWhite[500]!,
-      hoveredBorderColor: Colors.pink[500]!,
-      borderRadius: 8,
-      borderWidth: 2,
-      errorBorderColor: Colors.red,
-      focusedBorderColor: Colors.orange[700]!,
-      isRounded: true,
-      iconColor: Colors.orange[400]!,
-      iconSize: 25,
-      tableHeaderColor: Colors.orange[100],
-    ),
-    themeData: ThemeData(
-      primaryColor: _themeVintagePrimaryBlack,
-      inputDecorationTheme: const InputDecorationTheme(
-        contentPadding: EdgeInsets.only(left: 30, top: 20, bottom: 20),
-        // hintStyle: TextStyle(),
-        // labelStyle: TextStyle(),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(2)),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.solid,
-          ),
-        ),
-      ),
+    );
+  }
 
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          // padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          // textStyle: const TextStyle(
-          //   fontSize: 16,
-          //   fontWeight: FontWeight.w400,
-          // ),
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
-          // shape: const RoundedRectangleBorder(
-          //   side: BorderSide(
-          //     color: Colors.transparent,
-          //   ),
-          // ),
-        ),
-      ),
+  static UpThemeData generateThemeByIntColor({
+    required int primaryColor,
+    int? secondaryColor,
+    int? tertiaryColor,
+    int? warnColor,
+    int? linkColor,
+    int? successColor,
+  }) {
+    return generateThemeByMaterial(
+      primaryColor: generateMaterialFromSingleColor(Color(primaryColor)),
+      secondaryColor: secondaryColor != null
+          ? generateMaterialFromSingleColor(Color(secondaryColor))
+          : null,
+      tertiaryColor: tertiaryColor != null
+          ? generateMaterialFromSingleColor(Color(tertiaryColor))
+          : null,
+      warnColor: warnColor != null
+          ? generateMaterialFromSingleColor(Color(warnColor))
+          : null,
+      linkColor: linkColor != null
+          ? generateMaterialFromSingleColor(Color(linkColor))
+          : null,
+      successColor: successColor != null
+          ? generateMaterialFromSingleColor(Color(successColor))
+          : null,
+    );
+  }
 
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.black,
-          // padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-          backgroundColor: Colors.white,
-          // textStyle: const TextStyle(
-          //   fontSize: 20,
-          //   fontWeight: FontWeight.w500,
-          // ),
-          // shape: const RoundedRectangleBorder(
-          //   side: BorderSide(
-          //     color: Colors.transparent,
-          //   ),
-          // ),
-        ),
-      ),
-      textTheme: TextTheme(
-        headline1: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-        headline2: TextStyle(
-            color: Colors.black.withOpacity(1),
-            fontWeight: FontWeight.w100,
-            fontSize: 12),
-        headline4: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        headline5: const TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        headline3: const TextStyle(
-          color: _themeVintagePrimaryBlack,
-          fontWeight: FontWeight.normal,
-          fontSize: 18,
-        ),
-        headline6: const TextStyle(
-          color: _themeVintagePrimaryWhite,
-          fontWeight: FontWeight.normal,
-          fontSize: 18,
-        ),
-      ),
-      colorScheme:
-          ColorScheme.fromSwatch(primarySwatch: _themeVintagePrimaryBlack)
-              .copyWith(secondary: _themeVintagePrimaryWhite),
-      // fixedSize: const Size(120, 40)),
-    ),
-  );
+  static UpThemeData generateThemeByColor({
+    required Color primaryColor,
+    Color? secondaryColor,
+    Color? tertiaryColor,
+    Color? warnColor,
+    Color? linkColor,
+    Color? successColor,
+  }) {
+    return generateThemeByMaterial(
+      primaryColor: generateMaterialFromSingleColor(primaryColor),
+      secondaryColor: secondaryColor != null
+          ? generateMaterialFromSingleColor(secondaryColor)
+          : null,
+      tertiaryColor: tertiaryColor != null
+          ? generateMaterialFromSingleColor(tertiaryColor)
+          : null,
+      warnColor:
+          warnColor != null ? generateMaterialFromSingleColor(warnColor) : null,
+      linkColor:
+          linkColor != null ? generateMaterialFromSingleColor(linkColor) : null,
+      successColor: successColor != null
+          ? generateMaterialFromSingleColor(successColor)
+          : null,
+    );
+  }
 
-  // static final predefinedThemesCollection = generateThemeCollection(themes: [
-  // lightBlue,
-  // lightRed,
-  // lightYellow,
-  // dark,
-  // light,
-  // vintage,
-  // ]);
-
-  // static void setTheme(BuildContext context, int id) {
-  //   DynamicTheme.of(context)!.setTheme(id);
-  // }
-
-  // static ThemeCollection generateThemeCollection({
-  //   required List<UpThemeData> themes,
-  //   ThemeData? fallbackTheme,
-  // }) {
-  //   Map<int, ThemeData> themesMap = {};
-
-  //   for (var theme in themes) {
-  //     themesMap[theme.id] = theme.themeData;
-  //   }
-
-  //   ThemeCollection collection = ThemeCollection(
-  //       themes: themesMap, fallbackTheme: fallbackTheme ?? ThemeData.light());
-  //   return collection;
-  // }
+  static UpThemeData generateThemeByMaterial({
+    required MaterialColor primaryColor,
+    MaterialColor? secondaryColor,
+    MaterialColor? tertiaryColor,
+    MaterialColor? warnColor,
+    MaterialColor? linkColor,
+    MaterialColor? successColor,
+  }) {
+    MaterialColor contrast = generateMaterialFromSingleColor(Colors.white);
+    // ThemeData.estimateBrightnessForColor(inputColor[700]!) == Brightness.light
+    //     ? generateMaterialFromSingleColor(Colors.white)
+    //     : generateMaterialFromSingleColor(Colors.black);
+    UpThemeData theme = UpThemeData(
+      primaryColor: primaryColor,
+      secondaryColor: secondaryColor,
+      tertiaryColor: tertiaryColor,
+      warnColor: warnColor,
+      linkColor: linkColor,
+      successColor: successColor,
+      primaryStyle: generateStyleByMaterial(primaryColor, contrast),
+      secondaryStyle:
+          generateStyleByMaterial(secondaryColor ?? Colors.purple, contrast),
+      tertiaryStyle:
+          generateStyleByMaterial(tertiaryColor ?? Colors.cyan, contrast),
+      warnStyle: generateStyleByMaterial(warnColor ?? Colors.orange, contrast),
+      linkStyle: generateStyleByMaterial(linkColor ?? Colors.grey, contrast),
+      successStyle:
+          generateStyleByMaterial(successColor ?? Colors.green, contrast),
+    );
+    return theme;
+  }
 }
