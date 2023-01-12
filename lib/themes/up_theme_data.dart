@@ -4,12 +4,12 @@ import 'package:flutter_up/themes/up_style.dart';
 class UpThemeData {
   // ThemeData themeData;
 
-  Color primaryColor;
-  Color? secondaryColor;
-  Color? tertiaryColor;
-  Color? warnColor;
-  Color? linkColor;
-  Color? successColor;
+  MaterialColor primaryColor;
+  MaterialColor? secondaryColor;
+  MaterialColor? tertiaryColor;
+  MaterialColor? warnColor;
+  MaterialColor? linkColor;
+  MaterialColor? successColor;
 
   UpStyle primaryStyle;
   UpStyle? secondaryStyle;

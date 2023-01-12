@@ -8,6 +8,7 @@ class UpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final UpStyle? style;
   final List<Widget>? actions;
   final Widget? leading;
+  final bool excludeHeaderSemantics;
 
   const UpAppBar({
     Key? key,
@@ -16,6 +17,7 @@ class UpAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.colorType,
     this.actions,
     this.leading,
+    this.excludeHeaderSemantics = false,
   })  : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -25,6 +27,7 @@ class UpAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      excludeHeaderSemantics: excludeHeaderSemantics,
       title: Text(
         title ?? "",
         style: TextStyle(
