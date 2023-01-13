@@ -22,7 +22,13 @@ class UpStyle {
   final Color? disabledBackgroundColor;
   final Color? disabledBorderColor;
   final Color? disabledForgroundColor;
+
+//table
+
   final Color? tableHeaderColor;
+  final Color? tableRowColor;
+  final Color? tableRowBorderColor;
+
   //button
   final Color? buttonDisbaledBackgroundColor;
   final Color? buttonDisabledTextColor;
@@ -171,6 +177,10 @@ class UpStyle {
     this.dropdownFocusedBorderColor,
     this.dropdownLabelColor,
     this.dropdownLabelSize,
+
+    //table
+    this.tableRowBorderColor,
+    this.tableRowColor,
   });
   static Color getFocusedBorderColor(
     BuildContext context, {
@@ -262,6 +272,38 @@ class UpStyle {
             .tableHeaderColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
+  }
+
+  static Color getTableRowColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowColor ??
+        style?.tableRowColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableRowColor ??
+        Colors.transparent;
+  }
+
+  static Color getTableRowBorderColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowBorderColor ??
+        style?.tableRowBorderColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableRowBorderColor ??
+        Colors.grey;
   }
 
   static Color getForegroundColor(

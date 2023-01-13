@@ -33,114 +33,120 @@ class _UpTableState extends State<UpTable> {
         List<dynamic> col = [];
 
         for (var r in widget.rows) {
-          col.add(
-            r.row[index],
-          );
+          if (index < r.row.length) {
+            col.add(
+              r.row[index],
+            );
+          } else {
+            col.add("");
+          }
         }
         columns.add(col);
       }
-
-      debugPrint(columns.toString());
     }
   }
 
-  Widget getAllColumnRows(List<dynamic> columnRow) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: columnRow
-          .map(
-            (e) => Expanded(
-              child: Container(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
-                  top: 10.0,
-                  bottom: 8.0,
-                  right: 8.0,
-                ),
-                decoration: const BoxDecoration(
-                    // color: widget.isHeader && columnRow[0]
-                    //     ? UpStyle.getTableHeaderColor(context,
-                    //         style: widget.style, colorType: widget.colorType)
-                    //     : Colors.grey[200],
-                    // border: widget.isHeader
-                    //     ? Border.all(color: Colors.grey)
-                    //     : const Border(
-                    //         bottom: BorderSide(
-                    //           color: Colors.grey,
-                    //         ),
-                    //       ),
+  Widget getColumn(List<dynamic> columnRow) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: columnRow
+            .asMap()
+            .entries
+            .map(
+              (e) => Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: widget.isHeader && e.key == 0
+                            ? UpStyle.getTableHeaderColor(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              )
+                            : UpStyle.getTableRowColor(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(
+                          e.value.toString(),
+                        ),
+                      ),
                     ),
-                child: Text(
-                  e.toString(),
-                ),
+                  ),
+                ],
               ),
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        decoration: const BoxDecoration(
-            // color: UpStyle.getTableHeaderColor(context,
-            //     style: style, colorType: colorType),
-            ),
-        child: Row(
-          children: columns
-              .map(
-                (e) => Expanded(
-                  child: Container(child: getAllColumnRows(e)),
-                ),
-              )
-              .toList(),
-          // Container(
-          //   height: 40,
-          //   decoration: BoxDecoration(
-          //     color: UpStyle.getTableHeaderColor(context,
-          //         style: widget.style, colorType: widget.colorType),
-          //   ),
-          // child:
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.grey,
+        // color: UpStyle.getTableHeaderColor(context,
+        //     style: style, colorType: colorType),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-          //   ...widget.rows
-          //       .map(
-          //         (e) => Container(
-          //           decoration: BoxDecoration(
-          //             border: Border(
-          //               bottom: BorderSide(
-          //                   color: Colors.grey[200] ?? Colors.grey),
-          //             ),
-          //           ),
-          //           child: const Text(""),
-          //           Row(
-          //             children: e.row
-          //                 .asMap()
-          //                 .entries
-          //                 .map(
-          //                   (e) => Expanded(
-          //                     child: Container(
-          //                       padding: const EdgeInsets.only(
-          //                           top: 15,
-          //                           bottom: 15,
-          //                           left: 8,
-          //                           right: 8),
-          //                       child: Text(e.key.toString()),
-          //                     ),
-          //                   ),
-          //                 )
-          //                 .toList(),
-          //           ),
-          //         ),
-          //       )
-          //       .toList()
-          // ],
-          // ),
-          // ),)
-        ),
+        children: columns
+            .map(
+              (e) => getColumn(e),
+            )
+            .toList(),
+        // Container(
+        //   height: 40,
+        //   decoration: BoxDecoration(
+        //     color: UpStyle.getTableHeaderColor(context,
+        //         style: widget.style, colorType: widget.colorType),
+        //   ),
+        // child:
+
+        //   ...widget.rows
+        //       .map(
+        //         (e) => Container(
+        //           decoration: BoxDecoration(
+        //             border: Border(
+        //               bottom: BorderSide(
+        //                   color: Colors.grey[200] ?? Colors.grey),
+        //             ),
+        //           ),
+        //           child: const Text(""),
+        //           Row(
+        //             children: e.row
+        //                 .asMap()
+        //                 .entries
+        //                 .map(
+        //                   (e) => Expanded(
+        //                     child: Container(
+        //                       padding: const EdgeInsets.only(
+        //                           top: 15,
+        //                           bottom: 15,
+        //                           left: 8,
+        //                           right: 8),
+        //                       child: Text(e.key.toString()),
+        //                     ),
+        //                   ),
+        //                 )
+        //                 .toList(),
+        //           ),
+        //         ),
+        //       )
+        //       .toList()
+        // ],
+        // ),
+        // ),)
       ),
     );
   }
