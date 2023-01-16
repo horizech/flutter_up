@@ -106,190 +106,198 @@ class _UpDropDownState extends State<UpDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.value.isNotEmpty) {
+      String label = widget.itemList
+          .where((element) => element.value == widget.value)
+          .first
+          .label;
+      searchText.text = label;
+    }
     if (searchText.text.isEmpty || searchText.text == "") {
       filteredProducts = widget.itemList;
     }
     return Container(
-      child: isSearchable == false
-          ? DropdownButtonFormField(
-              value: widget.value,
-              iconSize: 24,
-              elevation: 8,
-              focusColor: Colors.transparent,
-              icon: const Text(""),
-              autofocus: false,
-              validator: (value) {
-                if (value == null) {
-                  return 'Select ${widget.label}';
-                }
-                return null;
-              },
-              isExpanded: true,
-              decoration: InputDecoration(
-                label: Text(
-                  widget.label ?? "",
-                  style: TextStyle(
-                    color: UpStyle.getDropdownLabelColor(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                    fontSize: UpStyle.getDropdownLabelSize(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                  ),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSearchable = true;
-                    });
-                  },
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: UpStyle.getIconColor(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                    size: UpStyle.getIconSize(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                  ),
-                ),
-                hintText: widget.hint,
-                enabledBorder: UpStyle.getDropdownBorderStyle(
-                  context,
-                  type: widget.type ?? UpInputType.outline,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
-                labelStyle: TextStyle(
-                  color: UpStyle.getDropdownLabelColor(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  fontSize: UpStyle.getDropdownLabelSize(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                ),
-                focusedBorder: UpStyle.getDropdownBorderStyle(
-                  context,
-                  type: widget.type ?? UpInputType.outline,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                  isFocused: true,
-                ),
-                errorBorder: UpStyle.getDropdownBorderStyle(
-                  context,
-                  type: widget.type ?? UpInputType.outline,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                  isError: true,
-                ),
-                border: UpStyle.getDropdownBorderStyle(
-                  context,
-                  type: widget.type ?? UpInputType.outline,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
-              ),
-              items: getDropDownMenuItems(),
-              onChanged: changeValue,
-            )
-          : CompositedTransformTarget(
-              link: _layerLink,
-              child: SizedBox(
-                child: UpTextField(
-                  focusNode: _focusNode,
-                  controller: searchText,
-                  onChanged: (value) {
-                    if ((value == null && (value ?? "").isEmpty) ||
-                        value == "") {
-                      filteredProducts = widget.itemList;
-                      _focusNode.requestFocus();
-                    } else {
-                      filteredProducts = widget.itemList
-                          .where(
-                            (element) => element.label
-                                .toLowerCase()
-                                .contains(searchText.text.toLowerCase()),
-                          )
-                          .toList();
-                    }
-                    setState(() {});
-                  },
-                  label: widget.label ?? "",
-                  suffixIcon: SizedBox(
-                    width: 80,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 30,
-                          child: Visibility(
-                            visible: searchText.text.isNotEmpty,
-                            child: GestureDetector(
-                              onTap: () {
-                                changeValue("");
+      // child: isSearchable == false
+      //     ? DropdownButtonFormField(
+      //         value: widget.value,
+      //         iconSize: 24,
+      //         elevation: 8,
+      //         focusColor: Colors.transparent,
+      //         icon: const Text(""),
+      //         autofocus: false,
+      //         validator: (value) {
+      //           if (value == null) {
+      //             return 'Select ${widget.label}';
+      //           }
+      //           return null;
+      //         },
+      //         isExpanded: true,
+      //         decoration: InputDecoration(
+      //           label: Text(
+      //             widget.label ?? "",
+      //             style: TextStyle(
+      //               color: UpStyle.getDropdownLabelColor(
+      //                 context,
+      //                 style: widget.style,
+      //                 colorType: widget.colorType,
+      //               ),
+      //               fontSize: UpStyle.getDropdownLabelSize(
+      //                 context,
+      //                 style: widget.style,
+      //                 colorType: widget.colorType,
+      //               ),
+      //             ),
+      //           ),
+      //           suffixIcon: IconButton(
+      //             onPressed: () {
+      //               setState(() {
+      //                 isSearchable = true;
+      //               });
+      //             },
+      //             icon: Icon(
+      //               Icons.arrow_drop_down,
+      //               color: UpStyle.getIconColor(
+      //                 context,
+      //                 style: widget.style,
+      //                 colorType: widget.colorType,
+      //               ),
+      //               size: UpStyle.getIconSize(
+      //                 context,
+      //                 style: widget.style,
+      //                 colorType: widget.colorType,
+      //               ),
+      //             ),
+      //           ),
+      //           hintText: widget.hint,
+      //           enabledBorder: UpStyle.getDropdownBorderStyle(
+      //             context,
+      //             type: widget.type ?? UpInputType.outline,
+      //             style: widget.style,
+      //             colorType: widget.colorType,
+      //           ),
+      //           labelStyle: TextStyle(
+      //             color: UpStyle.getDropdownLabelColor(
+      //               context,
+      //               style: widget.style,
+      //               colorType: widget.colorType,
+      //             ),
+      //             fontSize: UpStyle.getDropdownLabelSize(
+      //               context,
+      //               style: widget.style,
+      //               colorType: widget.colorType,
+      //             ),
+      //           ),
+      //           focusedBorder: UpStyle.getDropdownBorderStyle(
+      //             context,
+      //             type: widget.type ?? UpInputType.outline,
+      //             style: widget.style,
+      //             colorType: widget.colorType,
+      //             isFocused: true,
+      //           ),
+      //           errorBorder: UpStyle.getDropdownBorderStyle(
+      //             context,
+      //             type: widget.type ?? UpInputType.outline,
+      //             style: widget.style,
+      //             colorType: widget.colorType,
+      //             isError: true,
+      //           ),
+      //           border: UpStyle.getDropdownBorderStyle(
+      //             context,
+      //             type: widget.type ?? UpInputType.outline,
+      //             style: widget.style,
+      //             colorType: widget.colorType,
+      //           ),
+      //         ),
+      //         items: getDropDownMenuItems(),
+      //         onChanged: changeValue,
+      //       )
 
-                                // filteredProducts = widget.itemList;
-                                // _focusNode.requestFocus();
-                                setState(
-                                  () {
-                                    searchText.text = "";
-                                  },
-                                );
-                              },
-                              child: Icon(
-                                Icons.clear,
-                                size: UpStyle.getIconSize(
-                                  context,
-                                  style: widget.style,
-                                  colorType: widget.colorType,
-                                ),
-                                color: UpStyle.getIconColor(
-                                  context,
-                                  style: widget.style,
-                                  colorType: widget.colorType,
-                                ),
-                              ),
-                            ),
+      child: CompositedTransformTarget(
+        link: _layerLink,
+        child: SizedBox(
+          child: UpTextField(
+            focusNode: _focusNode,
+            controller: searchText,
+            onChanged: (value) {
+              if ((value == null && (value ?? "").isEmpty) || value == "") {
+                filteredProducts = widget.itemList;
+                _focusNode.requestFocus();
+              } else {
+                filteredProducts = widget.itemList
+                    .where(
+                      (element) => element.label
+                          .toLowerCase()
+                          .contains(searchText.text.toLowerCase()),
+                    )
+                    .toList();
+              }
+              setState(() {});
+            },
+            label: widget.label ?? "",
+            suffixIcon: SizedBox(
+              width: 80,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 30,
+                    child: Visibility(
+                      visible: searchText.text.isNotEmpty,
+                      child: GestureDetector(
+                        onTap: () {
+                          changeValue("");
+
+                          // filteredProducts = widget.itemList;
+                          // _focusNode.requestFocus();
+                          setState(
+                            () {
+                              searchText.text = "";
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.clear,
+                          size: UpStyle.getIconSize(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          ),
+                          color: UpStyle.getIconColor(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            _focusNode.unfocus();
-                            setState(() {
-                              isSearchable = false;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_drop_up,
-                            color: UpStyle.getIconColor(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
-                            size: UpStyle.getIconSize(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  IconButton(
+                    onPressed: () {
+                      if (_focusNode.canRequestFocus) {
+                        _focusNode.requestFocus();
+                      } else {
+                        _focusNode.unfocus();
+                      }
+                    },
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      color: UpStyle.getIconColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                      size: UpStyle.getIconSize(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }
