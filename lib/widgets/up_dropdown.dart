@@ -95,17 +95,18 @@ class _UpDropDownState extends State<UpDropDown> {
 
   List<DropdownMenuItem<dynamic>> getDropDownMenuItems() {
     return widget.itemList
-        .map<DropdownMenuItem<dynamic>>((item) => DropdownMenuItem<dynamic>(
-            value: item.value, child: Text(item.label)))
+        .map<DropdownMenuItem<dynamic>>(
+          (item) => DropdownMenuItem<dynamic>(
+            value: item.value,
+            child: Text(item.label),
+          ),
+        )
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.value.isEmpty || widget.value == widget.itemList.first.value) {
-      searchText.text = "";
-    }
-    if (searchText.text.isEmpty) {
+    if (searchText.text.isEmpty || searchText.text == "") {
       filteredProducts = widget.itemList;
     }
     return Container(
@@ -205,86 +206,86 @@ class _UpDropDownState extends State<UpDropDown> {
             )
           : CompositedTransformTarget(
               link: _layerLink,
-              child: UpTextField(
-                focusNode: _focusNode,
-                controller: searchText,
-                onChanged: (value) {
-                  if (value == null && (value ?? "").isEmpty) {
-                    filteredProducts = widget.itemList;
-                    _focusNode.requestFocus();
-                  } else {
-                    filteredProducts = widget.itemList
-                        .where(
-                          (element) => element.label
-                              .toLowerCase()
-                              .contains(searchText.text.toLowerCase()),
-                        )
-                        .toList();
-                  }
-
-                  setState(
-                    () => {},
-                  );
-                },
-                label: widget.label ?? "",
-                suffixIcon: SizedBox(
-                  width: 80,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: Visibility(
-                          visible: searchText.text.isNotEmpty,
-                          child: GestureDetector(
-                            onTap: (() {
-                              if (searchText.text.isNotEmpty) {
-                                searchText.text = "";
-                                filteredProducts = widget.itemList;
+              child: SizedBox(
+                child: UpTextField(
+                  focusNode: _focusNode,
+                  controller: searchText,
+                  onChanged: (value) {
+                    if ((value == null && (value ?? "").isEmpty) ||
+                        value == "") {
+                      filteredProducts = widget.itemList;
+                      _focusNode.requestFocus();
+                    } else {
+                      filteredProducts = widget.itemList
+                          .where(
+                            (element) => element.label
+                                .toLowerCase()
+                                .contains(searchText.text.toLowerCase()),
+                          )
+                          .toList();
+                    }
+                    setState(() {});
+                  },
+                  label: widget.label ?? "",
+                  suffixIcon: SizedBox(
+                    width: 80,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 30,
+                          child: Visibility(
+                            visible: searchText.text.isNotEmpty,
+                            child: GestureDetector(
+                              onTap: () {
                                 changeValue("");
-                                _focusNode.requestFocus();
+
+                                // filteredProducts = widget.itemList;
+                                // _focusNode.requestFocus();
                                 setState(
-                                  () {},
+                                  () {
+                                    searchText.text = "";
+                                  },
                                 );
-                              }
-                            }),
-                            child: Icon(
-                              Icons.clear,
-                              size: UpStyle.getIconSize(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
-                              ),
-                              color: UpStyle.getIconColor(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
+                              },
+                              child: Icon(
+                                Icons.clear,
+                                size: UpStyle.getIconSize(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
+                                color: UpStyle.getIconColor(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _focusNode.unfocus();
-                          setState(() {
-                            isSearchable = false;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.arrow_drop_up,
-                          color: UpStyle.getIconColor(
-                            context,
-                            style: widget.style,
-                            colorType: widget.colorType,
-                          ),
-                          size: UpStyle.getIconSize(
-                            context,
-                            style: widget.style,
-                            colorType: widget.colorType,
+                        IconButton(
+                          onPressed: () {
+                            _focusNode.unfocus();
+                            setState(() {
+                              isSearchable = false;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_drop_up,
+                            color: UpStyle.getIconColor(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                            size: UpStyle.getIconSize(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
