@@ -27,7 +27,10 @@ class UpStyle {
 
   final Color? tableHeaderColor;
   final Color? tableRowColor;
-  final Color? tableRowBorderColor;
+  final Color? tableRowPressedColor;
+  final Color? tableBorderColor;
+  final Color? tableRowFocusedColor;
+  final Color? tableRowHoverColor;
 
   //button
   final Color? buttonDisbaledBackgroundColor;
@@ -112,6 +115,13 @@ class UpStyle {
     this.disabledBorderColor,
     this.disabledBackgroundColor,
     this.disabledForgroundColor,
+
+    // table
+    this.tableBorderColor,
+    this.tableRowColor,
+    this.tableRowFocusedColor,
+    this.tableRowHoverColor,
+    this.tableRowPressedColor,
     this.tableHeaderColor,
 
 //appbar
@@ -177,10 +187,6 @@ class UpStyle {
     this.dropdownFocusedBorderColor,
     this.dropdownLabelColor,
     this.dropdownLabelSize,
-
-    //table
-    this.tableRowBorderColor,
-    this.tableRowColor,
   });
   static Color getFocusedBorderColor(
     BuildContext context, {
@@ -257,6 +263,54 @@ class UpStyle {
   //           Theme.of(context).primaryColor;
   // }
 
+  static Color getTableRowFocusedColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowFocusedColor ??
+        style?.tableRowFocusedColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableRowFocusedColor ??
+        Colors.grey;
+  }
+
+  static Color getTableRowPressedColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowPressedColor ??
+        style?.tableRowPressedColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableRowPressedColor ??
+        Colors.grey;
+  }
+
+  static Color getTableRowHoverColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowHoverColor ??
+        style?.tableRowHoverColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableRowHoverColor ??
+        Colors.grey;
+  }
+
   static Color getTableHeaderColor(
     BuildContext context, {
     UpStyle? override,
@@ -290,19 +344,19 @@ class UpStyle {
         Colors.transparent;
   }
 
-  static Color getTableRowBorderColor(
+  static Color getTableBorderColor(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
     UpColorType? colorType,
   }) {
-    return override?.tableRowBorderColor ??
-        style?.tableRowBorderColor ??
+    return override?.tableBorderColor ??
+        style?.tableBorderColor ??
         getStyleByType(
                 (FlutterUpConfig.of(context)?.theme ??
                     UpConstants.kDefaultTheme),
                 colorType)
-            .tableRowBorderColor ??
+            .tableBorderColor ??
         Colors.grey;
   }
 
