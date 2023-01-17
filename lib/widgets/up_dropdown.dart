@@ -119,6 +119,14 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
 
   String? previousInputValue;
 
+  @override
+  void dispose() {
+    widget.inputValue.removeListener(() {});
+    _focusNode.removeListener(() {});
+    searchText.removeListener(() {});
+    super.dispose();
+  }
+
   OverlayEntry _createOverlayEntry() {
     var size = _layerLink.leaderSize;
     return OverlayEntry(
