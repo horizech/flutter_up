@@ -26,6 +26,7 @@ class UpTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? hint;
+  final String? initialValue;
 
   const UpTextField({
     Key? key,
@@ -38,6 +39,7 @@ class UpTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.autofillHint,
     this.onTap,
+    this.initialValue,
     this.label = "",
     this.isFlexible = false,
     this.onSaved,
@@ -74,7 +76,8 @@ class UpTextField extends StatelessWidget {
                 focusNode,
                 validation,
                 prefixIcon,
-                suffixIcon))
+                suffixIcon,
+                initialValue))
         : _upTextField(
             context,
             type,
@@ -94,35 +97,38 @@ class UpTextField extends StatelessWidget {
             focusNode,
             validation,
             prefixIcon,
-            suffixIcon);
+            suffixIcon,
+            initialValue,
+          );
   }
 }
 
 Widget _upTextField(
-  BuildContext context,
-  UpInputType? type,
-  bool obscureText,
-  bool readOnly,
-  TextEditingController? controller,
-  TextInputType keyboardType,
-  String? autofillHint,
-  String? label,
-  Function(String?)? onSaved,
-  Function(String?)? onChanged,
-  Function()? onTap,
-  int? maxLines,
-  final UpColorType? colorType,
-  final UpStyle? style,
-  final String? hint,
-  final FocusNode? focusNode,
-  final UpValidation? validation,
-  final Widget? prefixIcon,
-  final Widget? suffixIcon,
-) {
+    BuildContext context,
+    UpInputType? type,
+    bool obscureText,
+    bool readOnly,
+    TextEditingController? controller,
+    TextInputType keyboardType,
+    String? autofillHint,
+    String? label,
+    Function(String?)? onSaved,
+    Function(String?)? onChanged,
+    Function()? onTap,
+    int? maxLines,
+    final UpColorType? colorType,
+    final UpStyle? style,
+    final String? hint,
+    final FocusNode? focusNode,
+    final UpValidation? validation,
+    final Widget? prefixIcon,
+    final Widget? suffixIcon,
+    final String? initialValue) {
   return TextFormField(
     onSaved: onSaved,
     onTap: onTap,
     focusNode: focusNode,
+    initialValue: initialValue,
     onChanged: onChanged,
     keyboardType: keyboardType,
     autofillHints: autofillHint != null && autofillHint.isNotEmpty

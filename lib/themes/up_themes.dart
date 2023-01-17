@@ -50,12 +50,12 @@ class UpThemes {
       iconSize: 16,
 
       //button
-      buttonHoverBackgroundColor: inputColor[500]!,
+      buttonBackgroundColor: inputColor[500]!,
+      buttonHoverBackgroundColor: inputColor[700]!,
+      buttonTextColor: contrast[500]!,
       buttonHoverTextColor: contrast[500]!,
-      buttonBackgroundColor: contrast[500]!,
-      buttonHoverBorderColor: inputColor[500]!,
-      buttonTextColor: inputColor[500]!,
-      buttonBorderColor: inputColor[100],
+      buttonBorderColor: inputColor[500],
+      buttonHoverBorderColor: inputColor[700]!,
       buttonBorderRadius: 8,
       buttonBorderWidth: 2,
       buttonTextSize: 12,
@@ -65,23 +65,23 @@ class UpThemes {
       //textfield
       textfieldBorderRadius: 8,
       textfieldBorderWidth: 2,
-      textfieldBorderColor: inputColor[100],
-      textfieldLabelColor: inputColor[500]!,
+      textfieldBorderColor: inputColor[500],
+      textfieldLabelColor: inputColor[700]!,
       textfieldLabelSize: 12,
       textfieldErrorBorderColor: Colors.red,
       textfieldFocusedBorderColor: inputColor[700]!,
       //dropdown
       dropdownBorderRadius: 8,
       dropdownBorderWidth: 2,
-      dropdownBorderColor: inputColor[100],
-      dropdownLabelColor: inputColor[500]!,
+      dropdownBorderColor: inputColor[500],
+      dropdownLabelColor: inputColor[700]!,
       dropdownLabelSize: 12,
       dropdownErrorBorderColor: Colors.red,
       dropdownFocusedBorderColor: inputColor[700]!,
 
       //check box
       checkboxCheckedColor: contrast,
-      checkboxBorderColor: inputColor[100],
+      checkboxBorderColor: inputColor[500],
       checkboxBorderRadius: 8,
       checkboxLabelColor: inputColor[500]!,
       checkboxLabelSize: 12,
@@ -95,7 +95,7 @@ class UpThemes {
 
       //radio button
       radioButtonFilledColor: inputColor[500]!,
-      radioButtonBorderColor: inputColor[100],
+      radioButtonBorderColor: inputColor[500],
       radioButtonBorderRadius: 100,
       radioButtonLabelColor: inputColor[500]!,
       radioButtonLabelSize: 12,
@@ -107,12 +107,14 @@ class UpThemes {
       radioButtonRippleColor: Colors.grey[200],
 
       //table
-      tableHeaderColor: inputColor[200],
+      tableHeaderColor: inputColor[700],
       tableRowColor: inputColor[100],
-      tableRowHoverColor: inputColor[300]!,
-      tableRowFocusedColor: inputColor[500]!,
-      tableRowPressedColor: inputColor[700]!,
-      tableBorderColor: inputColor[100],
+      tableRowHoverColor: inputColor[500]!,
+      tableRowFocusedColor: inputColor[200]!,
+      tableRowPressedColor: inputColor[900]!,
+      tableBorderColor: inputColor[400],
+      tableHeaderTextColor: contrast[500],
+      tableFooterColor: inputColor[700],
     );
   }
 

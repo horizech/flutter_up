@@ -6,15 +6,15 @@ class UpTable extends StatefulWidget {
   final UpColorType? colorType;
   final UpStyle? style;
   final List<String> columns;
-  final List<List<dynamic>> rows;
-  final bool isFooter;
+  final List<List<Widget>> rows;
+  final bool isLastRowFooter;
   final bool showCheckboxColumn;
   final Function? onSelectChanged;
 
   const UpTable({
     super.key,
     this.showCheckboxColumn = false,
-    this.isFooter = false,
+    this.isLastRowFooter = false,
     this.colorType,
     required this.columns,
     this.style,
@@ -27,6 +27,14 @@ class UpTable extends StatefulWidget {
 }
 
 class _UpTableState extends State<UpTable> {
+  Color _getFooterRowColor(Set<MaterialState> states) {
+    return UpStyle.getTableFooterColor(
+      context,
+      style: widget.style,
+      colorType: widget.colorType,
+    );
+  }
+
   Color getDataRowColor(Set<MaterialState> states) {
     if (states.any(<MaterialState>{
       MaterialState.pressed,
@@ -68,50 +76,95 @@ class _UpTableState extends State<UpTable> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
-    return DataTable(
-      columnSpacing: 5,
-      horizontalMargin: 10,
-      showCheckboxColumn: widget.showCheckboxColumn,
-      dataRowColor: MaterialStateColor.resolveWith(getDataRowColor),
-      headingRowColor: MaterialStateColor.resolveWith(
-        (states) => UpStyle.getTableHeaderColor(
-          context,
-          style: widget.style,
-          colorType: widget.colorType,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          style: BorderStyle.solid,
+          color: UpStyle.getTableBorderColor(context,
+              style: widget.style, colorType: widget.colorType),
+          width: UpStyle.getButtonBorderWidth(context,
+              style: widget.style, colorType: widget.colorType),
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            UpStyle.getButtonBorderRadius(
+              context,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+          ), //                 <--- border radius here
         ),
       ),
-      columns: <DataColumn>[
-        ...widget.columns.map(
-          (e) => DataColumn(
-            label: Text(e),
+      child: DataTable(
+        columnSpacing: 5,
+        horizontalMargin: 10,
+
+        // border: TableBorder.all(
+        //   color: UpStyle.getTableBorderColor(context,
+        //       style: widget.style, colorType: widget.colorType),
+        //   width: UpStyle.getButtonBorderWidth(
+        //     context,
+        //     style: widget.style,
+        //     colorType: widget.colorType,
+        //   ),
+        //   style: BorderStyle.solid,
+        //   borderRadius: BorderRadius.all(
+        //     Radius.circular(
+        //       UpStyle.getButtonBorderRadius(
+        //         context,
+        //         style: widget.style,
+        //         colorType: widget.colorType,
+        //       ),
+        //     ), //                 <--- border radius here
+        //   ),
+        // ),
+        showCheckboxColumn: widget.showCheckboxColumn,
+        dataRowColor: MaterialStateColor.resolveWith(getDataRowColor),
+        headingRowColor: MaterialStateColor.resolveWith(
+          (states) => UpStyle.getTableHeaderColor(
+            context,
+            style: widget.style,
+            colorType: widget.colorType,
           ),
-        )
-      ],
-      rows: <DataRow>[
-        ...widget.rows.map(
-          (e) => DataRow(
-            onSelectChanged: (value) => {
-              if (widget.onSelectChanged != null)
-                {
-                  widget.onSelectChanged!(e),
-                }
-            },
-            cells: <DataCell>[
-              ...e.map(
-                (c) => DataCell(
-                  SizedBox(
-                    child: Text(
-                      c.toString(),
+        ),
+        columns: <DataColumn>[
+          ...widget.columns.map(
+            (e) => DataColumn(
+              label: Text(
+                e,
+                style: TextStyle(
+                    color: UpStyle.getTableHeaderTextColor(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                )),
+              ),
+            ),
+          )
+        ],
+        rows: <DataRow>[
+          ...widget.rows.asMap().entries.map(
+                (e) => DataRow(
+                  color:
+                      widget.isLastRowFooter && e.key == widget.rows.length - 1
+                          ? MaterialStateColor.resolveWith(_getFooterRowColor)
+                          : MaterialStateColor.resolveWith(getDataRowColor),
+                  onSelectChanged: (value) => {
+                    if (widget.onSelectChanged != null)
+                      {
+                        widget.onSelectChanged!(e),
+                      }
+                  },
+                  cells: <DataCell>[
+                    ...e.value.map(
+                      (c) => DataCell(c),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

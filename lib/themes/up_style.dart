@@ -24,13 +24,15 @@ class UpStyle {
   final Color? disabledForgroundColor;
 
 //table
-
+  final Color? tableHeaderTextColor;
   final Color? tableHeaderColor;
   final Color? tableRowColor;
   final Color? tableRowPressedColor;
   final Color? tableBorderColor;
   final Color? tableRowFocusedColor;
   final Color? tableRowHoverColor;
+  final Color? tableFooterColor;
+  final Color? tableFooterTextColor;
 
   //button
   final Color? buttonDisbaledBackgroundColor;
@@ -123,6 +125,9 @@ class UpStyle {
     this.tableRowHoverColor,
     this.tableRowPressedColor,
     this.tableHeaderColor,
+    this.tableFooterColor,
+    this.tableHeaderTextColor,
+    this.tableFooterTextColor,
 
 //appbar
     this.appBarColor,
@@ -295,6 +300,38 @@ class UpStyle {
         Colors.grey;
   }
 
+  static Color getTableHeaderTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeaderTextColor ??
+        style?.tableHeaderTextColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableHeaderTextColor ??
+        Colors.white;
+  }
+
+  static Color getTableFooterTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableFooterTextColor ??
+        style?.tableFooterTextColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableFooterTextColor ??
+        Colors.white;
+  }
+
   static Color getTableRowHoverColor(
     BuildContext context, {
     UpStyle? override,
@@ -324,6 +361,23 @@ class UpStyle {
                     UpConstants.kDefaultTheme),
                 colorType)
             .tableHeaderColor ??
+        style?.foregroundColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getTableFooterColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableFooterColor ??
+        style?.tableFooterColor ??
+        getStyleByType(
+                (FlutterUpConfig.of(context)?.theme ??
+                    UpConstants.kDefaultTheme),
+                colorType)
+            .tableFooterColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
   }

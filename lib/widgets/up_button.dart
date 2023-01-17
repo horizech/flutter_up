@@ -145,14 +145,14 @@ class __upButtonState extends State<_upButton> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               color: isHovered
-                  ? UpStyle.getHoverBackgroundColor(context,
+                  ? UpStyle.getButtonHoverBackgroundColor(context,
                       style: widget.style, colorType: widget.colorType)
                   : UpStyle.getButtonBackgroundColor(context,
                       style: widget.style, colorType: widget.colorType),
               border: Border.all(
                 style: BorderStyle.solid,
                 color: isHovered
-                    ? UpStyle.getHoverBorderColor(context,
+                    ? UpStyle.getButtonHoverBorderColor(context,
                         style: widget.style, colorType: widget.colorType)
                     : UpStyle.getButtonBorderColor(context,
                         style: widget.style, colorType: widget.colorType),
