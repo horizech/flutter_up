@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
+// ignore: must_be_immutable
 class FlutterUpConfig extends InheritedWidget {
-  final UpThemeData theme;
+  UpThemeData theme;
 
-  const FlutterUpConfig({
+  FlutterUpConfig({
     Key? key,
     required this.theme,
     required child,
@@ -12,6 +13,10 @@ class FlutterUpConfig extends InheritedWidget {
 
   static FlutterUpConfig? of(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<FlutterUpConfig>());
+  }
+
+  changeTheme(UpThemeData newTheme) {
+    theme = newTheme;
   }
 
   @override
