@@ -1,4 +1,10 @@
+## 1.0.0
+
+- Completely overhauled widgets.
+- Changed theme system.
+
 ## 0.6.7
+
 - Updated UpLayout.
 
 ## 0.6.6
