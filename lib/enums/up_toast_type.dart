@@ -12,6 +12,7 @@ enum UpToastType {
   info,
   light,
   dark,
+  custom,
 }
 
 class UpToastParams {
@@ -26,14 +27,15 @@ class UpToastParams {
   });
 }
 
-UpToastParams getToast(BuildContext context, UpToastType type) {
+UpToastParams getToast(BuildContext context, UpToastType type,
+    {UpColorType? colorType, UpStyle? style}) {
   switch (type) {
     case UpToastType.secondary:
       return UpToastParams(
-        backgroundColor: UpStyle.getBackgroundColor(context,
-            colorType: UpColorType.secondary),
-        foregroundColor: UpStyle.getForegroundColor(context,
-            colorType: UpColorType.secondary),
+        backgroundColor: UpStyle.getToastBackgroundColor(context,
+            colorType: UpColorType.secondary, style: style),
+        foregroundColor: UpStyle.getToastTextColor(context,
+            colorType: UpColorType.secondary, style: style),
         icon: null,
       );
     case UpToastType.danger:
@@ -65,7 +67,7 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
       );
     case UpToastType.light:
       return UpToastParams(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 199, 196, 196),
         foregroundColor: Colors.black,
         icon: null,
       );
@@ -84,13 +86,20 @@ UpToastParams getToast(BuildContext context, UpToastType type) {
         foregroundColor: Colors.black,
         icon: null,
       );
+    case UpToastType.custom:
+      return UpToastParams(
+          backgroundColor: UpStyle.getToastBackgroundColor(context,
+              colorType: colorType, style: style),
+          foregroundColor: UpStyle.getToastTextColor(context,
+              colorType: UpColorType.primary),
+          icon: null);
     case UpToastType.primary:
     default:
       return UpToastParams(
-        backgroundColor:
-            UpStyle.getForegroundColor(context, colorType: UpColorType.primary),
+        backgroundColor: UpStyle.getToastBackgroundColor(context,
+            colorType: UpColorType.primary),
         foregroundColor:
-            UpStyle.getBackgroundColor(context, colorType: UpColorType.primary),
+            UpStyle.getToastTextColor(context, colorType: UpColorType.primary),
         icon: null,
       );
   }

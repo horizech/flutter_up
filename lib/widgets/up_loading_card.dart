@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/widgets/up_circualar_progress.dart';
 
 class UpLoadingCard extends StatefulWidget {
   final String text;
@@ -44,18 +45,21 @@ class UpLoadingCardState extends State<UpLoadingCard> {
         child: SizedBox(
           width: widget.cardWidth ?? 256,
           height: widget.cardheight ?? 64,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(
-                width: 64,
-                height: 64,
-                child: Center(
-                  child: CircularProgressIndicator(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Center(
+                    child: UpCircularProgress(),
+                  ),
                 ),
-              ),
-              Text(widget.text)
-            ],
+                Text(widget.text)
+              ],
+            ),
           ),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_up/contants.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_layout.dart';

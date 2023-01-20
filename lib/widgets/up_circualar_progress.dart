@@ -5,8 +5,6 @@ import 'package:flutter_up/themes/up_style.dart';
 class UpCircularProgress extends StatelessWidget {
   final double width;
   final double height;
-  final Color? backgroundColor;
-  final Color? color;
   final Animation<Color?>? valueColor;
   final double strokeWidth;
   final double? value;
@@ -21,8 +19,6 @@ class UpCircularProgress extends StatelessWidget {
     this.upStyle,
     this.colorType,
     this.alignment = Alignment.center,
-    this.color,
-    this.backgroundColor,
     this.height = 50,
     this.strokeWidth = 4.0,
     this.value,
@@ -36,8 +32,7 @@ class UpCircularProgress extends StatelessWidget {
         width: width,
         height: height,
         child: CircularProgressIndicator(
-          backgroundColor: backgroundColor,
-          color: UpStyle.getForegroundColor(
+          color: UpStyle.getCircularProgressBarColor(
             context,
             colorType: colorType,
             style: upStyle,

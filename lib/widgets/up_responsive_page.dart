@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_up/helpers/up_layout.dart';
 
 class UpResponsivePage extends StatelessWidget {

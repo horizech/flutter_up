@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/widgets/up_button.dart';
 
 class UpLoadingButton extends StatelessWidget {
   final String text;
@@ -53,37 +54,11 @@ class UpLoadingButton extends StatelessWidget {
                       )
                     : SizedBox(
                         width: 200,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: colorType != null
-                                ? MaterialStateProperty.all<Color>(
-                                    getColorsFromType(colorType!)
-                                        .backgroundColor)
-                                : MaterialStateProperty.all<Color>(
-                                    Theme.of(context).primaryColor),
-                            foregroundColor: colorType != null
-                                ? MaterialStateProperty.all<Color>(
-                                    getColorsFromType(colorType!)
-                                        .foregroundColor)
-                                : MaterialStateProperty.all<Color>(
-                                    Theme.of(context).colorScheme.secondary),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: isRounded
-                                    ? BorderRadius.circular(roundedBorderRadius)
-                                    : BorderRadius.zero,
-                                side: BorderSide(
-                                  color: borderColor,
-                                  width: borderWidth,
-                                ),
-                              ),
-                            ),
-                          ),
+                        child: UpButton(
                           onPressed: () {
                             onPress();
                           },
-                          child: Text(text),
+                          text: text,
                         ),
                       ),
       ),

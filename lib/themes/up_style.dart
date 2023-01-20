@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_up/config/flutter_up_config.dart';
+import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/contants.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
@@ -33,6 +33,9 @@ class UpStyle {
   final Color? tableRowHoverColor;
   final Color? tableFooterColor;
   final Color? tableFooterTextColor;
+
+  final Color? toastBackgroundColor;
+  final Color? toastTextColor;
 
   //button
   final Color? buttonDisbaledBackgroundColor;
@@ -89,6 +92,7 @@ class UpStyle {
   final Color? textfieldErrorBorderColor;
   final Color? textfieldLabelColor;
   final double? textfieldLabelSize;
+  final Color? textfieldCursorColor;
 
   //dropdown
   final Color? dropdownFocusedBorderColor;
@@ -99,8 +103,29 @@ class UpStyle {
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
 
+//date picker
+  final Color? datePickerPrimaryColor;
+  final Color? datePickerOnPrimaryColor;
+  final Color? datePickerSurfaceColor;
+  final Color? datePickerOnSurfaceColor;
+  final Color? datePickerDialogBackgroundColor;
+
+  //date picker
+  final Color? timePickerPrimaryColor;
+  final Color? timePickerOnPrimaryColor;
+  final Color? timePickerSurfaceColor;
+  final Color? timePickerOnSurfaceColor;
+  final Color? timePickerDialogBackgroundColor;
+
+// text size
+  final Color? textColor;
+  final Color? textBackgroundColor;
+  final double? textFontSize;
+  final Color? circularProgressBarColor;
+  final FontWeight? textFontWeight;
   UpStyle({
     this.backgroundColor,
+    this.circularProgressBarColor,
     this.borderColor,
     this.iconColor,
     this.borderWidth,
@@ -112,11 +137,19 @@ class UpStyle {
     this.focusedBorderColor,
     this.errorBorderColor,
     this.isRounded,
+    this.toastBackgroundColor,
+    this.toastTextColor,
     this.iconSize,
     this.borderRadius,
     this.disabledBorderColor,
     this.disabledBackgroundColor,
     this.disabledForgroundColor,
+
+// text
+    this.textBackgroundColor,
+    this.textColor,
+    this.textFontSize,
+    this.textFontWeight,
 
     // table
     this.tableBorderColor,
@@ -182,6 +215,7 @@ class UpStyle {
     this.textfieldLabelColor,
     this.textfieldBorderRadius,
     this.textfieldBorderWidth,
+    this.textfieldCursorColor,
     this.textfieldLabelSize,
 
     //drodown
@@ -192,6 +226,19 @@ class UpStyle {
     this.dropdownFocusedBorderColor,
     this.dropdownLabelColor,
     this.dropdownLabelSize,
+
+    //datepicker
+    this.datePickerDialogBackgroundColor,
+    this.datePickerOnPrimaryColor,
+    this.datePickerOnSurfaceColor,
+    this.datePickerPrimaryColor,
+    this.datePickerSurfaceColor,
+    // time picker
+    this.timePickerDialogBackgroundColor,
+    this.timePickerOnPrimaryColor,
+    this.timePickerOnSurfaceColor,
+    this.timePickerPrimaryColor,
+    this.timePickerSurfaceColor,
   });
   static Color getFocusedBorderColor(
     BuildContext context, {
@@ -203,14 +250,14 @@ class UpStyle {
         ? override?.disabledForgroundColor ??
             style?.disabledForgroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).disabledForgroundColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.focusedBorderColor ??
             style?.focusedBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).focusedBorderColor ??
             style?.borderColor ??
@@ -228,15 +275,14 @@ class UpStyle {
         ? override?.disabledBackgroundColor ??
             style?.disabledBackgroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).disabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.backgroundColor ??
             style?.backgroundColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .backgroundColor ??
             Theme.of(context).primaryColor;
@@ -277,8 +323,7 @@ class UpStyle {
     return override?.tableRowFocusedColor ??
         style?.tableRowFocusedColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableRowFocusedColor ??
         Colors.grey;
@@ -293,8 +338,7 @@ class UpStyle {
     return override?.tableRowPressedColor ??
         style?.tableRowPressedColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableRowPressedColor ??
         Colors.grey;
@@ -309,8 +353,7 @@ class UpStyle {
     return override?.tableHeaderTextColor ??
         style?.tableHeaderTextColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableHeaderTextColor ??
         Colors.white;
@@ -325,8 +368,7 @@ class UpStyle {
     return override?.tableFooterTextColor ??
         style?.tableFooterTextColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableFooterTextColor ??
         Colors.white;
@@ -341,8 +383,7 @@ class UpStyle {
     return override?.tableRowHoverColor ??
         style?.tableRowHoverColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableRowHoverColor ??
         Colors.grey;
@@ -357,8 +398,7 @@ class UpStyle {
     return override?.tableHeaderColor ??
         style?.tableHeaderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableHeaderColor ??
         style?.foregroundColor ??
@@ -374,8 +414,7 @@ class UpStyle {
     return override?.tableFooterColor ??
         style?.tableFooterColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableFooterColor ??
         style?.foregroundColor ??
@@ -391,8 +430,7 @@ class UpStyle {
     return override?.tableRowColor ??
         style?.tableRowColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableRowColor ??
         Colors.transparent;
@@ -407,8 +445,7 @@ class UpStyle {
     return override?.tableBorderColor ??
         style?.tableBorderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .tableBorderColor ??
         Colors.grey;
@@ -424,14 +461,14 @@ class UpStyle {
         ? override?.disabledForgroundColor ??
             style?.disabledForgroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).disabledForgroundColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.foregroundColor ??
             style?.foregroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).foregroundColor ??
             Theme.of(context).colorScheme.secondary;
@@ -447,14 +484,14 @@ class UpStyle {
         ? override?.disabledBorderColor ??
             style?.disabledBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).disabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.borderColor ??
             style?.borderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).borderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -469,7 +506,7 @@ class UpStyle {
     return override?.iconColor ??
         style?.iconColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).iconColor ??
         style?.foregroundColor ??
@@ -485,7 +522,7 @@ class UpStyle {
     return override?.errorBorderColor ??
         style?.errorBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).errorBorderColor ??
         style?.borderColor ??
@@ -502,8 +539,7 @@ class UpStyle {
     return override?.borderWidth ??
         style?.borderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .borderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -518,8 +554,7 @@ class UpStyle {
     return override?.borderRadius ??
         style?.borderRadius ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .borderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
@@ -534,8 +569,7 @@ class UpStyle {
     return override?.iconSize ??
         style?.iconSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .iconSize ??
         UpConstants.kDefaultStyleIconSize;
@@ -551,7 +585,7 @@ class UpStyle {
       borderRadius: override?.isRounded ??
               style?.isRounded ??
               getStyleByType(
-                      (FlutterUpConfig.of(context)?.theme ??
+                      (UpConfig.of(context)?.theme ??
                           UpConstants.kDefaultTheme),
                       colorType)
                   .isRounded ??
@@ -559,7 +593,7 @@ class UpStyle {
           ? BorderRadius.circular(override?.borderRadius ??
               style?.borderRadius ??
               getStyleByType(
-                      (FlutterUpConfig.of(context)?.theme ??
+                      (UpConfig.of(context)?.theme ??
                           UpConstants.kDefaultTheme),
                       colorType)
                   .borderRadius ??
@@ -569,16 +603,14 @@ class UpStyle {
         color: override?.borderColor ??
             style?.borderColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .borderColor ??
             UpConstants.kDefaultStyleBorderColor,
         width: override?.borderWidth ??
             style?.borderWidth ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .borderWidth ??
             UpConstants.kDefaultStyleBorderWidth,
@@ -615,8 +647,7 @@ class UpStyle {
     return override?.hoverBackgroundColor ??
         style?.hoverBackgroundColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .hoverBackgroundColor ??
         Theme.of(context).primaryColor;
@@ -631,8 +662,7 @@ class UpStyle {
     return override?.hoveredForegroundColor ??
         style?.hoveredForegroundColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .hoveredForegroundColor ??
         Theme.of(context).primaryColor;
@@ -647,8 +677,7 @@ class UpStyle {
     return override?.hoveredBorderColor ??
         style?.hoveredBorderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .backgroundColor ??
         Theme.of(context).primaryColor;
@@ -665,15 +694,14 @@ class UpStyle {
         ? override?.buttonDisbaledBackgroundColor ??
             style?.buttonDisbaledBackgroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).buttonDisbaledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.buttonBackgroundColor ??
             style?.buttonBackgroundColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .buttonBackgroundColor ??
             Theme.of(context).primaryColor;
@@ -689,14 +717,14 @@ class UpStyle {
         ? override?.buttonDisabledTextColor ??
             style?.buttonDisabledTextColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).buttonDisabledTextColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.buttonTextColor ??
             style?.buttonTextColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).buttonTextColor ??
             Theme.of(context).colorScheme.secondary;
@@ -712,14 +740,14 @@ class UpStyle {
         ? override?.buttonDisabledBorderColor ??
             style?.buttonDisabledBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).buttonDisabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.buttonBorderColor ??
             style?.buttonBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).buttonBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -734,8 +762,7 @@ class UpStyle {
     return override?.buttonBorderWidth ??
         style?.buttonBorderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -750,8 +777,7 @@ class UpStyle {
     return override?.buttonBorderRadius ??
         style?.buttonBorderRadius ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
@@ -766,8 +792,7 @@ class UpStyle {
     return override?.buttonTextSize ??
         style?.buttonTextSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonTextSize ??
         UpConstants.kDefaultStyleTextSize;
@@ -782,8 +807,7 @@ class UpStyle {
     return override?.buttonHoverBackgroundColor ??
         style?.buttonHoverBackgroundColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonHoverBackgroundColor ??
         Theme.of(context).primaryColor;
@@ -798,8 +822,7 @@ class UpStyle {
     return override?.buttonHoverTextColor ??
         style?.buttonHoverTextColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonHoverTextColor ??
         Theme.of(context).primaryColor;
@@ -814,8 +837,7 @@ class UpStyle {
     return override?.buttonHoverBorderColor ??
         style?.buttonHoverBorderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .buttonHoverBorderColor ??
         Theme.of(context).primaryColor;
@@ -856,15 +878,14 @@ class UpStyle {
         ? override?.checkboxCheckedDisabledColor ??
             style?.checkboxCheckedDisabledColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).checkboxCheckedDisabledColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.checkboxCheckedColor ??
             style?.checkboxCheckedColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .checkboxCheckedColor ??
             Theme.of(context).primaryColor;
@@ -880,14 +901,14 @@ class UpStyle {
         ? override?.checkboxDisabledLabelColor ??
             style?.checkboxDisabledLabelColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).checkboxDisabledLabelColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.checkboxLabelColor ??
             style?.checkboxLabelColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).checkboxLabelColor ??
             Theme.of(context).colorScheme.secondary;
@@ -903,14 +924,14 @@ class UpStyle {
         ? override?.checkboxDisabledBackgroundColor ??
             style?.checkboxDisabledBackgroundColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).checkboxDisabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.checkboxBorderColor ??
             style?.checkboxBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).checkboxBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -925,8 +946,7 @@ class UpStyle {
     return override?.checkboxBorderWidth ??
         style?.checkboxBorderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .checkboxBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -941,8 +961,7 @@ class UpStyle {
     return override?.checkboxLabelSize ??
         style?.checkboxLabelSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .checkboxLabelSize ??
         UpConstants.kDefaultStyleTextSize;
@@ -957,8 +976,7 @@ class UpStyle {
     return override?.checkboxBorderRadius ??
         style?.checkboxBorderRadius ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .checkboxBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
@@ -973,8 +991,7 @@ class UpStyle {
     return override?.checkboxRippleColor ??
         style?.checkboxRippleColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .checkboxRippleColor ??
         Theme.of(context).primaryColor.withAlpha(1);
@@ -989,8 +1006,7 @@ class UpStyle {
     return override?.checkboxHoverBorderColor ??
         style?.checkboxHoverBorderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .checkboxHoverBorderColor ??
         Theme.of(context).primaryColor;
@@ -1006,16 +1022,14 @@ class UpStyle {
         ? override?.checkboxDisabledBackgroundColor ??
             style?.checkboxDisabledBackgroundColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .checkboxDisabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.checkboxBackgroundColor ??
             style?.checkboxBackgroundColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .checkboxBackgroundColor ??
             Theme.of(context).primaryColor;
@@ -1033,15 +1047,14 @@ class UpStyle {
         ? override?.radioButtonDisabledFilledColor ??
             style?.radioButtonDisabledFilledColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).radioButtonDisabledFilledColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.radioButtonFilledColor ??
             style?.radioButtonFilledColor ??
             getStyleByType(
-                    (FlutterUpConfig.of(context)?.theme ??
-                        UpConstants.kDefaultTheme),
+                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                     colorType)
                 .radioButtonFilledColor ??
             Theme.of(context).primaryColor;
@@ -1057,16 +1070,16 @@ class UpStyle {
         ? override?.radioButtonDisabledLabelColor ??
             style?.radioButtonDisabledLabelColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).radioButtonDisabledLabelColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
-        : override?.buttonTextColor ??
-            style?.buttonTextColor ??
+        : override?.radioButtonBorderColor ??
+            style?.radioButtonBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
-            ).buttonTextColor ??
+            ).radioButtonBorderColor ??
             Theme.of(context).colorScheme.secondary;
   }
 
@@ -1080,14 +1093,14 @@ class UpStyle {
         ? override?.radioButtonDisabledBorderColor ??
             style?.radioButtonDisabledBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).radioButtonDisabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.radioButtonBorderColor ??
             style?.radioButtonBorderColor ??
             getStyleByType(
-              (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
               colorType,
             ).radioButtonBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -1102,8 +1115,7 @@ class UpStyle {
     return override?.radioButtonBorderWidth ??
         style?.radioButtonBorderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .radioButtonBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -1118,8 +1130,7 @@ class UpStyle {
     return override?.radioButtonLabelSize ??
         style?.radioButtonLabelSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .radioButtonLabelSize ??
         UpConstants.kDefaultStyleTextSize;
@@ -1134,8 +1145,7 @@ class UpStyle {
     return override?.radioButtonRippleColor ??
         style?.radioButtonRippleColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .radioButtonRippleColor ??
         Theme.of(context).primaryColor.withAlpha(1);
@@ -1150,8 +1160,7 @@ class UpStyle {
     return override?.radioButtonHoverBorderColor ??
         style?.radioButtonHoverBorderColor ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .radioButtonHoverBorderColor ??
         Theme.of(context).primaryColor;
@@ -1168,9 +1177,24 @@ class UpStyle {
     return override?.textfieldBorderColor ??
         style?.textfieldBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).textfieldBorderColor ??
+        Theme.of(context).primaryColor.withAlpha(64);
+  }
+
+  static Color getTextfieldCursorColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldCursorColor ??
+        style?.textfieldCursorColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).textfieldCursorColor ??
         Theme.of(context).primaryColor.withAlpha(64);
   }
 
@@ -1183,7 +1207,7 @@ class UpStyle {
     return override?.textfieldFocusedBorderColor ??
         style?.textfieldFocusedBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).textfieldFocusedBorderColor ??
         style?.textfieldBorderColor ??
@@ -1200,7 +1224,7 @@ class UpStyle {
     return override?.textfieldErrorBorderColor ??
         style?.textfieldErrorBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).textfieldErrorBorderColor ??
         style?.textfieldErrorBorderColor ??
@@ -1217,8 +1241,7 @@ class UpStyle {
     return override?.textfieldBorderWidth ??
         style?.textfieldBorderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .textfieldBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -1233,8 +1256,7 @@ class UpStyle {
     return override?.textfieldBorderRadius ??
         style?.textfieldBorderRadius ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .textfieldBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
@@ -1249,7 +1271,7 @@ class UpStyle {
     return override?.textfieldLabelColor ??
         style?.textfieldLabelColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).textfieldLabelColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1264,8 +1286,7 @@ class UpStyle {
     return override?.textfieldLabelSize ??
         style?.textfieldLabelSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .textfieldLabelSize ??
         UpConstants.kDefaultStyleTextSize;
@@ -1369,7 +1390,7 @@ class UpStyle {
     return override?.dropdownBorderColor ??
         style?.dropdownBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).dropdownBorderColor ??
         Theme.of(context).primaryColor.withAlpha(64);
@@ -1384,7 +1405,7 @@ class UpStyle {
     return override?.dropdownFocusedBorderColor ??
         style?.dropdownFocusedBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).dropdownFocusedBorderColor ??
         style?.dropdownBorderColor ??
@@ -1401,7 +1422,7 @@ class UpStyle {
     return override?.dropdownErrorBorderColor ??
         style?.dropdownErrorBorderColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).dropdownErrorBorderColor ??
         style?.dropdownBorderColor ??
@@ -1418,8 +1439,7 @@ class UpStyle {
     return override?.dropdownBorderWidth ??
         style?.dropdownBorderWidth ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .dropdownBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
@@ -1434,8 +1454,7 @@ class UpStyle {
     return override?.dropdownBorderRadius ??
         style?.dropdownBorderRadius ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .dropdownBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
@@ -1450,7 +1469,7 @@ class UpStyle {
     return override?.dropdownLabelColor ??
         style?.dropdownLabelColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).dropdownLabelColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1465,8 +1484,7 @@ class UpStyle {
     return override?.dropdownLabelSize ??
         style?.dropdownLabelSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .dropdownLabelSize ??
         UpConstants.kDefaultStyleTextSize;
@@ -1570,10 +1588,11 @@ class UpStyle {
     return override?.appBarColor ??
         style?.appBarColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).appBarColor ??
-        Theme.of(context).primaryColor;
+        Colors.red;
+    Theme.of(context).primaryColor;
   }
 
   static Color getAppBarTitleColor(
@@ -1585,7 +1604,7 @@ class UpStyle {
     return override?.appBarTitleColor ??
         style?.appBarTitleColor ??
         getStyleByType(
-          (FlutterUpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
           colorType,
         ).appBarTitleColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1600,10 +1619,354 @@ class UpStyle {
     return override?.appBarTitleSize ??
         style?.appBarTitleSize ??
         getStyleByType(
-                (FlutterUpConfig.of(context)?.theme ??
-                    UpConstants.kDefaultTheme),
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
                 colorType)
             .appBarTitleSize ??
         UpConstants.kDefaultStyleTextSize;
+  }
+
+  // date picker
+  static ThemeData getDatePickerThemeData(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return ThemeData(
+      colorScheme: ColorScheme(
+        onBackground: Colors.transparent,
+        background: Colors.transparent,
+        onError: Colors.pink,
+        error: Colors.red,
+        onSecondary: Colors.transparent,
+        secondary: Colors.transparent,
+        brightness: Brightness.dark,
+        primary: getDatePickerPrimaryColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        onPrimary: getDatePickerOnPrimaryColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        surface: getDatePickerSurfaceColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        onSurface: getDatePickerOnSurfaceColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
+      dialogBackgroundColor: getDatePickerDialogBackgroundColor(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+    );
+  }
+
+  static Color getDatePickerPrimaryColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.datePickerPrimaryColor ??
+        style?.datePickerPrimaryColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).datePickerPrimaryColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getDatePickerOnPrimaryColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.datePickerOnPrimaryColor ??
+        style?.datePickerOnPrimaryColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).datePickerOnPrimaryColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getDatePickerSurfaceColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.datePickerSurfaceColor ??
+        style?.datePickerSurfaceColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).datePickerSurfaceColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getDatePickerOnSurfaceColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.datePickerOnSurfaceColor ??
+        style?.datePickerOnSurfaceColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).datePickerOnSurfaceColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getDatePickerDialogBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.datePickerDialogBackgroundColor ??
+        style?.datePickerDialogBackgroundColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).datePickerDialogBackgroundColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  // time picker
+  static ThemeData getTimePickerThemeData(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return ThemeData(
+        colorScheme: ColorScheme(
+          onBackground: Colors.transparent,
+          background: Colors.transparent,
+          onError: Colors.pink,
+          error: Colors.red,
+          onSecondary: Colors.transparent,
+          secondary: Colors.transparent,
+          brightness: Brightness.dark,
+          primary: getTimePickerPrimaryColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          onPrimary: getTimePickerOnPrimaryColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          surface: getTimePickerSurfaceColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          onSurface: getTimePickerOnSurfaceColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+        ),
+        dialogBackgroundColor: getTimePickerDialogBackgroundColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ));
+  }
+
+  static Color getTimePickerPrimaryColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.timePickerPrimaryColor ??
+        style?.timePickerPrimaryColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).timePickerPrimaryColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getTimePickerOnPrimaryColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.timePickerOnPrimaryColor ??
+        style?.timePickerOnPrimaryColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).timePickerOnPrimaryColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getTimePickerSurfaceColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.timePickerSurfaceColor ??
+        style?.timePickerSurfaceColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).timePickerSurfaceColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getTimePickerOnSurfaceColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.timePickerOnSurfaceColor ??
+        style?.timePickerOnSurfaceColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).timePickerOnSurfaceColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  static Color getTimePickerDialogBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.timePickerDialogBackgroundColor ??
+        style?.timePickerDialogBackgroundColor ??
+        getStyleByType(
+          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          colorType,
+        ).timePickerDialogBackgroundColor ??
+        Theme.of(context).colorScheme.primary;
+  }
+
+  // text
+  static Color getTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textColor ??
+        style?.textColor ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .textColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getTextBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textBackgroundColor ??
+        style?.textBackgroundColor ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .textBackgroundColor ??
+        Colors.transparent;
+  }
+
+  static double getTextFontsize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textFontSize ??
+        style?.textFontSize ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .textFontSize ??
+        12;
+  }
+
+  static FontWeight? getTextFontWeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textFontWeight ??
+        style?.textFontWeight ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .textFontWeight;
+  }
+
+  static Color getCircularProgressBarColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.circularProgressBarColor ??
+        style?.circularProgressBarColor ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .circularProgressBarColor ??
+        UpConfig.of(context)?.theme.primaryColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getToastBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.toastBackgroundColor ??
+        style?.toastBackgroundColor ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .toastBackgroundColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getToastTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.toastTextColor ??
+        style?.toastTextColor ??
+        getStyleByType(
+                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+                colorType)
+            .toastTextColor ??
+        Theme.of(context).colorScheme.secondary;
   }
 }

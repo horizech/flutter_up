@@ -27,6 +27,7 @@ class UpTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final String? hint;
   final String? initialValue;
+  final EdgeInsetsGeometry? contentPadding;
 
   const UpTextField({
     Key? key,
@@ -41,6 +42,7 @@ class UpTextField extends StatelessWidget {
     this.onTap,
     this.initialValue,
     this.label = "",
+    this.contentPadding,
     this.isFlexible = false,
     this.onSaved,
     this.onChanged,
@@ -77,7 +79,8 @@ class UpTextField extends StatelessWidget {
                 validation,
                 prefixIcon,
                 suffixIcon,
-                initialValue))
+                initialValue,
+                contentPadding))
         : _upTextField(
             context,
             type,
@@ -99,6 +102,7 @@ class UpTextField extends StatelessWidget {
             prefixIcon,
             suffixIcon,
             initialValue,
+            contentPadding,
           );
   }
 }
@@ -123,7 +127,17 @@ Widget _upTextField(
     final UpValidation? validation,
     final Widget? prefixIcon,
     final Widget? suffixIcon,
-    final String? initialValue) {
+    final String? initialValue,
+    EdgeInsetsGeometry? contentPadding) {
+  //pattern for email
+  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+      r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+      r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+      r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+      r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+  final regex = RegExp(pattern);
   return TextFormField(
     onSaved: onSaved,
     onTap: onTap,
@@ -165,8 +179,13 @@ Widget _upTextField(
         }
       }
       if (validation != null && (validation.isEmail ?? false)) {
-        return UpValidation.emailValidation(value ?? "");
+        if (value != null && value.isNotEmpty) {
+          if (!regex.hasMatch(value)) {
+            return 'Enter a valid email address';
+          }
+        }
       }
+
       if (validation != null &&
           validation.customValidation != null &&
           validation.customValidation?.rejex != null) {
@@ -180,6 +199,13 @@ Widget _upTextField(
     obscureText: obscureText,
     readOnly: readOnly,
     decoration: InputDecoration(
+      contentPadding: contentPadding ??
+          EdgeInsets.only(
+            left: 12.0,
+            right: 3.0,
+            bottom: 15.0,
+            top: type == UpInputType.underline ? 0.0 : 15.0,
+          ),
       label: Text(
         label ?? "",
         style: TextStyle(
@@ -232,6 +258,8 @@ Widget _upTextField(
         colorType: colorType,
       ),
     ),
+    cursorColor: UpStyle.getTextfieldCursorColor(context,
+        style: style, colorType: colorType),
     controller: controller,
     maxLines: maxLines,
   );

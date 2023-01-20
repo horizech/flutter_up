@@ -14,6 +14,7 @@ class UpDropDown extends StatefulWidget {
   final UpColorType? colorType;
   final List<UpLabelValuePair> itemList;
   final String? value;
+  final Widget? prefix;
 
   const UpDropDown({
     Key? key,
@@ -26,6 +27,7 @@ class UpDropDown extends StatefulWidget {
     this.type,
     this.label,
     this.hint,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -52,6 +54,7 @@ class _UpDropDownState extends State<UpDropDown> {
       type: widget.type,
       label: widget.label,
       hint: widget.hint,
+      prefix: widget.prefix,
     );
 
     // if (previousInputValue != widget.value) {
@@ -88,6 +91,7 @@ class _upDropDownBody extends StatefulWidget {
   final UpColorType? colorType;
   final List<UpLabelValuePair> itemList;
   final ValueNotifier<String?> inputValue;
+  final Widget? prefix;
 
   const _upDropDownBody({
     Key? key,
@@ -99,6 +103,7 @@ class _upDropDownBody extends StatefulWidget {
     this.type,
     this.label,
     this.hint,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -121,10 +126,10 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
 
   @override
   void dispose() {
+    super.dispose();
     widget.inputValue.removeListener(() {});
     _focusNode.removeListener(() {});
     searchText.removeListener(() {});
-    super.dispose();
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -240,122 +245,30 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
     return ValueListenableBuilder<String?>(
       builder: (BuildContext context, String? value, Widget? child) {
         return Container(
-          // child: isSearchable == false
-          //     ? DropdownButtonFormField(
-          //         value: widget.value,
-          //         iconSize: 24,
-          //         elevation: 8,
-          //         focusColor: Colors.transparent,
-          //         icon: const Text(""),
-          //         autofocus: false,
-          //         validator: (value) {
-          //           if (value == null) {
-          //             return 'Select ${widget.label}';
-          //           }
-          //           return null;
-          //         },
-          //         isExpanded: true,
-          //         decoration: InputDecoration(
-          //           label: Text(
-          //             widget.label ?? "",
-          //             style: TextStyle(
-          //               color: UpStyle.getDropdownLabelColor(
-          //                 context,
-          //                 style: widget.style,
-          //                 colorType: widget.colorType,
-          //               ),
-          //               fontSize: UpStyle.getDropdownLabelSize(
-          //                 context,
-          //                 style: widget.style,
-          //                 colorType: widget.colorType,
-          //               ),
-          //             ),
-          //           ),
-          //           suffixIcon: IconButton(
-          //             onPressed: () {
-          //               setState(() {
-          //                 isSearchable = true;
-          //               });
-          //             },
-          //             icon: Icon(
-          //               Icons.arrow_drop_down,
-          //               color: UpStyle.getIconColor(
-          //                 context,
-          //                 style: widget.style,
-          //                 colorType: widget.colorType,
-          //               ),
-          //               size: UpStyle.getIconSize(
-          //                 context,
-          //                 style: widget.style,
-          //                 colorType: widget.colorType,
-          //               ),
-          //             ),
-          //           ),
-          //           hintText: widget.hint,
-          //           enabledBorder: UpStyle.getDropdownBorderStyle(
-          //             context,
-          //             type: widget.type ?? UpInputType.outline,
-          //             style: widget.style,
-          //             colorType: widget.colorType,
-          //           ),
-          //           labelStyle: TextStyle(
-          //             color: UpStyle.getDropdownLabelColor(
-          //               context,
-          //               style: widget.style,
-          //               colorType: widget.colorType,
-          //             ),
-          //             fontSize: UpStyle.getDropdownLabelSize(
-          //               context,
-          //               style: widget.style,
-          //               colorType: widget.colorType,
-          //             ),
-          //           ),
-          //           focusedBorder: UpStyle.getDropdownBorderStyle(
-          //             context,
-          //             type: widget.type ?? UpInputType.outline,
-          //             style: widget.style,
-          //             colorType: widget.colorType,
-          //             isFocused: true,
-          //           ),
-          //           errorBorder: UpStyle.getDropdownBorderStyle(
-          //             context,
-          //             type: widget.type ?? UpInputType.outline,
-          //             style: widget.style,
-          //             colorType: widget.colorType,
-          //             isError: true,
-          //           ),
-          //           border: UpStyle.getDropdownBorderStyle(
-          //             context,
-          //             type: widget.type ?? UpInputType.outline,
-          //             style: widget.style,
-          //             colorType: widget.colorType,
-          //           ),
-          //         ),
-          //         items: getDropDownMenuItems(),
-          //         onChanged: changeValue,
-          //       )
-
           child: CompositedTransformTarget(
             link: _layerLink,
             child: SizedBox(
               child: UpTextField(
+                type: widget.type,
                 focusNode: _focusNode,
+                prefixIcon: widget.prefix,
                 // initialValue: ,
                 controller: curTextEditingController ?? displayText,
                 onChanged: (value) {
                   // if ((value == null && (value ?? "").isEmpty) ||
                   //     value == "") {
                   //   filteredProducts = widget.itemList;
+
                   //   // _focusNode.requestFocus();
                   // } else {}
                 },
                 label: widget.label ?? "",
                 suffixIcon: SizedBox(
-                  width: 80,
+                  width: 55,
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 30,
+                        width: 25,
                         child: Visibility(
                           visible: searchText.text.isNotEmpty,
                           child: GestureDetector(
@@ -380,21 +293,24 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          _focusNode.requestFocus();
-                        },
-                        icon: Icon(
-                          Icons.arrow_drop_up,
-                          color: UpStyle.getIconColor(
-                            context,
-                            style: widget.style,
-                            colorType: widget.colorType,
-                          ),
-                          size: UpStyle.getIconSize(
-                            context,
-                            style: widget.style,
-                            colorType: widget.colorType,
+                      SizedBox(
+                        width: 25,
+                        child: IconButton(
+                          onPressed: () {
+                            _focusNode.requestFocus();
+                          },
+                          icon: Icon(
+                            Icons.arrow_drop_up,
+                            color: UpStyle.getIconColor(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                            size: UpStyle.getIconSize(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
                           ),
                         ),
                       ),

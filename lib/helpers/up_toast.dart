@@ -89,13 +89,22 @@ Widget _upToast(
           ),
         ), //                 <--- border radius here
       ),
-      color:
-          getToast(context, upToastType ?? UpToastType.primary).backgroundColor,
+      color: getToast(
+        context,
+        upToastType ?? UpToastType.primary,
+        colorType: colorType,
+        style: style,
+      ).backgroundColor,
     ),
     child: Row(
       children: [
         icon ??
-            getToast(context, upToastType ?? UpToastType.primary).icon ??
+            getToast(
+              context,
+              upToastType ?? UpToastType.primary,
+              colorType: colorType,
+              style: style,
+            ).icon ??
             const SizedBox(
               width: 0,
               height: 0,
@@ -108,8 +117,12 @@ Widget _upToast(
             child: Text(
               text,
               style: TextStyle(
-                color: getToast(context, upToastType ?? UpToastType.primary)
-                    .foregroundColor,
+                color: getToast(
+                  context,
+                  upToastType ?? UpToastType.primary,
+                  colorType: colorType,
+                  style: style,
+                ).foregroundColor,
               ),
             ),
           ),

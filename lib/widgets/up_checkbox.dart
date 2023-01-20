@@ -10,7 +10,6 @@ class UpCheckbox extends StatefulWidget {
   final Function? onChange;
   final UpTextDirection labelDirection;
   bool initialValue;
-  final bool isDisable;
 
   UpCheckbox({
     Key? key,
@@ -20,7 +19,6 @@ class UpCheckbox extends StatefulWidget {
     this.style,
     this.onChange,
     this.labelDirection = UpTextDirection.right,
-    this.isDisable = false,
   }) : super(key: key);
 
   @override
@@ -29,6 +27,7 @@ class UpCheckbox extends StatefulWidget {
 
 class _UpCheckboxState extends State<UpCheckbox> {
   double x = 0.0;
+  bool value = false;
   double y = 0.0;
 
   bool isHovered = false;

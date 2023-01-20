@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/dialogs/up_base.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_dialog.dart';
+import 'package:flutter_up/widgets/up_button.dart';
 
 class UpAboutAppDialog extends UpBaseDialog {
   Widget _getHeader(String title) {
@@ -40,40 +41,31 @@ class UpAboutAppDialog extends UpBaseDialog {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: data['text'] //Constants.ABOUT_TEXT
+                    children: data['text']
                         .split('\n')
-                        .map<Widget>((text) => Padding(
+                        .map<Widget>(
+                          (text) => Padding(
                             padding: const EdgeInsets.all(8),
-                            child: Text(text)))
+                            child: Text(text),
+                          ),
+                        )
                         .toList(),
                   )),
               actions: <Widget>[
-                ElevatedButton(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    // Navigator.of(context).pop();
-                    ServiceManager<UpDialogService>().completeDialog(
+                SizedBox(
+                  width: 100,
+                  child: UpButton(
+                    text: "OK",
+                    onPressed: () {
+                      ServiceManager<UpDialogService>().completeDialog(
                         context: context,
-                        // pop: false,
                         completerId: completerId,
-                        result: null);
-                  },
+                        result: null,
+                      );
+                    },
+                  ),
                 )
               ],
             ));
-    // Alert(
-    //     context: context,
-    //     title: "FilledStacks",
-    //     desc: "My tutorials show realworld structures.",
-    //     closeFunction: () => _dialogService.dialogComplete(),
-    //     buttons: [
-    //       DialogButton(
-    //         child: Icon(Icons.add),
-    //         onPressed: () {
-    //           _dialogService.dialogComplete();
-    //           Navigator.of(context).pop();
-    //         },
-    //       )
-    //     ]).show();
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/models/up_row.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpTable extends StatefulWidget {
   final UpColorType? colorType;
   final UpStyle? style;
   final List<String> columns;
-  final List<List<Widget>> rows;
+  final List<UpRow> rows;
   final bool isLastRowFooter;
   final bool showCheckboxColumn;
   final Function? onSelectChanged;
@@ -35,7 +36,7 @@ class _UpTableState extends State<UpTable> {
     );
   }
 
-  Color getDataRowColor(Set<MaterialState> states) {
+  Color getDataRowColor(Set<MaterialState> states, {Color? rowColor}) {
     if (states.any(<MaterialState>{
       MaterialState.pressed,
     }.contains)) {
@@ -72,7 +73,7 @@ class _UpTableState extends State<UpTable> {
         colorType: widget.colorType,
       );
     }
-    return Colors.transparent;
+    return rowColor ?? Colors.transparent;
   }
 
   @override
@@ -99,28 +100,10 @@ class _UpTableState extends State<UpTable> {
       child: DataTable(
         columnSpacing: 5,
         horizontalMargin: 10,
-
-        // border: TableBorder.all(
-        //   color: UpStyle.getTableBorderColor(context,
-        //       style: widget.style, colorType: widget.colorType),
-        //   width: UpStyle.getButtonBorderWidth(
-        //     context,
-        //     style: widget.style,
-        //     colorType: widget.colorType,
-        //   ),
-        //   style: BorderStyle.solid,
-        //   borderRadius: BorderRadius.all(
-        //     Radius.circular(
-        //       UpStyle.getButtonBorderRadius(
-        //         context,
-        //         style: widget.style,
-        //         colorType: widget.colorType,
-        //       ),
-        //     ), //                 <--- border radius here
-        //   ),
-        // ),
         showCheckboxColumn: widget.showCheckboxColumn,
-        dataRowColor: MaterialStateColor.resolveWith(getDataRowColor),
+        dataRowColor: MaterialStateColor.resolveWith(
+          ((states) => (getDataRowColor(states, rowColor: Colors.transparent))),
+        ),
         headingRowColor: MaterialStateColor.resolveWith(
           (states) => UpStyle.getTableHeaderColor(
             context,
@@ -149,15 +132,20 @@ class _UpTableState extends State<UpTable> {
                   color:
                       widget.isLastRowFooter && e.key == widget.rows.length - 1
                           ? MaterialStateColor.resolveWith(_getFooterRowColor)
-                          : MaterialStateColor.resolveWith(getDataRowColor),
-                  onSelectChanged: (value) => {
-                    if (widget.onSelectChanged != null)
-                      {
-                        widget.onSelectChanged!(e),
-                      }
+                          : MaterialStateColor.resolveWith(
+                              ((states) => (getDataRowColor(
+                                    states,
+                                    rowColor: e.value.rowColor,
+                                  ))),
+                            ),
+                  onSelectChanged: (value) {
+                    debugPrint(value.toString());
+                    if (widget.onSelectChanged != null) {
+                      widget.onSelectChanged!(e.key);
+                    }
                   },
                   cells: <DataCell>[
-                    ...e.value.map(
+                    ...e.value.row.map(
                       (c) => DataCell(c),
                     ),
                   ],

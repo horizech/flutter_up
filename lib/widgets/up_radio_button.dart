@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_text_direction.dart';
@@ -11,18 +9,16 @@ class UpRadioButton extends StatefulWidget {
   final UpStyle? style;
   final Function? onChange;
   final UpTextDirection labelDirection;
-  String value;
-  List<UpRadioButtonItem> items;
-  final bool isDisable;
+  final dynamic initialValue;
+  final List<UpRadioButtonItem> items;
 
-  UpRadioButton({
+  const UpRadioButton({
     Key? key,
     this.colorType,
     this.style,
     this.onChange,
     this.labelDirection = UpTextDirection.left,
-    this.isDisable = false,
-    required this.value,
+    this.initialValue,
     required this.items,
   }) : super(key: key);
 
@@ -33,7 +29,7 @@ class UpRadioButton extends StatefulWidget {
 class _UpRadioButtonState extends State<UpRadioButton> {
   double x = 0.0;
   double y = 0.0;
-
+  dynamic radioValue;
   List<bool> isHovered = [];
 
   void _incrementEnter(int key) {
@@ -46,6 +42,16 @@ class _UpRadioButtonState extends State<UpRadioButton> {
     setState(() {
       isHovered[key] = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialValue != null) {
+      radioValue = widget.initialValue;
+    } else {
+      radioValue = widget.items.first.value;
+    }
   }
 
   @override
@@ -87,18 +93,19 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: item.value.value == widget.value &&
-                                isHovered[item.key]
-                            ? UpStyle.getRadioButtonFilledColor(context,
-                                    style: widget.style,
-                                    colorType: widget.colorType)
-                                .withAlpha(50)
-                            : isHovered[item.key]
-                                ? UpStyle.getRadioButtonRippleColor(context,
-                                    style: widget.style,
-                                    colorType: widget.colorType)
-                                : Colors.transparent),
+                      shape: BoxShape.circle,
+                      color:
+                          item.value.value == radioValue && isHovered[item.key]
+                              ? UpStyle.getRadioButtonFilledColor(context,
+                                      style: widget.style,
+                                      colorType: widget.colorType)
+                                  .withAlpha(50)
+                              : isHovered[item.key]
+                                  ? UpStyle.getRadioButtonRippleColor(context,
+                                      style: widget.style,
+                                      colorType: widget.colorType)
+                                  : Colors.transparent,
+                    ),
                     child: MouseRegion(
                       cursor: widget.style?.isDisabled == true
                           ? SystemMouseCursors.basic
@@ -113,10 +120,10 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                         onTap: () {
                           if (!(widget.style?.isDisabled ?? false)) {
                             if (widget.onChange != null) {
-                              widget.onChange!(item.value);
+                              widget.onChange!(item.value.value);
                             }
                             setState(() {
-                              widget.value = item.value.value;
+                              radioValue = item.value.value;
                             });
                           }
                         },
@@ -127,7 +134,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                               color: Colors.transparent,
                               border: Border.all(
                                 style: BorderStyle.solid,
-                                color: item.value == widget.value
+                                color: item.value.value == radioValue
                                     ? UpStyle.getRadioButtonFilledColor(context,
                                         style: widget.style,
                                         colorType: widget.colorType)
@@ -153,7 +160,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                               ),
                               shape: BoxShape.rectangle,
                             ),
-                            child: item.value.value == widget.value
+                            child: item.value.value == radioValue
                                 ? Align(
                                     alignment: Alignment.center,
                                     child: Icon(Icons.circle,

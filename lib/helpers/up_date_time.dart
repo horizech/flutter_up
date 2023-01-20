@@ -1,3 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/themes/up_style.dart';
+
+upDatePicker(BuildContext context,
+    {DateTime? initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+    UpStyle? style,
+    UpColorType? colorType}) async {
+  return showDatePicker(
+    context: context,
+    initialDate: initialDate ?? DateTime.now(),
+    firstDate: firstDate,
+    lastDate: lastDate,
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: UpStyle.getDatePickerThemeData(context,
+            style: style, colorType: colorType),
+        child: child ?? const Text(""),
+      );
+    },
+  );
+}
+
+upTimePicker(
+    {required BuildContext context,
+    required TimeOfDay initialTime,
+    UpStyle? style,
+    UpColorType? colorType}) async {
+  return showTimePicker(
+    context: context,
+    initialTime: initialTime,
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: UpStyle.getTimePickerThemeData(context,
+            style: style, colorType: colorType),
+        child: child ?? const Text(""),
+      );
+    },
+  );
+}
+
 String _trimToRightPlaces(String str, int len) {
   String input = "00$str";
   if (input.length > len) {

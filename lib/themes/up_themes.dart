@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
-const Color _themeRedPrimaryColor = Color.fromARGB(255, 172, 14, 40);
-const Color _themeRedAccentColor = Color.fromARGB(255, 188, 69, 89);
-const Color _themeRedLightColor = Color.fromARGB(255, 255, 237, 240);
-const Color _themeRedBGColor = Color.fromARGB(255, 255, 252, 253);
-const Color _themeRedcontrast = Color.fromARGB(255, 1, 55, 103);
-
 class UpThemes {
   static MaterialColor generateMaterialFromSingleColor(Color color) {
     List strengths = <double>[.05];
@@ -32,90 +26,113 @@ class UpThemes {
   static UpStyle generateStyleByMaterial(
       MaterialColor inputColor, MaterialColor contrast) {
     return UpStyle(
-      appBarColor: inputColor[500]!,
-      appBarTitleSize: 20,
-      appBarTitleColor: contrast[500]!,
-      foregroundColor: inputColor[500]!,
-      backgroundColor: contrast[500]!,
-      borderColor: inputColor[100],
-      hoverBackgroundColor: inputColor[500]!,
-      hoveredForegroundColor: contrast[500]!,
-      hoveredBorderColor: inputColor[700]!,
-      borderRadius: 8,
-      borderWidth: 2,
-      errorBorderColor: Colors.red,
-      focusedBorderColor: inputColor[700]!,
-      isRounded: true,
-      iconColor: inputColor[500]!,
-      iconSize: 16,
+        appBarColor: inputColor[500]!,
+        appBarTitleSize: 20,
+        appBarTitleColor: contrast[500]!,
+        foregroundColor: inputColor[500]!,
+        backgroundColor: contrast[500]!,
+        borderColor: inputColor[100],
+        hoverBackgroundColor: inputColor[500]!,
+        hoveredForegroundColor: contrast[500]!,
+        hoveredBorderColor: inputColor[700]!,
+        borderRadius: 8,
+        borderWidth: 2,
+        errorBorderColor: Colors.red,
+        focusedBorderColor: inputColor[700]!,
+        isRounded: true,
+        iconColor: inputColor[500]!,
+        iconSize: 16,
+        toastBackgroundColor: inputColor[500],
+        toastTextColor: contrast[500],
 
-      //button
-      buttonBackgroundColor: inputColor[500]!,
-      buttonHoverBackgroundColor: inputColor[700]!,
-      buttonTextColor: contrast[500]!,
-      buttonHoverTextColor: contrast[500]!,
-      buttonBorderColor: inputColor[500],
-      buttonHoverBorderColor: inputColor[700]!,
-      buttonBorderRadius: 8,
-      buttonBorderWidth: 2,
-      buttonTextSize: 12,
-      buttonDisabledBorderColor: Colors.grey[300],
-      buttonDisabledTextColor: Colors.grey,
-      buttonDisbaledBackgroundColor: Colors.grey[300],
-      //textfield
-      textfieldBorderRadius: 8,
-      textfieldBorderWidth: 2,
-      textfieldBorderColor: inputColor[500],
-      textfieldLabelColor: inputColor[700]!,
-      textfieldLabelSize: 12,
-      textfieldErrorBorderColor: Colors.red,
-      textfieldFocusedBorderColor: inputColor[700]!,
-      //dropdown
-      dropdownBorderRadius: 8,
-      dropdownBorderWidth: 2,
-      dropdownBorderColor: inputColor[500],
-      dropdownLabelColor: inputColor[700]!,
-      dropdownLabelSize: 12,
-      dropdownErrorBorderColor: Colors.red,
-      dropdownFocusedBorderColor: inputColor[700]!,
+        //button
+        buttonBackgroundColor: inputColor[500]!,
+        buttonHoverBackgroundColor: inputColor[700]!,
+        buttonTextColor: contrast[500]!,
+        buttonHoverTextColor: contrast[500]!,
+        buttonBorderColor: inputColor[500],
+        buttonHoverBorderColor: inputColor[700]!,
+        buttonBorderRadius: 8,
+        buttonBorderWidth: 2,
+        buttonTextSize: 12,
+        buttonDisabledBorderColor: Colors.grey[300],
+        buttonDisabledTextColor: Colors.grey,
+        buttonDisbaledBackgroundColor: Colors.grey[300],
+        //textfield
+        textfieldBorderRadius: 8,
+        textfieldBorderWidth: 2,
+        textfieldBorderColor: inputColor[500],
+        textfieldLabelColor: inputColor[700]!,
+        textfieldLabelSize: 12,
+        textfieldErrorBorderColor: Colors.red,
+        textfieldFocusedBorderColor: inputColor[700]!,
+        textfieldCursorColor: inputColor[700],
+        //dropdown
+        dropdownBorderRadius: 8,
+        dropdownBorderWidth: 2,
+        dropdownBorderColor: inputColor[500],
+        dropdownLabelColor: inputColor[700]!,
+        dropdownLabelSize: 12,
+        dropdownErrorBorderColor: Colors.red,
+        dropdownFocusedBorderColor: inputColor[700]!,
 
-      //check box
-      checkboxCheckedColor: contrast,
-      checkboxBorderColor: inputColor[500],
-      checkboxBorderRadius: 8,
-      checkboxLabelColor: inputColor[500]!,
-      checkboxLabelSize: 12,
-      checkboxBorderWidth: 2,
-      checkboxBackgroundColor: inputColor[500],
-      checkboxCheckedDisabledColor: contrast,
-      checkboxDisabledLabelColor: Colors.grey,
-      checkboxDisabledBackgroundColor: Colors.grey[300],
-      checkboxHoverBorderColor: inputColor[700]!,
-      checkboxRippleColor: Colors.grey[200],
+        //check box
+        checkboxCheckedColor: contrast,
+        checkboxBorderColor: inputColor[500],
+        checkboxBorderRadius: 8,
+        checkboxLabelColor: inputColor[500]!,
+        checkboxLabelSize: 12,
+        checkboxBorderWidth: 2,
+        checkboxBackgroundColor: inputColor[500],
+        checkboxCheckedDisabledColor: contrast,
+        checkboxDisabledLabelColor: Colors.grey,
+        checkboxDisabledBackgroundColor: Colors.grey[300],
+        checkboxHoverBorderColor: inputColor[700]!,
+        checkboxRippleColor: Colors.grey[200],
 
-      //radio button
-      radioButtonFilledColor: inputColor[500]!,
-      radioButtonBorderColor: inputColor[500],
-      radioButtonBorderRadius: 100,
-      radioButtonLabelColor: inputColor[500]!,
-      radioButtonLabelSize: 12,
-      radioButtonBorderWidth: 2,
-      radioButtonDisabledFilledColor: Colors.grey,
-      radioButtonDisabledLabelColor: Colors.grey,
-      radioButtonDisabledBorderColor: Colors.grey[300],
-      radioButtonHoverBorderColor: inputColor[700]!,
-      radioButtonRippleColor: Colors.grey[200],
+        //radio button
+        radioButtonFilledColor: inputColor[500]!,
+        radioButtonBorderColor: inputColor[500],
+        radioButtonBorderRadius: 100,
+        radioButtonLabelColor: inputColor[500]!,
+        radioButtonLabelSize: 12,
+        radioButtonBorderWidth: 2,
+        radioButtonDisabledFilledColor: Colors.grey,
+        radioButtonDisabledLabelColor: Colors.grey,
+        radioButtonDisabledBorderColor: Colors.grey[300],
+        radioButtonHoverBorderColor: inputColor[700]!,
+        radioButtonRippleColor: Colors.grey[200],
 
-      //table
-      tableHeaderColor: inputColor[700],
-      tableRowColor: inputColor[100],
-      tableRowHoverColor: inputColor[500]!,
-      tableRowFocusedColor: inputColor[200]!,
-      tableRowPressedColor: inputColor[900]!,
-      tableBorderColor: inputColor[400],
-      tableHeaderTextColor: contrast[500],
-      tableFooterColor: inputColor[700],
-    );
+        //table
+        tableHeaderColor: inputColor[700],
+        tableRowColor: inputColor[100],
+        tableRowHoverColor: inputColor[100]!,
+        tableRowFocusedColor: inputColor[200]!,
+        tableRowPressedColor: inputColor[400]!,
+        tableBorderColor: inputColor[400],
+        tableHeaderTextColor: contrast[500],
+        tableFooterColor: inputColor[700],
+
+        //datepicker
+        datePickerDialogBackgroundColor: contrast[500],
+        datePickerOnPrimaryColor: contrast[500],
+        datePickerOnSurfaceColor: inputColor[700],
+        datePickerPrimaryColor: inputColor[800],
+        datePickerSurfaceColor: inputColor[100],
+
+        //timepicker
+        timePickerDialogBackgroundColor: contrast[100],
+        timePickerOnPrimaryColor: contrast[500],
+        timePickerOnSurfaceColor: inputColor[800],
+        timePickerPrimaryColor: inputColor[700],
+        timePickerSurfaceColor: contrast[500],
+
+        //text
+        textBackgroundColor: Colors.transparent,
+        textColor: inputColor[700],
+        textFontSize: 14,
+        textFontWeight: FontWeight.normal,
+        circularProgressBarColor: inputColor[700]);
   }
 
   static UpThemeData generateThemeByIntColor({

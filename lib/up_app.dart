@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_up/config/flutter_up_config.dart';
+import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/models/up_route.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
-import 'package:flutter_up/themes/up_themes.dart';
 import 'package:go_router/go_router.dart';
 import 'services/up_navigation.dart';
 
-class FlutterUpApp extends StatelessWidget {
+class UpApp extends StatefulWidget {
   final String title;
   final UpThemeData theme;
   final List<UpRoute> upRoutes;
   final String? initialRoute;
   GlobalKey<NavigatorState>? parentNavigatorKey;
 
-  FlutterUpApp({
+  UpApp({
     Key? key,
     this.title = "",
     required this.theme,
@@ -24,22 +23,27 @@ class FlutterUpApp extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<UpApp> createState() => _UpAppState();
+}
+
+class _UpAppState extends State<UpApp> {
+  @override
   Widget build(BuildContext context) {
-    return FlutterUpConfig(
-      theme: theme,
+    return UpConfig(
+      theme: widget.theme,
       child: MaterialApp.router(
         routerConfig: GoRouter(
           navigatorKey: ServiceManager.isRegistered<UpNavigationService>()
               ? (ServiceManager<UpNavigationService>().navigatorKey)
               : GlobalKey<NavigatorState>(),
           routes: UpRoute.generateRoutes(
-            upRoutes,
-            parentNavigatorKey,
+            widget.upRoutes,
+            widget.parentNavigatorKey,
           ),
-          initialLocation: initialRoute,
+          initialLocation: widget.initialRoute,
         ),
         debugShowCheckedModeBanner: false,
-        title: title,
+        title: widget.title,
       ),
     );
   }

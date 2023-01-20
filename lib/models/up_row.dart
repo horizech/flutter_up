@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
+
 class UpRow {
-  final List<dynamic> row;
+  final List<Widget> row;
+  final Color? rowColor;
 
   UpRow(
-    this.row,
-  );
+    this.row, {
+    this.rowColor = Colors.transparent,
+  });
 }

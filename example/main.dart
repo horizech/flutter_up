@@ -20,7 +20,6 @@ import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/models/up_app_bar_item.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/themes/up_themes.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
 import 'package:flutter_up/widgets/up_dropdown.dart';
@@ -292,7 +291,6 @@ class WidgetsExamples {
   upCheckboxExample() {
     return UpCheckbox(
       labelDirection: UpTextDirection.left,
-      isDisable: true,
       label: "Number",
       initialValue: true,
       onChange: (newcheck) {
@@ -305,10 +303,10 @@ class WidgetsExamples {
   upRadioExample() {
     return UpRadioButton(
       // label: "Male",
-      value: "Male",
+
       labelDirection: UpTextDirection.left,
       // fillColor: Colors.white,
-      items: [],
+      items: const [],
       onChange: (radioValue) {
         //Do something
       },
