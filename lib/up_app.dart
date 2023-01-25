@@ -11,9 +11,9 @@ class UpApp extends StatefulWidget {
   final UpThemeData theme;
   final List<UpRoute> upRoutes;
   final String? initialRoute;
-  GlobalKey<NavigatorState>? parentNavigatorKey;
+  final GlobalKey<NavigatorState>? parentNavigatorKey;
 
-  UpApp({
+  const UpApp({
     Key? key,
     this.title = "",
     required this.theme,
@@ -23,14 +23,23 @@ class UpApp extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<UpApp> createState() => _UpAppState();
+  State<UpApp> createState() => UpAppState();
 }
 
-class _UpAppState extends State<UpApp> {
+class UpAppState extends State<UpApp> {
+  UpThemeData? theme;
+
+  void changeTheme(UpThemeData newTheme) {
+    setState(() {
+      theme = newTheme;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return UpConfig(
-      theme: widget.theme,
+      flutterUp: this,
+      theme: theme ?? widget.theme,
       child: MaterialApp.router(
         routerConfig: GoRouter(
           navigatorKey: ServiceManager.isRegistered<UpNavigationService>()

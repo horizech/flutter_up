@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/themes/up_theme_data.dart';
 
 class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
@@ -35,7 +33,6 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _UpAppBarState extends State<UpAppBar> {
   @override
   Widget build(BuildContext context) {
-    UpThemeData theme = UpConfig.of(context)!.theme;
     return AppBar(
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       excludeHeaderSemantics: widget.excludeHeaderSemantics,

@@ -250,14 +250,14 @@ class UpStyle {
         ? override?.disabledForgroundColor ??
             style?.disabledForgroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).disabledForgroundColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.focusedBorderColor ??
             style?.focusedBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).focusedBorderColor ??
             style?.borderColor ??
@@ -275,15 +275,13 @@ class UpStyle {
         ? override?.disabledBackgroundColor ??
             style?.disabledBackgroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).disabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.backgroundColor ??
             style?.backgroundColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .backgroundColor ??
             Theme.of(context).primaryColor;
   }
@@ -298,7 +296,7 @@ class UpStyle {
   //       ? override?.disabledForgroundColor ??
   //           style?.disabledForgroundColor ??
   //           getStyleByType(
-  //             (FlutterUpConfig.of(context)?.themeData ??
+  //             (FlutterUpConfig.of(context).themeData ??
   //                 UpConstants.kDefaultTheme),
   //             colorType,
   //           ).disabledForgroundColor ??
@@ -306,7 +304,7 @@ class UpStyle {
   //       : override?.radioButtonColor ??
   //           style?.radioButtonColor ??
   //           getStyleByType(
-  //                   (FlutterUpConfig.of(context)?.themeData ??
+  //                   (FlutterUpConfig.of(context).themeData ??
   //                       UpConstants.kDefaultTheme),
   //                   colorType)
   //               .radioButtonColor ??
@@ -322,9 +320,7 @@ class UpStyle {
   }) {
     return override?.tableRowFocusedColor ??
         style?.tableRowFocusedColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableRowFocusedColor ??
         Colors.grey;
   }
@@ -337,9 +333,7 @@ class UpStyle {
   }) {
     return override?.tableRowPressedColor ??
         style?.tableRowPressedColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableRowPressedColor ??
         Colors.grey;
   }
@@ -352,9 +346,7 @@ class UpStyle {
   }) {
     return override?.tableHeaderTextColor ??
         style?.tableHeaderTextColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableHeaderTextColor ??
         Colors.white;
   }
@@ -367,9 +359,7 @@ class UpStyle {
   }) {
     return override?.tableFooterTextColor ??
         style?.tableFooterTextColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableFooterTextColor ??
         Colors.white;
   }
@@ -382,9 +372,7 @@ class UpStyle {
   }) {
     return override?.tableRowHoverColor ??
         style?.tableRowHoverColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableRowHoverColor ??
         Colors.grey;
   }
@@ -397,9 +385,7 @@ class UpStyle {
   }) {
     return override?.tableHeaderColor ??
         style?.tableHeaderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableHeaderColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
@@ -413,9 +399,7 @@ class UpStyle {
   }) {
     return override?.tableFooterColor ??
         style?.tableFooterColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableFooterColor ??
         style?.foregroundColor ??
         Theme.of(context).primaryColor;
@@ -429,10 +413,7 @@ class UpStyle {
   }) {
     return override?.tableRowColor ??
         style?.tableRowColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .tableRowColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableRowColor ??
         Colors.transparent;
   }
 
@@ -444,9 +425,7 @@ class UpStyle {
   }) {
     return override?.tableBorderColor ??
         style?.tableBorderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .tableBorderColor ??
         Colors.grey;
   }
@@ -461,14 +440,14 @@ class UpStyle {
         ? override?.disabledForgroundColor ??
             style?.disabledForgroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).disabledForgroundColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.foregroundColor ??
             style?.foregroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).foregroundColor ??
             Theme.of(context).colorScheme.secondary;
@@ -484,14 +463,14 @@ class UpStyle {
         ? override?.disabledBorderColor ??
             style?.disabledBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).disabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.borderColor ??
             style?.borderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).borderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -506,7 +485,7 @@ class UpStyle {
     return override?.iconColor ??
         style?.iconColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).iconColor ??
         style?.foregroundColor ??
@@ -522,7 +501,7 @@ class UpStyle {
     return override?.errorBorderColor ??
         style?.errorBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).errorBorderColor ??
         style?.borderColor ??
@@ -538,10 +517,7 @@ class UpStyle {
   }) {
     return override?.borderWidth ??
         style?.borderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .borderWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType).borderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
 
@@ -553,10 +529,7 @@ class UpStyle {
   }) {
     return override?.borderRadius ??
         style?.borderRadius ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .borderRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType).borderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
   }
 
@@ -568,10 +541,7 @@ class UpStyle {
   }) {
     return override?.iconSize ??
         style?.iconSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .iconSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType).iconSize ??
         UpConstants.kDefaultStyleIconSize;
   }
 
@@ -584,35 +554,22 @@ class UpStyle {
     return RoundedRectangleBorder(
       borderRadius: override?.isRounded ??
               style?.isRounded ??
-              getStyleByType(
-                      (UpConfig.of(context)?.theme ??
-                          UpConstants.kDefaultTheme),
-                      colorType)
-                  .isRounded ??
+              getStyleByType(UpConfig.of(context).theme, colorType).isRounded ??
               UpConstants.kDefaultStyleIsRounded
           ? BorderRadius.circular(override?.borderRadius ??
               style?.borderRadius ??
-              getStyleByType(
-                      (UpConfig.of(context)?.theme ??
-                          UpConstants.kDefaultTheme),
-                      colorType)
+              getStyleByType(UpConfig.of(context).theme, colorType)
                   .borderRadius ??
               UpConstants.kDefaultStyleBorderRadius)
           : BorderRadius.zero,
       side: BorderSide(
         color: override?.borderColor ??
             style?.borderColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
-                .borderColor ??
+            getStyleByType(UpConfig.of(context).theme, colorType).borderColor ??
             UpConstants.kDefaultStyleBorderColor,
         width: override?.borderWidth ??
             style?.borderWidth ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
-                .borderWidth ??
+            getStyleByType(UpConfig.of(context).theme, colorType).borderWidth ??
             UpConstants.kDefaultStyleBorderWidth,
       ),
     );
@@ -646,9 +603,7 @@ class UpStyle {
   }) {
     return override?.hoverBackgroundColor ??
         style?.hoverBackgroundColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .hoverBackgroundColor ??
         Theme.of(context).primaryColor;
   }
@@ -661,9 +616,7 @@ class UpStyle {
   }) {
     return override?.hoveredForegroundColor ??
         style?.hoveredForegroundColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .hoveredForegroundColor ??
         Theme.of(context).primaryColor;
   }
@@ -676,10 +629,7 @@ class UpStyle {
   }) {
     return override?.hoveredBorderColor ??
         style?.hoveredBorderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .backgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).backgroundColor ??
         Theme.of(context).primaryColor;
   }
 
@@ -694,15 +644,13 @@ class UpStyle {
         ? override?.buttonDisbaledBackgroundColor ??
             style?.buttonDisbaledBackgroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).buttonDisbaledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.buttonBackgroundColor ??
             style?.buttonBackgroundColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .buttonBackgroundColor ??
             Theme.of(context).primaryColor;
   }
@@ -717,14 +665,14 @@ class UpStyle {
         ? override?.buttonDisabledTextColor ??
             style?.buttonDisabledTextColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).buttonDisabledTextColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.buttonTextColor ??
             style?.buttonTextColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).buttonTextColor ??
             Theme.of(context).colorScheme.secondary;
@@ -740,14 +688,14 @@ class UpStyle {
         ? override?.buttonDisabledBorderColor ??
             style?.buttonDisabledBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).buttonDisabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.buttonBorderColor ??
             style?.buttonBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).buttonBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -761,9 +709,7 @@ class UpStyle {
   }) {
     return override?.buttonBorderWidth ??
         style?.buttonBorderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
@@ -776,9 +722,7 @@ class UpStyle {
   }) {
     return override?.buttonBorderRadius ??
         style?.buttonBorderRadius ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
   }
@@ -791,10 +735,7 @@ class UpStyle {
   }) {
     return override?.buttonTextSize ??
         style?.buttonTextSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .buttonTextSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonTextSize ??
         UpConstants.kDefaultStyleTextSize;
   }
 
@@ -806,9 +747,7 @@ class UpStyle {
   }) {
     return override?.buttonHoverBackgroundColor ??
         style?.buttonHoverBackgroundColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonHoverBackgroundColor ??
         Theme.of(context).primaryColor;
   }
@@ -821,9 +760,7 @@ class UpStyle {
   }) {
     return override?.buttonHoverTextColor ??
         style?.buttonHoverTextColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonHoverTextColor ??
         Theme.of(context).primaryColor;
   }
@@ -836,9 +773,7 @@ class UpStyle {
   }) {
     return override?.buttonHoverBorderColor ??
         style?.buttonHoverBorderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonHoverBorderColor ??
         Theme.of(context).primaryColor;
   }
@@ -854,7 +789,7 @@ class UpStyle {
   //       ? override?.chec ??
   //           style?.buttonDisabledTextColor ??
   //           getStyleByType(
-  //             (FlutterUpConfig.of(context)?.themeData ??
+  //             (FlutterUpConfig.of(context).themeData ??
   //                 UpConstants.kDefaultTheme),
   //             colorType,
   //           ).buttonDisabledTextColor ??
@@ -862,7 +797,7 @@ class UpStyle {
   //       : override?.buttonTextColor ??
   //           style?.buttonTextColor ??
   //           getStyleByType(
-  //             (FlutterUpConfig.of(context)?.themeData ??
+  //             (FlutterUpConfig.of(context).themeData ??
   //                 UpConstants.kDefaultTheme),
   //             colorType,
   //           ).buttonTextColor ??
@@ -878,15 +813,13 @@ class UpStyle {
         ? override?.checkboxCheckedDisabledColor ??
             style?.checkboxCheckedDisabledColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).checkboxCheckedDisabledColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.checkboxCheckedColor ??
             style?.checkboxCheckedColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .checkboxCheckedColor ??
             Theme.of(context).primaryColor;
   }
@@ -901,14 +834,14 @@ class UpStyle {
         ? override?.checkboxDisabledLabelColor ??
             style?.checkboxDisabledLabelColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).checkboxDisabledLabelColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.checkboxLabelColor ??
             style?.checkboxLabelColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).checkboxLabelColor ??
             Theme.of(context).colorScheme.secondary;
@@ -924,14 +857,14 @@ class UpStyle {
         ? override?.checkboxDisabledBackgroundColor ??
             style?.checkboxDisabledBackgroundColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).checkboxDisabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.checkboxBorderColor ??
             style?.checkboxBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).checkboxBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -945,9 +878,7 @@ class UpStyle {
   }) {
     return override?.checkboxBorderWidth ??
         style?.checkboxBorderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .checkboxBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
@@ -960,9 +891,7 @@ class UpStyle {
   }) {
     return override?.checkboxLabelSize ??
         style?.checkboxLabelSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .checkboxLabelSize ??
         UpConstants.kDefaultStyleTextSize;
   }
@@ -975,9 +904,7 @@ class UpStyle {
   }) {
     return override?.checkboxBorderRadius ??
         style?.checkboxBorderRadius ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .checkboxBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
   }
@@ -990,9 +917,7 @@ class UpStyle {
   }) {
     return override?.checkboxRippleColor ??
         style?.checkboxRippleColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .checkboxRippleColor ??
         Theme.of(context).primaryColor.withAlpha(1);
   }
@@ -1005,9 +930,7 @@ class UpStyle {
   }) {
     return override?.checkboxHoverBorderColor ??
         style?.checkboxHoverBorderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .checkboxHoverBorderColor ??
         Theme.of(context).primaryColor;
   }
@@ -1021,16 +944,12 @@ class UpStyle {
     return style?.isDisabled == true
         ? override?.checkboxDisabledBackgroundColor ??
             style?.checkboxDisabledBackgroundColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .checkboxDisabledBackgroundColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.checkboxBackgroundColor ??
             style?.checkboxBackgroundColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .checkboxBackgroundColor ??
             Theme.of(context).primaryColor;
   }
@@ -1047,15 +966,13 @@ class UpStyle {
         ? override?.radioButtonDisabledFilledColor ??
             style?.radioButtonDisabledFilledColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).radioButtonDisabledFilledColor ??
             UpConstants.kDefaultStyleDisabledBackgroundColor
         : override?.radioButtonFilledColor ??
             style?.radioButtonFilledColor ??
-            getStyleByType(
-                    (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                    colorType)
+            getStyleByType(UpConfig.of(context).theme, colorType)
                 .radioButtonFilledColor ??
             Theme.of(context).primaryColor;
   }
@@ -1070,14 +987,14 @@ class UpStyle {
         ? override?.radioButtonDisabledLabelColor ??
             style?.radioButtonDisabledLabelColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).radioButtonDisabledLabelColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
         : override?.radioButtonBorderColor ??
             style?.radioButtonBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).radioButtonBorderColor ??
             Theme.of(context).colorScheme.secondary;
@@ -1093,14 +1010,14 @@ class UpStyle {
         ? override?.radioButtonDisabledBorderColor ??
             style?.radioButtonDisabledBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).radioButtonDisabledBorderColor ??
             UpConstants.kDefaultStyleDisabledBorderColor
         : override?.radioButtonBorderColor ??
             style?.radioButtonBorderColor ??
             getStyleByType(
-              (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+              UpConfig.of(context).theme,
               colorType,
             ).radioButtonBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
@@ -1114,9 +1031,7 @@ class UpStyle {
   }) {
     return override?.radioButtonBorderWidth ??
         style?.radioButtonBorderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .radioButtonBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
@@ -1129,9 +1044,7 @@ class UpStyle {
   }) {
     return override?.radioButtonLabelSize ??
         style?.radioButtonLabelSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .radioButtonLabelSize ??
         UpConstants.kDefaultStyleTextSize;
   }
@@ -1144,9 +1057,7 @@ class UpStyle {
   }) {
     return override?.radioButtonRippleColor ??
         style?.radioButtonRippleColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .radioButtonRippleColor ??
         Theme.of(context).primaryColor.withAlpha(1);
   }
@@ -1159,9 +1070,7 @@ class UpStyle {
   }) {
     return override?.radioButtonHoverBorderColor ??
         style?.radioButtonHoverBorderColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .radioButtonHoverBorderColor ??
         Theme.of(context).primaryColor;
   }
@@ -1177,7 +1086,7 @@ class UpStyle {
     return override?.textfieldBorderColor ??
         style?.textfieldBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).textfieldBorderColor ??
         Theme.of(context).primaryColor.withAlpha(64);
@@ -1192,7 +1101,7 @@ class UpStyle {
     return override?.textfieldCursorColor ??
         style?.textfieldCursorColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).textfieldCursorColor ??
         Theme.of(context).primaryColor.withAlpha(64);
@@ -1207,7 +1116,7 @@ class UpStyle {
     return override?.textfieldFocusedBorderColor ??
         style?.textfieldFocusedBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).textfieldFocusedBorderColor ??
         style?.textfieldBorderColor ??
@@ -1224,7 +1133,7 @@ class UpStyle {
     return override?.textfieldErrorBorderColor ??
         style?.textfieldErrorBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).textfieldErrorBorderColor ??
         style?.textfieldErrorBorderColor ??
@@ -1240,9 +1149,7 @@ class UpStyle {
   }) {
     return override?.textfieldBorderWidth ??
         style?.textfieldBorderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .textfieldBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
@@ -1255,9 +1162,7 @@ class UpStyle {
   }) {
     return override?.textfieldBorderRadius ??
         style?.textfieldBorderRadius ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .textfieldBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
   }
@@ -1271,7 +1176,7 @@ class UpStyle {
     return override?.textfieldLabelColor ??
         style?.textfieldLabelColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).textfieldLabelColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1285,9 +1190,7 @@ class UpStyle {
   }) {
     return override?.textfieldLabelSize ??
         style?.textfieldLabelSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .textfieldLabelSize ??
         UpConstants.kDefaultStyleTextSize;
   }
@@ -1390,7 +1293,7 @@ class UpStyle {
     return override?.dropdownBorderColor ??
         style?.dropdownBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).dropdownBorderColor ??
         Theme.of(context).primaryColor.withAlpha(64);
@@ -1405,7 +1308,7 @@ class UpStyle {
     return override?.dropdownFocusedBorderColor ??
         style?.dropdownFocusedBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).dropdownFocusedBorderColor ??
         style?.dropdownBorderColor ??
@@ -1422,7 +1325,7 @@ class UpStyle {
     return override?.dropdownErrorBorderColor ??
         style?.dropdownErrorBorderColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).dropdownErrorBorderColor ??
         style?.dropdownBorderColor ??
@@ -1438,9 +1341,7 @@ class UpStyle {
   }) {
     return override?.dropdownBorderWidth ??
         style?.dropdownBorderWidth ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .dropdownBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
   }
@@ -1453,9 +1354,7 @@ class UpStyle {
   }) {
     return override?.dropdownBorderRadius ??
         style?.dropdownBorderRadius ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .dropdownBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
   }
@@ -1469,7 +1368,7 @@ class UpStyle {
     return override?.dropdownLabelColor ??
         style?.dropdownLabelColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).dropdownLabelColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1483,9 +1382,7 @@ class UpStyle {
   }) {
     return override?.dropdownLabelSize ??
         style?.dropdownLabelSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .dropdownLabelSize ??
         UpConstants.kDefaultStyleTextSize;
   }
@@ -1588,11 +1485,10 @@ class UpStyle {
     return override?.appBarColor ??
         style?.appBarColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).appBarColor ??
-        Colors.red;
-    Theme.of(context).primaryColor;
+        Theme.of(context).primaryColor;
   }
 
   static Color getAppBarTitleColor(
@@ -1604,7 +1500,7 @@ class UpStyle {
     return override?.appBarTitleColor ??
         style?.appBarTitleColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).appBarTitleColor ??
         Theme.of(context).colorScheme.secondary;
@@ -1618,10 +1514,7 @@ class UpStyle {
   }) {
     return override?.appBarTitleSize ??
         style?.appBarTitleSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .appBarTitleSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType).appBarTitleSize ??
         UpConstants.kDefaultStyleTextSize;
   }
 
@@ -1679,7 +1572,7 @@ class UpStyle {
     return override?.datePickerPrimaryColor ??
         style?.datePickerPrimaryColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).datePickerPrimaryColor ??
         Theme.of(context).colorScheme.primary;
@@ -1694,7 +1587,7 @@ class UpStyle {
     return override?.datePickerOnPrimaryColor ??
         style?.datePickerOnPrimaryColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).datePickerOnPrimaryColor ??
         Theme.of(context).colorScheme.primary;
@@ -1709,7 +1602,7 @@ class UpStyle {
     return override?.datePickerSurfaceColor ??
         style?.datePickerSurfaceColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).datePickerSurfaceColor ??
         Theme.of(context).colorScheme.primary;
@@ -1724,7 +1617,7 @@ class UpStyle {
     return override?.datePickerOnSurfaceColor ??
         style?.datePickerOnSurfaceColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).datePickerOnSurfaceColor ??
         Theme.of(context).colorScheme.primary;
@@ -1739,7 +1632,7 @@ class UpStyle {
     return override?.datePickerDialogBackgroundColor ??
         style?.datePickerDialogBackgroundColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).datePickerDialogBackgroundColor ??
         Theme.of(context).colorScheme.primary;
@@ -1798,7 +1691,7 @@ class UpStyle {
     return override?.timePickerPrimaryColor ??
         style?.timePickerPrimaryColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).timePickerPrimaryColor ??
         Theme.of(context).colorScheme.primary;
@@ -1813,7 +1706,7 @@ class UpStyle {
     return override?.timePickerOnPrimaryColor ??
         style?.timePickerOnPrimaryColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).timePickerOnPrimaryColor ??
         Theme.of(context).colorScheme.primary;
@@ -1828,7 +1721,7 @@ class UpStyle {
     return override?.timePickerSurfaceColor ??
         style?.timePickerSurfaceColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).timePickerSurfaceColor ??
         Theme.of(context).colorScheme.primary;
@@ -1843,7 +1736,7 @@ class UpStyle {
     return override?.timePickerOnSurfaceColor ??
         style?.timePickerOnSurfaceColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).timePickerOnSurfaceColor ??
         Theme.of(context).colorScheme.primary;
@@ -1858,7 +1751,7 @@ class UpStyle {
     return override?.timePickerDialogBackgroundColor ??
         style?.timePickerDialogBackgroundColor ??
         getStyleByType(
-          (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
+          UpConfig.of(context).theme,
           colorType,
         ).timePickerDialogBackgroundColor ??
         Theme.of(context).colorScheme.primary;
@@ -1873,10 +1766,7 @@ class UpStyle {
   }) {
     return override?.textColor ??
         style?.textColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .textColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textColor ??
         Theme.of(context).primaryColor;
   }
 
@@ -1888,9 +1778,7 @@ class UpStyle {
   }) {
     return override?.textBackgroundColor ??
         style?.textBackgroundColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .textBackgroundColor ??
         Colors.transparent;
   }
@@ -1903,10 +1791,7 @@ class UpStyle {
   }) {
     return override?.textFontSize ??
         style?.textFontSize ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .textFontSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textFontSize ??
         12;
   }
 
@@ -1918,10 +1803,7 @@ class UpStyle {
   }) {
     return override?.textFontWeight ??
         style?.textFontWeight ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .textFontWeight;
+        getStyleByType(UpConfig.of(context).theme, colorType).textFontWeight;
   }
 
   static Color getCircularProgressBarColor(
@@ -1932,12 +1814,9 @@ class UpStyle {
   }) {
     return override?.circularProgressBarColor ??
         style?.circularProgressBarColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .circularProgressBarColor ??
-        UpConfig.of(context)?.theme.primaryColor ??
-        Theme.of(context).primaryColor;
+        UpConfig.of(context).theme.primaryColor;
   }
 
   static Color getToastBackgroundColor(
@@ -1948,9 +1827,7 @@ class UpStyle {
   }) {
     return override?.toastBackgroundColor ??
         style?.toastBackgroundColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
+        getStyleByType(UpConfig.of(context).theme, colorType)
             .toastBackgroundColor ??
         Theme.of(context).primaryColor;
   }
@@ -1963,10 +1840,7 @@ class UpStyle {
   }) {
     return override?.toastTextColor ??
         style?.toastTextColor ??
-        getStyleByType(
-                (UpConfig.of(context)?.theme ?? UpConstants.kDefaultTheme),
-                colorType)
-            .toastTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).toastTextColor ??
         Theme.of(context).colorScheme.secondary;
   }
 }
