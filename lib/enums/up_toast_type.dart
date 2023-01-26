@@ -15,92 +15,84 @@ enum UpToastType {
   custom,
 }
 
-class UpToastParams {
-  final Color backgroundColor;
-  final Color foregroundColor;
-  Icon? icon;
-
-  UpToastParams({
-    required this.backgroundColor,
-    required this.foregroundColor,
-    this.icon,
-  });
-}
-
-UpToastParams getToast(BuildContext context, UpToastType type,
+UpStyle getToastStyle(BuildContext context, UpToastType type,
     {UpColorType? colorType, UpStyle? style}) {
   switch (type) {
     case UpToastType.secondary:
-      return UpToastParams(
-        backgroundColor: UpStyle.getToastBackgroundColor(context,
+      return UpStyle(
+        toastBackgroundColor: UpStyle.getToastBackgroundColor(context,
             colorType: UpColorType.secondary, style: style),
-        foregroundColor: UpStyle.getToastTextColor(context,
+        toastForegroundColor: UpStyle.getToastTextColor(context,
             colorType: UpColorType.secondary, style: style),
-        icon: null,
+        toastIcon: null,
       );
     case UpToastType.danger:
-      return UpToastParams(
-        backgroundColor: Colors.red[200]!,
-        foregroundColor: const Color.fromARGB(255, 79, 6, 1),
-        icon: const Icon(
+      return UpStyle(
+        toastBackgroundColor: Colors.red[200]!,
+        toastForegroundColor: const Color.fromARGB(255, 79, 6, 1),
+        toastIcon: const Icon(
           Icons.dangerous,
           color: Color.fromARGB(255, 79, 6, 1),
         ),
       );
     case UpToastType.success:
-      return UpToastParams(
-        backgroundColor: Colors.green[200]!,
-        foregroundColor: Colors.green,
-        icon: const Icon(
+      return UpStyle(
+        toastBackgroundColor: Colors.green[200]!,
+        toastForegroundColor: Colors.green,
+        toastIcon: const Icon(
           Icons.done,
           color: Colors.green,
         ),
       );
     case UpToastType.warning:
-      return UpToastParams(
-        backgroundColor: Colors.orange[200]!,
-        foregroundColor: Colors.orange,
-        icon: const Icon(
+      return UpStyle(
+        toastBackgroundColor: Colors.orange[200]!,
+        toastForegroundColor: Colors.orange,
+        toastIcon: const Icon(
           Icons.warning,
           color: Colors.orange,
         ),
       );
     case UpToastType.light:
-      return UpToastParams(
-        backgroundColor: const Color.fromARGB(255, 199, 196, 196),
-        foregroundColor: Colors.black,
-        icon: null,
+      return UpStyle(
+        toastBackgroundColor: const Color.fromARGB(255, 199, 196, 196),
+        toastForegroundColor: Colors.black,
+        toastIcon: null,
       );
     case UpToastType.info:
-      return UpToastParams(
-        backgroundColor: Colors.blue[200]!,
-        foregroundColor: Colors.blue,
-        icon: const Icon(
+      return UpStyle(
+        toastBackgroundColor: Colors.blue[200]!,
+        toastForegroundColor: Colors.blue,
+        toastIcon: const Icon(
           Icons.info,
           color: Colors.blue,
         ),
       );
     case UpToastType.dark:
-      return UpToastParams(
-        backgroundColor: const Color.fromARGB(221, 39, 38, 38),
-        foregroundColor: Colors.black,
-        icon: null,
+      return UpStyle(
+        toastBackgroundColor: const Color.fromARGB(221, 39, 38, 38),
+        toastForegroundColor: Colors.black,
+        toastIcon: null,
       );
     case UpToastType.custom:
-      return UpToastParams(
-          backgroundColor: UpStyle.getToastBackgroundColor(context,
+      return UpStyle(
+          toastBackgroundGradient: UpStyle.getToastBackgroundGradient(context,
               colorType: colorType, style: style),
-          foregroundColor: UpStyle.getToastTextColor(context,
-              colorType: UpColorType.primary),
-          icon: null);
+          toastBackgroundColor: UpStyle.getToastBackgroundColor(context,
+              colorType: colorType, style: style),
+          toastForegroundColor: UpStyle.getToastTextColor(context,
+              colorType: UpColorType.primary, style: style),
+          toastIcon: null);
     case UpToastType.primary:
     default:
-      return UpToastParams(
-        backgroundColor: UpStyle.getToastBackgroundColor(context,
-            colorType: UpColorType.primary),
-        foregroundColor:
-            UpStyle.getToastTextColor(context, colorType: UpColorType.primary),
-        icon: null,
+      return UpStyle(
+        toastBackgroundGradient: UpStyle.getToastBackgroundGradient(context,
+            colorType: UpColorType.primary, style: style),
+        toastBackgroundColor: UpStyle.getToastBackgroundColor(context,
+            colorType: UpColorType.primary, style: style),
+        toastForegroundColor: UpStyle.getToastTextColor(context,
+            colorType: UpColorType.primary, style: style),
+        toastIcon: null,
       );
   }
 }

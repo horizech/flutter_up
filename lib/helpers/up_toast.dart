@@ -74,6 +74,13 @@ Widget _upToast(
   double? width,
   double? height,
 ) {
+  UpStyle params = getToastStyle(
+    context,
+    upToastType ?? UpToastType.primary,
+    colorType: colorType,
+    style: style,
+  );
+
   return Container(
     width: width,
     height: height,
@@ -89,22 +96,13 @@ Widget _upToast(
           ),
         ), //                 <--- border radius here
       ),
-      color: getToast(
-        context,
-        upToastType ?? UpToastType.primary,
-        colorType: colorType,
-        style: style,
-      ).backgroundColor,
+      gradient: params.toastBackgroundGradient,
+      color: params.toastBackgroundColor,
     ),
     child: Row(
       children: [
         icon ??
-            getToast(
-              context,
-              upToastType ?? UpToastType.primary,
-              colorType: colorType,
-              style: style,
-            ).icon ??
+            params.toastIcon ??
             const SizedBox(
               width: 0,
               height: 0,
@@ -117,12 +115,7 @@ Widget _upToast(
             child: Text(
               text,
               style: TextStyle(
-                color: getToast(
-                  context,
-                  upToastType ?? UpToastType.primary,
-                  colorType: colorType,
-                  style: style,
-                ).foregroundColor,
+                color: params.toastForegroundColor,
               ),
             ),
           ),

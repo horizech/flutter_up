@@ -4,7 +4,13 @@ import 'package:flutter_up/contants.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
 
+/// The base of FlutterUp style.
+///
+/// Contains styles for each specific widget and also general style
+/// that is used when specific one is not available.
 class UpStyle {
+  // General
+  // Styles that are mostly used when specific ones are not provided
   final Color? backgroundColor;
   final Color? borderColor;
   final double? borderRadius;
@@ -23,7 +29,7 @@ class UpStyle {
   final Color? disabledBorderColor;
   final Color? disabledForgroundColor;
 
-//table
+  // Table
   final Color? tableHeaderTextColor;
   final Color? tableHeaderColor;
   final Color? tableRowColor;
@@ -34,14 +40,17 @@ class UpStyle {
   final Color? tableFooterColor;
   final Color? tableFooterTextColor;
 
+  // Toast
   final Color? toastBackgroundColor;
+  final Gradient? toastBackgroundGradient;
+  final Color? toastForegroundColor;
+  final Icon? toastIcon;
   final Color? toastTextColor;
 
-  //button
+  // Button
   final Color? buttonDisbaledBackgroundColor;
   final Color? buttonDisabledTextColor;
   final Color? buttonDisabledBorderColor;
-
   final Color? buttonBackgroundColor;
   final Color? buttonTextColor;
   final double? buttonTextSize;
@@ -52,11 +61,12 @@ class UpStyle {
   final Color? buttonHoverTextColor;
   final Color? buttonHoverBorderColor;
 
-//appbar
+  // Appbar
   final Color? appBarColor;
   final Color? appBarTitleColor;
   final double? appBarTitleSize;
-  //checkbox
+
+  // Checkbox
   final Color? checkboxBackgroundColor;
   final Color? checkboxCheckedColor;
   final Color? checkboxLabelColor;
@@ -71,7 +81,7 @@ class UpStyle {
   final double? checkboxBorderRadius;
   final Color? checkboxRippleColor;
 
-  //radio  button
+  // Radio button
   final Color? radioButtonFilledColor;
   final Color? radioButtonLabelColor;
   final double? radioButtonLabelSize;
@@ -84,7 +94,7 @@ class UpStyle {
   final Color? radioButtonRippleColor;
   final Color? radioButtonDisabledLabelColor;
 
-  //textdfield
+  // Text field
   final double? textfieldBorderWidth;
   final double? textfieldBorderRadius;
   final Color? textfieldFocusedBorderColor;
@@ -94,7 +104,7 @@ class UpStyle {
   final double? textfieldLabelSize;
   final Color? textfieldCursorColor;
 
-  //dropdown
+  // Dropdown
   final Color? dropdownFocusedBorderColor;
   final Color? dropdownBorderColor;
   final Color? dropdownErrorBorderColor;
@@ -103,27 +113,29 @@ class UpStyle {
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
 
-//date picker
+  // Date picker
   final Color? datePickerPrimaryColor;
   final Color? datePickerOnPrimaryColor;
   final Color? datePickerSurfaceColor;
   final Color? datePickerOnSurfaceColor;
   final Color? datePickerDialogBackgroundColor;
 
-  //date picker
+  // Time picker
   final Color? timePickerPrimaryColor;
   final Color? timePickerOnPrimaryColor;
   final Color? timePickerSurfaceColor;
   final Color? timePickerOnSurfaceColor;
   final Color? timePickerDialogBackgroundColor;
 
-// text size
+  // Text
   final Color? textColor;
   final Color? textBackgroundColor;
   final double? textFontSize;
   final Color? circularProgressBarColor;
   final FontWeight? textFontWeight;
+
   UpStyle({
+    // General
     this.backgroundColor,
     this.circularProgressBarColor,
     this.borderColor,
@@ -137,21 +149,26 @@ class UpStyle {
     this.focusedBorderColor,
     this.errorBorderColor,
     this.isRounded,
-    this.toastBackgroundColor,
-    this.toastTextColor,
     this.iconSize,
     this.borderRadius,
     this.disabledBorderColor,
     this.disabledBackgroundColor,
     this.disabledForgroundColor,
 
-// text
+    // Toast
+    this.toastBackgroundGradient,
+    this.toastBackgroundColor,
+    this.toastForegroundColor,
+    this.toastIcon,
+    this.toastTextColor,
+
+    // Text
     this.textBackgroundColor,
     this.textColor,
     this.textFontSize,
     this.textFontWeight,
 
-    // table
+    // Table
     this.tableBorderColor,
     this.tableRowColor,
     this.tableRowFocusedColor,
@@ -162,11 +179,12 @@ class UpStyle {
     this.tableHeaderTextColor,
     this.tableFooterTextColor,
 
-//appbar
+    // Appbar
     this.appBarColor,
     this.appBarTitleColor,
     this.appBarTitleSize,
-    // button
+
+    // Button
     this.buttonTextSize,
     this.buttonBackgroundColor,
     this.buttonBorderColor,
@@ -180,7 +198,7 @@ class UpStyle {
     this.buttonDisabledTextColor,
     this.buttonDisbaledBackgroundColor,
 
-    // checkbox
+    // Checkbox
     this.checkboxBackgroundColor,
     this.checkboxBorderColor,
     this.checkboxBorderRadius,
@@ -194,8 +212,7 @@ class UpStyle {
     this.checkboxDisabledLabelColor,
     this.checkboxCheckedDisabledColor,
 
-    // radio button
-
+    // Radio button
     this.radioButtonBorderColor,
     this.radioButtonDisabledBorderColor,
     this.radioButtonDisabledFilledColor,
@@ -208,7 +225,7 @@ class UpStyle {
     this.radioButtonRippleColor,
     this.radioButtonDisabledLabelColor,
 
-    //textfield
+    // Text field
     this.textfieldBorderColor,
     this.textfieldErrorBorderColor,
     this.textfieldFocusedBorderColor,
@@ -218,7 +235,7 @@ class UpStyle {
     this.textfieldCursorColor,
     this.textfieldLabelSize,
 
-    //drodown
+    // Drodown
     this.dropdownBorderWidth,
     this.dropdownBorderColor,
     this.dropdownBorderRadius,
@@ -227,13 +244,14 @@ class UpStyle {
     this.dropdownLabelColor,
     this.dropdownLabelSize,
 
-    //datepicker
+    // Datepicker
     this.datePickerDialogBackgroundColor,
     this.datePickerOnPrimaryColor,
     this.datePickerOnSurfaceColor,
     this.datePickerPrimaryColor,
     this.datePickerSurfaceColor,
-    // time picker
+
+    // Time picker
     this.timePickerDialogBackgroundColor,
     this.timePickerOnPrimaryColor,
     this.timePickerOnSurfaceColor,
@@ -1817,6 +1835,19 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .circularProgressBarColor ??
         UpConfig.of(context).theme.primaryColor;
+  }
+
+  static Gradient getToastBackgroundGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.toastBackgroundGradient ??
+        style?.toastBackgroundGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .toastBackgroundGradient ??
+        const LinearGradient(colors: [Colors.red, Colors.blue]);
   }
 
   static Color getToastBackgroundColor(
