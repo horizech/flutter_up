@@ -1,7 +1,1 @@
-enum UpButtonType {
-  elevated,
-  text,
-  floating,
-  icon,
-  outlined,
-}
+enum UpButtonType { elevated, text, floating, icon, outlined, image }

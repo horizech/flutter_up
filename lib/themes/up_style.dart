@@ -60,6 +60,7 @@ class UpStyle {
   final Color? buttonHoverBackgroundColor;
   final Color? buttonHoverTextColor;
   final Color? buttonHoverBorderColor;
+  final Image? buttonBackgroundImage;
 
   // Appbar
   final Color? appBarColor;
@@ -197,6 +198,7 @@ class UpStyle {
     this.buttonDisabledBorderColor,
     this.buttonDisabledTextColor,
     this.buttonDisbaledBackgroundColor,
+    this.buttonBackgroundImage,
 
     // Checkbox
     this.checkboxBackgroundColor,
@@ -886,6 +888,15 @@ class UpStyle {
               colorType,
             ).checkboxBorderColor ??
             Theme.of(context).primaryColor.withAlpha(64);
+  }
+
+  static Image? getbuttonBackgroundImage(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonBackgroundImage ?? style?.buttonBackgroundImage;
   }
 
   static double getcheckboxBorderWidth(
