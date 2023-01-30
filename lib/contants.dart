@@ -14,7 +14,7 @@ class UpConstants {
   static Color kDefaultStyleBorderColor = Colors.transparent;
   static double kDefaultStyleBorderWidth = 1;
   static double kDefaultStyleTextSize = 12;
-
+  static double kDefaultStyleTextStrokeWidth = 1;
   static Color kDefaultStyleForegroundColor = Colors.white;
   static double kDefaultStyleBorderRadius = 18;
   static bool kDefaultStyleIsRounded = false;

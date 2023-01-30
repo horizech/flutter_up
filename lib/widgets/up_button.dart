@@ -67,6 +67,7 @@ class UpButton extends StatelessWidget {
       case UpButtonType.image:
         return _upImageButton(
           style: style,
+          text: text,
           colorType: colorType,
           isDisabled: style?.isDisabled ?? false,
           onPressed: () {
@@ -332,26 +333,48 @@ class __upImageButtonState extends State<_upImageButton> {
                     style: widget.style, colorType: widget.colorType),
               ),
               Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.text ?? "",
-                    style: TextStyle(
-                        // color: isHovered
-                        //     ? UpStyle.getButtonHoverTextColor(context,
-                        //         style: widget.style,
-                        //         colorType: widget.colorType):
-                        color: UpStyle.getButtonTextColor(
-                          context,
-                          style: widget.style,
-                          colorType: widget.colorType,
-                        ),
+                child: Stack(
+                  children: [
+                    // Implement the stroke
+                    Text(
+                      widget.text ?? "",
+                      style: TextStyle(
+                        fontStyle: UpStyle.getTextFontStyle(context,
+                            style: widget.style, colorType: widget.colorType),
+                        fontWeight: UpStyle.getTextFontWeight(context,
+                            style: widget.style, colorType: widget.colorType),
                         fontSize: UpStyle.getButtonTextSize(
                           context,
                           style: widget.style,
                           colorType: widget.colorType,
-                        )),
-                  ),
+                        ),
+                        foreground: Paint()
+                          ..color = UpStyle.getButtonTextStrokeColor(context,
+                              style: widget.style, colorType: widget.colorType)
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = UpStyle.getButtonTextStrokeWidth(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType),
+                      ),
+                    ),
+                    Text(
+                      widget.text ?? "",
+                      style: TextStyle(
+                        fontStyle: UpStyle.getTextFontStyle(context,
+                            style: widget.style, colorType: widget.colorType),
+                        fontSize: UpStyle.getButtonTextSize(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        ),
+                        color: UpStyle.getButtonTextColor(context,
+                            style: widget.style, colorType: widget.colorType),
+                        fontWeight: UpStyle.getTextFontWeight(context,
+                            style: widget.style, colorType: widget.colorType),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],

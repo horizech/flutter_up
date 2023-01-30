@@ -54,6 +54,8 @@ class UpStyle {
   final Color? buttonBackgroundColor;
   final Color? buttonTextColor;
   final double? buttonTextSize;
+  final double? buttonTextStrokeWidth;
+  final Color? buttonTextStrokeColor;
   final Color? buttonBorderColor;
   final double? buttonBorderWidth;
   final double? buttonBorderRadius;
@@ -134,6 +136,7 @@ class UpStyle {
   final double? textFontSize;
   final Color? circularProgressBarColor;
   final FontWeight? textFontWeight;
+  final FontStyle? textFontStyle;
 
   UpStyle({
     // General
@@ -168,6 +171,7 @@ class UpStyle {
     this.textColor,
     this.textFontSize,
     this.textFontWeight,
+    this.textFontStyle,
 
     // Table
     this.tableBorderColor,
@@ -187,6 +191,8 @@ class UpStyle {
 
     // Button
     this.buttonTextSize,
+    this.buttonTextStrokeWidth,
+    this.buttonTextStrokeColor,
     this.buttonBackgroundColor,
     this.buttonBorderColor,
     this.buttonBorderRadius,
@@ -721,6 +727,21 @@ class UpStyle {
             Theme.of(context).primaryColor.withAlpha(64);
   }
 
+  static Color getButtonTextStrokeColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonTextStrokeColor ??
+        style?.buttonTextStrokeColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).buttonTextStrokeColor ??
+        Colors.transparent;
+  }
+
   static double getButtonBorderWidth(
     BuildContext context, {
     UpStyle? override,
@@ -745,6 +766,17 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
+  }
+
+  static double getButtonTextStrokeWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonTextStrokeWidth ??
+        style?.buttonTextStrokeWidth ??
+        UpConstants.kDefaultStyleTextStrokeWidth;
   }
 
   static double getButtonTextSize(
@@ -1822,6 +1854,17 @@ class UpStyle {
         style?.textFontSize ??
         getStyleByType(UpConfig.of(context).theme, colorType).textFontSize ??
         12;
+  }
+
+  static FontStyle? getTextFontStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textFontStyle ??
+        style?.textFontStyle ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textFontStyle;
   }
 
   static FontWeight? getTextFontWeight(
