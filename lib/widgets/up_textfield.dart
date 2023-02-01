@@ -25,6 +25,7 @@ class UpTextField extends StatelessWidget {
   final Function()? onTap;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final Function(String)? onFieldSubmitted;
   final String? hint;
   final String? initialValue;
   final EdgeInsetsGeometry? contentPadding;
@@ -52,6 +53,7 @@ class UpTextField extends StatelessWidget {
     this.hint,
     this.prefixIcon,
     this.suffixIcon,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -80,6 +82,7 @@ class UpTextField extends StatelessWidget {
                 prefixIcon,
                 suffixIcon,
                 initialValue,
+                onFieldSubmitted,
                 contentPadding))
         : _upTextField(
             context,
@@ -102,33 +105,36 @@ class UpTextField extends StatelessWidget {
             prefixIcon,
             suffixIcon,
             initialValue,
+            onFieldSubmitted,
             contentPadding,
           );
   }
 }
 
 Widget _upTextField(
-    BuildContext context,
-    UpInputType? type,
-    bool obscureText,
-    bool readOnly,
-    TextEditingController? controller,
-    TextInputType keyboardType,
-    String? autofillHint,
-    String? label,
-    Function(String?)? onSaved,
-    Function(String?)? onChanged,
-    Function()? onTap,
-    int? maxLines,
-    final UpColorType? colorType,
-    final UpStyle? style,
-    final String? hint,
-    final FocusNode? focusNode,
-    final UpValidation? validation,
-    final Widget? prefixIcon,
-    final Widget? suffixIcon,
-    final String? initialValue,
-    EdgeInsetsGeometry? contentPadding) {
+  BuildContext context,
+  UpInputType? type,
+  bool obscureText,
+  bool readOnly,
+  TextEditingController? controller,
+  TextInputType keyboardType,
+  String? autofillHint,
+  String? label,
+  Function(String?)? onSaved,
+  Function(String?)? onChanged,
+  Function()? onTap,
+  int? maxLines,
+  final UpColorType? colorType,
+  final UpStyle? style,
+  final String? hint,
+  final FocusNode? focusNode,
+  final UpValidation? validation,
+  final Widget? prefixIcon,
+  final Widget? suffixIcon,
+  final String? initialValue,
+  final Function(String)? onFieldSubmitted,
+  EdgeInsetsGeometry? contentPadding,
+) {
   //pattern for email
   const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
       r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -139,6 +145,7 @@ Widget _upTextField(
       r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
   final regex = RegExp(pattern);
   return TextFormField(
+    onFieldSubmitted: onFieldSubmitted,
     onSaved: onSaved,
     onTap: onTap,
     focusNode: focusNode,

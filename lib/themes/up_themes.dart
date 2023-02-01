@@ -58,6 +58,8 @@ class UpThemes {
         buttonDisabledBorderColor: Colors.grey[300],
         buttonDisabledTextColor: Colors.grey,
         buttonDisbaledBackgroundColor: Colors.grey[300],
+        buttonBorderStyle: BorderStyle.solid,
+        buttonTextFit: BoxFit.none,
         //textfield
         textfieldBorderRadius: 8,
         textfieldBorderWidth: 2,
@@ -130,9 +132,23 @@ class UpThemes {
         //text
         textBackgroundColor: Colors.transparent,
         textColor: inputColor[700],
-        textFontSize: 14,
-        textFontWeight: FontWeight.normal,
-        circularProgressBarColor: inputColor[700]);
+        textSize: 14,
+        textWeight: FontWeight.normal,
+        circularProgressBarColor: inputColor[700],
+        heading1Size: 96.0,
+        heading2Size: 60.0,
+        heading3Size: 48.0,
+        heading4Size: 34.0,
+        heading5Size: 24.0,
+        heading6Size: 20.0,
+        paragraphSize: 16.0,
+        heading1Weight: FontWeight.bold,
+        heading2Weight: FontWeight.w700,
+        heading3Weight: FontWeight.w600,
+        heading4Weight: FontWeight.w400,
+        heading5Weight: FontWeight.w300,
+        heading6Weight: FontWeight.w200,
+        paragraphWeight: FontWeight.normal);
   }
 
   static UpThemeData generateThemeByIntColor({

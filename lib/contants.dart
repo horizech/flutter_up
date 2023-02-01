@@ -25,4 +25,22 @@ class UpConstants {
   static Color kDefaultStyleDisabledForegroundColor =
       Colors.grey.withAlpha(100);
   static Color kDefaultStyleDisabledBorderColor = Colors.grey;
+  static double kDefaultStyleButtonWidth = 320.0;
+  static double kDefaultStyleButtonHeight = 48.0;
+  static double kDefaultStyleHeading1Size = 40.0;
+  static double kDefaultStyleHeading2Size = 35.0;
+  static double kDefaultStyleHeading3Size = 30.0;
+  static double kDefaultStyleHeading4Size = 25.0;
+  static double kDefaultStyleHeading5Size = 20.0;
+  static double kDefaultStyleHeading6Size = 18.0;
+  static double kDefaultStyleParagrahSize = 14.0;
+  static double kDefaultStyleDefaultTextSize = 14.0;
+  static FontWeight kDefaultStyleHeading1Weight = FontWeight.bold;
+  static FontWeight kDefaultStyleHeading2Weight = FontWeight.w700;
+  static FontWeight kDefaultStyleHeading3Weight = FontWeight.w600;
+  static FontWeight kDefaultStyleHeading4Weight = FontWeight.w400;
+  static FontWeight kDefaultStyleHeading5Weight = FontWeight.w300;
+  static FontWeight kDefaultStyleHeading6Weight = FontWeight.w200;
+  static FontWeight kDefaultStyleParagraphWeight = FontWeight.normal;
+  static FontWeight kDefaultStyleDefaultTextWeight = FontWeight.normal;
 }

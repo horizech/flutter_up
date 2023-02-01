@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_button_type.dart';
+import 'package:flutter_up/helpers/up_clipboard.dart';
+import 'package:flutter_up/helpers/up_toast.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_dynamic_view.dart';
 
@@ -108,7 +109,15 @@ class _UpCodeState extends State<UpCode> {
           Padding(
             padding: const EdgeInsets.all(8),
             child: UpButton(
-              onPressed: () {},
+              onPressed: () {
+                upCopyTextToClipboard(text);
+                showUpToast(
+                  context: context,
+                  text: "Copied to clipboard",
+                  isRounded: true,
+                  borderRadius: 20,
+                );
+              },
               type: UpButtonType.icon,
               child: const Icon(Icons.copy),
             ),
@@ -192,7 +201,7 @@ class _UpCodeState extends State<UpCode> {
       );
     } else if (widget.assetCode != null) {
       return FutureBuilder(
-        future: rootBundle.loadString(widget.assetCode!),
+        future: DefaultAssetBundle.of(context).loadString(widget.assetCode!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {

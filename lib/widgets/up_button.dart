@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_button_type.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/helpers/up_image_helper.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpButton extends StatelessWidget {
@@ -10,6 +11,8 @@ class UpButton extends StatelessWidget {
   final UpButtonType type;
   final UpStyle? style;
   final String? text;
+  final Image? image;
+  final IconData? icon;
 
   const UpButton({
     Key? key,
@@ -19,6 +22,8 @@ class UpButton extends StatelessWidget {
     this.colorType,
     this.type = UpButtonType.elevated,
     this.style,
+    this.image,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -66,6 +71,7 @@ class UpButton extends StatelessWidget {
         );
       case UpButtonType.image:
         return _upImageButton(
+          image: image,
           style: style,
           text: text,
           colorType: colorType,
@@ -77,12 +83,13 @@ class UpButton extends StatelessWidget {
       case UpButtonType.elevated:
       default:
         return _upButton(
-          colorType: colorType,
-          style: style,
-          text: text,
-          isDisabled: style?.isDisabled ?? false,
-          onPressed: onPressed,
-        );
+            icon: icon,
+            colorType: colorType,
+            style: style,
+            text: text,
+            isDisabled: style?.isDisabled ?? false,
+            onPressed: onPressed,
+            image: image);
     }
   }
 }
@@ -94,6 +101,8 @@ class _upButton extends StatefulWidget {
     this.text,
     this.isDisabled = false,
     this.onPressed,
+    this.icon,
+    this.image,
   });
 
   final bool isDisabled;
@@ -101,18 +110,26 @@ class _upButton extends StatefulWidget {
   final UpColorType? colorType;
   final String? text;
   final Function? onPressed;
+  final IconData? icon;
+  final Image? image;
 
   @override
   State<_upButton> createState() => __upButtonState();
 }
 
 class __upButtonState extends State<_upButton> {
-  final int _enterCounter = 0;
-  final int _exitCounter = 0;
   double x = 0.0;
   double y = 0.0;
+  double? imageWidth;
+  double? imageHeight;
 
   bool isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getImageSize();
+  }
 
   void _incrementEnter(PointerEvent details) {
     setState(() {
@@ -126,18 +143,52 @@ class __upButtonState extends State<_upButton> {
     });
   }
 
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      isHovered = true;
-      x = details.position.dx;
-      y = details.position.dy;
-    });
+  getImageSize() async {
+    if (widget.style != null && widget.style?.buttonBackgroundImage != null) {
+      await _getImageSize();
+    }
+  }
+
+  _getImageSize() async {
+    Size imageSize = await UpImageHelper.calculateImageDimension(
+        widget.style!.buttonBackgroundImage!);
+    // setState(() {
+    imageWidth = imageSize.width;
+    imageHeight = imageSize.height;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints.tight(const Size(320.0, 48.0)),
+      constraints: BoxConstraints.tight(
+        widget.style != null && widget.style!.buttonBackgroundImage != null
+            ? const Size(200, 128)
+            // Size(
+            //     UpStyle.getImageButtonWidth(
+            //       context,
+            //       style: widget.style,
+            //       colorType: widget.colorType,
+            //     ),
+            //     UpStyle.getImageButtonHeight(
+            //       context,
+            //       style: widget.style,
+            //       colorType: widget.colorType,
+            //     ),
+            //   )
+            : Size(
+                UpStyle.getButtonWidth(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                UpStyle.getButtonHeight(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+              ),
+      ),
       child: MouseRegion(
         cursor: widget.style?.isDisabled == true
             ? SystemMouseCursors.basic
@@ -151,67 +202,123 @@ class __upButtonState extends State<_upButton> {
               widget.onPressed!();
             }
           },
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: isHovered
-                  ? UpStyle.getButtonHoverBackgroundColor(context,
-                      style: widget.style, colorType: widget.colorType)
-                  : UpStyle.getButtonBackgroundColor(context,
-                      style: widget.style, colorType: widget.colorType),
-              border: Border.all(
-                style: BorderStyle.solid,
-                color: isHovered
-                    ? UpStyle.getButtonHoverBorderColor(context,
-                        style: widget.style, colorType: widget.colorType)
-                    : UpStyle.getButtonBorderColor(context,
-                        style: widget.style, colorType: widget.colorType),
-                width: UpStyle.getButtonBorderWidth(context,
-                    style: widget.style, colorType: widget.colorType),
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  UpStyle.getButtonBorderRadius(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
+          child: ClipPath(
+            clipper: ShapeBorderClipper(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    UpStyle.getButtonBorderRadius(
+                      context,
+                      style: widget.style,
+                      colorType: widget.colorType,
+                    ),
                   ),
-                ), //                 <--- border radius here
-              ),
-              boxShadow: isHovered
-                  ? <BoxShadow>[
-                      BoxShadow(
-                        color: UpStyle.getButtonBackgroundColor(context,
-                                style: widget.style,
-                                colorType: widget.colorType)
-                            .withOpacity(0.2), // 0.1
-                        blurRadius: 4, //1
-                        offset: const Offset(0, 4), // 0,2
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  widget.text ?? "",
-                  style: TextStyle(
-                      color: isHovered
-                          ? UpStyle.getButtonHoverTextColor(context,
-                              style: widget.style, colorType: widget.colorType)
-                          : UpStyle.getButtonTextColor(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
-                      fontSize: UpStyle.getButtonTextSize(
-                        context,
-                        style: widget.style,
-                        colorType: widget.colorType,
-                      )),
                 ),
               ),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: UpStyle.getButtonBackgroundGradient(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                shape: BoxShape.rectangle,
+                color: isHovered
+                    ? UpStyle.getButtonHoverBackgroundColor(context,
+                        style: widget.style, colorType: widget.colorType)
+                    : UpStyle.getButtonBackgroundColor(context,
+                        style: widget.style, colorType: widget.colorType),
+                border: Border(
+                  top: isHovered
+                      ? UpStyle.getTopStyleButtonBorderOnHover(context,
+                          colorType: widget.colorType, style: widget.style)
+                      : UpStyle.getTopStyleButtonBorder(context,
+                          colorType: widget.colorType, style: widget.style),
+                  bottom: isHovered
+                      ? UpStyle.getBottomStyleButtonBorderOnHover(context,
+                          colorType: widget.colorType, style: widget.style)
+                      : UpStyle.getBottomStyleButtonBorder(context,
+                          colorType: widget.colorType, style: widget.style),
+                  left: isHovered
+                      ? UpStyle.getLeftStyleButtonBorderOnHover(context,
+                          colorType: widget.colorType, style: widget.style)
+                      : UpStyle.getLeftStyleButtonBorder(context,
+                          colorType: widget.colorType, style: widget.style),
+                  right: isHovered
+                      ? UpStyle.getRightStyleButtonBorderOnHover(context,
+                          colorType: widget.colorType, style: widget.style)
+                      : UpStyle.getRightStyleButtonBorder(context,
+                          colorType: widget.colorType, style: widget.style),
+                ),
+                boxShadow: isHovered
+                    ? <BoxShadow>[
+                        BoxShadow(
+                          color: UpStyle.getButtonBackgroundColor(context,
+                                  style: widget.style,
+                                  colorType: widget.colorType)
+                              .withOpacity(0.2), // 0.1
+                          blurRadius: 4, //1
+                          offset: const Offset(0, 4), // 0,2
+                        ),
+                      ]
+                    : null,
+              ),
+              child: Stack(alignment: Alignment.center, children: [
+                Container(
+                  child: UpStyle.getbuttonBackgroundImage(context,
+                      style: widget.style, colorType: widget.colorType),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: widget.icon != null,
+                        child: Icon(
+                          widget.icon,
+                          color: UpStyle.getButtonTextColor(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget.image != null,
+                        child: widget.image ?? Container(),
+                      ),
+                      Visibility(
+                        visible: widget.text != null && widget.text!.isNotEmpty,
+                        child: FittedBox(
+                          fit: UpStyle.getButtonTextFit(context,
+                              style: widget.style, colorType: widget.colorType),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              widget.text ?? "",
+                              style: TextStyle(
+                                color: isHovered
+                                    ? UpStyle.getButtonHoverTextColor(context,
+                                        style: widget.style,
+                                        colorType: widget.colorType)
+                                    : UpStyle.getButtonTextColor(
+                                        context,
+                                        style: widget.style,
+                                        colorType: widget.colorType,
+                                      ),
+                                fontSize: UpStyle.getButtonTextSize(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
+              ]),
             ),
           ),
         ),
@@ -242,8 +349,6 @@ class _upImageButton extends StatefulWidget {
 }
 
 class __upImageButtonState extends State<_upImageButton> {
-  final int _enterCounter = 0;
-  final int _exitCounter = 0;
   double x = 0.0;
   double y = 0.0;
 
@@ -258,14 +363,6 @@ class __upImageButtonState extends State<_upImageButton> {
   void _incrementExit(PointerEvent details) {
     setState(() {
       isHovered = false;
-    });
-  }
-
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      isHovered = true;
-      x = details.position.dx;
-      y = details.position.dy;
     });
   }
 
@@ -332,7 +429,7 @@ class __upImageButtonState extends State<_upImageButton> {
                 child: UpStyle.getbuttonBackgroundImage(context,
                     style: widget.style, colorType: widget.colorType),
               ),
-              Container(
+              SizedBox(
                 child: Stack(
                   children: [
                     // Implement the stroke

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/contants.dart';
+import 'package:flutter_up/enums/text_style.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
 
@@ -63,6 +64,15 @@ class UpStyle {
   final Color? buttonHoverTextColor;
   final Color? buttonHoverBorderColor;
   final Image? buttonBackgroundImage;
+  final Gradient? buttonBackgroundGradient;
+  final UpStyle? buttonBorderTopStyle;
+  final UpStyle? buttonBorderBottomStyle;
+  final UpStyle? buttonBorderLeftStyle;
+  final UpStyle? buttonBorderRightStyle;
+  final BorderStyle? buttonBorderStyle;
+  final double? buttonWidth;
+  final double? buttonHeight;
+  final BoxFit? buttonTextFit;
 
   // Appbar
   final Color? appBarColor;
@@ -133,10 +143,24 @@ class UpStyle {
   // Text
   final Color? textColor;
   final Color? textBackgroundColor;
-  final double? textFontSize;
+  final double? textSize;
   final Color? circularProgressBarColor;
-  final FontWeight? textFontWeight;
+  final FontWeight? textWeight;
   final FontStyle? textFontStyle;
+  final double? heading1Size;
+  final double? heading2Size;
+  final double? heading3Size;
+  final double? heading4Size;
+  final double? heading5Size;
+  final double? heading6Size;
+  final double? paragraphSize;
+  final FontWeight? heading1Weight;
+  final FontWeight? heading2Weight;
+  final FontWeight? heading3Weight;
+  final FontWeight? heading4Weight;
+  final FontWeight? heading5Weight;
+  final FontWeight? heading6Weight;
+  final FontWeight? paragraphWeight;
 
   UpStyle({
     // General
@@ -167,11 +191,25 @@ class UpStyle {
     this.toastTextColor,
 
     // Text
+    this.heading1Size,
+    this.heading2Size,
+    this.heading3Size,
+    this.heading4Size,
+    this.heading5Size,
+    this.heading6Size,
+    this.paragraphSize,
     this.textBackgroundColor,
     this.textColor,
-    this.textFontSize,
-    this.textFontWeight,
+    this.textSize,
+    this.textWeight,
     this.textFontStyle,
+    this.heading1Weight,
+    this.heading2Weight,
+    this.heading3Weight,
+    this.heading4Weight,
+    this.heading5Weight,
+    this.heading6Weight,
+    this.paragraphWeight,
 
     // Table
     this.tableBorderColor,
@@ -200,11 +238,20 @@ class UpStyle {
     this.buttonHoverBackgroundColor,
     this.buttonHoverBorderColor,
     this.buttonHoverTextColor,
+    this.buttonTextFit,
     this.buttonTextColor,
     this.buttonDisabledBorderColor,
     this.buttonDisabledTextColor,
     this.buttonDisbaledBackgroundColor,
     this.buttonBackgroundImage,
+    this.buttonBackgroundGradient,
+    this.buttonBorderBottomStyle,
+    this.buttonBorderLeftStyle,
+    this.buttonBorderRightStyle,
+    this.buttonBorderTopStyle,
+    this.buttonBorderStyle,
+    this.buttonHeight,
+    this.buttonWidth,
 
     // Checkbox
     this.checkboxBackgroundColor,
@@ -266,6 +313,214 @@ class UpStyle {
     this.timePickerPrimaryColor,
     this.timePickerSurfaceColor,
   });
+
+  UpStyle copyWith(UpStyle override) {
+    return UpStyle(
+      // General
+      backgroundColor: override.backgroundColor ?? backgroundColor,
+      circularProgressBarColor:
+          override.circularProgressBarColor ?? circularProgressBarColor,
+      borderColor: override.borderColor ?? borderColor,
+      iconColor: override.iconColor ?? iconColor,
+      borderWidth: override.borderWidth ?? borderWidth,
+      foregroundColor: override.foregroundColor ?? foregroundColor,
+      hoverBackgroundColor:
+          override.hoverBackgroundColor ?? hoverBackgroundColor,
+      hoveredBorderColor: override.hoveredBorderColor ?? hoveredBorderColor,
+      hoveredForegroundColor:
+          override.hoveredForegroundColor ?? hoveredForegroundColor,
+      isDisabled: override.isDisabled ?? isDisabled,
+      focusedBorderColor: override.focusedBorderColor ?? focusedBorderColor,
+      errorBorderColor: override.errorBorderColor ?? errorBorderColor,
+      isRounded: override.isRounded ?? isRounded,
+      iconSize: override.iconSize ?? iconSize,
+      borderRadius: override.borderRadius ?? borderRadius,
+      disabledBorderColor: override.disabledBorderColor ?? disabledBorderColor,
+      disabledBackgroundColor:
+          override.disabledBackgroundColor ?? disabledBackgroundColor,
+      disabledForgroundColor:
+          override.disabledForgroundColor ?? disabledForgroundColor,
+
+      // Toast
+      toastBackgroundGradient:
+          override.toastBackgroundGradient ?? toastBackgroundGradient,
+      toastBackgroundColor:
+          override.toastBackgroundColor ?? toastBackgroundColor,
+      toastForegroundColor:
+          override.toastForegroundColor ?? toastForegroundColor,
+      toastIcon: override.toastIcon ?? toastIcon,
+      toastTextColor: override.toastTextColor ?? toastTextColor,
+
+      // Text
+      textBackgroundColor: override.textBackgroundColor ?? textBackgroundColor,
+      textColor: override.textColor ?? textColor,
+      textSize: override.textSize ?? textSize,
+      textWeight: override.textWeight ?? textWeight,
+      textFontStyle: override.textFontStyle ?? textFontStyle,
+
+      // Table
+      tableBorderColor: override.tableBorderColor ?? tableBorderColor,
+      tableRowColor: override.tableRowColor ?? tableRowColor,
+      tableRowFocusedColor:
+          override.tableRowFocusedColor ?? tableRowFocusedColor,
+      tableRowHoverColor: override.tableRowHoverColor ?? tableRowHoverColor,
+      tableRowPressedColor:
+          override.tableRowPressedColor ?? tableRowPressedColor,
+      tableHeaderColor: override.tableHeaderColor ?? tableHeaderColor,
+      tableFooterColor: override.tableFooterColor ?? tableFooterColor,
+      tableHeaderTextColor:
+          override.tableHeaderTextColor ?? tableHeaderTextColor,
+      tableFooterTextColor:
+          override.tableFooterTextColor ?? tableFooterTextColor,
+
+      // Appbar
+      appBarColor: override.appBarColor ?? appBarColor,
+      appBarTitleColor: override.appBarTitleColor ?? appBarTitleColor,
+      appBarTitleSize: override.appBarTitleSize ?? appBarTitleSize,
+
+      // Button
+      buttonTextSize: override.buttonTextSize ?? buttonTextSize,
+      buttonTextStrokeWidth:
+          override.buttonTextStrokeWidth ?? buttonTextStrokeWidth,
+      buttonTextStrokeColor:
+          override.buttonTextStrokeColor ?? buttonTextStrokeColor,
+      buttonBackgroundColor:
+          override.buttonBackgroundColor ?? buttonBackgroundColor,
+      buttonBorderColor: override.buttonBorderColor ?? buttonBorderColor,
+      buttonBorderRadius: override.buttonBorderRadius ?? buttonBorderRadius,
+      buttonBorderWidth: override.buttonBorderWidth ?? buttonBorderWidth,
+      buttonHoverBackgroundColor:
+          override.buttonHoverBackgroundColor ?? buttonHoverBackgroundColor,
+      buttonHoverBorderColor:
+          override.buttonHoverBorderColor ?? buttonHoverBorderColor,
+      buttonHoverTextColor:
+          override.buttonHoverTextColor ?? buttonHoverTextColor,
+      buttonTextFit: override.buttonTextFit ?? buttonTextFit,
+      buttonTextColor: override.buttonTextColor ?? buttonTextColor,
+      buttonDisabledBorderColor:
+          override.buttonDisabledBorderColor ?? buttonDisabledBorderColor,
+      buttonDisabledTextColor:
+          override.buttonDisabledTextColor ?? buttonDisabledTextColor,
+      buttonDisbaledBackgroundColor: override.buttonDisbaledBackgroundColor ??
+          buttonDisbaledBackgroundColor,
+      buttonBackgroundImage:
+          override.buttonBackgroundImage ?? buttonBackgroundImage,
+      buttonBackgroundGradient:
+          override.buttonBackgroundGradient ?? buttonBackgroundGradient,
+      buttonBorderBottomStyle:
+          override.buttonBorderBottomStyle ?? buttonBorderBottomStyle,
+      buttonBorderLeftStyle:
+          override.buttonBorderLeftStyle ?? buttonBorderLeftStyle,
+      buttonBorderRightStyle:
+          override.buttonBorderRightStyle ?? buttonBorderRightStyle,
+      buttonBorderTopStyle:
+          override.buttonBorderTopStyle ?? buttonBorderTopStyle,
+      buttonBorderStyle: override.buttonBorderStyle ?? buttonBorderStyle,
+      buttonHeight: override.buttonHeight ?? buttonHeight,
+      buttonWidth: override.buttonWidth ?? buttonWidth,
+
+      // Checkbox
+      checkboxBackgroundColor:
+          override.checkboxBackgroundColor ?? checkboxBackgroundColor,
+      checkboxBorderColor: override.checkboxBorderColor ?? checkboxBorderColor,
+      checkboxBorderRadius:
+          override.checkboxBorderRadius ?? checkboxBorderRadius,
+      checkboxBorderWidth: override.checkboxBorderWidth ?? checkboxBorderWidth,
+      checkboxHoverBorderColor:
+          override.checkboxHoverBorderColor ?? checkboxHoverBorderColor,
+      checkboxRippleColor: override.checkboxRippleColor ?? checkboxRippleColor,
+      checkboxLabelColor: override.checkboxLabelColor ?? checkboxLabelColor,
+      checkboxLabelSize: override.checkboxLabelSize ?? checkboxLabelSize,
+      checkboxCheckedColor:
+          override.checkboxCheckedColor ?? checkboxCheckedColor,
+      checkboxDisabledBackgroundColor:
+          override.checkboxDisabledBackgroundColor ??
+              checkboxDisabledBackgroundColor,
+      checkboxDisabledLabelColor:
+          override.checkboxDisabledLabelColor ?? checkboxDisabledLabelColor,
+      checkboxCheckedDisabledColor:
+          override.checkboxCheckedDisabledColor ?? checkboxCheckedDisabledColor,
+
+      // Radio button
+      radioButtonBorderColor:
+          override.radioButtonBorderColor ?? radioButtonBorderColor,
+      radioButtonDisabledBorderColor: override.radioButtonDisabledBorderColor ??
+          radioButtonDisabledBorderColor,
+      radioButtonDisabledFilledColor: override.radioButtonDisabledFilledColor ??
+          radioButtonDisabledFilledColor,
+      radioButtonBorderRadius:
+          override.radioButtonBorderRadius ?? radioButtonBorderRadius,
+      radioButtonBorderWidth:
+          override.radioButtonBorderWidth ?? radioButtonBorderWidth,
+      radioButtonFilledColor:
+          override.radioButtonFilledColor ?? radioButtonFilledColor,
+      radioButtonHoverBorderColor:
+          override.radioButtonHoverBorderColor ?? radioButtonHoverBorderColor,
+      radioButtonLabelColor:
+          override.radioButtonLabelColor ?? radioButtonLabelColor,
+      radioButtonLabelSize:
+          override.radioButtonLabelSize ?? radioButtonLabelSize,
+      radioButtonRippleColor:
+          override.radioButtonRippleColor ?? radioButtonRippleColor,
+      radioButtonDisabledLabelColor: override.radioButtonDisabledLabelColor ??
+          radioButtonDisabledLabelColor,
+
+      // Text field
+      textfieldBorderColor:
+          override.textfieldBorderColor ?? textfieldBorderColor,
+      textfieldErrorBorderColor:
+          override.textfieldErrorBorderColor ?? textfieldErrorBorderColor,
+      textfieldFocusedBorderColor:
+          override.textfieldFocusedBorderColor ?? textfieldFocusedBorderColor,
+      textfieldLabelColor: override.textfieldLabelColor ?? textfieldLabelColor,
+      textfieldBorderRadius:
+          override.textfieldBorderRadius ?? textfieldBorderRadius,
+      textfieldBorderWidth:
+          override.textfieldBorderWidth ?? textfieldBorderWidth,
+      textfieldCursorColor:
+          override.textfieldCursorColor ?? textfieldCursorColor,
+      textfieldLabelSize: override.textfieldLabelSize ?? textfieldLabelSize,
+
+      // Drodown
+      dropdownBorderWidth: override.dropdownBorderWidth ?? dropdownBorderWidth,
+      dropdownBorderColor: override.dropdownBorderColor ?? dropdownBorderColor,
+      dropdownBorderRadius:
+          override.dropdownBorderRadius ?? dropdownBorderRadius,
+      dropdownErrorBorderColor:
+          override.dropdownErrorBorderColor ?? dropdownErrorBorderColor,
+      dropdownFocusedBorderColor:
+          override.dropdownFocusedBorderColor ?? dropdownFocusedBorderColor,
+      dropdownLabelColor: override.dropdownLabelColor ?? dropdownLabelColor,
+      dropdownLabelSize: override.dropdownLabelSize ?? dropdownLabelSize,
+
+      // Datepicker
+      datePickerDialogBackgroundColor:
+          override.datePickerDialogBackgroundColor ??
+              datePickerDialogBackgroundColor,
+      datePickerOnPrimaryColor:
+          override.datePickerOnPrimaryColor ?? datePickerOnPrimaryColor,
+      datePickerOnSurfaceColor:
+          override.datePickerOnSurfaceColor ?? datePickerOnSurfaceColor,
+      datePickerPrimaryColor:
+          override.datePickerPrimaryColor ?? datePickerPrimaryColor,
+      datePickerSurfaceColor:
+          override.datePickerSurfaceColor ?? datePickerSurfaceColor,
+
+      // Time picker
+      timePickerDialogBackgroundColor:
+          override.timePickerDialogBackgroundColor ??
+              timePickerDialogBackgroundColor,
+      timePickerOnPrimaryColor:
+          override.timePickerOnPrimaryColor ?? timePickerOnPrimaryColor,
+      timePickerOnSurfaceColor:
+          override.timePickerOnSurfaceColor ?? timePickerOnSurfaceColor,
+      timePickerPrimaryColor:
+          override.timePickerPrimaryColor ?? timePickerPrimaryColor,
+      timePickerSurfaceColor:
+          override.timePickerSurfaceColor ?? timePickerSurfaceColor,
+    );
+  }
+
   static Color getFocusedBorderColor(
     BuildContext context, {
     UpStyle? override,
@@ -621,6 +876,162 @@ class UpStyle {
     );
   }
 
+  static BoxFit getButtonTextFit(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonTextFit ??
+        style?.buttonTextFit ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonTextFit ??
+        BoxFit.none;
+  }
+
+  static Gradient? getButtonBackgroundGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonBackgroundGradient ??
+        style?.buttonBackgroundGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .buttonBackgroundGradient;
+  }
+
+  static BorderSide getTopStyleButtonBorder(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderTopStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderTopStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderTopStyle?.buttonBorderColor ??
+          getButtonBorderColor(context, style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getLeftStyleButtonBorder(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderLeftStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderLeftStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderLeftStyle?.buttonBorderColor ??
+          getButtonBorderColor(context, style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getLeftStyleButtonBorderOnHover(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderLeftStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderLeftStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderLeftStyle?.buttonHoverBorderColor ??
+          getButtonHoverBorderColor(context,
+              style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getRightStyleButtonBorder(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderRightStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderRightStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderRightStyle?.buttonBorderColor ??
+          getButtonBorderColor(context, style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getRightStyleButtonBorderOnHover(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderRightStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderRightStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderRightStyle?.buttonHoverBorderColor ??
+          getButtonHoverBorderColor(context,
+              style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getBottomStyleButtonBorder(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderBottomStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderBottomStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderBottomStyle?.buttonBorderColor ??
+          getButtonBorderColor(context, style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getBottomStyleButtonBorderOnHover(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderBottomStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderBottomStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderBottomStyle?.buttonHoverBorderColor ??
+          getButtonHoverBorderColor(context,
+              style: style, colorType: colorType),
+    );
+  }
+
+  static BorderSide getTopStyleButtonBorderOnHover(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return BorderSide(
+      style: style?.buttonBorderTopStyle?.buttonBorderStyle ??
+          getButtonBorderStyle(context, style: style, colorType: colorType),
+      width: style?.buttonBorderTopStyle?.buttonBorderWidth ??
+          getButtonBorderWidth(context, style: style, colorType: colorType),
+      color: style?.buttonBorderTopStyle?.buttonHoverBorderColor ??
+          getButtonHoverBorderColor(context,
+              style: style, colorType: colorType),
+    );
+  }
+
   static Color getHoverBackgroundColor(
     BuildContext context, {
     UpStyle? override,
@@ -704,6 +1115,21 @@ class UpStyle {
             Theme.of(context).colorScheme.secondary;
   }
 
+  static BorderStyle getButtonBorderStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonBorderStyle ??
+        style?.buttonBorderStyle ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).buttonBorderStyle ??
+        BorderStyle.none;
+  }
+
   static Color getButtonBorderColor(
     BuildContext context, {
     UpStyle? override,
@@ -753,6 +1179,30 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonBorderWidth ??
         UpConstants.kDefaultStyleBorderWidth;
+  }
+
+  static double getButtonWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonWidth ??
+        style?.buttonWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonWidth ??
+        UpConstants.kDefaultStyleButtonWidth;
+  }
+
+  static double getButtonHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonHeight ??
+        style?.buttonHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonHeight ??
+        UpConstants.kDefaultStyleButtonHeight;
   }
 
   static double getButtonBorderRadius(
@@ -1818,66 +2268,6 @@ class UpStyle {
         Theme.of(context).colorScheme.primary;
   }
 
-  // text
-  static Color getTextColor(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.textColor ??
-        style?.textColor ??
-        getStyleByType(UpConfig.of(context).theme, colorType).textColor ??
-        Theme.of(context).primaryColor;
-  }
-
-  static Color getTextBackgroundColor(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.textBackgroundColor ??
-        style?.textBackgroundColor ??
-        getStyleByType(UpConfig.of(context).theme, colorType)
-            .textBackgroundColor ??
-        Colors.transparent;
-  }
-
-  static double getTextFontsize(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.textFontSize ??
-        style?.textFontSize ??
-        getStyleByType(UpConfig.of(context).theme, colorType).textFontSize ??
-        12;
-  }
-
-  static FontStyle? getTextFontStyle(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.textFontStyle ??
-        style?.textFontStyle ??
-        getStyleByType(UpConfig.of(context).theme, colorType).textFontStyle;
-  }
-
-  static FontWeight? getTextFontWeight(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.textFontWeight ??
-        style?.textFontWeight ??
-        getStyleByType(UpConfig.of(context).theme, colorType).textFontWeight;
-  }
-
   static Color getCircularProgressBarColor(
     BuildContext context, {
     UpStyle? override,
@@ -1927,5 +2317,185 @@ class UpStyle {
         style?.toastTextColor ??
         getStyleByType(UpConfig.of(context).theme, colorType).toastTextColor ??
         Theme.of(context).colorScheme.secondary;
+  }
+
+  //text styles
+  static double gettextSize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+    UpTextType? texttype,
+  }) {
+    switch (texttype) {
+      case UpTextType.heading1:
+        return override?.heading1Size ??
+            style?.heading1Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading1Size ??
+            UpConstants.kDefaultStyleHeading1Size;
+      case UpTextType.heading2:
+        return override?.heading2Size ??
+            style?.heading2Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading2Size ??
+            UpConstants.kDefaultStyleHeading2Size;
+      case UpTextType.heading3:
+        return override?.heading3Size ??
+            style?.heading3Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading3Size ??
+            UpConstants.kDefaultStyleHeading3Size;
+      case UpTextType.heading4:
+        return override?.heading4Size ??
+            style?.heading4Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading4Size ??
+            UpConstants.kDefaultStyleHeading4Size;
+      case UpTextType.heading5:
+        return override?.heading5Size ??
+            style?.heading5Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading5Size ??
+            UpConstants.kDefaultStyleHeading5Size;
+      case UpTextType.heading6:
+        return override?.heading6Size ??
+            style?.heading6Size ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading6Size ??
+            UpConstants.kDefaultStyleHeading6Size;
+      case UpTextType.paragraph:
+        return override?.paragraphSize ??
+            style?.paragraphSize ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .paragraphSize ??
+            UpConstants.kDefaultStyleParagrahSize;
+
+      default:
+        return override?.textSize ??
+            style?.textSize ??
+            getStyleByType(UpConfig.of(context).theme, colorType).textSize ??
+            UpConstants.kDefaultStyleDefaultTextSize;
+    }
+  }
+
+  // text
+  static Color getTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textColor ??
+        style?.textColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getTextBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textBackgroundColor ??
+        style?.textBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .textBackgroundColor ??
+        Colors.transparent;
+  }
+
+  static FontStyle? getTextFontStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textFontStyle ??
+        style?.textFontStyle ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textFontStyle;
+  }
+
+  static FontWeight? getTextFontWeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+    UpTextType? textType,
+  }) {
+    switch (textType) {
+      case UpTextType.heading1:
+        return override?.heading1Weight ??
+            style?.heading1Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading1Weight ??
+            UpConstants.kDefaultStyleHeading1Weight;
+      case UpTextType.heading2:
+        return override?.heading2Weight ??
+            style?.heading2Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading2Weight ??
+            UpConstants.kDefaultStyleHeading2Weight;
+      case UpTextType.heading3:
+        return override?.heading3Weight ??
+            style?.heading3Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading3Weight ??
+            UpConstants.kDefaultStyleHeading3Weight;
+      case UpTextType.heading4:
+        return override?.heading4Weight ??
+            style?.heading4Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading4Weight ??
+            UpConstants.kDefaultStyleHeading4Weight;
+      case UpTextType.heading5:
+        return override?.heading5Weight ??
+            style?.heading5Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading5Weight ??
+            UpConstants.kDefaultStyleHeading5Weight;
+      case UpTextType.heading6:
+        return override?.heading6Weight ??
+            style?.heading6Weight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .heading6Weight ??
+            UpConstants.kDefaultStyleHeading6Weight;
+      case UpTextType.paragraph:
+        return override?.paragraphWeight ??
+            style?.paragraphWeight ??
+            getStyleByType(UpConfig.of(context).theme, colorType)
+                .paragraphWeight ??
+            UpConstants.kDefaultStyleParagraphWeight;
+
+      default:
+        return override?.textWeight ??
+            style?.textWeight ??
+            getStyleByType(UpConfig.of(context).theme, colorType).textWeight ??
+            UpConstants.kDefaultStyleDefaultTextWeight;
+    }
+  }
+
+  static double getImageButtonWidth(BuildContext context,
+      {UpStyle? override,
+      UpStyle? style,
+      UpColorType? colorType,
+      double? imageWidth}) {
+    return override?.buttonWidth ??
+        style?.buttonWidth ??
+        imageWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonWidth ??
+        UpConstants.kDefaultStyleButtonWidth;
+  }
+
+  static double getImageButtonHeight(BuildContext context,
+      {UpStyle? override,
+      UpStyle? style,
+      UpColorType? colorType,
+      double? imageHeight}) {
+    return override?.buttonHeight ??
+        style?.buttonHeight ??
+        imageHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).buttonHeight ??
+        UpConstants.kDefaultStyleButtonHeight;
   }
 }
