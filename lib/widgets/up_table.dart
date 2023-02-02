@@ -139,7 +139,7 @@ class _UpTableState extends State<UpTable> {
                                   ))),
                             ),
                   onSelectChanged: (value) {
-                    debugPrint(value.toString());
+                    // debugPrint(value.toString());
                     if (widget.onSelectChanged != null) {
                       widget.onSelectChanged!(e.key);
                     }

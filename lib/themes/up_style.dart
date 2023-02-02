@@ -79,6 +79,15 @@ class UpStyle {
   final Color? appBarTitleColor;
   final double? appBarTitleSize;
 
+  // Expansion Tile
+
+  final Color? expansionTileCollapsedIconColor;
+  final Color? expansionTileCollapsedTextColor;
+  final Color? expansionTileIconColor;
+  final Color? expansionTileTextColor;
+  final Color? expansionTileBackgroundColor;
+  final Color? expansionTileCollapsedBackgroundColor;
+
   // Checkbox
   final Color? checkboxBackgroundColor;
   final Color? checkboxCheckedColor;
@@ -312,6 +321,14 @@ class UpStyle {
     this.timePickerOnSurfaceColor,
     this.timePickerPrimaryColor,
     this.timePickerSurfaceColor,
+
+    //expansion tile
+    this.expansionTileBackgroundColor,
+    this.expansionTileCollapsedBackgroundColor,
+    this.expansionTileCollapsedIconColor,
+    this.expansionTileCollapsedTextColor,
+    this.expansionTileIconColor,
+    this.expansionTileTextColor,
   });
 
   UpStyle copyWith(UpStyle override) {
@@ -2497,5 +2514,83 @@ class UpStyle {
         imageHeight ??
         getStyleByType(UpConfig.of(context).theme, colorType).buttonHeight ??
         UpConstants.kDefaultStyleButtonHeight;
+  }
+
+  static Color getExpansionTileBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileBackgroundColor ??
+        style?.expansionTileBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileBackgroundColor ??
+        Colors.transparent;
+  }
+
+  static Color getExpansionTileCollapsedBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileCollapsedBackgroundColor ??
+        style?.expansionTileCollapsedBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileCollapsedBackgroundColor ??
+        Colors.transparent;
+  }
+
+  static Color getExpansionTileCollapsedIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileCollapsedIconColor ??
+        style?.expansionTileCollapsedIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileCollapsedIconColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getExpansionTileIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileIconColor ??
+        style?.expansionTileIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileIconColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getExpansionTileTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileTextColor ??
+        style?.expansionTileTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileTextColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getExpansionTileCollapsedTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileCollapsedTextColor ??
+        style?.expansionTileCollapsedTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileCollapsedTextColor ??
+        Theme.of(context).primaryColor;
   }
 }

@@ -148,7 +148,13 @@ class UpThemes {
         heading4Weight: FontWeight.w400,
         heading5Weight: FontWeight.w300,
         heading6Weight: FontWeight.w200,
-        paragraphWeight: FontWeight.normal);
+        paragraphWeight: FontWeight.normal,
+        expansionTileBackgroundColor: Colors.transparent,
+        expansionTileCollapsedBackgroundColor: Colors.transparent,
+        expansionTileCollapsedIconColor: inputColor[400],
+        expansionTileCollapsedTextColor: inputColor[400],
+        expansionTileIconColor: inputColor[900],
+        expansionTileTextColor: inputColor[900]);
   }
 
   static UpThemeData generateThemeByIntColor({

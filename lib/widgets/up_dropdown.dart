@@ -197,14 +197,14 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
           _overlayEntry = _createOverlayEntry();
           Overlay.of(context)!.insert(_overlayEntry!);
         });
-        debugPrint("Focused");
+        // debugPrint("Focused");
       } else {
         setState(() {
           searchText.clear();
           curTextEditingController = displayText;
           _overlayEntry!.remove();
         });
-        debugPrint("UnFocused");
+        // debugPrint("UnFocused");
       }
     });
 
