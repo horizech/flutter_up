@@ -224,33 +224,23 @@ class __upButtonState extends State<_upButton> {
                   style: widget.style,
                   colorType: widget.colorType,
                 ),
+                borderRadius: UpStyle.isButtonBorderUniform(widget.style)
+                    ? BorderRadius.circular(
+                        UpStyle.getButtonBorderRadius(context,
+                            style: widget.style, colorType: widget.colorType),
+                      )
+                    : null,
                 shape: BoxShape.rectangle,
                 color: isHovered
                     ? UpStyle.getButtonHoverBackgroundColor(context,
                         style: widget.style, colorType: widget.colorType)
                     : UpStyle.getButtonBackgroundColor(context,
                         style: widget.style, colorType: widget.colorType),
-                border: Border(
-                  top: isHovered
-                      ? UpStyle.getTopStyleButtonBorderOnHover(context,
-                          colorType: widget.colorType, style: widget.style)
-                      : UpStyle.getTopStyleButtonBorder(context,
-                          colorType: widget.colorType, style: widget.style),
-                  bottom: isHovered
-                      ? UpStyle.getBottomStyleButtonBorderOnHover(context,
-                          colorType: widget.colorType, style: widget.style)
-                      : UpStyle.getBottomStyleButtonBorder(context,
-                          colorType: widget.colorType, style: widget.style),
-                  left: isHovered
-                      ? UpStyle.getLeftStyleButtonBorderOnHover(context,
-                          colorType: widget.colorType, style: widget.style)
-                      : UpStyle.getLeftStyleButtonBorder(context,
-                          colorType: widget.colorType, style: widget.style),
-                  right: isHovered
-                      ? UpStyle.getRightStyleButtonBorderOnHover(context,
-                          colorType: widget.colorType, style: widget.style)
-                      : UpStyle.getRightStyleButtonBorder(context,
-                          colorType: widget.colorType, style: widget.style),
+                border: UpStyle.getButtonBorder(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                  isHovered: isHovered,
                 ),
                 boxShadow: isHovered
                     ? <BoxShadow>[
@@ -430,49 +420,52 @@ class __upImageButtonState extends State<_upImageButton> {
                 child: UpStyle.getbuttonBackgroundImage(context,
                     style: widget.style, colorType: widget.colorType),
               ),
-              SizedBox(
-                child: Stack(
-                  children: [
-                    // Implement the stroke
-                    UpText(
-                      widget.text ?? "",
-                      // style: TextStyle(
-                      //   fontStyle: UpStyle.getTextFontStyle(context,
-                      //       style: widget.style, colorType: widget.colorType),
-                      //   fontWeight: UpStyle.getTextFontWeight(context,
-                      //       style: widget.style, colorType: widget.colorType),
-                      //   fontSize: UpStyle.getButtonTextSize(
-                      //     context,
-                      //     style: widget.style,
-                      //     colorType: widget.colorType,
-                      //   ),
-                      //   foreground: Paint()
-                      //     ..color = UpStyle.getTextStrokeColor(context,
-                      //         style: widget.style, colorType: widget.colorType)
-                      //     ..style = PaintingStyle.stroke
-                      //     ..strokeWidth = UpStyle.getTextStrokeWidth(context,
-                      //         style: widget.style, colorType: widget.colorType),
-                      // ),
-                    ),
-                    UpText(
-                      widget.text ?? "",
-                      // style: TextStyle(
-                      //   fontStyle: UpStyle.getTextFontStyle(context,
-                      //       style: widget.style, colorType: widget.colorType),
-                      //   fontSize: UpStyle.getButtonTextSize(
-                      //     context,
-                      //     style: widget.style,
-                      //     colorType: widget.colorType,
-                      //   ),
-                      //   color: UpStyle.getButtonTextColor(context,
-                      //       style: widget.style, colorType: widget.colorType),
-                      //   fontWeight: UpStyle.getTextFontWeight(context,
-                      //       style: widget.style, colorType: widget.colorType),
-                      // ),
-                    )
-                  ],
-                ),
+              UpText(
+                widget.text ?? "",
               ),
+              // SizedBox(
+              //   child: Stack(
+              //     children: [
+              //       // Implement the stroke
+              //       UpText(
+              //         widget.text ?? "",
+              //         // style: TextStyle(
+              //         //   fontStyle: UpStyle.getTextFontStyle(context,
+              //         //       style: widget.style, colorType: widget.colorType),
+              //         //   fontWeight: UpStyle.getTextFontWeight(context,
+              //         //       style: widget.style, colorType: widget.colorType),
+              //         //   fontSize: UpStyle.getButtonTextSize(
+              //         //     context,
+              //         //     style: widget.style,
+              //         //     colorType: widget.colorType,
+              //         //   ),
+              //         //   foreground: Paint()
+              //         //     ..color = UpStyle.getTextStrokeColor(context,
+              //         //         style: widget.style, colorType: widget.colorType)
+              //         //     ..style = PaintingStyle.stroke
+              //         //     ..strokeWidth = UpStyle.getTextStrokeWidth(context,
+              //         //         style: widget.style, colorType: widget.colorType),
+              //         // ),
+              //       ),
+              //       UpText(
+              //         widget.text ?? "",
+              //         // style: TextStyle(
+              //         //   fontStyle: UpStyle.getTextFontStyle(context,
+              //         //       style: widget.style, colorType: widget.colorType),
+              //         //   fontSize: UpStyle.getButtonTextSize(
+              //         //     context,
+              //         //     style: widget.style,
+              //         //     colorType: widget.colorType,
+              //         //   ),
+              //         //   color: UpStyle.getButtonTextColor(context,
+              //         //       style: widget.style, colorType: widget.colorType),
+              //         //   fontWeight: UpStyle.getTextFontWeight(context,
+              //         //       style: widget.style, colorType: widget.colorType),
+              //         // ),
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

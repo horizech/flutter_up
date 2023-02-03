@@ -2596,4 +2596,55 @@ class UpStyle {
             .expansionTileCollapsedTextColor ??
         Theme.of(context).primaryColor;
   }
+
+  static bool isButtonBorderUniform(
+    UpStyle? style,
+  ) {
+    return style?.buttonBorderLeftStyle != null ||
+            style?.buttonBorderRightStyle != null ||
+            style?.buttonBorderTopStyle != null ||
+            style?.buttonBorderBottomStyle != null
+        ? false
+        : true;
+  }
+
+  static BoxBorder getButtonBorder(BuildContext context,
+      {UpStyle? override,
+      UpStyle? style,
+      UpColorType? colorType,
+      bool isHovered = false}) {
+    return UpStyle.isButtonBorderUniform(style)
+        ? Border.all(
+            color: isHovered
+                ? UpStyle.getButtonHoverBorderColor(context,
+                    colorType: colorType, style: style)
+                : UpStyle.getButtonBorderColor(context,
+                    colorType: colorType, style: style),
+            width: getButtonBorderWidth(context,
+                style: style, colorType: colorType),
+            style: getButtonBorderStyle(context,
+                colorType: colorType, style: style))
+        : Border(
+            top: isHovered
+                ? UpStyle.getTopStyleButtonBorderOnHover(context,
+                    colorType: colorType, style: style)
+                : UpStyle.getTopStyleButtonBorder(context,
+                    colorType: colorType, style: style),
+            bottom: isHovered
+                ? UpStyle.getBottomStyleButtonBorderOnHover(context,
+                    colorType: colorType, style: style)
+                : UpStyle.getBottomStyleButtonBorder(context,
+                    colorType: colorType, style: style),
+            left: isHovered
+                ? UpStyle.getLeftStyleButtonBorderOnHover(context,
+                    colorType: colorType, style: style)
+                : UpStyle.getLeftStyleButtonBorder(context,
+                    colorType: colorType, style: style),
+            right: isHovered
+                ? UpStyle.getRightStyleButtonBorderOnHover(context,
+                    colorType: colorType, style: style)
+                : UpStyle.getRightStyleButtonBorder(context,
+                    colorType: colorType, style: style),
+          );
+  }
 }

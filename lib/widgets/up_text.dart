@@ -20,33 +20,52 @@ class UpText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: UpStyle.getTextColor(
-          context,
-          colorType: colorType,
-          style: style,
-        ),
-        backgroundColor: UpStyle.getTextBackgroundColor(
-          context,
-          colorType: colorType,
-          style: style,
-        ),
-        fontSize: UpStyle.getTextSize(context,
-            colorType: colorType, style: style, textType: type),
-        fontWeight: UpStyle.getTextFontWeight(
-          context,
-          colorType: colorType,
-          style: style,
-        ),
-        overflow: overflow,
-        foreground: Paint()
-          ..color = UpStyle.getTextStrokeColor(context,
-              style: style, colorType: colorType)
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = UpStyle.getTextStrokeWidth(context,
-              style: style, colorType: colorType),
+    return SizedBox(
+      child: Stack(
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontStyle: UpStyle.getTextFontStyle(context,
+                  style: style, colorType: colorType),
+              fontWeight: UpStyle.getTextFontWeight(context,
+                  style: style, colorType: colorType),
+              fontSize: UpStyle.getTextSize(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
+              foreground: Paint()
+                ..color = UpStyle.getTextStrokeColor(context,
+                    style: style, colorType: colorType)
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = UpStyle.getTextStrokeWidth(context,
+                    style: style, colorType: colorType),
+            ),
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontStyle: UpStyle.getTextFontStyle(context,
+                  style: style, colorType: colorType),
+              fontSize: UpStyle.getTextSize(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
+              backgroundColor: UpStyle.getTextBackgroundColor(
+                context,
+                colorType: colorType,
+                style: style,
+              ),
+              overflow: overflow,
+              color: UpStyle.getTextColor(context,
+                  style: style, colorType: colorType),
+              fontWeight: UpStyle.getTextFontWeight(context,
+                  style: style, colorType: colorType),
+            ),
+          )
+        ],
       ),
     );
   }

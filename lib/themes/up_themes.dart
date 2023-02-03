@@ -132,7 +132,7 @@ class UpThemes {
         //text
         textStrokeColor: Colors.transparent,
         textFontStyle: FontStyle.normal,
-        textStrokeWidth: 1,
+        textStrokeWidth: 0,
         textBackgroundColor: Colors.transparent,
         textColor: inputColor[700],
         textSize: 14,
