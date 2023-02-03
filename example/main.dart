@@ -27,6 +27,7 @@ import 'package:flutter_up/widgets/up_dropdown.dart';
 import 'package:flutter_up/widgets/up_loading_button.dart';
 import 'package:flutter_up/widgets/up_orientational_column_row.dart';
 import 'package:flutter_up/widgets/up_radio_button.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 import 'package:flutter_up/locator.dart';
@@ -60,20 +61,20 @@ class MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.document['title']),
+      title: UpText(widget.document['title']),
       actionsPadding: const EdgeInsets.all(0),
       titlePadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       content: Container(),
       actions: <Widget>[
         ElevatedButton(
-          child: const Text("Okay"),
+          child: const UpText("Okay"),
           onPressed: () {
             /// Okay pressed
           },
         ),
         ElevatedButton(
-          child: const Text("Cancel"),
+          child: const UpText("Cancel"),
           onPressed: () {
             _closeDialog();
           },
@@ -326,7 +327,7 @@ class WidgetsExamples {
       onPressed: () {
         //Do something
       },
-      child: const Text("Button"),
+      child: const UpText("Button"),
     );
   }
 

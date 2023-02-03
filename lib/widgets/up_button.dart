@@ -3,6 +3,7 @@ import 'package:flutter_up/enums/up_button_type.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/helpers/up_image_helper.dart';
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 
 class UpButton extends StatelessWidget {
   final Function onPressed;
@@ -36,14 +37,14 @@ class UpButton extends StatelessWidget {
           },
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
-          child: child ?? Text(text ?? ""),
+          child: child ?? UpText(text ?? ""),
         );
       case UpButtonType.icon:
         return IconButton(
           onPressed: () {
             if (!(style?.isDisabled ?? false)) onPressed();
           },
-          icon: child ?? Text(text ?? ""),
+          icon: child ?? UpText(text ?? ""),
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
         );
@@ -54,7 +55,7 @@ class UpButton extends StatelessWidget {
           },
           style: UpStyle.getButtonStyle(context,
               style: style, colorType: colorType),
-          child: child ?? Text(text ?? ""),
+          child: child ?? UpText(text ?? ""),
         );
       case UpButtonType.floating:
         return FloatingActionButton(
@@ -433,43 +434,41 @@ class __upImageButtonState extends State<_upImageButton> {
                 child: Stack(
                   children: [
                     // Implement the stroke
-                    Text(
+                    UpText(
                       widget.text ?? "",
-                      style: TextStyle(
-                        fontStyle: UpStyle.getTextFontStyle(context,
-                            style: widget.style, colorType: widget.colorType),
-                        fontWeight: UpStyle.getTextFontWeight(context,
-                            style: widget.style, colorType: widget.colorType),
-                        fontSize: UpStyle.getButtonTextSize(
-                          context,
-                          style: widget.style,
-                          colorType: widget.colorType,
-                        ),
-                        foreground: Paint()
-                          ..color = UpStyle.getButtonTextStrokeColor(context,
-                              style: widget.style, colorType: widget.colorType)
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = UpStyle.getButtonTextStrokeWidth(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType),
-                      ),
+                      // style: TextStyle(
+                      //   fontStyle: UpStyle.getTextFontStyle(context,
+                      //       style: widget.style, colorType: widget.colorType),
+                      //   fontWeight: UpStyle.getTextFontWeight(context,
+                      //       style: widget.style, colorType: widget.colorType),
+                      //   fontSize: UpStyle.getButtonTextSize(
+                      //     context,
+                      //     style: widget.style,
+                      //     colorType: widget.colorType,
+                      //   ),
+                      //   foreground: Paint()
+                      //     ..color = UpStyle.getTextStrokeColor(context,
+                      //         style: widget.style, colorType: widget.colorType)
+                      //     ..style = PaintingStyle.stroke
+                      //     ..strokeWidth = UpStyle.getTextStrokeWidth(context,
+                      //         style: widget.style, colorType: widget.colorType),
+                      // ),
                     ),
-                    Text(
+                    UpText(
                       widget.text ?? "",
-                      style: TextStyle(
-                        fontStyle: UpStyle.getTextFontStyle(context,
-                            style: widget.style, colorType: widget.colorType),
-                        fontSize: UpStyle.getButtonTextSize(
-                          context,
-                          style: widget.style,
-                          colorType: widget.colorType,
-                        ),
-                        color: UpStyle.getButtonTextColor(context,
-                            style: widget.style, colorType: widget.colorType),
-                        fontWeight: UpStyle.getTextFontWeight(context,
-                            style: widget.style, colorType: widget.colorType),
-                      ),
+                      // style: TextStyle(
+                      //   fontStyle: UpStyle.getTextFontStyle(context,
+                      //       style: widget.style, colorType: widget.colorType),
+                      //   fontSize: UpStyle.getButtonTextSize(
+                      //     context,
+                      //     style: widget.style,
+                      //     colorType: widget.colorType,
+                      //   ),
+                      //   color: UpStyle.getButtonTextColor(context,
+                      //       style: widget.style, colorType: widget.colorType),
+                      //   fontWeight: UpStyle.getTextFontWeight(context,
+                      //       style: widget.style, colorType: widget.colorType),
+                      // ),
                     )
                   ],
                 ),

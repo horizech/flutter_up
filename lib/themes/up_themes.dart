@@ -130,6 +130,9 @@ class UpThemes {
         timePickerSurfaceColor: contrast[500],
 
         //text
+        textStrokeColor: Colors.transparent,
+        textFontStyle: FontStyle.normal,
+        textStrokeWidth: 1,
         textBackgroundColor: Colors.transparent,
         textColor: inputColor[700],
         textSize: 14,

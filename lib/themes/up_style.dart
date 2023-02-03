@@ -55,8 +55,8 @@ class UpStyle {
   final Color? buttonBackgroundColor;
   final Color? buttonTextColor;
   final double? buttonTextSize;
-  final double? buttonTextStrokeWidth;
-  final Color? buttonTextStrokeColor;
+  final double? textStrokeWidth;
+  final Color? textStrokeColor;
   final Color? buttonBorderColor;
   final double? buttonBorderWidth;
   final double? buttonBorderRadius;
@@ -238,8 +238,8 @@ class UpStyle {
 
     // Button
     this.buttonTextSize,
-    this.buttonTextStrokeWidth,
-    this.buttonTextStrokeColor,
+    this.textStrokeWidth,
+    this.textStrokeColor,
     this.buttonBackgroundColor,
     this.buttonBorderColor,
     this.buttonBorderRadius,
@@ -397,10 +397,8 @@ class UpStyle {
 
       // Button
       buttonTextSize: override.buttonTextSize ?? buttonTextSize,
-      buttonTextStrokeWidth:
-          override.buttonTextStrokeWidth ?? buttonTextStrokeWidth,
-      buttonTextStrokeColor:
-          override.buttonTextStrokeColor ?? buttonTextStrokeColor,
+      textStrokeWidth: override.textStrokeWidth ?? textStrokeWidth,
+      textStrokeColor: override.textStrokeColor ?? textStrokeColor,
       buttonBackgroundColor:
           override.buttonBackgroundColor ?? buttonBackgroundColor,
       buttonBorderColor: override.buttonBorderColor ?? buttonBorderColor,
@@ -1170,21 +1168,6 @@ class UpStyle {
             Theme.of(context).primaryColor.withAlpha(64);
   }
 
-  static Color getButtonTextStrokeColor(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.buttonTextStrokeColor ??
-        style?.buttonTextStrokeColor ??
-        getStyleByType(
-          UpConfig.of(context).theme,
-          colorType,
-        ).buttonTextStrokeColor ??
-        Colors.transparent;
-  }
-
   static double getButtonBorderWidth(
     BuildContext context, {
     UpStyle? override,
@@ -1233,17 +1216,6 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
-  }
-
-  static double getButtonTextStrokeWidth(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.buttonTextStrokeWidth ??
-        style?.buttonTextStrokeWidth ??
-        UpConstants.kDefaultStyleTextStrokeWidth;
   }
 
   static double getButtonTextSize(
@@ -2337,14 +2309,14 @@ class UpStyle {
   }
 
   //text styles
-  static double gettextSize(
+  static double getTextSize(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
     UpColorType? colorType,
-    UpTextType? texttype,
+    UpTextType? textType,
   }) {
-    switch (texttype) {
+    switch (textType) {
       case UpTextType.heading1:
         return override?.heading1Size ??
             style?.heading1Size ??
@@ -2397,6 +2369,37 @@ class UpStyle {
   }
 
   // text
+
+  static double getTextStrokeWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textStrokeWidth ??
+        style?.textStrokeWidth ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textStrokeWidth ??
+        UpConstants.kDefaultStyleTextStrokeWidth;
+  }
+
+  static Color getTextStrokeColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textStrokeColor ??
+        style?.textStrokeColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textStrokeColor ??
+        Colors.transparent;
+  }
+
   static Color getTextColor(
     BuildContext context, {
     UpStyle? override,
