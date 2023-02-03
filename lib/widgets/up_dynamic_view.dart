@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:isolate';
 
-import 'package:flutter_eval/flutter_eval.dart';
-
+/// TODO:
+// import 'package:flutter_eval/flutter_eval.dart';
+/// This Widget is WIP and should not be used in production\
 class UpDynamicView extends StatelessWidget {
   const UpDynamicView({super.key, required this.code});
   final String code;
@@ -22,16 +23,21 @@ class UpDynamicView extends StatelessWidget {
     //     return
     //   }
     // },);
-    return EvalWidget(
-        loading: const Text("Loading"),
-        assetPath: 'assets/program.evc',
-        library: 'package:example/main.dart',
-        function: 'MyWidget.',
-        args: const [],
-        packages: {
-          'example': {
-            'main.dart': code,
-          }
-        });
+    return Container(
+      color: Colors.red,
+      child: const Text('Not implemented yet!'),
+    );
+
+    // EvalWidget(
+    //     loading: const Text("Loading"),
+    //     assetPath: 'assets/program.evc',
+    //     library: 'package:example/main.dart',
+    //     function: 'MyWidget.',
+    //     args: const [],
+    //     packages: {
+    //       'example': {
+    //         'main.dart': code,
+    //       }
+    //     });
   }
 }

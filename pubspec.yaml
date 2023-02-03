@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
   encrypt: ^5.0.1
   fluttertoast: ^8.0.9
-  flutter_eval: ^0.5.3
-  flutter_highlight:
+  # flutter_eval: ^0.5.3
+  flutter_highlight: ^0.7.0
   flutter_toastr: ^1.0.3
   # dynamic_themes: ^1.1.0
   get_it: ^7.2.0

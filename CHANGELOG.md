@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Dropped flutter_eval dependency
+
 ## 2.0.0
 
 - All widgets overhaul
