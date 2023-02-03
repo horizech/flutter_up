@@ -1,3 +1,14 @@
+## 2.0.0
+
+- All widgets overhaul
+- Button border radius can be set for each side manually
+- Added stroke in Uptext
+- Added UpExpansionTile widget
+- Added Text types i.e. heading1, heading2 and paragraph
+- Added image type in UpButton
+- Updated UpToast and UpCode widgets
+- Updated UpApp and UpConfig
+
 ## 1.0.0
 
 - Completely overhauled widgets.
