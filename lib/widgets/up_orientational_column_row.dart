@@ -13,6 +13,8 @@ class UpOrientationalColumnRow extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return width > height
         ? Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: widths.isNotEmpty
                 ? children.asMap().entries.map<Widget>((entry) {
                     if (widths.length > entry.key && widths[entry.key] > 0) {
@@ -24,6 +26,7 @@ class UpOrientationalColumnRow extends StatelessWidget {
                   }).toList()
                 : children.map<Widget>((w) => Flexible(child: w)).toList())
         : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: children,
           );
   }

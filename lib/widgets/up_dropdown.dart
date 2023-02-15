@@ -3,7 +3,6 @@ import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/widgets/up_textfield.dart';
 
 class UpDropDown extends StatefulWidget {
   final ValueChanged<String?> onChanged;
@@ -15,6 +14,7 @@ class UpDropDown extends StatefulWidget {
   final List<UpLabelValuePair> itemList;
   final String? value;
   final Widget? prefix;
+  final EdgeInsets? contentPadding;
 
   const UpDropDown({
     Key? key,
@@ -28,6 +28,7 @@ class UpDropDown extends StatefulWidget {
     this.label,
     this.hint,
     this.prefix,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -55,30 +56,8 @@ class _UpDropDownState extends State<UpDropDown> {
       label: widget.label,
       hint: widget.hint,
       prefix: widget.prefix,
+      contentPadding: widget.contentPadding,
     );
-
-    // if (previousInputValue != widget.value) {
-    //   previousInputValue = widget.value;
-    //   if (widget.value != curValue) {
-    //     curValue = widget.value;
-
-    //     displayText.text = widget.itemList
-    //         .where((element) => element.value == widget.value)
-    //         .first
-    //         .label;
-    //   }
-    // }
-    // if (widget.value.isNotEmpty) {
-    //   String label = widget.itemList
-    //       .where((element) => element.value == widget.value)
-    //       .first
-    //       .label;
-    //   debugPrint(label);
-    //   setState(() {
-    //     searchText.text = label;
-    //   });
-    //   // initialValue = label;
-    // }
   }
 }
 
@@ -92,19 +71,20 @@ class _upDropDownBody extends StatefulWidget {
   final List<UpLabelValuePair> itemList;
   final ValueNotifier<String?> inputValue;
   final Widget? prefix;
-
-  const _upDropDownBody({
-    Key? key,
-    required this.inputValue,
-    required this.itemList,
-    required this.onChanged,
-    this.style,
-    this.colorType,
-    this.type,
-    this.label,
-    this.hint,
-    this.prefix,
-  }) : super(key: key);
+  final EdgeInsets? contentPadding;
+  const _upDropDownBody(
+      {Key? key,
+      required this.inputValue,
+      required this.itemList,
+      required this.onChanged,
+      this.style,
+      this.colorType,
+      this.type,
+      this.label,
+      this.hint,
+      this.prefix,
+      this.contentPadding})
+      : super(key: key);
 
   @override
   State<_upDropDownBody> createState() => __upDropDownBodyState();
@@ -248,75 +228,126 @@ class __upDropDownBodyState extends State<_upDropDownBody> {
           child: CompositedTransformTarget(
             link: _layerLink,
             child: SizedBox(
-              child: UpTextField(
-                type: widget.type,
-                focusNode: _focusNode,
-                prefixIcon: widget.prefix,
-                // initialValue: ,
-                controller: curTextEditingController ?? displayText,
-                onChanged: (value) {
-                  // if ((value == null && (value ?? "").isEmpty) ||
-                  //     value == "") {
-                  //   filteredProducts = widget.itemList;
-
-                  //   // _focusNode.requestFocus();
-                  // } else {}
-                },
-                label: widget.label ?? "",
-                suffixIcon: SizedBox(
-                  width: 55,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 25,
-                        child: Visibility(
-                          visible: searchText.text.isNotEmpty,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                searchText.clear();
-                              });
-                            },
-                            child: Icon(
-                              Icons.clear,
-                              size: UpStyle.getIconSize(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  contentPadding: widget.contentPadding ??
+                      const EdgeInsets.only(
+                        left: 12.0,
+                        right: 3.0,
+                        bottom: 15.0,
+                        top: 0.0,
+                      ),
+                  label: Text(
+                    widget.label ?? "",
+                    style: TextStyle(
+                      color: UpStyle.getDropdownLabelColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                      fontSize: UpStyle.getDropdownLabelSize(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                    ),
+                  ),
+                  filled: UpStyle.isDropdownFilled(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  fillColor: UpStyle.getDropdownFilledColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  hintText: widget.hint,
+                  enabledBorder: UpStyle.getDropdownBorderStyle(
+                    context,
+                    type: widget.type ?? UpInputType.outline,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  focusedBorder: UpStyle.getDropdownBorderStyle(
+                    context,
+                    type: widget.type ?? UpInputType.outline,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                    isFocused: true,
+                  ),
+                  errorBorder: UpStyle.getDropdownBorderStyle(
+                    context,
+                    type: widget.type ?? UpInputType.outline,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                    isError: true,
+                  ),
+                  border: UpStyle.getDropdownBorderStyle(
+                    context,
+                    type: widget.type ?? UpInputType.outline,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  prefixIcon: widget.prefix,
+                  suffix: SizedBox(
+                    width: 55,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 25,
+                          child: Visibility(
+                            visible: searchText.text.isNotEmpty,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  searchText.clear();
+                                });
+                              },
+                              child: Icon(
+                                Icons.clear,
+                                size: UpStyle.getIconSize(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
+                                color: UpStyle.getIconColor(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
                               ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 25,
+                          child: IconButton(
+                            onPressed: () {
+                              _focusNode.requestFocus();
+                            },
+                            icon: Icon(
+                              Icons.arrow_drop_up,
                               color: UpStyle.getIconColor(
                                 context,
                                 style: widget.style,
                                 colorType: widget.colorType,
                               ),
+                              size: UpStyle.getIconSize(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 25,
-                        child: IconButton(
-                          onPressed: () {
-                            _focusNode.requestFocus();
-                          },
-                          icon: Icon(
-                            Icons.arrow_drop_up,
-                            color: UpStyle.getIconColor(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
-                            size: UpStyle.getIconSize(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
+                focusNode: _focusNode,
+                controller: curTextEditingController ?? displayText,
+                onChanged: (value) {},
               ),
             ),
           ),

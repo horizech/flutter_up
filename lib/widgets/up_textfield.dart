@@ -228,6 +228,16 @@ Widget _upTextField(
           ),
         ),
       ),
+      filled: UpStyle.isTextfieldFilled(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+      fillColor: UpStyle.getTextfieldFilledColor(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
       suffixIcon: suffixIcon,
       prefixIcon: prefixIcon,
       hintText: hint,

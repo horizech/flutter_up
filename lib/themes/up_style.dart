@@ -125,6 +125,7 @@ class UpStyle {
   final Color? textfieldLabelColor;
   final double? textfieldLabelSize;
   final Color? textfieldCursorColor;
+  final Color? textfieldFilledColor;
 
   // Dropdown
   final Color? dropdownFocusedBorderColor;
@@ -134,6 +135,7 @@ class UpStyle {
   final double? dropdownLabelSize;
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
+  final Color? dropdownFilledColor;
 
   // Date picker
   final Color? datePickerPrimaryColor;
@@ -170,6 +172,14 @@ class UpStyle {
   final FontWeight? heading5Weight;
   final FontWeight? heading6Weight;
   final FontWeight? paragraphWeight;
+//  list tile
+  final Color? listTileIconColor;
+  final Color? listTileTextColor;
+  final Color? listTileFocusedColor;
+  final Color? listTileHoveredColor;
+  final Color? listTileSelectedColor;
+  final Color? listTileColor;
+  final Color? listTileSelectedTileColor;
 
   UpStyle({
     // General
@@ -298,6 +308,7 @@ class UpStyle {
     this.textfieldBorderWidth,
     this.textfieldCursorColor,
     this.textfieldLabelSize,
+    this.textfieldFilledColor,
 
     // Drodown
     this.dropdownBorderWidth,
@@ -307,6 +318,7 @@ class UpStyle {
     this.dropdownFocusedBorderColor,
     this.dropdownLabelColor,
     this.dropdownLabelSize,
+    this.dropdownFilledColor,
 
     // Datepicker
     this.datePickerDialogBackgroundColor,
@@ -329,6 +341,15 @@ class UpStyle {
     this.expansionTileCollapsedTextColor,
     this.expansionTileIconColor,
     this.expansionTileTextColor,
+
+    // list tile
+    this.listTileColor,
+    this.listTileFocusedColor,
+    this.listTileHoveredColor,
+    this.listTileIconColor,
+    this.listTileSelectedColor,
+    this.listTileSelectedTileColor,
+    this.listTileTextColor,
   });
 
   UpStyle copyWith(UpStyle override) {
@@ -1592,6 +1613,30 @@ class UpStyle {
         Theme.of(context).primaryColor.withAlpha(64);
   }
 
+  static Color getTextfieldFilledColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldFilledColor ??
+        style?.textfieldFilledColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldFilledColor ??
+        Colors.transparent;
+  }
+
+  static bool isTextfieldFilled(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return style?.textfieldFilledColor != null ? true : false;
+  }
+
   static Color getTextfieldCursorColor(
     BuildContext context, {
     UpStyle? override,
@@ -1783,6 +1828,30 @@ class UpStyle {
   }
 
   //textfields
+
+  static Color getDropdownFilledColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownFilledColor ??
+        style?.dropdownFilledColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownFilledColor ??
+        Colors.transparent;
+  }
+
+  static bool isDropdownFilled(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return style?.dropdownFilledColor != null ? true : false;
+  }
 
   static Color getDropdownBorderColor(
     BuildContext context, {
@@ -2519,6 +2588,7 @@ class UpStyle {
         UpConstants.kDefaultStyleButtonHeight;
   }
 
+//  expansion tile
   static Color getExpansionTileBackgroundColor(
     BuildContext context, {
     UpStyle? override,
@@ -2646,5 +2716,97 @@ class UpStyle {
                 : UpStyle.getRightStyleButtonBorder(context,
                     colorType: colorType, style: style),
           );
+  }
+
+  // list tile
+
+  static Color getListTileIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileIconColor ??
+        style?.listTileIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileIconColor ??
+        UpConstants.kDefaultStyleBackgroundColor;
+  }
+
+  static Color getListTileColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileColor ??
+        style?.listTileColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).listTileColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileFocusedColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileFocusedColor ??
+        style?.listTileFocusedColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileFocusedColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileHoveredColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileHoveredColor ??
+        style?.listTileHoveredColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileHoveredColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileSelectedColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileSelectedColor ??
+        style?.listTileSelectedColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileSelectedColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileSelectedTileColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileSelectedTileColor ??
+        style?.listTileSelectedTileColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileSelectedTileColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileTextColor ??
+        style?.listTileTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileTextColor ??
+        Colors.transparent;
   }
 }

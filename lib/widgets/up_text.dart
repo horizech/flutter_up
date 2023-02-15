@@ -26,32 +26,50 @@ class UpText extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              fontStyle: UpStyle.getTextFontStyle(context,
-                  style: style, colorType: colorType),
-              fontWeight: UpStyle.getTextFontWeight(context,
-                  style: style, colorType: colorType),
-              fontSize: UpStyle.getTextSize(
+              fontStyle: UpStyle.getTextFontStyle(
                 context,
                 style: style,
                 colorType: colorType,
               ),
+              fontWeight: UpStyle.getTextFontWeight(
+                context,
+                style: style,
+                textType: type,
+                colorType: colorType,
+              ),
+              fontSize: UpStyle.getTextSize(
+                context,
+                style: style,
+                colorType: colorType,
+                textType: type,
+              ),
               foreground: Paint()
-                ..color = UpStyle.getTextStrokeColor(context,
-                    style: style, colorType: colorType)
+                ..color = UpStyle.getTextStrokeColor(
+                  context,
+                  style: style,
+                  colorType: colorType,
+                )
                 ..style = PaintingStyle.stroke
-                ..strokeWidth = UpStyle.getTextStrokeWidth(context,
-                    style: style, colorType: colorType),
+                ..strokeWidth = UpStyle.getTextStrokeWidth(
+                  context,
+                  style: style,
+                  colorType: colorType,
+                ),
             ),
           ),
           Text(
             text,
             style: TextStyle(
-              fontStyle: UpStyle.getTextFontStyle(context,
-                  style: style, colorType: colorType),
+              fontStyle: UpStyle.getTextFontStyle(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
               fontSize: UpStyle.getTextSize(
                 context,
                 style: style,
                 colorType: colorType,
+                textType: type,
               ),
               backgroundColor: UpStyle.getTextBackgroundColor(
                 context,
@@ -59,10 +77,17 @@ class UpText extends StatelessWidget {
                 style: style,
               ),
               overflow: overflow,
-              color: UpStyle.getTextColor(context,
-                  style: style, colorType: colorType),
-              fontWeight: UpStyle.getTextFontWeight(context,
-                  style: style, colorType: colorType),
+              color: UpStyle.getTextColor(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
+              fontWeight: UpStyle.getTextFontWeight(
+                context,
+                style: style,
+                colorType: colorType,
+                textType: type,
+              ),
             ),
           )
         ],
