@@ -422,6 +422,7 @@ class __upImageButtonState extends State<_upImageButton> {
               ),
               UpText(
                 widget.text ?? "",
+                style: widget.style,
               ),
               // SizedBox(
               //   child: Stack(

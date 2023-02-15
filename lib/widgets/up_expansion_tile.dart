@@ -84,7 +84,10 @@ class UpExpansionTile extends StatelessWidget {
       maintainState: maintainState,
       onExpansionChanged: onExpansionChanged,
       trailing: trailing,
-      title: UpText(title),
+      title: UpText(
+        title,
+        style: style,
+      ),
       children: children,
     );
   }
