@@ -26,6 +26,11 @@ class UpText extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
+              decoration: UpStyle.getTextDecoration(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
               fontStyle: UpStyle.getTextFontStyle(
                 context,
                 style: style,
@@ -60,6 +65,11 @@ class UpText extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
+              decoration: UpStyle.getTextDecoration(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
               fontStyle: UpStyle.getTextFontStyle(
                 context,
                 style: style,

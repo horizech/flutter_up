@@ -172,6 +172,7 @@ class UpStyle {
   final FontWeight? heading5Weight;
   final FontWeight? heading6Weight;
   final FontWeight? paragraphWeight;
+  final TextDecoration? textDecoration;
 //  list tile
   final Color? listTileIconColor;
   final Color? listTileTextColor;
@@ -210,6 +211,7 @@ class UpStyle {
     this.toastTextColor,
 
     // Text
+    this.textDecoration,
     this.heading1Size,
     this.heading2Size,
     this.heading3Size,
@@ -2467,6 +2469,21 @@ class UpStyle {
           colorType,
         ).textStrokeColor ??
         Colors.transparent;
+  }
+
+  static TextDecoration getTextDecoration(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textDecoration ??
+        style?.textDecoration ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textDecoration ??
+        TextDecoration.none;
   }
 
   static Color getTextColor(
