@@ -4,7 +4,7 @@ import 'package:flutter_up/enums/up_input_type.dart';
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
-import 'package:flutter_up/widgets/up_text.dart';
+import 'package:flutter_up/widgets/up_textfield.dart';
 
 class UpDropDown extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
@@ -422,16 +422,22 @@ class _upDropDownMultipleSelectBody extends StatefulWidget {
 class _upDropDownMultipleSelectBodyState
     extends State<_upDropDownMultipleSelectBody> {
   final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode1 = FocusNode();
+
   OverlayEntry? _overlayEntry;
+  OverlayEntry? _overlayEntry1;
+
   final LayerLink _layerLink = LayerLink();
   final TextEditingController searchText = TextEditingController();
   final TextEditingController displayText = TextEditingController();
+  final TextEditingController valuesController = TextEditingController();
+
   TextEditingController? curTextEditingController;
 
   List<UpLabelValuePair>? filteredProducts = [];
   bool isSearchable = false;
   bool isSearching = false;
-  List<String> multipleSelectionList = [];
+  List<String> multipleSelectionsList = [];
   Map<String, bool> checkBoxValues = {};
 
   String? previousInputValue;
@@ -447,59 +453,66 @@ class _upDropDownMultipleSelectBodyState
   OverlayEntry _createOverlayEntry() {
     var size = _layerLink.leaderSize;
     return OverlayEntry(
-        builder: (context) => Positioned(
-              width: size?.width ?? 100,
-              height: 200,
-              bottom: 1,
-              child: CompositedTransformFollower(
-                link: _layerLink,
-                showWhenUnlinked: false,
-                offset: Offset(0.0, (size?.height ?? 55) + 5.0),
-                child: Material(
-                  elevation: 4.0,
-                  child: ListView(
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: filteredProducts!.map((e) {
-                        return ListTile(
-                          title: Row(
-                            children: [
-                              UpCheckbox(
-                                style: widget.style,
-                                colorType: widget.colorType,
-                                initialValue: checkBoxValues[e.value] ?? false,
-                                onChange: (newCheck) {
-                                  checkBoxValues[e.value] = newCheck;
-                                  if (newCheck) {
-                                    if (!multipleSelectionList
-                                        .contains(e.label)) {
-                                      multipleSelectionList.add(e.value);
-                                    }
-                                  } else {
-                                    if (multipleSelectionList
-                                        .contains(e.value)) {
-                                      multipleSelectionList.removeWhere(
-                                          (element) => element == e.value);
-                                    }
-                                  }
-                                  setState(() {
-                                    widget.onChanged(multipleSelectionList);
-                                  });
-                                },
-                              ),
-                              Text(e.label),
-                            ],
-                          ),
-                          // onTap: () {
-                          //   // widget.onChanged(e.value);
-                          //   _focusNode.unfocus();
-                          // },
-                        );
-                      }).toList()),
-                ),
-              ),
-            ));
+      builder: (context) => Positioned(
+        width: size?.width ?? 100,
+        height: 200,
+        bottom: 1,
+        child: CompositedTransformFollower(
+          link: _layerLink,
+          showWhenUnlinked: false,
+          offset: Offset(0.0, (size?.height ?? 55) + 5.0),
+          child: Material(
+            elevation: 4.0,
+            child: ListView(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                      title: UpTextField(
+                    controller: curTextEditingController,
+                    focusNode: _focusNode,
+                    // label: "Search",
+                  )),
+                  ...filteredProducts!.map((e) {
+                    return ListTile(
+                      title: Row(
+                        children: [
+                          UpCheckbox(
+                              label: e.label,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                              initialValue: checkBoxValues[e.value]!,
+                              onChange: (newCheck) {
+                                onClick(e.value, newCheck);
+                                _updateValuesTextfield();
+                              }),
+                        ],
+                      ),
+                      // onTap: () {},
+                    );
+                  }).toList()
+                ]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  onClick(String key, bool newCheck) {
+    checkBoxValues[key] = newCheck;
+    if (newCheck) {
+      if (!multipleSelectionsList.contains(key)) {
+        multipleSelectionsList.add(key);
+      }
+    } else {
+      if (multipleSelectionsList.contains(key)) {
+        multipleSelectionsList.removeWhere((element) => element == key);
+      }
+    }
+    setState(() {
+      widget.onChanged(multipleSelectionsList);
+    });
   }
 
   @override
@@ -512,36 +525,31 @@ class _upDropDownMultipleSelectBodyState
       }
     }
     if (widget.values != null && widget.values!.isNotEmpty) {
-      multipleSelectionList = widget.values ?? [];
+      multipleSelectionsList = widget.values ?? [];
+    }
+    if (multipleSelectionsList.isNotEmpty) {
+      _updateValuesTextfield();
     }
 
     for (var element in widget.itemList) {
-      if (multipleSelectionList.contains(element.value)) {
+      if (multipleSelectionsList.contains(element.value)) {
         checkBoxValues[element.value] = true;
       }
     }
 
-    // if ((widget.inputValue.value ?? "").isNotEmpty) {
-    //   displayText.text = widget.itemList
-    //       .firstWhere((element) => element.value == widget.inputValue.value)
-    //       .label;
-    // }
-    // previousInputValue = widget.inputValue.value;
+    _focusNode1.addListener(() {
+      if (_focusNode1.hasFocus) {
+        setState(() {
+          _overlayEntry = _createOverlayEntry();
+          Overlay.of(context)!.insert(_overlayEntry!);
+        });
+      } else {
+        setState(() {
+          _overlayEntry!.remove();
+        });
+      }
+    });
 
-    // widget.inputValue.addListener(() {
-    //   if (widget.inputValue.value != previousInputValue) {
-    //     Future.delayed(const Duration(milliseconds: 50), () {
-    //       setState(() {
-    //         displayText.text = widget.itemList
-    //             .firstWhere(
-    //                 (element) => element.value == widget.inputValue.value)
-    //             .label;
-    //         previousInputValue = widget.inputValue.value;
-    //       });
-    //     });
-    //   }
-    // });
-//
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         setState(() {
@@ -550,14 +558,12 @@ class _upDropDownMultipleSelectBodyState
           _overlayEntry = _createOverlayEntry();
           Overlay.of(context)!.insert(_overlayEntry!);
         });
-        // debugPrint("Focused");
       } else {
         setState(() {
           searchText.clear();
           curTextEditingController = displayText;
           _overlayEntry!.remove();
         });
-        // debugPrint("UnFocused");
       }
     });
 
@@ -582,6 +588,13 @@ class _upDropDownMultipleSelectBodyState
     });
   }
 
+  _updateValuesTextfield() {
+    valuesController.text = multipleSelectionsList
+        .map((e) =>
+            widget.itemList.where((element) => element.value == e).first.label)
+        .join(',');
+  }
+
   List<DropdownMenuItem<dynamic>> getDropDownMenuItems() {
     return widget.itemList
         .map<DropdownMenuItem<dynamic>>(
@@ -600,6 +613,7 @@ class _upDropDownMultipleSelectBodyState
         link: _layerLink,
         child: SizedBox(
           child: TextFormField(
+            readOnly: true,
             decoration: InputDecoration(
               contentPadding: widget.contentPadding ??
                   const EdgeInsets.only(
@@ -660,72 +674,14 @@ class _upDropDownMultipleSelectBodyState
                 style: widget.style,
                 colorType: widget.colorType,
               ),
-              prefixIcon: multipleSelectionList.isNotEmpty
-                  ? SizedBox(
-                      child: Wrap(
-                          children: multipleSelectionList
-                              .map((e) => Container(
-                                    width: 50,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      border: Border.all(color: Colors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12.0)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 20,
-                                            child: UpText(
-                                              widget.itemList
-                                                  .where((element) =>
-                                                      element.value == e)
-                                                  .first
-                                                  .label,
-                                              overflow: TextOverflow.fade,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              checkBoxValues[e] = false;
-                                              if (multipleSelectionList
-                                                  .contains(e)) {
-                                                multipleSelectionList
-                                                    .removeWhere((element) =>
-                                                        element == e);
-                                              }
-
-                                              setState(() {});
-                                            },
-                                            child: Icon(
-                                              Icons.clear,
-                                              size: UpStyle.getIconSize(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType,
-                                              ),
-                                              color: UpStyle.getIconColor(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ))
-                              .toList()),
-                    )
-                  : const SizedBox(),
               suffix: SizedBox(
-                width: 25,
                 child: IconButton(
                   onPressed: () {
-                    _focusNode.requestFocus();
+                    if (_focusNode1.hasFocus) {
+                      _focusNode1.removeListener(() {});
+                    } else {
+                      _focusNode1.requestFocus();
+                    }
                   },
                   icon: Icon(
                     Icons.arrow_drop_up,
@@ -743,8 +699,8 @@ class _upDropDownMultipleSelectBodyState
                 ),
               ),
             ),
-            focusNode: _focusNode,
-            controller: curTextEditingController,
+            focusNode: _focusNode1,
+            controller: valuesController,
             onChanged: (value) {},
           ),
         ),
