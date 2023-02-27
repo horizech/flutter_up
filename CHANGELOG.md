@@ -1,3 +1,8 @@
+## 2.0.2
+
+- Added UpIcon widget
+- Selectable text added in upText widget
+
 ## 2.0.1
 
 - Dropped flutter_eval dependency
