@@ -1,9 +1,9 @@
 ## 2.0.2
 
-- Multiple Selection added in UpDropdown widget
+- Added Multiple Selection in UpDropdown widget
 - Added UpIcon widget
-- Selectable text added in UpText widget
-- UpListTile widget added
+- Added Selectable text in UpText widget
+- Added UpListTile widget
 
 ## 2.0.1
 
