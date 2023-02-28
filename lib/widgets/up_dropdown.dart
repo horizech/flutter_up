@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
+import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/models/up_label_value.dart';
+import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/widgets/up_checkbox.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 class UpDropDown extends StatefulWidget {
@@ -320,7 +323,7 @@ class _upDropDownSingleSelectBodyState
                     colorType: widget.colorType,
                   ),
                   prefixIcon: widget.prefix,
-                  suffix: SizedBox(
+                  suffixIcon: SizedBox(
                     width: 55,
                     child: Row(
                       children: [
@@ -422,97 +425,126 @@ class _upDropDownMultipleSelectBodyState
     extends State<_upDropDownMultipleSelectBody> {
   final FocusNode _focusNode = FocusNode();
   OverlayEntry? _overlayEntry;
-
   final LayerLink _layerLink = LayerLink();
-  final TextEditingController searchText = TextEditingController();
   final TextEditingController displayText = TextEditingController();
   final TextEditingController valuesController = TextEditingController();
-  FocusScopeNode focusScopeNode = FocusScopeNode();
-  TextEditingController? curTextEditingController;
-
   List<UpLabelValuePair>? filteredProducts = [];
-  bool isSearchable = false;
-  bool isSearching = false;
   List<String> multipleSelectionsList = [];
   Map<String, bool> checkBoxValues = {};
-  final FocusScopeNode _focusScopeNode = FocusScopeNode();
 
   String? previousInputValue;
+  bool isOverlayCreated = false;
 
   @override
   void dispose() {
     super.dispose();
     widget.inputValue.removeListener(() {});
     _focusNode.removeListener(() {});
-    searchText.removeListener(() {});
   }
 
   OverlayEntry _createOverlayEntry() {
     var size = _layerLink.leaderSize;
     return OverlayEntry(
-        builder: (context) => Positioned(
-            width: size?.width ?? 100,
-            height: 200,
-            bottom: 1,
-            child: CompositedTransformFollower(
-              link: _layerLink,
-              showWhenUnlinked: false,
-              offset: Offset(0.0, (size?.height ?? 55) + 5.0),
-              child: FocusScope(
-                node: _focusScopeNode,
-                child: Builder(builder: (BuildContext context) {
-                  return Material(
-                    type: MaterialType.transparency,
-                    // elevation: 4.0,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          UpTextField(
-                            controller: TextEditingController(),
-                            onChanged: ((newVal) {
-                              // ServiceManager<UpSearchService>().update(newVal);
-                            }),
-                            label: "Search",
+      builder: (context) => Positioned(
+        width: size?.width ?? 100,
+        height: 200,
+        bottom: 1,
+        child: CompositedTransformFollower(
+          link: _layerLink,
+          showWhenUnlinked: false,
+          offset: Offset(0.0, (size?.height ?? 55) + 5.0),
+          child: Material(
+            elevation: 4.0,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ListTile(
+                    title: UpTextField(
+                      controller: displayText,
+                      onChanged: ((newVal) {
+                        ServiceManager<UpSearchService>().update(newVal);
+                      }),
+                      suffixIcon: Visibility(
+                        visible: displayText.text.isNotEmpty,
+                        child: SizedBox(
+                          child: IconButton(
+                            onPressed: () {
+                              displayText.text = "";
+                              ServiceManager<UpSearchService>().update("");
+                            },
+                            icon: Icon(
+                              Icons.cancel,
+                              color: UpStyle.getIconColor(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
+                              size: UpStyle.getIconSize(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
+                            ),
                           ),
-                          // StreamBuilder(
-                          //   stream: ServiceManager<UpSearchService>().stream$,
-                          //   builder: (BuildContext context, searchkey) {
-                          //     return ListView(
-                          //       scrollDirection: Axis.vertical,
-                          //       padding: EdgeInsets.zero,
-                          //       shrinkWrap: true,
-                          //       children: filteredProducts!.map(
-                          //         (e) {
-                          //           return ListTile(
-                          //             title: Row(
-                          //               children: [
-                          //                 UpCheckbox(
-                          //                     label: e.label,
-                          //                     style: widget.style,
-                          //                     colorType: widget.colorType,
-                          //                     initialValue:
-                          //                         checkBoxValues[e.value]!,
-                          //                     onChange: (newCheck) {
-                          //                       onClick(e.value, newCheck);
-                          //                       _updateValuesTextfield();
-                          //                     }),
-                          //               ],
-                          //             ),
-                          //             // onTap: () {},
-                          //           );
-                          //         },
-                          //       ).toList(),
-                          //     );
-                          //   },
-                          // )
-                        ],
+                        ),
                       ),
+                      label: "Search",
                     ),
-                  );
-                }),
+                  ),
+                  StreamBuilder(
+                    stream: ServiceManager<UpSearchService>().stream$,
+                    builder: (BuildContext context, searchkey) {
+                      getFilteredProducts(searchkey.data ?? "");
+                      return ListView(
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: filteredProducts!.map(
+                          (e) {
+                            return ListTile(
+                              title: Row(
+                                children: [
+                                  UpCheckbox(
+                                      label: e.label,
+                                      style: widget.style,
+                                      colorType: widget.colorType,
+                                      initialValue: checkBoxValues[e.value]!,
+                                      onChange: (newCheck) {
+                                        onClick(e.value, newCheck);
+                                        _updateValuesTextfield();
+                                      }),
+                                ],
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      );
+                    },
+                  )
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  getFilteredProducts(String searchText) {
+    if (searchText.isEmpty) {
+      if (filteredProducts != widget.itemList) {
+        filteredProducts = widget.itemList;
+      }
+    } else {
+      filteredProducts = widget.itemList
+          .where(
+            (element) =>
+                element.label.toLowerCase().contains(searchText.toLowerCase()),
+          )
+          .toList();
+    }
   }
 
   onClick(String key, bool newCheck) {
@@ -552,56 +584,6 @@ class _upDropDownMultipleSelectBodyState
         checkBoxValues[element.value] = true;
       }
     }
-
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        setState(() {
-          _overlayEntry = _createOverlayEntry();
-          Overlay.of(context)!.insert(_overlayEntry!);
-        });
-      } else {
-        setState(() {
-          _overlayEntry!.remove();
-        });
-      }
-    });
-
-    // _focusNode.addListener(() {
-    //   if (_focusNode.hasFocus) {
-    //     setState(() {
-    //       searchText.text = displayText.text;
-    //       curTextEditingController = searchText;
-    //       _overlayEntry = _createOverlayEntry();
-    //       Overlay.of(context)!.insert(_overlayEntry!);
-    //     });
-    //   } else {
-    //     setState(() {
-    //       searchText.clear();
-    //       curTextEditingController = displayText;
-    //       _overlayEntry!.remove();
-    //     });
-    //   }
-    // });
-
-    searchText.addListener(() {
-      if (searchText.text.isEmpty || searchText.text == displayText.text) {
-        if (filteredProducts != widget.itemList) {
-          setState(() {
-            filteredProducts = widget.itemList;
-          });
-        }
-      } else {
-        setState(() {
-          filteredProducts = widget.itemList
-              .where(
-                (element) => element.label
-                    .toLowerCase()
-                    .contains(searchText.text.toLowerCase()),
-              )
-              .toList();
-        });
-      }
-    });
   }
 
   _updateValuesTextfield() {
@@ -627,98 +609,99 @@ class _upDropDownMultipleSelectBodyState
     return Container(
       child: CompositedTransformTarget(
         link: _layerLink,
-        child: SizedBox(
-          child: TextFormField(
-            readOnly: true,
-            decoration: InputDecoration(
-              contentPadding: widget.contentPadding ??
-                  const EdgeInsets.only(
-                    left: 12.0,
-                    right: 3.0,
-                    bottom: 15.0,
-                    top: 0.0,
-                  ),
-              label: Text(
-                widget.label ?? "",
-                style: TextStyle(
-                  color: UpStyle.getDropdownLabelColor(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  fontSize: UpStyle.getDropdownLabelSize(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
+        child: TextFormField(
+          readOnly: true,
+          decoration: InputDecoration(
+            contentPadding: widget.contentPadding ??
+                const EdgeInsets.only(
+                  left: 12.0,
+                  right: 3.0,
+                  bottom: 15.0,
+                  top: 0.0,
+                ),
+            label: Text(
+              widget.label ?? "",
+              style: TextStyle(
+                color: UpStyle.getDropdownLabelColor(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                fontSize: UpStyle.getDropdownLabelSize(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
                 ),
               ),
-              filled: UpStyle.isDropdownFilled(
-                context,
-                style: widget.style,
-                colorType: widget.colorType,
-              ),
-              fillColor: UpStyle.getDropdownFilledColor(
-                context,
-                style: widget.style,
-                colorType: widget.colorType,
-              ),
-              hintText: widget.hint,
-              enabledBorder: UpStyle.getDropdownBorderStyle(
-                context,
-                type: widget.type ?? UpInputType.outline,
-                style: widget.style,
-                colorType: widget.colorType,
-              ),
-              focusedBorder: UpStyle.getDropdownBorderStyle(
-                context,
-                type: widget.type ?? UpInputType.outline,
-                style: widget.style,
-                colorType: widget.colorType,
-                isFocused: true,
-              ),
-              errorBorder: UpStyle.getDropdownBorderStyle(
-                context,
-                type: widget.type ?? UpInputType.outline,
-                style: widget.style,
-                colorType: widget.colorType,
-                isError: true,
-              ),
-              border: UpStyle.getDropdownBorderStyle(
-                context,
-                type: widget.type ?? UpInputType.outline,
-                style: widget.style,
-                colorType: widget.colorType,
-              ),
-              suffix: SizedBox(
-                child: IconButton(
-                  onPressed: () {
-                    // if (_focusNode.hasFocus) {
-                    //   _focusNode.removeListener(() {});
-                    // } else {
-                    //   _focusNode.requestFocus();
-                    // }
-                  },
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    color: UpStyle.getIconColor(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
-                    size: UpStyle.getIconSize(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
+            ),
+            filled: UpStyle.isDropdownFilled(
+              context,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+            fillColor: UpStyle.getDropdownFilledColor(
+              context,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+            hintText: widget.hint,
+            enabledBorder: UpStyle.getDropdownBorderStyle(
+              context,
+              type: widget.type ?? UpInputType.outline,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+            focusedBorder: UpStyle.getDropdownBorderStyle(
+              context,
+              type: widget.type ?? UpInputType.outline,
+              style: widget.style,
+              colorType: widget.colorType,
+              isFocused: true,
+            ),
+            errorBorder: UpStyle.getDropdownBorderStyle(
+              context,
+              type: widget.type ?? UpInputType.outline,
+              style: widget.style,
+              colorType: widget.colorType,
+              isError: true,
+            ),
+            border: UpStyle.getDropdownBorderStyle(
+              context,
+              type: widget.type ?? UpInputType.outline,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+            suffixIcon: SizedBox(
+              child: IconButton(
+                onPressed: () {
+                  if (isOverlayCreated) {
+                    _overlayEntry!.remove();
+                    isOverlayCreated = false;
+                  } else {
+                    _overlayEntry = _createOverlayEntry();
+                    Overlay.of(context)!.insert(_overlayEntry!);
+                    isOverlayCreated = true;
+                  }
+                },
+                icon: Icon(
+                  Icons.arrow_drop_up,
+                  color: UpStyle.getIconColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                  size: UpStyle.getIconSize(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
                   ),
                 ),
               ),
             ),
-            focusNode: _focusNode,
-            controller: valuesController,
-            onChanged: (value) {},
           ),
+          focusNode: _focusNode,
+          controller: valuesController,
+          onChanged: (value) {},
         ),
       ),
     );
