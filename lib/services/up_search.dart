@@ -9,4 +9,8 @@ class UpSearchService {
   update(newValue) {
     _search.add(newValue);
   }
+
+  remove() {
+    update("");
+  }
 }

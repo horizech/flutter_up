@@ -10,6 +10,7 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Widget? leading;
   final bool excludeHeaderSemantics;
   final bool automaticallyImplyLeading;
+  final Widget? titleWidget;
 
   const UpAppBar({
     Key? key,
@@ -20,6 +21,7 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.leading,
     this.excludeHeaderSemantics = false,
     this.automaticallyImplyLeading = true,
+    this.titleWidget,
   })  : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -36,21 +38,22 @@ class _UpAppBarState extends State<UpAppBar> {
     return AppBar(
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       excludeHeaderSemantics: widget.excludeHeaderSemantics,
-      title: Text(
-        widget.title ?? "",
-        style: TextStyle(
-          color: UpStyle.getAppBarTitleColor(
-            context,
-            style: widget.style,
-            colorType: widget.colorType,
+      title: widget.titleWidget ??
+          Text(
+            widget.title ?? "",
+            style: TextStyle(
+              color: UpStyle.getAppBarTitleColor(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+              fontSize: UpStyle.getAppBarTitleSize(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+            ),
           ),
-          fontSize: UpStyle.getAppBarTitleSize(
-            context,
-            style: widget.style,
-            colorType: widget.colorType,
-          ),
-        ),
-      ),
       backgroundColor: UpStyle.getAppBarColor(
         context,
         style: widget.style,

@@ -11,7 +11,6 @@ import 'package:flutter_up/widgets/up_textfield.dart';
 class UpDropDown extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
   final ValueChanged<List<String>?>? onMultipleChanged;
-
   final String? label;
   final UpInputType? type;
   final String? hint;
@@ -20,27 +19,26 @@ class UpDropDown extends StatefulWidget {
   final List<UpLabelValuePair> itemList;
   final String? value;
   final List<String>? values;
-
-  final Widget? prefix;
+  final Widget? prefixIcon;
   final EdgeInsets? contentPadding;
   final bool isMultipleSelect;
 
-  const UpDropDown(
-      {Key? key,
-      this.value,
-      required this.itemList,
-      this.onChanged,
-      this.style,
-      this.colorType,
-      this.type,
-      this.label,
-      this.hint,
-      this.values,
-      this.prefix,
-      this.contentPadding,
-      this.onMultipleChanged,
-      this.isMultipleSelect = false})
-      : super(key: key);
+  const UpDropDown({
+    Key? key,
+    this.value,
+    required this.itemList,
+    this.onChanged,
+    this.style,
+    this.colorType,
+    this.type,
+    this.label,
+    this.hint,
+    this.values,
+    this.prefixIcon,
+    this.contentPadding,
+    this.onMultipleChanged,
+    this.isMultipleSelect = false,
+  }) : super(key: key);
 
   @override
   State<UpDropDown> createState() => _UpDropDownState();
@@ -68,6 +66,7 @@ class _UpDropDownState extends State<UpDropDown> {
             colorType: widget.colorType,
             type: widget.type,
             label: widget.label,
+            prefixIcon: widget.prefixIcon,
             hint: widget.hint,
             values: widget.values ?? [],
             contentPadding: widget.contentPadding,
@@ -86,7 +85,7 @@ class _UpDropDownState extends State<UpDropDown> {
             type: widget.type,
             label: widget.label,
             hint: widget.hint,
-            prefix: widget.prefix,
+            prefix: widget.prefixIcon,
             contentPadding: widget.contentPadding,
           );
   }
@@ -402,6 +401,7 @@ class _upDropDownMultipleSelectBody extends StatefulWidget {
   final List<UpLabelValuePair> itemList;
   final ValueNotifier<String?> inputValue;
   final EdgeInsets? contentPadding;
+  final Widget? prefixIcon;
   const _upDropDownMultipleSelectBody(
       {Key? key,
       required this.inputValue,
@@ -412,6 +412,7 @@ class _upDropDownMultipleSelectBody extends StatefulWidget {
       this.colorType,
       this.type,
       this.label,
+      this.prefixIcon,
       this.hint,
       this.contentPadding})
       : super(key: key);
@@ -440,6 +441,7 @@ class _upDropDownMultipleSelectBodyState
     super.dispose();
     widget.inputValue.removeListener(() {});
     _focusNode.removeListener(() {});
+    ServiceManager<UpSearchService>().remove();
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -671,6 +673,7 @@ class _upDropDownMultipleSelectBodyState
               style: widget.style,
               colorType: widget.colorType,
             ),
+            prefixIcon: widget.prefixIcon,
             suffixIcon: SizedBox(
               child: IconButton(
                 onPressed: () {

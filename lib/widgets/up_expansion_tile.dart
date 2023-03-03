@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/enums/text_style.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_text.dart';
@@ -19,6 +20,7 @@ class UpExpansionTile extends StatelessWidget {
   final EdgeInsetsGeometry? tilePadding;
   final CrossAxisAlignment? expandedCrossAxisAlignment;
   final Alignment? expandedAlignment;
+  final UpTextType? textType;
 
   const UpExpansionTile({
     Key? key,
@@ -37,6 +39,7 @@ class UpExpansionTile extends StatelessWidget {
     this.tilePadding,
     this.expandedCrossAxisAlignment,
     this.expandedAlignment,
+    this.textType,
   }) : super(key: key);
 
   @override
@@ -86,6 +89,7 @@ class UpExpansionTile extends StatelessWidget {
       trailing: trailing,
       title: UpText(
         title,
+        type: textType,
         style: style,
       ),
       children: children,
