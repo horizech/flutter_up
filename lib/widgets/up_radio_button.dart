@@ -72,9 +72,8 @@ class _UpRadioButtonState extends State<UpRadioButton> {
             children: widget.items
                 .asMap()
                 .entries
-                .map((item) => Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
+                .map((item) => Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Visibility(
                           visible:
@@ -217,150 +216,165 @@ class _UpRadioButtonState extends State<UpRadioButton> {
           )
         : Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: widget.items
                 .asMap()
                 .entries
-                .map((item) => Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: [
-                        Visibility(
-                          visible:
-                              widget.labelDirection == UpTextDirection.left,
-                          child: item.value.widget ??
-                              Text(
-                                item.value.label ?? "",
-                                style: TextStyle(
-                                  color: UpStyle.getRadioButtonLabelColor(
-                                    context,
-                                    style: widget.style,
-                                    colorType: widget.colorType,
-                                  ),
-                                  fontSize: UpStyle.getRadioButtonLabelSize(
-                                    context,
-                                    style: widget.style,
-                                    colorType: widget.colorType,
-                                  ),
-                                ),
-                              ),
-                        ),
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: item.value.value == radioValue &&
-                                    isHovered[item.key]
-                                ? UpStyle.getRadioButtonFilledColor(context,
-                                        style: widget.style,
-                                        colorType: widget.colorType)
-                                    .withAlpha(50)
-                                : isHovered[item.key]
-                                    ? UpStyle.getRadioButtonRippleColor(context,
-                                        style: widget.style,
-                                        colorType: widget.colorType)
-                                    : Colors.transparent,
-                          ),
-                          child: MouseRegion(
-                            cursor: widget.style?.isDisabled == true
-                                ? SystemMouseCursors.basic
-                                : SystemMouseCursors.click,
-                            onEnter: widget.style?.isDisabled == true
-                                ? null
-                                : (PointerEvent detail) =>
-                                    _incrementEnter(item.key),
-                            onExit: widget.style?.isDisabled == true
-                                ? null
-                                : (PointerEvent detail) =>
-                                    _incrementExit(item.key),
-                            child: GestureDetector(
-                              onTap: () {
-                                if (!(widget.style?.isDisabled ?? false)) {
-                                  if (widget.onChange != null) {
-                                    widget.onChange!(item.value.value);
-                                  }
-                                  setState(() {
-                                    radioValue = item.value.value;
-                                  });
-                                }
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                      style: BorderStyle.solid,
-                                      color: item.value.value == radioValue
-                                          ? UpStyle.getRadioButtonFilledColor(
+                .map((item) => SizedBox(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          widget.labelDirection == UpTextDirection.left
+                              ? Expanded(
+                                  child: Visibility(
+                                    visible: widget.labelDirection ==
+                                        UpTextDirection.left,
+                                    child: item.value.widget ??
+                                        Text(
+                                          item.value.label ?? "",
+                                          style: TextStyle(
+                                            color: UpStyle
+                                                .getRadioButtonLabelColor(
                                               context,
                                               style: widget.style,
-                                              colorType: widget.colorType)
-                                          : isHovered[item.key]
-                                              ? UpStyle
-                                                  .getRadioButtonHoverBorderColor(
-                                                      context,
-                                                      style: widget.style,
-                                                      colorType:
-                                                          widget.colorType)
-                                              : UpStyle
-                                                  .getRadioButtonBorderColor(
-                                                      context,
-                                                      style: widget.style,
-                                                      colorType:
-                                                          widget.colorType),
-                                      width: UpStyle.getRadioButtonBorderWidth(
+                                              colorType: widget.colorType,
+                                            ),
+                                            fontSize:
+                                                UpStyle.getRadioButtonLabelSize(
+                                              context,
+                                              style: widget.style,
+                                              colorType: widget.colorType,
+                                            ),
+                                          ),
+                                        ),
+                                  ),
+                                )
+                              : SizedBox(),
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: item.value.value == radioValue &&
+                                      isHovered[item.key]
+                                  ? UpStyle.getRadioButtonFilledColor(context,
+                                          style: widget.style,
+                                          colorType: widget.colorType)
+                                      .withAlpha(50)
+                                  : isHovered[item.key]
+                                      ? UpStyle.getRadioButtonRippleColor(
                                           context,
                                           style: widget.style,
-                                          colorType: widget.colorType),
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(
-                                        100,
-                                      ),
-                                    ),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  child: item.value.value == radioValue
-                                      ? Align(
-                                          alignment: Alignment.center,
-                                          child: Icon(Icons.circle,
-                                              color: UpStyle
-                                                  .getRadioButtonFilledColor(
+                                          colorType: widget.colorType)
+                                      : Colors.transparent,
+                            ),
+                            child: MouseRegion(
+                              cursor: widget.style?.isDisabled == true
+                                  ? SystemMouseCursors.basic
+                                  : SystemMouseCursors.click,
+                              onEnter: widget.style?.isDisabled == true
+                                  ? null
+                                  : (PointerEvent detail) =>
+                                      _incrementEnter(item.key),
+                              onExit: widget.style?.isDisabled == true
+                                  ? null
+                                  : (PointerEvent detail) =>
+                                      _incrementExit(item.key),
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (!(widget.style?.isDisabled ?? false)) {
+                                    if (widget.onChange != null) {
+                                      widget.onChange!(item.value.value);
+                                    }
+                                    setState(() {
+                                      radioValue = item.value.value;
+                                    });
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                        style: BorderStyle.solid,
+                                        color: item.value.value == radioValue
+                                            ? UpStyle.getRadioButtonFilledColor(
                                                 context,
-                                                colorType: widget.colorType,
                                                 style: widget.style,
-                                              ),
-                                              size: 20),
-                                        )
-                                      : const Text(""),
+                                                colorType: widget.colorType)
+                                            : isHovered[item.key]
+                                                ? UpStyle
+                                                    .getRadioButtonHoverBorderColor(
+                                                        context,
+                                                        style: widget.style,
+                                                        colorType:
+                                                            widget.colorType)
+                                                : UpStyle
+                                                    .getRadioButtonBorderColor(
+                                                        context,
+                                                        style: widget.style,
+                                                        colorType:
+                                                            widget.colorType),
+                                        width:
+                                            UpStyle.getRadioButtonBorderWidth(
+                                                context,
+                                                style: widget.style,
+                                                colorType: widget.colorType),
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(
+                                          100,
+                                        ),
+                                      ),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: item.value.value == radioValue
+                                        ? Align(
+                                            alignment: Alignment.center,
+                                            child: Icon(Icons.circle,
+                                                color: UpStyle
+                                                    .getRadioButtonFilledColor(
+                                                  context,
+                                                  colorType: widget.colorType,
+                                                  style: widget.style,
+                                                ),
+                                                size: 20),
+                                          )
+                                        : const Text(""),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Visibility(
-                          visible:
-                              widget.labelDirection == UpTextDirection.right,
-                          child: item.value.widget ??
-                              Text(
-                                item.value.label ?? "",
-                                style: TextStyle(
-                                  color: UpStyle.getRadioButtonLabelColor(
-                                    context,
-                                    style: widget.style,
-                                    colorType: widget.colorType,
+                          widget.labelDirection == UpTextDirection.right
+                              ? Expanded(
+                                  child: Container(
+                                    child: Visibility(
+                                      child: item.value.widget ??
+                                          Text(
+                                            item.value.label ?? "",
+                                            style: TextStyle(
+                                              color: UpStyle
+                                                  .getRadioButtonLabelColor(
+                                                context,
+                                                style: widget.style,
+                                                colorType: widget.colorType,
+                                              ),
+                                              fontSize: UpStyle
+                                                  .getRadioButtonLabelSize(
+                                                context,
+                                                style: widget.style,
+                                                colorType: widget.colorType,
+                                              ),
+                                            ),
+                                          ),
+                                    ),
                                   ),
-                                  fontSize: UpStyle.getRadioButtonLabelSize(
-                                    context,
-                                    style: widget.style,
-                                    colorType: widget.colorType,
-                                  ),
-                                ),
-                              ),
-                        )
-                      ],
+                                )
+                              : SizedBox()
+                        ],
+                      ),
                     ))
                 .toList(),
           );
