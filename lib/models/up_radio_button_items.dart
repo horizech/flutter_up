@@ -1,9 +1,9 @@
 class UpRadioButtonItem {
-  final String label;
+  final String? label;
   final dynamic value;
 
   UpRadioButtonItem({
-    required this.label,
+    this.label,
     required this.value,
   });
 }
