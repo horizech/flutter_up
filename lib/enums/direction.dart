@@ -1,0 +1,4 @@
+enum UpDirection {
+  vertical,
+  horizental,
+}
