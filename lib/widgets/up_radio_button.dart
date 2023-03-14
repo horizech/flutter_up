@@ -12,20 +12,19 @@ class UpRadioButton extends StatefulWidget {
   final Function? onChange;
   final UpTextDirection labelDirection;
   final dynamic initialValue;
-  final Widget? label;
+
   final List<UpRadioButtonItem> items;
 
-  const UpRadioButton(
-      {Key? key,
-      this.colorType,
-      this.style,
-      this.onChange,
-      this.labelDirection = UpTextDirection.left,
-      this.initialValue,
-      this.direction = UpDirection.horizental,
-      required this.items,
-      this.label})
-      : super(key: key);
+  const UpRadioButton({
+    Key? key,
+    this.colorType,
+    this.style,
+    this.onChange,
+    this.labelDirection = UpTextDirection.left,
+    this.initialValue,
+    this.direction = UpDirection.horizental,
+    required this.items,
+  }) : super(key: key);
 
   @override
   State<UpRadioButton> createState() => _UpRadioButtonState();
@@ -80,7 +79,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                         Visibility(
                           visible:
                               widget.labelDirection == UpTextDirection.left,
-                          child: widget.label ??
+                          child: item.value.widget ??
                               Text(
                                 item.value.label ?? "",
                                 style: TextStyle(
@@ -195,7 +194,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                         Visibility(
                           visible:
                               widget.labelDirection == UpTextDirection.right,
-                          child: widget.label ??
+                          child: item.value.widget ??
                               Text(
                                 item.value.label ?? "",
                                 style: TextStyle(
@@ -229,7 +228,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                         Visibility(
                           visible:
                               widget.labelDirection == UpTextDirection.left,
-                          child: widget.label ??
+                          child: item.value.widget ??
                               Text(
                                 item.value.label ?? "",
                                 style: TextStyle(
@@ -344,7 +343,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                         Visibility(
                           visible:
                               widget.labelDirection == UpTextDirection.right,
-                          child: widget.label ??
+                          child: item.value.widget ??
                               Text(
                                 item.value.label ?? "",
                                 style: TextStyle(
