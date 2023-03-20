@@ -1500,6 +1500,21 @@ class UpStyle {
             Theme.of(context).primaryColor;
   }
 
+  static Color getRadioButtonDisabledFilledColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.radioButtonDisabledFilledColor ??
+        style?.radioButtonDisabledFilledColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).radioButtonDisabledFilledColor ??
+        UpConstants.kDefaultStyleDisabledBackgroundColor;
+  }
+
   static Color getRadioButtonLabelColor(
     BuildContext context, {
     UpStyle? override,

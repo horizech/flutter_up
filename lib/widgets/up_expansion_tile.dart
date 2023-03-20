@@ -8,7 +8,8 @@ class UpExpansionTile extends StatelessWidget {
   final List<Widget> children;
   final UpStyle? style;
   final UpColorType? colorType;
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final Widget? subtitle;
   final Widget? leading;
   final Widget? trailing;
@@ -25,7 +26,8 @@ class UpExpansionTile extends StatelessWidget {
   const UpExpansionTile({
     Key? key,
     required this.children,
-    required this.title,
+    this.title,
+    this.titleWidget,
     this.colorType,
     this.style,
     this.onExpansionChanged,
@@ -87,11 +89,12 @@ class UpExpansionTile extends StatelessWidget {
       maintainState: maintainState,
       onExpansionChanged: onExpansionChanged,
       trailing: trailing,
-      title: UpText(
-        title,
-        type: textType,
-        style: style,
-      ),
+      title: titleWidget ??
+          UpText(
+            title ?? "",
+            type: textType,
+            style: style,
+          ),
       children: children,
     );
   }

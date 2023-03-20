@@ -100,39 +100,51 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                           height: 48,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: item.value.value == radioValue &&
-                                    isHovered[item.key]
-                                ? UpStyle.getRadioButtonFilledColor(context,
-                                        style: widget.style,
-                                        colorType: widget.colorType)
-                                    .withAlpha(50)
-                                : isHovered[item.key]
-                                    ? UpStyle.getRadioButtonRippleColor(context,
-                                        style: widget.style,
-                                        colorType: widget.colorType)
-                                    : Colors.transparent,
+                            color: item.value.isDisabled
+                                ? Colors.transparent
+                                : item.value.value == radioValue &&
+                                        isHovered[item.key]
+                                    ? UpStyle.getRadioButtonFilledColor(context,
+                                            style: widget.style,
+                                            colorType: widget.colorType)
+                                        .withAlpha(50)
+                                    : isHovered[item.key]
+                                        ? UpStyle.getRadioButtonRippleColor(
+                                            context,
+                                            style: widget.style,
+                                            colorType: widget.colorType)
+                                        : Colors.transparent,
                           ),
                           child: MouseRegion(
                             cursor: widget.style?.isDisabled == true
                                 ? SystemMouseCursors.basic
-                                : SystemMouseCursors.click,
+                                : item.value.isDisabled
+                                    ? SystemMouseCursors.basic
+                                    : SystemMouseCursors.click,
                             onEnter: widget.style?.isDisabled == true
                                 ? null
-                                : (PointerEvent detail) =>
-                                    _incrementEnter(item.key),
+                                : item.value.isDisabled
+                                    ? null
+                                    : (PointerEvent detail) =>
+                                        _incrementEnter(item.key),
                             onExit: widget.style?.isDisabled == true
                                 ? null
-                                : (PointerEvent detail) =>
-                                    _incrementExit(item.key),
+                                : item.value.isDisabled
+                                    ? null
+                                    : (PointerEvent detail) =>
+                                        _incrementExit(item.key),
                             child: GestureDetector(
                               onTap: () {
                                 if (!(widget.style?.isDisabled ?? false)) {
-                                  if (widget.onChange != null) {
-                                    widget.onChange!(item.value.value);
+                                  if (item.value.isDisabled) {
+                                  } else {
+                                    if (widget.onChange != null) {
+                                      widget.onChange!(item.value.value);
+                                    }
+                                    setState(() {
+                                      radioValue = item.value.value;
+                                    });
                                   }
-                                  setState(() {
-                                    radioValue = item.value.value;
-                                  });
                                 }
                               },
                               child: Padding(
@@ -249,46 +261,58 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                                         ),
                                   ),
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                           Container(
                             width: 48,
                             height: 48,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: item.value.value == radioValue &&
-                                      isHovered[item.key]
-                                  ? UpStyle.getRadioButtonFilledColor(context,
-                                          style: widget.style,
-                                          colorType: widget.colorType)
-                                      .withAlpha(50)
-                                  : isHovered[item.key]
-                                      ? UpStyle.getRadioButtonRippleColor(
-                                          context,
-                                          style: widget.style,
-                                          colorType: widget.colorType)
-                                      : Colors.transparent,
+                              color: item.value.isDisabled
+                                  ? Colors.transparent
+                                  : item.value.value == radioValue &&
+                                          isHovered[item.key]
+                                      ? UpStyle.getRadioButtonFilledColor(
+                                              context,
+                                              style: widget.style,
+                                              colorType: widget.colorType)
+                                          .withAlpha(50)
+                                      : isHovered[item.key]
+                                          ? UpStyle.getRadioButtonRippleColor(
+                                              context,
+                                              style: widget.style,
+                                              colorType: widget.colorType)
+                                          : Colors.transparent,
                             ),
                             child: MouseRegion(
                               cursor: widget.style?.isDisabled == true
                                   ? SystemMouseCursors.basic
-                                  : SystemMouseCursors.click,
+                                  : item.value.isDisabled
+                                      ? SystemMouseCursors.basic
+                                      : SystemMouseCursors.click,
                               onEnter: widget.style?.isDisabled == true
                                   ? null
-                                  : (PointerEvent detail) =>
-                                      _incrementEnter(item.key),
+                                  : item.value.isDisabled
+                                      ? null
+                                      : (PointerEvent detail) =>
+                                          _incrementEnter(item.key),
                               onExit: widget.style?.isDisabled == true
                                   ? null
-                                  : (PointerEvent detail) =>
-                                      _incrementExit(item.key),
+                                  : item.value.isDisabled
+                                      ? null
+                                      : (PointerEvent detail) =>
+                                          _incrementExit(item.key),
                               child: GestureDetector(
                                 onTap: () {
                                   if (!(widget.style?.isDisabled ?? false)) {
-                                    if (widget.onChange != null) {
-                                      widget.onChange!(item.value.value);
+                                    if (item.value.isDisabled) {
+                                    } else {
+                                      if (widget.onChange != null) {
+                                        widget.onChange!(item.value.value);
+                                      }
+                                      setState(() {
+                                        radioValue = item.value.value;
+                                      });
                                     }
-                                    setState(() {
-                                      radioValue = item.value.value;
-                                    });
                                   }
                                 },
                                 child: Padding(
@@ -298,24 +322,32 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                                       color: Colors.transparent,
                                       border: Border.all(
                                         style: BorderStyle.solid,
-                                        color: item.value.value == radioValue
-                                            ? UpStyle.getRadioButtonFilledColor(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType)
-                                            : isHovered[item.key]
+                                        color: item.value.isDisabled
+                                            ? UpStyle
+                                                .getRadioButtonDisabledFilledColor(
+                                                    context,
+                                                    style: widget.style,
+                                                    colorType: widget.colorType)
+                                            : item.value.value == radioValue
                                                 ? UpStyle
-                                                    .getRadioButtonHoverBorderColor(
+                                                    .getRadioButtonFilledColor(
                                                         context,
                                                         style: widget.style,
                                                         colorType:
                                                             widget.colorType)
-                                                : UpStyle
-                                                    .getRadioButtonBorderColor(
-                                                        context,
-                                                        style: widget.style,
-                                                        colorType:
-                                                            widget.colorType),
+                                                : isHovered[item.key]
+                                                    ? UpStyle
+                                                        .getRadioButtonHoverBorderColor(
+                                                            context,
+                                                            style: widget.style,
+                                                            colorType: widget
+                                                                .colorType)
+                                                    : UpStyle
+                                                        .getRadioButtonBorderColor(
+                                                            context,
+                                                            style: widget.style,
+                                                            colorType: widget
+                                                                .colorType),
                                         width:
                                             UpStyle.getRadioButtonBorderWidth(
                                                 context,
@@ -372,7 +404,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                                     ),
                                   ),
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                     ))
