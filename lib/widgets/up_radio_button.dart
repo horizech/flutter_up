@@ -22,7 +22,7 @@ class UpRadioButton extends StatefulWidget {
     this.onChange,
     this.labelDirection = UpTextDirection.left,
     this.initialValue,
-    this.direction = UpDirection.horizental,
+    this.direction = UpDirection.horizontal,
     required this.items,
   }) : super(key: key);
 
@@ -65,15 +65,15 @@ class _UpRadioButtonState extends State<UpRadioButton> {
         isHovered.add(false);
       }
     }
-    return widget.direction == UpDirection.horizental
+    return widget.direction == UpDirection.horizontal
         ? Wrap(
-            alignment: WrapAlignment.center,
+            alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: widget.items
                 .asMap()
                 .entries
-                .map((item) => Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                .map((item) => Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Visibility(
                           visible:
