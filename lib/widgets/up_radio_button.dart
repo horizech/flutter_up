@@ -381,27 +381,25 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                           ),
                           widget.labelDirection == UpTextDirection.right
                               ? Expanded(
-                                  child: Container(
-                                    child: Visibility(
-                                      child: item.value.widget ??
-                                          Text(
-                                            item.value.label ?? "",
-                                            style: TextStyle(
-                                              color: UpStyle
-                                                  .getRadioButtonLabelColor(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType,
-                                              ),
-                                              fontSize: UpStyle
-                                                  .getRadioButtonLabelSize(
-                                                context,
-                                                style: widget.style,
-                                                colorType: widget.colorType,
-                                              ),
+                                  child: Visibility(
+                                    child: item.value.widget ??
+                                        Text(
+                                          item.value.label ?? "",
+                                          style: TextStyle(
+                                            color: UpStyle
+                                                .getRadioButtonLabelColor(
+                                              context,
+                                              style: widget.style,
+                                              colorType: widget.colorType,
+                                            ),
+                                            fontSize:
+                                                UpStyle.getRadioButtonLabelSize(
+                                              context,
+                                              style: widget.style,
+                                              colorType: widget.colorType,
                                             ),
                                           ),
-                                    ),
+                                        ),
                                   ),
                                 )
                               : const SizedBox()

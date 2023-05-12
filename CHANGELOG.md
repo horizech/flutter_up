@@ -1,4 +1,11 @@
 ## 2.0.3
+
+- Updated Dropdown widget
+- Updated Loading dialog
+- Updated UpSecurity widget
+
+## 2.0.3
+
 - Added direction in UpRadioButton widget
 - Added horizontal and vertical alignment in UpRadioButton widget
 - Added Disabled option in UpRadioButton widget

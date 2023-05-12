@@ -12,7 +12,7 @@ class UpSecurity {
   static String encrypt({required String key, required String text}) {
     if (iv != null) {
       String result;
-      if (key.length != 16) {
+      if (key.length < 16) {
         return "";
       }
       try {

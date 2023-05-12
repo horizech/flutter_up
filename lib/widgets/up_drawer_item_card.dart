@@ -8,7 +8,7 @@ class UpDrawerItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? textStyle = Theme.of(context).textTheme.headline4;
+    final TextStyle? textStyle = Theme.of(context).textTheme.labelMedium;
     return Card(
       color: Colors.white,
       child: Center(

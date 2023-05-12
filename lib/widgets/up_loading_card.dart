@@ -57,6 +57,9 @@ class UpLoadingCardState extends State<UpLoadingCard> {
                     child: UpCircularProgress(),
                   ),
                 ),
+                const SizedBox(
+                  width: 20,
+                ),
                 Text(widget.text)
               ],
             ),

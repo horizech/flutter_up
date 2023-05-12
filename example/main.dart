@@ -230,7 +230,7 @@ helpersExample(BuildContext context) {
 
   /// Clipboard
   upCopyTextToClipboard("Hi!");
-  upCopyToClipboard(const ClipboardData());
+  // upCopyToClipboard(const ClipboardData());
 
   /// UpSecurity
   /// UpSecurity helper uses AES 256 bit encryption
@@ -252,16 +252,16 @@ helpersExample(BuildContext context) {
 
 class WidgetsExamples {
   /// Flexible Text Field
-  var _passwordVisible = false;
+  final _passwordVisible = false;
   final _passwordTextEditingController = TextEditingController();
 
-  _togglePasswordVisible() {
-    /// If using in a widget
-    /// setState(() {
-    ///   _passwordVisible = !_passwordVisible;
-    /// });
-    _passwordVisible = !_passwordVisible;
-  }
+  // _togglePasswordVisible() {
+  //   /// If using in a widget
+  //   /// setState(() {
+  //   ///   _passwordVisible = !_passwordVisible;
+  //   /// });
+  //   _passwordVisible = !_passwordVisible;
+  // }
 
   flexibleTextFieldExample() {
     return UpTextField(

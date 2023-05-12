@@ -155,21 +155,23 @@ class _upDropDownSingleSelectBodyState
                 link: _layerLink,
                 showWhenUnlinked: false,
                 offset: Offset(0.0, (size?.height ?? 55) + 5.0),
-                child: Material(
-                  elevation: 4.0,
-                  child: ListView(
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: filteredProducts!.map((e) {
-                        return ListTile(
-                          title: Text(e.label),
-                          onTap: () {
-                            widget.onChanged(e.value);
-                            _focusNode.unfocus();
-                          },
-                        );
-                      }).toList()),
+                child: TextFieldTapRegion(
+                  child: Material(
+                    elevation: 4.0,
+                    child: ListView(
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: filteredProducts!.map((e) {
+                          return ListTile(
+                            title: Text(e.label),
+                            onTap: () {
+                              widget.onChanged(e.value);
+                              _focusNode.unfocus();
+                            },
+                          );
+                        }).toList()),
+                  ),
                 ),
               ),
             ));
@@ -207,7 +209,8 @@ class _upDropDownSingleSelectBodyState
           searchText.text = displayText.text;
           curTextEditingController = searchText;
           _overlayEntry = _createOverlayEntry();
-          Overlay.of(context)!.insert(_overlayEntry!);
+
+          Overlay.of(context).insert(_overlayEntry!);
         });
         // debugPrint("Focused");
       } else {
@@ -455,77 +458,79 @@ class _upDropDownMultipleSelectBodyState
           link: _layerLink,
           showWhenUnlinked: false,
           offset: Offset(0.0, (size?.height ?? 55) + 5.0),
-          child: Material(
-            elevation: 4.0,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ListTile(
-                    title: UpTextField(
-                      controller: displayText,
-                      onChanged: ((newVal) {
-                        ServiceManager<UpSearchService>().update(newVal);
-                      }),
-                      suffixIcon: Visibility(
-                        visible: displayText.text.isNotEmpty,
-                        child: SizedBox(
-                          child: IconButton(
-                            onPressed: () {
-                              displayText.text = "";
-                              ServiceManager<UpSearchService>().update("");
-                            },
-                            icon: Icon(
-                              Icons.cancel,
-                              color: UpStyle.getIconColor(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
-                              ),
-                              size: UpStyle.getIconSize(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
+          child: TextFieldTapRegion(
+            child: Material(
+              elevation: 4.0,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ListTile(
+                      title: UpTextField(
+                        controller: displayText,
+                        onChanged: ((newVal) {
+                          ServiceManager<UpSearchService>().update(newVal);
+                        }),
+                        suffixIcon: Visibility(
+                          visible: displayText.text.isNotEmpty,
+                          child: SizedBox(
+                            child: IconButton(
+                              onPressed: () {
+                                displayText.text = "";
+                                ServiceManager<UpSearchService>().update("");
+                              },
+                              icon: Icon(
+                                Icons.cancel,
+                                color: UpStyle.getIconColor(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
+                                size: UpStyle.getIconSize(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                        label: "Search",
                       ),
-                      label: "Search",
                     ),
-                  ),
-                  StreamBuilder(
-                    stream: ServiceManager<UpSearchService>().stream$,
-                    builder: (BuildContext context, searchkey) {
-                      getFilteredProducts(searchkey.data ?? "");
-                      return ListView(
-                        scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        children: filteredProducts!.map(
-                          (e) {
-                            return ListTile(
-                              title: Row(
-                                children: [
-                                  UpCheckbox(
-                                      label: e.label,
-                                      style: widget.style,
-                                      colorType: widget.colorType,
-                                      initialValue: checkBoxValues[e.value]!,
-                                      onChange: (newCheck) {
-                                        onClick(e.value, newCheck);
-                                        _updateValuesTextfield();
-                                      }),
-                                ],
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      );
-                    },
-                  )
-                ],
+                    StreamBuilder(
+                      stream: ServiceManager<UpSearchService>().stream$,
+                      builder: (BuildContext context, searchkey) {
+                        getFilteredProducts(searchkey.data ?? "");
+                        return ListView(
+                          scrollDirection: Axis.vertical,
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          children: filteredProducts!.map(
+                            (e) {
+                              return ListTile(
+                                title: Row(
+                                  children: [
+                                    UpCheckbox(
+                                        label: e.label,
+                                        style: widget.style,
+                                        colorType: widget.colorType,
+                                        initialValue: checkBoxValues[e.value]!,
+                                        onChange: (newCheck) {
+                                          onClick(e.value, newCheck);
+                                          _updateValuesTextfield();
+                                        }),
+                                  ],
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        );
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -586,6 +591,21 @@ class _upDropDownMultipleSelectBodyState
         checkBoxValues[element.value] = true;
       }
     }
+    // _focusNode.addListener(() {
+    //   if (_focusNode.hasFocus) {
+    //     setState(() {
+    //       _overlayEntry = _createOverlayEntry();
+
+    //       Overlay.of(context).insert(_overlayEntry!);
+    //     });
+    //     // debugPrint("Focused");
+    //   } else {
+    //     setState(() {
+    //       _overlayEntry!.remove();
+    //     });
+    //     // debugPrint("UnFocused");
+    //   }
+    // });
   }
 
   _updateValuesTextfield() {
@@ -682,7 +702,7 @@ class _upDropDownMultipleSelectBodyState
                     isOverlayCreated = false;
                   } else {
                     _overlayEntry = _createOverlayEntry();
-                    Overlay.of(context)!.insert(_overlayEntry!);
+                    Overlay.of(context).insert(_overlayEntry!);
                     isOverlayCreated = true;
                   }
                 },
