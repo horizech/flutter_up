@@ -1,4 +1,8 @@
-## 2.0.3
+## 2.0.5
+
+- Updated UpToast widget
+
+## 2.0.4
 
 - Updated Dropdown widget
 - Updated Loading dialog

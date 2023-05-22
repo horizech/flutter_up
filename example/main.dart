@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_up/dialogs/up_about_app.dart';
 import 'package:flutter_up/dialogs/up_base.dart';
 import 'package:flutter_up/dialogs/up_info.dart';
@@ -223,7 +222,7 @@ helpersExample(BuildContext context) {
   upConsole(UpConsoleLevel.info, 'Hello World!');
 
   /// Toast
-  showUpToast(
+  UpToast().showToast(
     context: context,
     text: "Not implemented yet!",
   );

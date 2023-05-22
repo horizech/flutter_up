@@ -111,7 +111,7 @@ class _UpCodeState extends State<UpCode> {
             child: UpButton(
               onPressed: () {
                 upCopyTextToClipboard(text);
-                showUpToast(
+                UpToast().showToast(
                   context: context,
                   text: "Copied to clipboard",
                   isRounded: true,
