@@ -4,8 +4,6 @@
 
 ## 2.0.4
 
-## 2.0.4
-
 - Fixed Dropdown widget
 
 ## 2.0.3

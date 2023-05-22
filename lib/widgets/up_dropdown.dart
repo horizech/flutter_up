@@ -628,7 +628,7 @@ class _upDropDownMultipleSelectBodyState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: CompositedTransformTarget(
         link: _layerLink,
         child: TextFormField(
