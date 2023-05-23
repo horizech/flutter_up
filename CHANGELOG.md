@@ -1,3 +1,7 @@
+## 2.0.6
+
+- Added controllers in UpCheckbox and UpRadioButton widgets
+
 ## 2.0.5
 
 - Updated UpToast widget
