@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/controller/up_checkbox_controller.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_text_direction.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpCheckbox extends StatefulWidget {
   final UpColorType? colorType;
+  final UpCheckBoxController? controller;
   final UpStyle? style;
   final String? label;
   final Function? onChange;
   final UpTextDirection labelDirection;
-  bool initialValue;
+  final bool? initialValue;
 
-  UpCheckbox({
+  const UpCheckbox({
     Key? key,
-    this.initialValue = false,
+    this.initialValue,
     this.label,
+    this.controller,
     this.colorType,
     this.style,
     this.onChange,
@@ -27,10 +30,24 @@ class UpCheckbox extends StatefulWidget {
 
 class _UpCheckboxState extends State<UpCheckbox> {
   double x = 0.0;
-  bool value = false;
+  bool currentValue = false;
   double y = 0.0;
-
   bool isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialValue != null) {
+      currentValue = widget.initialValue!;
+    } else if (widget.controller != null) {
+      currentValue = widget.controller!.value;
+      widget.controller!.addListener(() {
+        setState(() {
+          currentValue = widget.controller!.value;
+        });
+      });
+    }
+  }
 
   void _incrementEnter(PointerEvent details) {
     setState(() {
@@ -45,13 +62,15 @@ class _UpCheckboxState extends State<UpCheckbox> {
   }
 
   _onTap() {
+    currentValue = !currentValue;
     if (!(widget.style?.isDisabled ?? false)) {
-      if (widget.onChange != null) {
-        widget.onChange!(!widget.initialValue);
+      if (widget.controller != null) {
+        widget.controller!.value = currentValue;
       }
-      setState(() {
-        widget.initialValue = (!widget.initialValue);
-      });
+      if (widget.onChange != null) {
+        widget.onChange!(currentValue);
+      }
+      setState(() {});
     }
   }
 
@@ -86,7 +105,7 @@ class _UpCheckboxState extends State<UpCheckbox> {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: widget.initialValue && isHovered
+              color: currentValue && isHovered
                   ? UpStyle.getcheckboxBackgroundColor(
                       context,
                       style: widget.style,
@@ -115,14 +134,14 @@ class _UpCheckboxState extends State<UpCheckbox> {
                   child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        color: widget.initialValue
+                        color: currentValue
                             ? UpStyle.getcheckboxBackgroundColor(context,
                                 style: widget.style,
                                 colorType: widget.colorType)
                             : Colors.transparent,
                         border: Border.all(
                           style: BorderStyle.solid,
-                          color: widget.initialValue
+                          color: currentValue
                               ? Colors.transparent
                               : isHovered
                                   ? UpStyle.getcheckboxHoverBorderColor(context,
@@ -145,16 +164,18 @@ class _UpCheckboxState extends State<UpCheckbox> {
                         ),
                       ),
                       child: Visibility(
-                        visible: widget.initialValue,
+                        visible: currentValue,
                         child: Align(
                           alignment: Alignment.center,
-                          child: Icon(Icons.check,
-                              color: UpStyle.getCheckboxCheckedColor(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
-                              ),
-                              size: 20),
+                          child: Center(
+                            child: Icon(Icons.check,
+                                color: UpStyle.getCheckboxCheckedColor(
+                                  context,
+                                  style: widget.style,
+                                  colorType: widget.colorType,
+                                ),
+                                size: 20),
+                          ),
                         ),
                       )),
                 ),

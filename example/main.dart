@@ -292,7 +292,6 @@ class WidgetsExamples {
     return UpCheckbox(
       labelDirection: UpTextDirection.left,
       label: "Number",
-      initialValue: true,
       onChange: (newcheck) {
         // Do something
       },

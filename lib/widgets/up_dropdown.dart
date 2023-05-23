@@ -516,7 +516,6 @@ class _upDropDownMultipleSelectBodyState
                                         label: e.label,
                                         style: widget.style,
                                         colorType: widget.colorType,
-                                        initialValue: checkBoxValues[e.value]!,
                                         onChange: (newCheck) {
                                           onClick(e.value, newCheck);
                                           _updateValuesTextfield();

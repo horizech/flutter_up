@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/controller/up_radio_controller.dart';
 import 'package:flutter_up/enums/direction.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_text_direction.dart';
@@ -12,6 +13,7 @@ class UpRadioButton extends StatefulWidget {
   final Function? onChange;
   final UpTextDirection labelDirection;
   final dynamic initialValue;
+  final UpRadioController? controller;
 
   final List<UpRadioButtonItem> items;
 
@@ -19,6 +21,7 @@ class UpRadioButton extends StatefulWidget {
     Key? key,
     this.colorType,
     this.style,
+    this.controller,
     this.onChange,
     this.labelDirection = UpTextDirection.left,
     this.initialValue,
@@ -51,8 +54,16 @@ class _UpRadioButtonState extends State<UpRadioButton> {
   @override
   void initState() {
     super.initState();
+
     if (widget.initialValue != null) {
-      radioValue = widget.initialValue;
+      radioValue = widget.initialValue!;
+    } else if (widget.controller != null) {
+      radioValue = widget.controller!.value;
+      widget.controller!.addListener(() {
+        setState(() {
+          radioValue = widget.controller!.value;
+        });
+      });
     } else {
       radioValue = widget.items.first.value;
     }
@@ -62,6 +73,7 @@ class _UpRadioButtonState extends State<UpRadioButton> {
   Widget build(BuildContext context) {
     if (isHovered.isEmpty) {
       for (var element in widget.items) {
+        element;
         isHovered.add(false);
       }
     }
@@ -137,14 +149,14 @@ class _UpRadioButtonState extends State<UpRadioButton> {
                               onTap: () {
                                 if (!(widget.style?.isDisabled ?? false)) {
                                   if (item.value.isDisabled) {
-                                  } else {
-                                    if (widget.onChange != null) {
-                                      widget.onChange!(item.value.value);
+                                  } else if (widget.onChange != null) {
+                                    radioValue = item.value.value;
+                                    if (widget.controller != null) {
+                                      widget.controller!.value = radioValue;
                                     }
-                                    setState(() {
-                                      radioValue = item.value.value;
-                                    });
+                                    widget.onChange!(radioValue);
                                   }
+                                  setState(() {});
                                 }
                               },
                               child: Padding(
