@@ -62,8 +62,8 @@ class _UpCheckboxState extends State<UpCheckbox> {
   }
 
   _onTap() {
-    currentValue = !currentValue;
     if (!(widget.style?.isDisabled ?? false)) {
+      currentValue = !currentValue;
       if (widget.controller != null) {
         widget.controller!.value = currentValue;
       }

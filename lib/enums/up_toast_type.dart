@@ -86,8 +86,6 @@ UpStyle getToastStyle(BuildContext context, UpToastType type,
     case UpToastType.primary:
     default:
       return UpStyle(
-        toastBackgroundGradient: UpStyle.getToastBackgroundGradient(context,
-            colorType: UpColorType.primary, style: style),
         toastBackgroundColor: UpStyle.getToastBackgroundColor(context,
             colorType: UpColorType.primary, style: style),
         toastForegroundColor: UpStyle.getToastTextColor(context,
