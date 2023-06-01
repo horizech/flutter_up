@@ -259,131 +259,129 @@ class _upDropDownSingleSelectBodyState
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String?>(
       builder: (BuildContext context, String? value, Widget? child) {
-        return Container(
-          child: CompositedTransformTarget(
-            link: _layerLink,
-            child: SizedBox(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  contentPadding: widget.contentPadding ??
-                      const EdgeInsets.only(
-                        left: 12.0,
-                        right: 3.0,
-                        bottom: 15.0,
-                        top: 0.0,
-                      ),
-                  label: Text(
-                    widget.label ?? "",
-                    style: TextStyle(
-                      color: UpStyle.getDropdownLabelColor(
-                        context,
-                        style: widget.style,
-                        colorType: widget.colorType,
-                      ),
-                      fontSize: UpStyle.getDropdownLabelSize(
-                        context,
-                        style: widget.style,
-                        colorType: widget.colorType,
-                      ),
+        return CompositedTransformTarget(
+          link: _layerLink,
+          child: SizedBox(
+            child: TextFormField(
+              decoration: InputDecoration(
+                contentPadding: widget.contentPadding ??
+                    const EdgeInsets.only(
+                      left: 12.0,
+                      right: 3.0,
+                      bottom: 15.0,
+                      top: 0.0,
+                    ),
+                label: Text(
+                  widget.label ?? "",
+                  style: TextStyle(
+                    color: UpStyle.getDropdownLabelColor(
+                      context,
+                      style: widget.style,
+                      colorType: widget.colorType,
+                    ),
+                    fontSize: UpStyle.getDropdownLabelSize(
+                      context,
+                      style: widget.style,
+                      colorType: widget.colorType,
                     ),
                   ),
-                  filled: UpStyle.isDropdownFilled(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  fillColor: UpStyle.getDropdownFilledColor(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  hintText: widget.hint,
-                  enabledBorder: UpStyle.getDropdownBorderStyle(
-                    context,
-                    type: widget.type ?? UpInputType.outline,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  focusedBorder: UpStyle.getDropdownBorderStyle(
-                    context,
-                    type: widget.type ?? UpInputType.outline,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                    isFocused: true,
-                  ),
-                  errorBorder: UpStyle.getDropdownBorderStyle(
-                    context,
-                    type: widget.type ?? UpInputType.outline,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                    isError: true,
-                  ),
-                  border: UpStyle.getDropdownBorderStyle(
-                    context,
-                    type: widget.type ?? UpInputType.outline,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
-                  prefixIcon: widget.prefix,
-                  suffixIcon: SizedBox(
-                    width: 55,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 25,
-                          child: Visibility(
-                            visible: searchText.text.isNotEmpty,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  searchText.clear();
-                                });
-                              },
-                              child: Icon(
-                                Icons.clear,
-                                size: UpStyle.getIconSize(
-                                  context,
-                                  style: widget.style,
-                                  colorType: widget.colorType,
-                                ),
-                                color: UpStyle.getIconColor(
-                                  context,
-                                  style: widget.style,
-                                  colorType: widget.colorType,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25,
-                          child: IconButton(
-                            onPressed: () {
-                              _focusNode.requestFocus();
+                ),
+                filled: UpStyle.isDropdownFilled(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                fillColor: UpStyle.getDropdownFilledColor(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                hintText: widget.hint,
+                enabledBorder: UpStyle.getDropdownBorderStyle(
+                  context,
+                  type: widget.type ?? UpInputType.outline,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                focusedBorder: UpStyle.getDropdownBorderStyle(
+                  context,
+                  type: widget.type ?? UpInputType.outline,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                  isFocused: true,
+                ),
+                errorBorder: UpStyle.getDropdownBorderStyle(
+                  context,
+                  type: widget.type ?? UpInputType.outline,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                  isError: true,
+                ),
+                border: UpStyle.getDropdownBorderStyle(
+                  context,
+                  type: widget.type ?? UpInputType.outline,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+                prefixIcon: widget.prefix,
+                suffixIcon: SizedBox(
+                  width: 55,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        child: Visibility(
+                          visible: searchText.text.isNotEmpty,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                searchText.clear();
+                              });
                             },
-                            icon: Icon(
-                              Icons.arrow_drop_up,
-                              color: UpStyle.getIconColor(
-                                context,
-                                style: widget.style,
-                                colorType: widget.colorType,
-                              ),
+                            child: Icon(
+                              Icons.clear,
                               size: UpStyle.getIconSize(
                                 context,
                                 style: widget.style,
                                 colorType: widget.colorType,
                               ),
+                              color: UpStyle.getIconColor(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        width: 25,
+                        child: IconButton(
+                          onPressed: () {
+                            _focusNode.requestFocus();
+                          },
+                          icon: Icon(
+                            Icons.arrow_drop_up,
+                            color: UpStyle.getIconColor(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                            size: UpStyle.getIconSize(
+                              context,
+                              style: widget.style,
+                              colorType: widget.colorType,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                focusNode: _focusNode,
-                controller: curTextEditingController ?? displayText,
-                onChanged: (value) {},
               ),
+              focusNode: _focusNode,
+              controller: curTextEditingController ?? displayText,
+              onChanged: (value) {},
             ),
           ),
         );
@@ -502,7 +500,7 @@ class _upDropDownMultipleSelectBodyState
                     StreamBuilder(
                       stream: ServiceManager<UpSearchService>().stream$,
                       builder: (BuildContext context, searchkey) {
-                        getFilteredProducts(searchkey.data ?? "");
+                        getFilteredProducts(searchkey.data.toString());
                         return ListView(
                           scrollDirection: Axis.vertical,
                           padding: EdgeInsets.zero,

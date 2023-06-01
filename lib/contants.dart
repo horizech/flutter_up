@@ -26,6 +26,10 @@ class UpConstants {
       Colors.grey.withAlpha(100);
   static Color kDefaultStyleDisabledBorderColor = Colors.grey;
   static double kDefaultStyleButtonWidth = 320.0;
+  static double kDefaultStyleCardWidth = 320.0;
+  static double kDefaultStyleCardHeight = 320.0;
+  static double kDefaultStyleCardRadius = 6;
+
   static double kDefaultStyleButtonHeight = 48.0;
   static double kDefaultStyleHeading1Size = 40.0;
   static double kDefaultStyleHeading2Size = 35.0;

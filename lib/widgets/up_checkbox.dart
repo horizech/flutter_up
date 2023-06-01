@@ -132,52 +132,52 @@ class _UpCheckboxState extends State<UpCheckbox> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: currentValue
+                          ? UpStyle.getcheckboxBackgroundColor(context,
+                              style: widget.style, colorType: widget.colorType)
+                          : Colors.transparent,
+                      border: Border.all(
+                        style: BorderStyle.solid,
                         color: currentValue
-                            ? UpStyle.getcheckboxBackgroundColor(context,
-                                style: widget.style,
-                                colorType: widget.colorType)
-                            : Colors.transparent,
-                        border: Border.all(
-                          style: BorderStyle.solid,
-                          color: currentValue
-                              ? Colors.transparent
-                              : isHovered
-                                  ? UpStyle.getcheckboxHoverBorderColor(context,
-                                      style: widget.style,
-                                      colorType: widget.colorType)
-                                  : UpStyle.getCheckboxBorderColor(context,
-                                      style: widget.style,
-                                      colorType: widget.colorType),
-                          width: UpStyle.getBorderWidth(context,
-                              style: widget.style, colorType: widget.colorType),
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            UpStyle.getCheckboxBorderRadius(
-                              context,
-                              style: widget.style,
-                              colorType: widget.colorType,
-                            ),
+                            ? Colors.transparent
+                            : isHovered
+                                ? UpStyle.getcheckboxHoverBorderColor(context,
+                                    style: widget.style,
+                                    colorType: widget.colorType)
+                                : UpStyle.getCheckboxBorderColor(context,
+                                    style: widget.style,
+                                    colorType: widget.colorType),
+                        width: UpStyle.getBorderWidth(context,
+                            style: widget.style, colorType: widget.colorType),
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          UpStyle.getCheckboxBorderRadius(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
                           ),
                         ),
                       ),
-                      child: Visibility(
-                        visible: currentValue,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Center(
-                            child: Icon(Icons.check,
-                                color: UpStyle.getCheckboxCheckedColor(
-                                  context,
-                                  style: widget.style,
-                                  colorType: widget.colorType,
-                                ),
-                                size: 20),
-                          ),
+                    ),
+                    child: Visibility(
+                      visible: currentValue,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Center(
+                          child: Icon(Icons.check,
+                              color: UpStyle.getCheckboxCheckedColor(
+                                context,
+                                style: widget.style,
+                                colorType: widget.colorType,
+                              ),
+                              size: 20),
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -182,6 +182,17 @@ class UpStyle {
   final Color? listTileColor;
   final Color? listTileSelectedTileColor;
 
+  // card
+  final double? cardHeight;
+  final double? cardWidth;
+  final Color? cardHeaderColor;
+  final Color? cardBodyColor;
+
+  final double? cardRadius;
+  final BoxShape? cardShape;
+  final bool cardHeaderPadding;
+  final bool cardBodyPadding;
+
   UpStyle({
     // General
     this.backgroundColor,
@@ -352,6 +363,16 @@ class UpStyle {
     this.listTileSelectedColor,
     this.listTileSelectedTileColor,
     this.listTileTextColor,
+
+    // card
+    this.cardHeight,
+    this.cardWidth,
+    this.cardHeaderColor,
+    this.cardRadius,
+    this.cardShape,
+    this.cardBodyColor,
+    this.cardBodyPadding = true,
+    this.cardHeaderPadding = true,
   });
 
   UpStyle copyWith(UpStyle override) {
@@ -2840,5 +2861,66 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .listTileTextColor ??
         Colors.transparent;
+  }
+
+  // card
+  static double getCardHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardHeight ??
+        style?.cardHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardHeight ??
+        UpConstants.kDefaultStyleCardHeight;
+  }
+
+  static double getCardWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardWidth ??
+        style?.cardWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardWidth ??
+        UpConstants.kDefaultStyleCardWidth;
+  }
+
+  static double getCardRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardRadius ??
+        style?.cardRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardRadius ??
+        UpConstants.kDefaultStyleCardRadius;
+  }
+
+  static Color getCardBodyColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardBodyColor ??
+        style?.cardBodyColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardBodyColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color getCardHeaderColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardHeaderColor ??
+        style?.cardHeaderColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardHeaderColor ??
+        Theme.of(context).primaryColor;
   }
 }

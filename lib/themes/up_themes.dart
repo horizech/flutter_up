@@ -158,7 +158,6 @@ class UpThemes {
       expansionTileCollapsedTextColor: inputColor[400],
       expansionTileIconColor: inputColor[900],
       expansionTileTextColor: inputColor[900],
-
       listTileColor: contrast,
       listTileFocusedColor: inputColor[600],
       listTileHoveredColor: inputColor[200],
@@ -166,6 +165,11 @@ class UpThemes {
       listTileSelectedColor: inputColor[300],
       listTileSelectedTileColor: inputColor[100],
       listTileTextColor: inputColor[900],
+      cardHeaderColor: inputColor[400],
+      cardRadius: 3,
+      cardWidth: 300,
+      cardHeight: 300,
+      cardBodyColor: inputColor[200],
     );
   }
 
