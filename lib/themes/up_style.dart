@@ -119,7 +119,11 @@ class UpStyle {
   // Text field
   final double? textfieldBorderWidth;
   final double? textfieldBorderRadius;
+  final double? textfieldHintSize;
+
   final Color? textfieldFocusedBorderColor;
+  final Color? textfieldHintColor;
+
   final Color? textfieldBorderColor;
   final Color? textfieldErrorBorderColor;
   final Color? textfieldLabelColor;
@@ -192,6 +196,7 @@ class UpStyle {
   final BoxShape? cardShape;
   final bool cardHeaderPadding;
   final bool cardBodyPadding;
+  final Border? cardBorder;
 
   UpStyle({
     // General
@@ -313,6 +318,8 @@ class UpStyle {
     this.radioButtonDisabledLabelColor,
 
     // Text field
+    this.textfieldHintColor,
+    this.textfieldHintSize,
     this.textfieldBorderColor,
     this.textfieldErrorBorderColor,
     this.textfieldFocusedBorderColor,
@@ -373,6 +380,7 @@ class UpStyle {
     this.cardBodyColor,
     this.cardBodyPadding = true,
     this.cardHeaderPadding = true,
+    this.cardBorder,
   });
 
   UpStyle copyWith(UpStyle override) {
@@ -1666,6 +1674,36 @@ class UpStyle {
         Colors.transparent;
   }
 
+  static Color getTextfieldHintColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldHintColor ??
+        style?.textfieldHintColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldHintColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static double getTextfieldHintSize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldHintSize ??
+        style?.textfieldHintSize ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldHintSize ??
+        12;
+  }
+
   static bool isTextfieldFilled(
     BuildContext context, {
     UpStyle? override,
@@ -2874,6 +2912,17 @@ class UpStyle {
         style?.cardHeight ??
         getStyleByType(UpConfig.of(context).theme, colorType).cardHeight ??
         UpConstants.kDefaultStyleCardHeight;
+  }
+
+  static Border? getCardBorder(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardBorder ??
+        style?.cardBorder ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardBorder;
   }
 
   static double getCardWidth(

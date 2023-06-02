@@ -206,6 +206,18 @@ Widget _upTextField(
     obscureText: obscureText,
     readOnly: readOnly,
     decoration: InputDecoration(
+      hintStyle: TextStyle(
+        color: UpStyle.getTextfieldHintColor(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+        fontSize: UpStyle.getTextfieldHintSize(
+          context,
+          style: style,
+          colorType: colorType,
+        ),
+      ),
       contentPadding: contentPadding ??
           EdgeInsets.only(
             left: 12.0,

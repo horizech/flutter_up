@@ -7,6 +7,7 @@ class UpConstants {
   static int kDefaultTabletLimit = 1200;
 
   static UpThemeData kDefaultTheme = UpThemes.generateThemeByColor(
+    baseColor: Colors.white,
     primaryColor: Colors.black,
   );
 

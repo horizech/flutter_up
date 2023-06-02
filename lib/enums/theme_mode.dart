@@ -1,0 +1,4 @@
+enum UpThemeMode {
+  light,
+  dark,
+}

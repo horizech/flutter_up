@@ -3,6 +3,61 @@ import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
 class UpThemes {
+  static Color darken(Color c, [int percent = 10]) {
+    assert(1 <= percent && percent <= 100);
+    var f = 1 - percent / 100;
+    return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
+        (c.blue * f).round());
+  }
+
+  static Color lighten(Color c, [int percent = 10]) {
+    assert(1 <= percent && percent <= 100);
+    var p = percent / 100;
+    return Color.fromARGB(
+        c.alpha,
+        c.red + ((255 - c.red) * p).round(),
+        c.green + ((255 - c.green) * p).round(),
+        c.blue + ((255 - c.blue) * p).round());
+  }
+
+  static MaterialColor generateDarkerMaterialColor(Color color) {
+    return MaterialColor(
+      color.value,
+      {
+        0: color,
+        50: darken(color, 10),
+        100: darken(color, 15),
+        200: darken(color, 25),
+        300: darken(color, 35),
+        400: darken(color, 45),
+        500: darken(color, 55),
+        600: darken(color, 65),
+        700: darken(color, 75),
+        800: darken(color, 85),
+        900: darken(color, 100),
+      },
+    );
+  }
+
+  static MaterialColor generateLighterMaterialColor(Color color) {
+    return MaterialColor(
+      color.value,
+      <int, Color>{
+        0: color,
+        50: lighten(color, 10),
+        100: lighten(color, 15),
+        200: lighten(color, 25),
+        300: lighten(color, 35),
+        400: lighten(color, 45),
+        500: lighten(color, 55),
+        600: lighten(color, 65),
+        700: lighten(color, 75),
+        800: lighten(color, 85),
+        900: lighten(color, 100),
+      },
+    );
+  }
+
   static MaterialColor generateMaterialFromSingleColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};
@@ -175,6 +230,8 @@ class UpThemes {
 
   static UpThemeData generateThemeByIntColor({
     required int primaryColor,
+    required Color baseColor,
+    bool isDark = false,
     int? secondaryColor,
     int? tertiaryColor,
     int? warnColor,
@@ -182,6 +239,9 @@ class UpThemes {
     int? successColor,
   }) {
     return generateThemeByMaterial(
+      baseColor: isDark
+          ? generateLighterMaterialColor(baseColor)
+          : generateDarkerMaterialColor(baseColor),
       primaryColor: generateMaterialFromSingleColor(Color(primaryColor)),
       secondaryColor: secondaryColor != null
           ? generateMaterialFromSingleColor(Color(secondaryColor))
@@ -203,6 +263,8 @@ class UpThemes {
 
   static UpThemeData generateThemeByColor({
     required Color primaryColor,
+    required Color baseColor,
+    bool isDark = false,
     Color? secondaryColor,
     Color? tertiaryColor,
     Color? warnColor,
@@ -210,6 +272,9 @@ class UpThemes {
     Color? successColor,
   }) {
     return generateThemeByMaterial(
+      baseColor: isDark
+          ? generateLighterMaterialColor(baseColor)
+          : generateDarkerMaterialColor(baseColor),
       primaryColor: generateMaterialFromSingleColor(primaryColor),
       secondaryColor: secondaryColor != null
           ? generateMaterialFromSingleColor(secondaryColor)
@@ -228,7 +293,9 @@ class UpThemes {
   }
 
   static UpThemeData generateThemeByMaterial({
+    bool isDark = false,
     required MaterialColor primaryColor,
+    required MaterialColor baseColor,
     MaterialColor? secondaryColor,
     MaterialColor? tertiaryColor,
     MaterialColor? warnColor,
@@ -236,10 +303,9 @@ class UpThemes {
     MaterialColor? successColor,
   }) {
     MaterialColor contrast = generateMaterialFromSingleColor(Colors.white);
-    // ThemeData.estimateBrightnessForColor(inputColor[700]!) == Brightness.light
-    //     ? generateMaterialFromSingleColor(Colors.white)
-    //     : generateMaterialFromSingleColor(Colors.black);
+
     UpThemeData theme = UpThemeData(
+      baseColor: baseColor,
       primaryColor: primaryColor,
       secondaryColor: secondaryColor,
       tertiaryColor: tertiaryColor,
