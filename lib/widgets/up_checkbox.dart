@@ -112,7 +112,11 @@ class _UpCheckboxState extends State<UpCheckbox> {
                       colorType: widget.colorType,
                     ).withAlpha(50)
                   : isHovered
-                      ? Colors.grey[200]
+                      ? UpStyle.getCheckboxRippleColor(
+                          context,
+                          style: widget.style,
+                          colorType: widget.colorType,
+                        )
                       : Colors.transparent,
             ),
             height: 48.0,

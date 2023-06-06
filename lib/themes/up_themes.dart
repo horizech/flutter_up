@@ -1,23 +1,27 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_theme_data.dart';
 
 class UpThemes {
-  static Color darken(Color c, [int percent = 10]) {
+  static Color getDarkerColor(Color c, [int percent = 10]) {
     assert(1 <= percent && percent <= 100);
     var f = 1 - percent / 100;
-    return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
-        (c.blue * f).round());
+    Color color = Color.fromARGB(c.alpha, (c.red * f).round(),
+        (c.green * f).round(), (c.blue * f).round());
+    return color;
   }
 
-  static Color lighten(Color c, [int percent = 10]) {
+  static Color getLighterColor(Color c, [int percent = 10]) {
     assert(1 <= percent && percent <= 100);
     var p = percent / 100;
-    return Color.fromARGB(
+    Color color = Color.fromARGB(
         c.alpha,
         c.red + ((255 - c.red) * p).round(),
         c.green + ((255 - c.green) * p).round(),
         c.blue + ((255 - c.blue) * p).round());
+    return color;
   }
 
   static MaterialColor generateDarkerMaterialColor(Color color) {
@@ -25,16 +29,16 @@ class UpThemes {
       color.value,
       {
         0: color,
-        50: darken(color, 10),
-        100: darken(color, 15),
-        200: darken(color, 25),
-        300: darken(color, 35),
-        400: darken(color, 45),
-        500: darken(color, 55),
-        600: darken(color, 65),
-        700: darken(color, 75),
-        800: darken(color, 85),
-        900: darken(color, 100),
+        50: getDarkerColor(color, 5),
+        100: getDarkerColor(color, 10),
+        200: getDarkerColor(color, 15),
+        300: getDarkerColor(color, 20),
+        400: getDarkerColor(color, 25),
+        500: getDarkerColor(color, 35),
+        600: getDarkerColor(color, 50),
+        700: getDarkerColor(color, 65),
+        800: getDarkerColor(color, 80),
+        900: getDarkerColor(color, 100),
       },
     );
   }
@@ -44,19 +48,43 @@ class UpThemes {
       color.value,
       <int, Color>{
         0: color,
-        50: lighten(color, 10),
-        100: lighten(color, 15),
-        200: lighten(color, 25),
-        300: lighten(color, 35),
-        400: lighten(color, 45),
-        500: lighten(color, 55),
-        600: lighten(color, 65),
-        700: lighten(color, 75),
-        800: lighten(color, 85),
-        900: lighten(color, 100),
+        50: getLighterColor(color, 5),
+        100: getLighterColor(color, 10),
+        200: getLighterColor(color, 15),
+        300: getLighterColor(color, 20),
+        400: getLighterColor(color, 25),
+        500: getLighterColor(color, 35),
+        600: getLighterColor(color, 50),
+        700: getLighterColor(color, 65),
+        800: getLighterColor(color, 80),
+        900: getLighterColor(color, 100),
       },
     );
   }
+
+  static getContrastColor(Color color) {
+    double sum =
+        (color.red * 0.299) + (color.green * 0.587) + (color.blue * 0.114);
+    if (sum > 150) {
+      return Colors.black;
+    }
+    return Colors.white;
+  }
+
+  // static MaterialColor generateMaterialFromSingleColor(Color color) {
+  //   return MaterialColor(color.value, <int, Color>{
+  //     50: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //     100: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //     200: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //     300: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //     400: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //     500: Color.fromRGBO(color.red, color.green, color.blue, .6),
+  //     600: Color.fromRGBO(color.red, color.green, color.blue, .7),
+  //     700: Color.fromRGBO(color.red, color.green, color.blue, .8),
+  //     800: Color.fromRGBO(color.red, color.green, color.blue, .9),
+  //     900: Color.fromRGBO(color.red, color.green, color.blue, 1),
+  //   });
+  // }
 
   static MaterialColor generateMaterialFromSingleColor(Color color) {
     List strengths = <double>[.05];
@@ -78,33 +106,42 @@ class UpThemes {
     return MaterialColor(color.value, swatch);
   }
 
-  static UpStyle generateStyleByMaterial(
-      MaterialColor inputColor, MaterialColor contrast) {
+  static UpStyle generateStyleByMaterial({
+    required MaterialColor inputColor,
+    required MaterialColor contrastColor,
+    required MaterialColor baseColor,
+  }) {
     return UpStyle(
+      // code
+      codeBackgroundColor: baseColor.shade600,
+
+      // appbar
       appBarColor: inputColor[500]!,
       appBarTitleSize: 20,
-      appBarTitleColor: contrast[500]!,
+      appBarTitleColor: contrastColor[500]!,
+
+      // cusotm
       foregroundColor: inputColor[500]!,
-      backgroundColor: contrast[500]!,
+      backgroundColor: contrastColor[500]!,
       borderColor: inputColor[100],
       hoverBackgroundColor: inputColor[500]!,
-      hoveredForegroundColor: contrast[500]!,
+      hoveredForegroundColor: contrastColor[500]!,
       hoveredBorderColor: inputColor[700]!,
       borderRadius: 8,
       borderWidth: 2,
       errorBorderColor: Colors.red,
       focusedBorderColor: inputColor[700]!,
       isRounded: true,
-      iconColor: inputColor[500]!,
+      iconColor: baseColor.shade900,
       iconSize: 16,
       toastBackgroundColor: inputColor[500],
-      toastTextColor: contrast[500],
+      toastTextColor: contrastColor[500],
 
       //button
       buttonBackgroundColor: inputColor[500]!,
       buttonHoverBackgroundColor: inputColor[700]!,
-      buttonTextColor: contrast[500]!,
-      buttonHoverTextColor: contrast[500]!,
+      buttonTextColor: contrastColor,
+      buttonHoverTextColor: contrastColor,
       buttonBorderColor: inputColor[500],
       buttonHoverBorderColor: inputColor[700]!,
       buttonBorderRadius: 8,
@@ -116,49 +153,54 @@ class UpThemes {
       buttonBorderStyle: BorderStyle.solid,
       buttonTextFit: BoxFit.none,
       //textfield
+      textfieldTextColor: baseColor.shade900,
       textfieldBorderRadius: 8,
+      textfieldFilledColor: Colors.transparent,
+
       textfieldBorderWidth: 2,
-      textfieldBorderColor: inputColor[500],
+      textfieldHintColor: baseColor.shade400,
+      textfieldBorderColor: baseColor.shade600,
       textfieldLabelColor: inputColor[700]!,
       textfieldLabelSize: 12,
       textfieldErrorBorderColor: Colors.red,
-      textfieldFocusedBorderColor: inputColor[700]!,
+      textfieldFocusedBorderColor: inputColor,
       textfieldCursorColor: inputColor[700],
       //dropdown
       dropdownBorderRadius: 8,
       dropdownBorderWidth: 2,
-      dropdownBorderColor: inputColor[500],
+      dropdownBorderColor: baseColor.shade600,
       dropdownLabelColor: inputColor[700]!,
       dropdownLabelSize: 12,
       dropdownErrorBorderColor: Colors.red,
       dropdownFocusedBorderColor: inputColor[700]!,
+      dropdownTextColor: baseColor.shade900,
 
       //check box
-      checkboxCheckedColor: contrast,
-      checkboxBorderColor: inputColor[500],
+      checkboxCheckedColor: contrastColor,
+      checkboxBorderColor: baseColor.shade600,
       checkboxBorderRadius: 8,
-      checkboxLabelColor: inputColor[500]!,
+      checkboxLabelColor: baseColor.shade900,
       checkboxLabelSize: 12,
       checkboxBorderWidth: 2,
       checkboxBackgroundColor: inputColor[500],
-      checkboxCheckedDisabledColor: contrast,
-      checkboxDisabledLabelColor: Colors.grey,
-      checkboxDisabledBackgroundColor: Colors.grey[300],
-      checkboxHoverBorderColor: inputColor[700]!,
-      checkboxRippleColor: Colors.grey[200],
+      checkboxCheckedDisabledColor: contrastColor,
+      checkboxDisabledLabelColor: baseColor.shade200,
+      checkboxDisabledBackgroundColor: baseColor.shade200,
+      checkboxHoverBorderColor: baseColor.shade900,
+      checkboxRippleColor: baseColor.shade50,
 
       //radio button
       radioButtonFilledColor: inputColor[500]!,
-      radioButtonBorderColor: inputColor[500],
+      radioButtonBorderColor: baseColor.shade600,
       radioButtonBorderRadius: 100,
-      radioButtonLabelColor: inputColor[500]!,
+      radioButtonLabelColor: baseColor.shade900,
       radioButtonLabelSize: 12,
       radioButtonBorderWidth: 2,
-      radioButtonDisabledFilledColor: Colors.grey,
-      radioButtonDisabledLabelColor: Colors.grey,
-      radioButtonDisabledBorderColor: Colors.grey[300],
-      radioButtonHoverBorderColor: inputColor[700]!,
-      radioButtonRippleColor: Colors.grey[200],
+      radioButtonDisabledFilledColor: baseColor.shade200,
+      radioButtonDisabledLabelColor: baseColor.shade200,
+      radioButtonDisabledBorderColor: baseColor.shade200,
+      radioButtonHoverBorderColor: baseColor.shade900,
+      radioButtonRippleColor: baseColor.shade50,
 
       //table
       tableHeaderColor: inputColor[700],
@@ -167,29 +209,32 @@ class UpThemes {
       tableRowFocusedColor: inputColor[200]!,
       tableRowPressedColor: inputColor[400]!,
       tableBorderColor: inputColor[400],
-      tableHeaderTextColor: contrast[500],
+      tableHeaderTextColor: contrastColor[500],
       tableFooterColor: inputColor[700],
 
       //datepicker
-      datePickerDialogBackgroundColor: contrast[500],
-      datePickerOnPrimaryColor: contrast[500],
-      datePickerOnSurfaceColor: inputColor[700],
-      datePickerPrimaryColor: inputColor[800],
-      datePickerSurfaceColor: inputColor[100],
+      datePickerDialogBackgroundColor: baseColor.shade100,
+      datePickerOnPrimaryColor: inputColor[900],
+      datePickerOnSurfaceColor: baseColor.shade900,
+      datePickerPrimaryColor: inputColor[500],
+      datePickerSurfaceColor: baseColor.shade50,
+
+      //
+      dialogBackgroundColor: baseColor.shade50,
 
       //timepicker
-      timePickerDialogBackgroundColor: contrast[100],
-      timePickerOnPrimaryColor: contrast[500],
+      timePickerDialogBackgroundColor: contrastColor[100],
+      timePickerOnPrimaryColor: contrastColor[500],
       timePickerOnSurfaceColor: inputColor[800],
       timePickerPrimaryColor: inputColor[700],
-      timePickerSurfaceColor: contrast[500],
+      timePickerSurfaceColor: baseColor.shade50,
 
       //text
       textStrokeColor: Colors.transparent,
       textFontStyle: FontStyle.normal,
       textStrokeWidth: 0,
       textBackgroundColor: Colors.transparent,
-      textColor: inputColor[700],
+      textColor: baseColor[900],
       textSize: 14,
       textWeight: FontWeight.normal,
       circularProgressBarColor: inputColor[700],
@@ -207,30 +252,36 @@ class UpThemes {
       heading5Weight: FontWeight.w300,
       heading6Weight: FontWeight.w200,
       paragraphWeight: FontWeight.normal,
-      expansionTileBackgroundColor: Colors.transparent,
-      expansionTileCollapsedBackgroundColor: Colors.transparent,
-      expansionTileCollapsedIconColor: inputColor[400],
-      expansionTileCollapsedTextColor: inputColor[400],
-      expansionTileIconColor: inputColor[900],
-      expansionTileTextColor: inputColor[900],
-      listTileColor: contrast,
-      listTileFocusedColor: inputColor[600],
-      listTileHoveredColor: inputColor[200],
-      listTileIconColor: inputColor[900],
+
+      // expansion tile
+      expansionTileBackgroundColor: baseColor.shade50,
+      expansionTileCollapsedBackgroundColor: baseColor.shade50,
+      expansionTileCollapsedIconColor: baseColor.shade800,
+      expansionTileCollapsedTextColor: baseColor.shade800,
+      expansionTileIconColor: baseColor.shade900,
+      expansionTileTextColor: baseColor.shade900,
+
+      // list tile
+      listTileColor: baseColor.shade50,
+      listTileFocusedColor: baseColor.shade200,
+      listTileHoveredColor: baseColor.shade100,
+      listTileIconColor: baseColor.shade900,
       listTileSelectedColor: inputColor[300],
       listTileSelectedTileColor: inputColor[100],
-      listTileTextColor: inputColor[900],
-      cardHeaderColor: inputColor[400],
+      listTileTextColor: baseColor.shade900,
+
+      // card
+      cardHeaderColor: baseColor.shade200,
       cardRadius: 3,
       cardWidth: 300,
       cardHeight: 300,
-      cardBodyColor: inputColor[200],
+      cardBodyColor: baseColor.shade50,
     );
   }
 
   static UpThemeData generateThemeByIntColor({
     required int primaryColor,
-    required Color baseColor,
+    required int baseColor,
     bool isDark = false,
     int? secondaryColor,
     int? tertiaryColor,
@@ -240,8 +291,8 @@ class UpThemes {
   }) {
     return generateThemeByMaterial(
       baseColor: isDark
-          ? generateLighterMaterialColor(baseColor)
-          : generateDarkerMaterialColor(baseColor),
+          ? generateLighterMaterialColor(Color(baseColor))
+          : generateDarkerMaterialColor(Color(baseColor)),
       primaryColor: generateMaterialFromSingleColor(Color(primaryColor)),
       secondaryColor: secondaryColor != null
           ? generateMaterialFromSingleColor(Color(secondaryColor))
@@ -302,8 +353,6 @@ class UpThemes {
     MaterialColor? linkColor,
     MaterialColor? successColor,
   }) {
-    MaterialColor contrast = generateMaterialFromSingleColor(Colors.white);
-
     UpThemeData theme = UpThemeData(
       baseColor: baseColor,
       primaryColor: primaryColor,
@@ -312,16 +361,85 @@ class UpThemes {
       warnColor: warnColor,
       linkColor: linkColor,
       successColor: successColor,
-      primaryStyle: generateStyleByMaterial(primaryColor, contrast),
-      secondaryStyle:
-          generateStyleByMaterial(secondaryColor ?? Colors.purple, contrast),
-      tertiaryStyle:
-          generateStyleByMaterial(tertiaryColor ?? Colors.cyan, contrast),
-      warnStyle: generateStyleByMaterial(warnColor ?? Colors.orange, contrast),
-      linkStyle: generateStyleByMaterial(linkColor ?? Colors.grey, contrast),
-      successStyle:
-          generateStyleByMaterial(successColor ?? Colors.green, contrast),
+      primaryStyle: generateStyleByMaterial(
+        inputColor: primaryColor,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(primaryColor),
+        ),
+        baseColor: baseColor,
+      ),
+      basicStyle: generateStyleByMaterial(
+        inputColor: generateMaterialFromSingleColor(baseColor.shade100),
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(baseColor.shade100),
+        ),
+        baseColor: baseColor,
+      ),
+      secondaryStyle: generateStyleByMaterial(
+        inputColor: secondaryColor ?? Colors.purple,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(
+            secondaryColor ?? Colors.purple,
+          ),
+        ),
+        baseColor: baseColor,
+      ),
+      tertiaryStyle: generateStyleByMaterial(
+        inputColor: tertiaryColor ?? Colors.cyan,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(
+            tertiaryColor ?? Colors.cyan,
+          ),
+        ),
+        baseColor: baseColor,
+      ),
+      warnStyle: generateStyleByMaterial(
+        inputColor: warnColor ?? Colors.orange,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(
+            warnColor ?? Colors.orange,
+          ),
+        ),
+        baseColor: baseColor,
+      ),
+      linkStyle: generateStyleByMaterial(
+        inputColor: linkColor ?? Colors.grey,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(
+            linkColor ?? Colors.grey,
+          ),
+        ),
+        baseColor: baseColor,
+      ),
+      successStyle: generateStyleByMaterial(
+        inputColor: successColor ?? Colors.green,
+        contrastColor: generateMaterialFromSingleColor(
+          getContrastColor(
+            successColor ?? Colors.green,
+          ),
+        ),
+        baseColor: baseColor,
+      ),
     );
     return theme;
+  }
+
+  static calculateContrast(
+      {required Color contrastColor, required Color color}) {
+    var lum1 = UpThemes()
+        ._luminance(contrastColor.red, contrastColor.green, contrastColor.blue);
+    var lum2 = UpThemes()._luminance(color.red, color.green, color.blue);
+
+    var brightest = max<num>(lum1, lum2);
+    var darkest = min<num>(lum1, lum2);
+    return (brightest + 0.05) / (darkest + 0.05);
+  }
+
+  _luminance(r, g, b) {
+    List<dynamic> a = [r, g, b].map((v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : pow((v + 0.055) / 1.055, 2.4);
+    }).toList();
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
   }
 }

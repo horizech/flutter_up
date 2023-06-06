@@ -10,7 +10,7 @@ class UpListTile extends StatelessWidget {
   final Widget? subtitle;
   final Widget? leading;
   final Widget? trailing;
-
+  final ListTileTitleAlignment? listTileTitleAlignment;
   final Function()? onTap;
   final ShapeBorder? shape;
   final EdgeInsets? contentPadding;
@@ -21,6 +21,7 @@ class UpListTile extends StatelessWidget {
     required this.title,
     this.colorType,
     this.style,
+    this.listTileTitleAlignment,
     this.subtitle,
     this.leading,
     this.trailing,
@@ -68,6 +69,7 @@ class UpListTile extends StatelessWidget {
         style: style,
         colorType: colorType,
       ),
+      titleAlignment: listTileTitleAlignment,
       shape: shape,
       isThreeLine: isThreeLine,
       contentPadding: contentPadding,

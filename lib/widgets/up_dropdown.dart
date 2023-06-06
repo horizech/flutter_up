@@ -263,6 +263,13 @@ class _upDropDownSingleSelectBodyState
           link: _layerLink,
           child: SizedBox(
             child: TextFormField(
+              style: TextStyle(
+                color: UpStyle.getDropdownTextColor(
+                  context,
+                  style: widget.style,
+                  colorType: widget.colorType,
+                ),
+              ),
               decoration: InputDecoration(
                 contentPadding: widget.contentPadding ??
                     const EdgeInsets.only(

@@ -9,6 +9,8 @@ class UpThemeData {
   MaterialColor? warnColor;
   MaterialColor? linkColor;
   MaterialColor? successColor;
+  MaterialColor? basicColor;
+
   MaterialColor baseColor;
 
   UpStyle primaryStyle;
@@ -17,6 +19,7 @@ class UpThemeData {
   UpStyle? warnStyle;
   UpStyle? linkStyle;
   UpStyle? successStyle;
+  UpStyle? basicStyle;
 
   UpThemeData({
     // required this.themeData,
@@ -24,6 +27,7 @@ class UpThemeData {
     this.secondaryColor,
     this.tertiaryColor,
     this.warnColor,
+    this.basicColor,
     this.linkColor,
     required this.baseColor,
     this.successColor,
@@ -33,5 +37,6 @@ class UpThemeData {
     this.successStyle,
     this.warnStyle,
     this.linkStyle,
+    this.basicStyle,
   });
 }

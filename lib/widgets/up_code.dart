@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_button_type.dart';
+import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/helpers/up_clipboard.dart';
 import 'package:flutter_up/helpers/up_toast.dart';
+import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_dynamic_view.dart';
 
@@ -13,12 +15,16 @@ class UpCode extends StatefulWidget {
   final double height;
   final EdgeInsetsGeometry padding;
   final Color? backgroundColor;
+  final UpStyle? style;
+  final UpColorType? colorType;
   final String language;
   final Map<String, TextStyle> theme;
   final bool showViewToggle;
   const UpCode({
     super.key,
     this.code,
+    this.style,
+    this.colorType,
     this.assetCode,
     this.height = 256,
     this.padding = const EdgeInsets.only(top: 12),
@@ -83,7 +89,8 @@ class _UpCodeState extends State<UpCode> {
     return Container(
       height: widget.height,
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: UpStyle.getCodeBackgroundColor(context,
+            style: widget.style, colorType: widget.colorType),
         border: Border.all(color: UpConfig.of(context).theme.primaryColor),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),

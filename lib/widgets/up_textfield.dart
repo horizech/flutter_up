@@ -145,6 +145,13 @@ Widget _upTextField(
       r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
   final regex = RegExp(pattern);
   return TextFormField(
+    style: TextStyle(
+      color: UpStyle.getTextfieldTextColor(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+    ),
     onFieldSubmitted: onFieldSubmitted,
     onSaved: onSaved,
     onTap: onTap,

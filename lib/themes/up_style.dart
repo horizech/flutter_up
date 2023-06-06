@@ -16,6 +16,7 @@ class UpStyle {
   final Color? borderColor;
   final double? borderRadius;
   final double? borderWidth;
+  final Color? dialogBackgroundColor;
   final Color? foregroundColor;
   final Color? hoverBackgroundColor;
   final Color? hoveredBorderColor;
@@ -130,6 +131,7 @@ class UpStyle {
   final double? textfieldLabelSize;
   final Color? textfieldCursorColor;
   final Color? textfieldFilledColor;
+  final Color? textfieldTextColor;
 
   // Dropdown
   final Color? dropdownFocusedBorderColor;
@@ -139,6 +141,8 @@ class UpStyle {
   final double? dropdownLabelSize;
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
+  final Color? dropdownTextColor;
+
   final Color? dropdownFilledColor;
 
   // Date picker
@@ -198,9 +202,16 @@ class UpStyle {
   final bool cardBodyPadding;
   final Border? cardBorder;
 
+  // code
+  final Color? codeBackgroundColor;
+
   UpStyle({
+    // code
+    this.codeBackgroundColor,
+
     // General
     this.backgroundColor,
+    this.dialogBackgroundColor,
     this.circularProgressBarColor,
     this.borderColor,
     this.iconColor,
@@ -329,9 +340,11 @@ class UpStyle {
     this.textfieldCursorColor,
     this.textfieldLabelSize,
     this.textfieldFilledColor,
+    this.textfieldTextColor,
 
     // Drodown
     this.dropdownBorderWidth,
+    this.dropdownTextColor,
     this.dropdownBorderColor,
     this.dropdownBorderRadius,
     this.dropdownErrorBorderColor,
@@ -673,6 +686,19 @@ class UpStyle {
         Colors.grey;
   }
 
+  static Color getCodeBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.codeBackgroundColor ??
+        style?.codeBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .codeBackgroundColor ??
+        Colors.grey;
+  }
+
   static Color getTableRowPressedColor(
     BuildContext context, {
     UpStyle? override,
@@ -953,6 +979,19 @@ class UpStyle {
         style?.buttonTextFit ??
         getStyleByType(UpConfig.of(context).theme, colorType).buttonTextFit ??
         BoxFit.none;
+  }
+
+  static Color getDialogBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dialogBackgroundColor ??
+        style?.dialogBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .dialogBackgroundColor ??
+        Colors.white;
   }
 
   static Gradient? getButtonBackgroundGradient(
@@ -1803,6 +1842,21 @@ class UpStyle {
         Theme.of(context).colorScheme.secondary;
   }
 
+  static Color getTextfieldTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldTextColor ??
+        style?.textfieldTextColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldTextColor ??
+        Theme.of(context).primaryColor;
+  }
+
   static double getTextfieldLabelSize(
     BuildContext context, {
     UpStyle? override,
@@ -2017,6 +2071,21 @@ class UpStyle {
           colorType,
         ).dropdownLabelColor ??
         Theme.of(context).colorScheme.secondary;
+  }
+
+  static Color getDropdownTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownTextColor ??
+        style?.dropdownTextColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownTextColor ??
+        Theme.of(context).primaryColor;
   }
 
   static double getDropdownLabelSize(
@@ -2412,7 +2481,7 @@ class UpStyle {
         style?.circularProgressBarColor ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .circularProgressBarColor ??
-        UpConfig.of(context).theme.primaryColor;
+        UpConfig.of(context).theme.baseColor;
   }
 
   static Gradient getToastBackgroundGradient(

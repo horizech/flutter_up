@@ -8,6 +8,7 @@ enum UpColorType {
   secondary,
   tertiary,
   // dark,
+  basic,
   warn,
   success,
   link,
@@ -47,6 +48,9 @@ UpStyle getStyleByType(UpThemeData data, UpColorType? type) {
 
     case UpColorType.success:
       return data.successStyle ?? data.primaryStyle;
+
+    case UpColorType.basic:
+      return data.basicStyle ?? data.primaryStyle;
 
     case UpColorType.link:
       return data.linkStyle ?? data.primaryStyle;
