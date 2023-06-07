@@ -12,6 +12,9 @@ import 'package:flutter_up/enums/up_input_type.dart';
 class UpStyle {
   // General
   // Styles that are mostly used when specific ones are not provided
+
+  final Color? appBackgroundColor;
+
   final Color? backgroundColor;
   final Color? borderColor;
   final double? borderRadius;
@@ -30,6 +33,10 @@ class UpStyle {
   final Color? disabledBackgroundColor;
   final Color? disabledBorderColor;
   final Color? disabledForgroundColor;
+
+  // drawer
+  final Color? drawerHeaderColor;
+  final Color? drawerBodyColor;
 
   // Table
   final Color? tableHeaderTextColor;
@@ -142,8 +149,9 @@ class UpStyle {
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
   final Color? dropdownTextColor;
-
   final Color? dropdownFilledColor;
+  final Color? dropdownMenuColor;
+  final Color? dropdownMenuTextColor;
 
   // Date picker
   final Color? datePickerPrimaryColor;
@@ -204,10 +212,19 @@ class UpStyle {
 
   // code
   final Color? codeBackgroundColor;
+  final Color? codeBorderColor;
+  final Color? codeTextColor;
 
   UpStyle({
+    this.appBackgroundColor,
     // code
     this.codeBackgroundColor,
+    this.codeBorderColor,
+    this.codeTextColor,
+
+    //drawer
+    this.drawerBodyColor,
+    this.drawerHeaderColor,
 
     // General
     this.backgroundColor,
@@ -344,6 +361,8 @@ class UpStyle {
 
     // Drodown
     this.dropdownBorderWidth,
+    this.dropdownMenuTextColor,
+    this.dropdownMenuColor,
     this.dropdownTextColor,
     this.dropdownBorderColor,
     this.dropdownBorderRadius,
@@ -696,6 +715,43 @@ class UpStyle {
         style?.codeBackgroundColor ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .codeBackgroundColor ??
+        Colors.grey;
+  }
+
+  static Color getAppBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBackgroundColor ??
+        style?.appBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .appBackgroundColor ??
+        UpConfig.of(context).theme.baseColor;
+  }
+
+  static Color getCodeTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.codeTextColor ??
+        style?.codeTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).codeTextColor ??
+        UpConfig.of(context).theme.baseColor.shade900;
+  }
+
+  static Color getCodeBorderColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.codeBorderColor ??
+        style?.codeBorderColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).codeBorderColor ??
         Colors.grey;
   }
 
@@ -1974,6 +2030,36 @@ class UpStyle {
         Colors.transparent;
   }
 
+  static Color getDropdownMenuColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownMenuColor ??
+        style?.dropdownMenuColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownFilledColor ??
+        UpConfig.of(context).theme.baseColor.shade50;
+  }
+
+  static Color getDropdownMenuTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownMenuTextColor ??
+        style?.dropdownMenuTextColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownMenuTextColor ??
+        UpConfig.of(context).theme.baseColor.shade900;
+  }
+
   static bool isDropdownFilled(
     BuildContext context, {
     UpStyle? override,
@@ -3040,5 +3126,31 @@ class UpStyle {
         style?.cardHeaderColor ??
         getStyleByType(UpConfig.of(context).theme, colorType).cardHeaderColor ??
         Theme.of(context).primaryColor;
+  }
+
+  // drawer
+  static Color getDrawerHeaderColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerHeaderColor ??
+        style?.drawerHeaderColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .drawerHeaderColor ??
+        UpConfig.of(context).theme.baseColor.shade200;
+  }
+
+  static Color getDrawerBodyColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerBodyColor ??
+        style?.drawerBodyColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).drawerBodyColor ??
+        UpConfig.of(context).theme.baseColor.shade50;
   }
 }

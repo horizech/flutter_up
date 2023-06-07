@@ -4,6 +4,7 @@ import 'package:flutter_up/dialogs/up_base.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_dialog.dart';
 import 'package:flutter_up/widgets/up_button.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 
 class UpAboutAppDialog extends UpBaseDialog {
   Widget _getHeader(String title) {
@@ -20,9 +21,8 @@ class UpAboutAppDialog extends UpBaseDialog {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FittedBox(
-            child: Text(
+            child: UpText(
               title,
-              style: TextStyle(color: Colors.grey[600], fontSize: 24),
             ),
           ),
         )
@@ -48,7 +48,7 @@ class UpAboutAppDialog extends UpBaseDialog {
                         .map<Widget>(
                           (text) => Padding(
                             padding: const EdgeInsets.all(8),
-                            child: Text(text),
+                            child: UpText(text),
                           ),
                         )
                         .toList(),

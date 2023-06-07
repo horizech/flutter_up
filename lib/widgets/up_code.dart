@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_button_type.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/helpers/up_clipboard.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_up/helpers/up_toast.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_dynamic_view.dart';
+import 'package:flutter_up/widgets/up_icon.dart';
 
 class UpCode extends StatefulWidget {
   final String? code;
@@ -48,20 +48,19 @@ class UpCode extends StatefulWidget {
       'symbol': TextStyle(color: Color(0xffbf79db)),
       'regexp': TextStyle(color: Color(0xffbf79db)),
       'link': TextStyle(color: Color(0xffbf79db)),
-      'string': TextStyle(color: Color(0xFF0A3F02)),
-      'bullet': TextStyle(color: Color(0xFF0A3F02)),
-      'subst': TextStyle(color: Color(0xFF0A3F02)),
-      'title': TextStyle(color: Color(0xFF0A3F02), fontWeight: FontWeight.bold),
-      'section':
-          TextStyle(color: Color(0xFF0A3F02), fontWeight: FontWeight.bold),
-      'emphasis': TextStyle(color: Color(0xFF0A3F02)),
-      'type': TextStyle(color: Color(0xFF0A3F02), fontWeight: FontWeight.bold),
-      'built_in': TextStyle(color: Color(0xFF0A3F02)),
+      'string': TextStyle(color: Colors.blue),
+      'bullet': TextStyle(color: Colors.blue),
+      'subst': TextStyle(color: Colors.blue),
+      'title': TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+      'section': TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+      'emphasis': TextStyle(color: Colors.blue),
+      'type': TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+      'built_in': TextStyle(color: Colors.blue),
       'builtin-name': TextStyle(color: Color(0xffa6e22e)),
       'selector-attr': TextStyle(color: Color(0xffa6e22e)),
       'selector-pseudo': TextStyle(color: Color(0xffa6e22e)),
       'addition': TextStyle(color: Color(0xffa6e22e)),
-      'variable': TextStyle(color: Color(0xFF0A3F02)),
+      'variable': TextStyle(color: Colors.blue),
       'template-tag': TextStyle(color: Color(0xffa6e22e)),
       'template-variable': TextStyle(color: Color(0xffa6e22e)),
       'comment': TextStyle(color: Color(0xff75715e)),
@@ -91,7 +90,9 @@ class _UpCodeState extends State<UpCode> {
       decoration: BoxDecoration(
         color: UpStyle.getCodeBackgroundColor(context,
             style: widget.style, colorType: widget.colorType),
-        border: Border.all(color: UpConfig.of(context).theme.primaryColor),
+        border: Border.all(
+            color: UpStyle.getCodeBorderColor(context,
+                style: widget.style, colorType: widget.colorType)),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
@@ -104,6 +105,10 @@ class _UpCodeState extends State<UpCode> {
               child: mode == 'Code'
                   ? HighlightView(
                       text,
+                      textStyle: TextStyle(
+                          color: UpStyle.getCodeTextColor(context,
+                              style: widget.style,
+                              colorType: widget.colorType)),
                       language: widget.language,
                       theme: widget.theme,
                       padding: const EdgeInsets.all(16),
@@ -126,7 +131,7 @@ class _UpCodeState extends State<UpCode> {
                 );
               },
               type: UpButtonType.icon,
-              child: const Icon(Icons.copy),
+              child: const UpIcon(icon: Icons.copy),
             ),
           ),
           Visibility(

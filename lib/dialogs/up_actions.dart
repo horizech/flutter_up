@@ -4,6 +4,7 @@ import 'package:flutter_up/dialogs/up_base.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_dialog.dart';
 import 'package:flutter_up/widgets/up_button.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 
 class UpActionsDialog extends UpBaseDialog {
   @override
@@ -13,8 +14,8 @@ class UpActionsDialog extends UpBaseDialog {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: UpConfig.of(context).theme.baseColor.shade50,
-        title: Text(data['title']),
-        content: Text(data['text']),
+        title: UpText(data['title']),
+        content: UpText(data['text']),
         actions: data['actions']
             .map<Widget>((action) => SizedBox(
                   width: 100,

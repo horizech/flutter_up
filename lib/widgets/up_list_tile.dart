@@ -6,7 +6,9 @@ import 'package:flutter_up/widgets/up_text.dart';
 class UpListTile extends StatelessWidget {
   final UpStyle? style;
   final UpColorType? colorType;
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
+
   final Widget? subtitle;
   final Widget? leading;
   final Widget? trailing;
@@ -18,9 +20,10 @@ class UpListTile extends StatelessWidget {
 
   const UpListTile({
     Key? key,
-    required this.title,
+    this.title,
     this.colorType,
     this.style,
+    this.titleWidget,
     this.listTileTitleAlignment,
     this.subtitle,
     this.leading,
@@ -77,7 +80,7 @@ class UpListTile extends StatelessWidget {
       leading: leading,
       subtitle: subtitle,
       trailing: trailing,
-      title: UpText(title),
+      title: titleWidget ?? UpText(title ?? ""),
     );
   }
 }

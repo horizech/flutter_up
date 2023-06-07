@@ -6,6 +6,7 @@ import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 class UpDropDown extends StatefulWidget {
@@ -158,19 +159,26 @@ class _upDropDownSingleSelectBodyState
                 child: TextFieldTapRegion(
                   child: Material(
                     elevation: 4.0,
-                    child: ListView(
-                        scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        children: filteredProducts!.map((e) {
-                          return ListTile(
-                            title: Text(e.label),
-                            onTap: () {
-                              widget.onChanged(e.value);
-                              _focusNode.unfocus();
-                            },
-                          );
-                        }).toList()),
+                    child: Container(
+                      color: UpStyle.getDropdownMenuColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                      child: ListView(
+                          scrollDirection: Axis.vertical,
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          children: filteredProducts!.map((e) {
+                            return ListTile(
+                              title: UpText(e.label),
+                              onTap: () {
+                                widget.onChanged(e.value);
+                                _focusNode.unfocus();
+                              },
+                            );
+                          }).toList()),
+                    ),
                   ),
                 ),
               ),
@@ -465,6 +473,11 @@ class _upDropDownMultipleSelectBodyState
           offset: Offset(0.0, (size?.height ?? 55) + 5.0),
           child: TextFieldTapRegion(
             child: Material(
+              color: UpStyle.getDropdownMenuColor(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
               elevation: 4.0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -508,29 +521,33 @@ class _upDropDownMultipleSelectBodyState
                       stream: ServiceManager<UpSearchService>().stream$,
                       builder: (BuildContext context, searchkey) {
                         getFilteredProducts(searchkey.data.toString());
-                        return ListView(
-                          scrollDirection: Axis.vertical,
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          children: filteredProducts!.map(
-                            (e) {
-                              return ListTile(
-                                title: Row(
-                                  children: [
-                                    UpCheckbox(
-                                        label: e.label,
-                                        style: widget.style,
-                                        colorType: widget.colorType,
-                                        onChange: (newCheck) {
-                                          onClick(e.value, newCheck);
-                                          _updateValuesTextfield();
-                                        }),
-                                  ],
-                                ),
+                        return filteredProducts != null
+                            ? ListView(
+                                scrollDirection: Axis.vertical,
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                children: filteredProducts!.map(
+                                  (e) {
+                                    return ListTile(
+                                      title: Row(
+                                        children: [
+                                          UpCheckbox(
+                                              label: e.label,
+                                              style: widget.style,
+                                              colorType: widget.colorType,
+                                              onChange: (newCheck) {
+                                                onClick(e.value, newCheck);
+                                                _updateValuesTextfield();
+                                              }),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              )
+                            : const SizedBox(
+                                child: UpText("No item found"),
                               );
-                            },
-                          ).toList(),
-                        );
                       },
                     )
                   ],

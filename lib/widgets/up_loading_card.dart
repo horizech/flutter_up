@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/widgets/up_circualar_progress.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 
 class UpLoadingCard extends StatefulWidget {
   final String text;
@@ -36,12 +37,11 @@ class UpLoadingCardState extends State<UpLoadingCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: UpConfig.of(context).theme.baseColor.shade50,
       child: Center(
         child: Card(
           shape: widget.shape,
           margin: widget.margin,
-          color: widget.color,
+          color: UpConfig.of(context).theme.baseColor.shade200,
           shadowColor: widget.shadowColor,
           surfaceTintColor: widget.surfaceTintcolor,
           borderOnForeground: widget.borderOnForeground,
@@ -63,7 +63,7 @@ class UpLoadingCardState extends State<UpLoadingCard> {
                   const SizedBox(
                     width: 20,
                   ),
-                  Text(widget.text)
+                  UpText(widget.text)
                 ],
               ),
             ),
