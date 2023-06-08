@@ -1,3 +1,7 @@
+## 3.0.0
+- Added Dark and Light theme
+- Modified most of the widgets to respect dark mode
+
 ## 2.0.7
 
 - Added Card widget
