@@ -208,14 +208,14 @@ class UpThemes {
         radioButtonRippleColor: baseColor.shade50,
 
         //table
-        tableHeaderColor: inputColor[700],
-        tableRowColor: inputColor[100],
-        tableRowHoverColor: inputColor[100]!,
+        tableHeaderColor: baseColor.shade100,
+        tableRowColor: baseColor.shade50,
+        tableRowHoverColor: baseColor.shade100,
         tableRowFocusedColor: inputColor[200]!,
         tableRowPressedColor: inputColor[400]!,
-        tableBorderColor: inputColor[400],
-        tableHeaderTextColor: contrastColor[500],
-        tableFooterColor: inputColor[700],
+        tableBorderColor: baseColor.shade200,
+        tableHeaderTextColor: baseColor.shade900,
+        tableFooterColor: baseColor.shade100,
 
         //datepicker
         datePickerDialogBackgroundColor: baseColor.shade100,

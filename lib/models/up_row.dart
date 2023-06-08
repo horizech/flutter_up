@@ -6,6 +6,6 @@ class UpRow {
 
   UpRow(
     this.row, {
-    this.rowColor = Colors.transparent,
+    this.rowColor,
   });
 }

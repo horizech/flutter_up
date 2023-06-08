@@ -36,6 +36,13 @@ class _UpAppBarState extends State<UpAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+        color: UpStyle.getIconColor(
+          context,
+          style: widget.style,
+          colorType: widget.colorType,
+        ),
+      ),
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       excludeHeaderSemantics: widget.excludeHeaderSemantics,
       title: widget.titleWidget ??

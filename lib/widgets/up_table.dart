@@ -37,10 +37,20 @@ class _UpTableState extends State<UpTable> {
   }
 
   Color getDataRowColor(Set<MaterialState> states, {Color? rowColor}) {
+    Color? color;
+    if (rowColor != null) {
+      color = rowColor;
+    } else {
+      color = UpStyle.getTableRowColor(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      );
+    }
     if (states.any(<MaterialState>{
       MaterialState.pressed,
     }.contains)) {
-      return UpStyle.getTableRowPressedColor(
+      color = UpStyle.getTableRowPressedColor(
         context,
         style: widget.style,
         colorType: widget.colorType,
@@ -49,7 +59,7 @@ class _UpTableState extends State<UpTable> {
     if (states.any(<MaterialState>{
       MaterialState.hovered,
     }.contains)) {
-      return UpStyle.getTableRowHoverColor(
+      color = UpStyle.getTableRowHoverColor(
         context,
         style: widget.style,
         colorType: widget.colorType,
@@ -58,7 +68,7 @@ class _UpTableState extends State<UpTable> {
     if (states.any(<MaterialState>{
       MaterialState.focused,
     }.contains)) {
-      return UpStyle.getTableRowFocusedColor(
+      color = UpStyle.getTableRowFocusedColor(
         context,
         style: widget.style,
         colorType: widget.colorType,
@@ -67,13 +77,13 @@ class _UpTableState extends State<UpTable> {
     if (states.any(<MaterialState>{
       MaterialState.hovered,
     }.contains)) {
-      return UpStyle.getTableRowHoverColor(
+      color = UpStyle.getTableRowHoverColor(
         context,
         style: widget.style,
         colorType: widget.colorType,
       );
     }
-    return rowColor ?? Colors.transparent;
+    return color;
   }
 
   @override
@@ -102,7 +112,9 @@ class _UpTableState extends State<UpTable> {
         horizontalMargin: 10,
         showCheckboxColumn: widget.showCheckboxColumn,
         dataRowColor: MaterialStateColor.resolveWith(
-          ((states) => (getDataRowColor(states, rowColor: Colors.transparent))),
+          ((states) => (getDataRowColor(
+                states,
+              ))),
         ),
         headingRowColor: MaterialStateColor.resolveWith(
           (states) => UpStyle.getTableHeaderColor(
