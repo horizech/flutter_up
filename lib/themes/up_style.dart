@@ -135,9 +135,13 @@ class UpStyle {
   final Color? textfieldBorderColor;
   final Color? textfieldErrorBorderColor;
   final Color? textfieldLabelColor;
+  final Color? textfieldLabelFocusedColor;
+
   final double? textfieldLabelSize;
   final Color? textfieldCursorColor;
   final Color? textfieldFilledColor;
+  final Color? textfieldFocusedFilledColor;
+
   final Color? textfieldTextColor;
 
   // Dropdown
@@ -145,6 +149,9 @@ class UpStyle {
   final Color? dropdownBorderColor;
   final Color? dropdownErrorBorderColor;
   final Color? dropdownLabelColor;
+  final Color? dropdownLabelFocusedColor;
+  final Color? dropdownFocusedFilledColor;
+
   final double? dropdownLabelSize;
   final double? dropdownBorderWidth;
   final double? dropdownBorderRadius;
@@ -352,11 +359,13 @@ class UpStyle {
     this.textfieldErrorBorderColor,
     this.textfieldFocusedBorderColor,
     this.textfieldLabelColor,
+    this.textfieldLabelFocusedColor,
     this.textfieldBorderRadius,
     this.textfieldBorderWidth,
     this.textfieldCursorColor,
     this.textfieldLabelSize,
     this.textfieldFilledColor,
+    this.textfieldFocusedFilledColor,
     this.textfieldTextColor,
 
     // Drodown
@@ -370,6 +379,8 @@ class UpStyle {
     this.dropdownFocusedBorderColor,
     this.dropdownLabelColor,
     this.dropdownLabelSize,
+    this.dropdownFocusedFilledColor,
+    this.dropdownLabelFocusedColor,
     this.dropdownFilledColor,
 
     // Datepicker
@@ -1769,6 +1780,21 @@ class UpStyle {
         Colors.transparent;
   }
 
+  static Color getTextfieldFocusedFilledColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldFocusedFilledColor ??
+        style?.textfieldFocusedFilledColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldFocusedFilledColor ??
+        Colors.transparent;
+  }
+
   static Color getTextfieldHintColor(
     BuildContext context, {
     UpStyle? override,
@@ -1881,6 +1907,21 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .textfieldBorderRadius ??
         UpConstants.kDefaultStyleBorderRadius;
+  }
+
+  static Color getTextfieldFocusedLabelColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldLabelFocusedColor ??
+        style?.textfieldLabelFocusedColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).textfieldLabelFocusedColor ??
+        Theme.of(context).primaryColor;
   }
 
   static Color getTextfieldLabelColor(
@@ -2030,6 +2071,21 @@ class UpStyle {
         Colors.transparent;
   }
 
+  static Color getDropdownFocusedFilledColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownFocusedFilledColor ??
+        style?.dropdownFocusedFilledColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownFocusedFilledColor ??
+        Colors.transparent;
+  }
+
   static Color getDropdownMenuColor(
     BuildContext context, {
     UpStyle? override,
@@ -2156,6 +2212,21 @@ class UpStyle {
           UpConfig.of(context).theme,
           colorType,
         ).dropdownLabelColor ??
+        Theme.of(context).colorScheme.secondary;
+  }
+
+  static Color getDropdownFocusedLabelColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.dropdownLabelFocusedColor ??
+        style?.dropdownLabelFocusedColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).dropdownLabelFocusedColor ??
         Theme.of(context).colorScheme.secondary;
   }
 

@@ -53,11 +53,14 @@ class UpLoadingCardState extends State<UpLoadingCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Center(
-                      child: UpCircularProgress(),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                        child: UpCircularProgress(),
+                      ),
                     ),
                   ),
                   const SizedBox(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/enums/up_input_type.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/themes/up_themes.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
 import 'package:flutter_up/widgets/up_text.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
@@ -170,12 +172,30 @@ class _upDropDownSingleSelectBodyState
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           children: filteredProducts!.map((e) {
-                            return ListTile(
-                              title: UpText(e.label),
-                              onTap: () {
-                                widget.onChanged(e.value);
-                                _focusNode.unfocus();
-                              },
+                            return Container(
+                              color: e.value == previousInputValue
+                                  ? UpConfig.of(context).theme.primaryColor
+                                  : Colors.transparent,
+                              child: ListTile(
+                                title: UpText(
+                                  e.label,
+                                  style: UpStyle(
+                                    textColor: e.value == previousInputValue
+                                        ? UpThemes.getContrastColor(
+                                            UpConfig.of(context)
+                                                .theme
+                                                .primaryColor)
+                                        : UpConfig.of(context)
+                                            .theme
+                                            .baseColor
+                                            .shade900,
+                                  ),
+                                ),
+                                onTap: () {
+                                  widget.onChanged(e.value);
+                                  _focusNode.unfocus();
+                                },
+                              ),
                             );
                           }).toList()),
                     ),
@@ -289,11 +309,17 @@ class _upDropDownSingleSelectBodyState
                 label: Text(
                   widget.label ?? "",
                   style: TextStyle(
-                    color: UpStyle.getDropdownLabelColor(
-                      context,
-                      style: widget.style,
-                      colorType: widget.colorType,
-                    ),
+                    color: _focusNode.hasFocus
+                        ? UpStyle.getDropdownFocusedLabelColor(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          )
+                        : UpStyle.getDropdownLabelColor(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          ),
                     fontSize: UpStyle.getDropdownLabelSize(
                       context,
                       style: widget.style,
@@ -301,16 +327,18 @@ class _upDropDownSingleSelectBodyState
                     ),
                   ),
                 ),
-                filled: UpStyle.isDropdownFilled(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
-                fillColor: UpStyle.getDropdownFilledColor(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
+                filled: true,
+                fillColor: _focusNode.hasFocus
+                    ? UpStyle.getDropdownFocusedFilledColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      )
+                    : UpStyle.getDropdownFilledColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
                 hintText: widget.hint,
                 enabledBorder: UpStyle.getDropdownBorderStyle(
                   context,
@@ -665,11 +693,17 @@ class _upDropDownMultipleSelectBodyState
             label: Text(
               widget.label ?? "",
               style: TextStyle(
-                color: UpStyle.getDropdownLabelColor(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
+                color: _focusNode.hasFocus
+                    ? UpStyle.getDropdownFocusedLabelColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      )
+                    : UpStyle.getDropdownLabelColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
                 fontSize: UpStyle.getDropdownLabelSize(
                   context,
                   style: widget.style,
@@ -677,16 +711,18 @@ class _upDropDownMultipleSelectBodyState
                 ),
               ),
             ),
-            filled: UpStyle.isDropdownFilled(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
-            fillColor: UpStyle.getDropdownFilledColor(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
+            filled: true,
+            fillColor: _focusNode.hasFocus
+                ? UpStyle.getDropdownFilledColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  )
+                : UpStyle.getDropdownFilledColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
             hintText: widget.hint,
             enabledBorder: UpStyle.getDropdownBorderStyle(
               context,
