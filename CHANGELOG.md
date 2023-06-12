@@ -1,4 +1,9 @@
+## 3.0.1
+
+- Updated UpTextField Widget
+
 ## 3.0.0
+
 - Added Dark and Light theme
 - Modified most of the widgets to respect dark mode
 
