@@ -80,7 +80,17 @@ class UpListTile extends StatelessWidget {
       leading: leading,
       subtitle: subtitle,
       trailing: trailing,
-      title: titleWidget ?? UpText(title ?? ""),
+      title: titleWidget ??
+          UpText(
+            title ?? "",
+            style: UpStyle(
+              textColor: UpStyle.getListTileTextColor(
+                context,
+                style: style,
+                colorType: colorType,
+              ),
+            ),
+          ),
     );
   }
 }
