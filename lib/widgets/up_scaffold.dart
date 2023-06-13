@@ -5,6 +5,7 @@ import 'package:flutter_up/themes/up_style.dart';
 
 class UpScaffold extends StatelessWidget {
   final Widget? body;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
@@ -32,6 +33,7 @@ class UpScaffold extends StatelessWidget {
   const UpScaffold({
     super.key,
     this.appBar,
+    this.scaffoldKey,
     this.drawerScrimColor,
     this.endDrawerEnableOpenDragGesture = true,
     this.endDrawer,
@@ -61,6 +63,7 @@ class UpScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       bottomSheet: bottomSheet,
       drawer: drawer,
       body: body,
@@ -74,7 +77,7 @@ class UpScaffold extends StatelessWidget {
       onDrawerChanged: onDrawerChanged,
       onEndDrawerChanged: onEndDrawerChanged,
       persistentFooterAlignment: persistentFooterAlignment,
-      persistentFooterButtons: persistentFooterButtons ?? [],
+      persistentFooterButtons: const [],
       primary: primary,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,

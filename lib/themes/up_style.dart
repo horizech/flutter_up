@@ -86,6 +86,7 @@ class UpStyle {
   final Color? appBarColor;
   final Color? appBarTitleColor;
   final double? appBarTitleSize;
+  final double? appBarHeight;
 
   // Expansion Tile
 
@@ -296,6 +297,7 @@ class UpStyle {
 
     // Appbar
     this.appBarColor,
+    this.appBarHeight,
     this.appBarTitleColor,
     this.appBarTitleSize,
 
@@ -2375,6 +2377,21 @@ class UpStyle {
           colorType,
         ).appBarTitleColor ??
         Theme.of(context).colorScheme.secondary;
+  }
+
+  static double getAppBarHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarHeight ??
+        style?.appBarHeight ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarHeight ??
+        56;
   }
 
   static double getAppBarTitleSize(
