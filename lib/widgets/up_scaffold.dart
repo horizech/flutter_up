@@ -77,7 +77,7 @@ class UpScaffold extends StatelessWidget {
       onDrawerChanged: onDrawerChanged,
       onEndDrawerChanged: onEndDrawerChanged,
       persistentFooterAlignment: persistentFooterAlignment,
-      persistentFooterButtons: const [],
+      persistentFooterButtons: persistentFooterButtons,
       primary: primary,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
