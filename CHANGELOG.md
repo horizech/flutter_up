@@ -1,3 +1,8 @@
+## 3.0.3
+
+- Updated UpKey Widget
+- Updated UpSearch Widget
+
 ## 3.0.2
 
 - Updated UpScaffold Widget

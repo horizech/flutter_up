@@ -5,6 +5,7 @@ import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/validation/up_valdation.dart';
+import 'package:flutter_up/widgets/up_icon.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
 class UpSearch extends StatefulWidget {
@@ -70,27 +71,29 @@ class UpSearchState extends State<UpSearch> {
       controller: widget.controller,
       label: widget.lable ?? "Search",
       hint: widget.hint ?? "Search",
-      prefixIcon: const Icon(
-        Icons.search,
+      prefixIcon: const UpIcon(
+        icon: Icons.search,
         semanticLabel: 'Search site',
       ),
-      suffixIcon: IconButton(
-        icon: Icon(
-          widget.controller.text.isNotEmpty ? Icons.clear : null,
-          semanticLabel: 'Clear Search text',
-        ),
-        onPressed: () {
-          widget.controller.text = "";
-          setState(() {
-            ServiceManager<UpSearchService>().update("");
-            if (widget.valueChanged != null) {
-              widget.valueChanged!("");
-            }
-            searchFieldFocusNode!.requestFocus();
-            // widget.controller?.text = value;
-          });
-        },
-      ),
+      suffixIcon: widget.controller.text.isNotEmpty
+          ? IconButton(
+              icon: const UpIcon(
+                icon: Icons.clear,
+                semanticLabel: 'Clear Search text',
+              ),
+              onPressed: () {
+                widget.controller.text = "";
+                setState(() {
+                  ServiceManager<UpSearchService>().update("");
+                  if (widget.valueChanged != null) {
+                    widget.valueChanged!("");
+                  }
+                  searchFieldFocusNode!.requestFocus();
+                  // widget.controller?.text = value;
+                });
+              },
+            )
+          : null,
       keyboardType: TextInputType.text,
       obscureText: false,
       onChanged: (input) {
