@@ -53,7 +53,7 @@ class UpLoadingButton extends StatelessWidget {
                         ),
                       )
                     : SizedBox(
-                        width: 200,
+                        // width: 200,
                         child: UpButton(
                           onPressed: () {
                             onPress();

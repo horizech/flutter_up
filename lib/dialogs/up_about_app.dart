@@ -55,7 +55,7 @@ class UpAboutAppDialog extends UpBaseDialog {
                   )),
               actions: <Widget>[
                 SizedBox(
-                  width: 100,
+                  // width: 100,
                   child: UpButton(
                     text: "OK",
                     onPressed: () {

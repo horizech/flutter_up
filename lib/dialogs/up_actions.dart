@@ -18,7 +18,7 @@ class UpActionsDialog extends UpBaseDialog {
         content: UpText(data['text']),
         actions: data['actions']
             .map<Widget>((action) => SizedBox(
-                  width: 100,
+                  // width: 100,
                   child: UpButton(
                       text: action['text'],
                       onPressed: () {

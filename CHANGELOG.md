@@ -1,3 +1,8 @@
+## 3.0.4
+
+- Updated UpButton Widget
+- Updated UpTextfield Widget
+
 ## 3.0.3
 
 - Updated UpKey Widget

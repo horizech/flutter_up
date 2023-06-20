@@ -205,7 +205,7 @@ class __UpTextFieldState extends State<_UpTextField> {
         if (widget.validation != null &&
             (widget.validation!.isRequired ?? false)) {
           if (value == null || value == "" || value.isEmpty) {
-            return 'Please enter $widget.label';
+            return 'Please enter ${widget.label}';
           }
         }
         if (widget.validation?.minLength != null) {
@@ -226,7 +226,7 @@ class __UpTextFieldState extends State<_UpTextField> {
                 widget.validation!.minLength != null &&
                 value!.length < (widget.validation!.minLength ?? 0)) {
               if (widget.validation!.minLength == 1) {
-                return 'Please enter $widget.label';
+                return 'Please enter ${widget.label}';
               } else {
                 return 'Length should be at least ${widget.validation!.minLength}';
               }
@@ -288,13 +288,20 @@ class __UpTextFieldState extends State<_UpTextField> {
                     style: widget.style,
                     colorType: widget.colorType,
                   ),
-            fontSize: UpStyle.getTextfieldLabelSize(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
+            fontSize: myFocusNode.hasFocus
+                ? UpStyle.getTextfieldFocusedLabelSize(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  )
+                : UpStyle.getTextfieldLabelSize(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
           ),
         ),
+        floatingLabelStyle: const TextStyle(fontSize: 20),
         filled: true,
         // UpStyle.isTextfieldFilled(
         //   context,

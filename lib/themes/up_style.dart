@@ -63,6 +63,8 @@ class UpStyle {
   final Color? buttonBackgroundColor;
   final Color? buttonTextColor;
   final double? buttonTextSize;
+  final FontWeight? buttonTextWeight;
+
   final double? textStrokeWidth;
   final Color? textStrokeColor;
   final Color? buttonBorderColor;
@@ -139,6 +141,8 @@ class UpStyle {
   final Color? textfieldLabelFocusedColor;
 
   final double? textfieldLabelSize;
+  final double? textfieldFocusedLabelSize;
+
   final Color? textfieldCursorColor;
   final Color? textfieldFilledColor;
   final Color? textfieldFocusedFilledColor;
@@ -303,6 +307,7 @@ class UpStyle {
 
     // Button
     this.buttonTextSize,
+    this.buttonTextWeight,
     this.textStrokeWidth,
     this.textStrokeColor,
     this.buttonBackgroundColor,
@@ -366,6 +371,7 @@ class UpStyle {
     this.textfieldBorderWidth,
     this.textfieldCursorColor,
     this.textfieldLabelSize,
+    this.textfieldFocusedLabelSize,
     this.textfieldFilledColor,
     this.textfieldFocusedFilledColor,
     this.textfieldTextColor,
@@ -1390,6 +1396,19 @@ class UpStyle {
         UpConstants.kDefaultStyleTextSize;
   }
 
+  static FontWeight getButtonTextWeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.buttonTextWeight ??
+        style?.buttonTextWeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .buttonTextWeight ??
+        FontWeight.bold;
+  }
+
   static Color getButtonHoverBackgroundColor(
     BuildContext context, {
     UpStyle? override,
@@ -1966,6 +1985,19 @@ class UpStyle {
         style?.textfieldLabelSize ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .textfieldLabelSize ??
+        UpConstants.kDefaultStyleTextSize;
+  }
+
+  static double getTextfieldFocusedLabelSize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textfieldFocusedLabelSize ??
+        style?.textfieldFocusedLabelSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .textfieldFocusedLabelSize ??
         UpConstants.kDefaultStyleTextSize;
   }
 

@@ -161,41 +161,42 @@ class __upButtonState extends State<_upButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints.tight(
-        widget.style != null && widget.style!.buttonBackgroundImage != null
-            ? const Size(200, 128)
-            // Size(
-            //     UpStyle.getImageButtonWidth(
-            //       context,
-            //       style: widget.style,
-            //       colorType: widget.colorType,
-            //     ),
-            //     UpStyle.getImageButtonHeight(
-            //       context,
-            //       style: widget.style,
-            //       colorType: widget.colorType,
-            //     ),
-            //   )
-            : Size(
-                UpStyle.getButtonWidth(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
-                UpStyle.getButtonHeight(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                ),
-              ),
+    return SizedBox(
+      width: widget.style != null && widget.style?.buttonWidth != null
+          ? UpStyle.getButtonWidth(
+              context,
+              style: widget.style,
+              colorType: widget.colorType,
+            )
+          : null,
+      height: UpStyle.getButtonHeight(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
       ),
+      // width:100,
+      // constraints: BoxConstraints.tight(
+
+      // widget.style != null && widget.style!.buttonBackgroundImage != null
+      //     ? const Size(200, 128)
+      //     : Size(
+      //         UpStyle.getButtonWidth(
+      //           context,
+      //           style: widget.style,
+      //           colorType: widget.colorType,
+      //         ),
+      //         UpStyle.getButtonHeight(
+      //           context,
+      //           style: widget.style,
+      //           colorType: widget.colorType,
+      //         ),
+      //       ),
+      // ),
       child: MouseRegion(
         cursor: widget.style?.isDisabled == true
             ? SystemMouseCursors.basic
             : SystemMouseCursors.click,
         onEnter: widget.style?.isDisabled == true ? null : _incrementEnter,
-        // onHover: _updateLocation,
         onExit: widget.style?.isDisabled == true ? null : _incrementExit,
         child: GestureDetector(
           onTap: () {
@@ -255,14 +256,21 @@ class __upButtonState extends State<_upButton> {
                       ]
                     : null,
               ),
-              child: Stack(alignment: Alignment.center, children: [
-                Container(
-                  child: UpStyle.getbuttonBackgroundImage(context,
-                      style: widget.style, colorType: widget.colorType),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              // child: Stack(
+              // alignment: Alignment.center,
+              // children: [
+              // Container(
+              //   child: UpStyle.getbuttonBackgroundImage(context,
+              //       style: widget.style, colorType: widget.colorType),
+              // ),
+
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Visibility(
                         visible: widget.icon != null,
@@ -279,37 +287,36 @@ class __upButtonState extends State<_upButton> {
                         visible: widget.image != null,
                         child: widget.image ?? Container(),
                       ),
-                      Visibility(
-                        visible: widget.text != null && widget.text!.isNotEmpty,
-                        child: FittedBox(
-                          fit: UpStyle.getButtonTextFit(context,
-                              style: widget.style, colorType: widget.colorType),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              widget.text ?? "",
-                              style: TextStyle(
-                                color: isHovered
-                                    ? UpStyle.getButtonHoverTextColor(context,
-                                        style: widget.style,
-                                        colorType: widget.colorType)
-                                    : UpStyle.getButtonTextColor(
-                                        context,
-                                        style: widget.style,
-                                        colorType: widget.colorType,
-                                      ),
-                                fontSize: UpStyle.getButtonTextSize(
+                      Text(
+                        widget.text ?? " ",
+                        style: TextStyle(
+                          fontWeight: UpStyle.getButtonTextWeight(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
+                          ),
+                          color: isHovered
+                              ? UpStyle.getButtonHoverTextColor(context,
+                                  style: widget.style,
+                                  colorType: widget.colorType)
+                              : UpStyle.getButtonTextColor(
                                   context,
                                   style: widget.style,
                                   colorType: widget.colorType,
                                 ),
-                              ),
-                            ),
+                          fontSize: UpStyle.getButtonTextSize(
+                            context,
+                            style: widget.style,
+                            colorType: widget.colorType,
                           ),
                         ),
-                      )
-                    ]),
-              ]),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // ],
+              // ),
             ),
           ),
         ),

@@ -17,7 +17,7 @@ class UpInfoDialog extends UpBaseDialog {
               content: UpText(data['text'] ?? "Error"),
               actions: <Widget>[
                 SizedBox(
-                  width: 100,
+                  // width: 100,
                   child: UpButton(
                     text: "OK",
                     onPressed: () {
