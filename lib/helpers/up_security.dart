@@ -32,7 +32,7 @@ class UpSecurity {
 
   static String? decrypt({required String key, required String text}) {
     String result;
-    if (key.length != 16) {
+    if (key.length < 16) {
       return null;
     }
     try {

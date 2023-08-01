@@ -156,7 +156,7 @@ class UpThemes {
         buttonDisbaledBackgroundColor: Colors.grey[300],
         buttonBorderStyle: BorderStyle.solid,
         buttonTextFit: BoxFit.none,
-        buttonTextWeight: FontWeight.bold,
+        buttonTextWeight: FontWeight.normal,
         //textfield
         textfieldTextColor: baseColor.shade900,
         textfieldBorderRadius: 8,

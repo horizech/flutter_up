@@ -1,3 +1,7 @@
+## 3.0.5
+
+- Updated UpButton Widget
+
 ## 3.0.4
 
 - Updated UpButton Widget
