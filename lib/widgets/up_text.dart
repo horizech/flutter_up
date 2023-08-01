@@ -10,9 +10,11 @@ class UpText extends StatelessWidget {
   final UpStyle? style;
   final UpTextType? type;
   final bool isSelectable;
+  final int? maxLines;
   const UpText(
     this.text, {
     Key? key,
+    this.maxLines,
     this.overflow,
     this.colorType,
     this.isSelectable = false,
@@ -110,6 +112,7 @@ class UpText extends StatelessWidget {
             child: Stack(
               children: [
                 Text(
+                  maxLines: maxLines,
                   text,
                   style: TextStyle(
                     decoration: UpStyle.getTextDecoration(
@@ -117,6 +120,7 @@ class UpText extends StatelessWidget {
                       style: style,
                       colorType: colorType,
                     ),
+                    overflow: overflow,
                     fontStyle: UpStyle.getTextFontStyle(
                       context,
                       style: style,
@@ -150,6 +154,7 @@ class UpText extends StatelessWidget {
                 ),
                 Text(
                   text,
+                  maxLines: maxLines,
                   style: TextStyle(
                     decoration: UpStyle.getTextDecoration(
                       context,
