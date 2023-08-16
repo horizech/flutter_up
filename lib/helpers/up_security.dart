@@ -3,20 +3,23 @@ import 'dart:developer';
 
 class UpSecurity {
   static IV? iv;
-  // static Key key = Key.fromUtf8('KEY_KEY_KEY_KEY_KEY_KEY_KEY_KEY_');
 
   static initialize(String ivKey) {
-    iv = IV.fromUtf8(ivKey);
+    iv = IV.fromBase64(ivKey);
   }
 
-  static String encrypt({required String key, required String text}) {
+  static String encrypt({
+    required String key,
+    required String text,
+  }) {
     if (iv != null) {
       String result;
       if (key.length < 16) {
         return "";
       }
       try {
-        final encrypter = Encrypter(AES(Key.fromUtf8(key), mode: AESMode.cbc));
+        final encrypter =
+            Encrypter(AES(Key.fromBase64(key), mode: AESMode.cbc));
 
         final encrypted = encrypter.encrypt(text, iv: iv);
         result = encrypted.base64;
@@ -36,11 +39,11 @@ class UpSecurity {
       return null;
     }
     try {
-      final encrypter = Encrypter(AES(Key.fromUtf8(key), mode: AESMode.cbc));
-      result = encrypter.decrypt(Encrypted.from64(text), iv: iv);
+      final encrypter = Encrypter(AES(Key.fromBase64(key), mode: AESMode.cbc));
+      result = encrypter.decrypt(Encrypted.fromBase64(text), iv: iv);
       return result;
     } catch (e) {
-      // log(e.toString());
+      log(e.toString());
       return null;
     }
   }

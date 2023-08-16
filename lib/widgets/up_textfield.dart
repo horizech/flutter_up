@@ -19,6 +19,8 @@ class UpTextField extends StatelessWidget {
   final bool isFlexible;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
+  final Function()? onBlur;
+
   final int maxLines;
   final UpColorType? colorType;
   final UpStyle? style;
@@ -43,6 +45,7 @@ class UpTextField extends StatelessWidget {
     this.onTap,
     this.initialValue,
     this.label = "",
+    this.onBlur,
     this.contentPadding,
     this.isFlexible = false,
     this.onSaved,
@@ -71,6 +74,7 @@ class UpTextField extends StatelessWidget {
               label: label,
               onSaved: onSaved,
               onChanged: onChanged,
+              onBlur: onBlur,
               onTap: onTap,
               maxLines: maxLines,
               colorType: colorType,
@@ -94,6 +98,7 @@ class UpTextField extends StatelessWidget {
             label: label,
             onSaved: onSaved,
             onChanged: onChanged,
+            onBlur: onBlur,
             onTap: onTap,
             maxLines: maxLines,
             colorType: colorType,
@@ -122,6 +127,7 @@ class _UpTextField extends StatefulWidget {
   final String? label;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
+  final Function()? onBlur;
   final int maxLines;
   final UpColorType? colorType;
   final UpStyle? style;
@@ -149,6 +155,7 @@ class _UpTextField extends StatefulWidget {
     this.contentPadding,
     this.onSaved,
     this.onChanged,
+    this.onBlur,
     this.maxLines = 1,
     this.colorType,
     this.style,
@@ -177,6 +184,11 @@ class __UpTextFieldState extends State<_UpTextField> {
     super.initState();
     myFocusNode.addListener(() {
       setState(() {});
+      if (!myFocusNode.hasFocus) {
+        if (widget.onBlur != null) {
+          widget.onBlur!();
+        }
+      }
     });
   }
 
@@ -303,11 +315,6 @@ class __UpTextFieldState extends State<_UpTextField> {
         ),
         floatingLabelStyle: const TextStyle(fontSize: 20),
         filled: true,
-        // UpStyle.isTextfieldFilled(
-        //   context,
-        //   style: style,
-        //   colorType: colorType,
-        // ),
         fillColor: myFocusNode.hasFocus
             ? UpStyle.getTextfieldFocusedFilledColor(
                 context,

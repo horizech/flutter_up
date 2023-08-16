@@ -36,7 +36,7 @@ class UpLoadingCardState extends State<UpLoadingCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Center(
         child: Card(
           shape: widget.shape,

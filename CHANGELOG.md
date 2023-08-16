@@ -1,3 +1,9 @@
+## 3.0.6
+
+- OnBlur added in UpTextfield
+- Updated UpButton Widget
+- Updated UpSecurity
+
 ## 3.0.5
 
 - Updated UpButton Widget
