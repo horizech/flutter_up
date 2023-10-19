@@ -7,6 +7,7 @@ import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/themes/up_themes.dart';
+import 'package:flutter_up/validation/up_valdation.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
 import 'package:flutter_up/widgets/up_text.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
@@ -18,6 +19,7 @@ class UpDropDown extends StatefulWidget {
   final UpInputType? type;
   final String? hint;
   final UpStyle? style;
+  final UpValidation? validation;
   final UpColorType? colorType;
   final List<UpLabelValuePair> itemList;
   final String? value;
@@ -25,10 +27,12 @@ class UpDropDown extends StatefulWidget {
   final Widget? prefixIcon;
   final EdgeInsets? contentPadding;
   final bool isMultipleSelect;
-
+  final bool readOnly;
   const UpDropDown({
     Key? key,
     this.value,
+    this.readOnly = false,
+    this.validation,
     required this.itemList,
     this.onChanged,
     this.style,
@@ -59,6 +63,7 @@ class _UpDropDownState extends State<UpDropDown> {
         ? _upDropDownMultipleSelectBody(
             inputValue: inputValue,
             itemList: widget.itemList,
+            validation: widget.validation,
             onChanged: ((value) {
               // inputValue.value = value;
               if (widget.onMultipleChanged != null) {
@@ -71,12 +76,15 @@ class _UpDropDownState extends State<UpDropDown> {
             label: widget.label,
             prefixIcon: widget.prefixIcon,
             hint: widget.hint,
+            readOnly: widget.readOnly,
             values: widget.values ?? [],
             contentPadding: widget.contentPadding,
           )
         : _upDropDownSingleSelectBody(
             inputValue: inputValue,
+            validation: widget.validation,
             itemList: widget.itemList,
+            readOnly: widget.readOnly,
             onChanged: ((value) {
               inputValue.value = value;
               if (widget.onChanged != null) {
@@ -105,13 +113,18 @@ class _upDropDownSingleSelectBody extends StatefulWidget {
   final ValueNotifier<String?> inputValue;
   final Widget? prefix;
   final EdgeInsets? contentPadding;
+  final UpValidation? validation;
+  final bool readOnly;
+
   const _upDropDownSingleSelectBody(
       {Key? key,
+      this.readOnly = false,
       required this.inputValue,
       required this.itemList,
       required this.onChanged,
       this.style,
       this.colorType,
+      this.validation,
       this.type,
       this.label,
       this.hint,
@@ -192,8 +205,10 @@ class _upDropDownSingleSelectBodyState
                                   ),
                                 ),
                                 onTap: () {
-                                  widget.onChanged(e.value);
-                                  _focusNode.unfocus();
+                                  if (!widget.readOnly) {
+                                    widget.onChanged(e.value);
+                                    _focusNode.unfocus();
+                                  }
                                 },
                               ),
                             );
@@ -298,6 +313,16 @@ class _upDropDownSingleSelectBodyState
                   colorType: widget.colorType,
                 ),
               ),
+              readOnly: widget.readOnly,
+              validator: (value) {
+                if (widget.validation != null &&
+                    (widget.validation!.isRequired ?? false)) {
+                  if (value == null || value == "" || value.isEmpty) {
+                    return 'Please enter ${widget.label}';
+                  }
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 contentPadding: widget.contentPadding ??
                     const EdgeInsets.only(
@@ -377,9 +402,11 @@ class _upDropDownSingleSelectBodyState
                           visible: searchText.text.isNotEmpty,
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                searchText.clear();
-                              });
+                              if (!widget.readOnly) {
+                                setState(() {
+                                  searchText.clear();
+                                });
+                              }
                             },
                             child: Icon(
                               Icons.clear,
@@ -446,9 +473,14 @@ class _upDropDownMultipleSelectBody extends StatefulWidget {
   final ValueNotifier<String?> inputValue;
   final EdgeInsets? contentPadding;
   final Widget? prefixIcon;
+  final UpValidation? validation;
+  final bool readOnly;
+
   const _upDropDownMultipleSelectBody(
       {Key? key,
+      this.readOnly = false,
       required this.inputValue,
+      this.validation,
       required this.itemList,
       this.values,
       required this.onChanged,
@@ -682,6 +714,15 @@ class _upDropDownMultipleSelectBodyState
         link: _layerLink,
         child: TextFormField(
           readOnly: true,
+          validator: (value) {
+            if (widget.validation != null &&
+                (widget.validation!.isRequired ?? false)) {
+              if (value == null || value == "" || value.isEmpty) {
+                return 'Please enter ${widget.label}';
+              }
+            }
+            return null;
+          },
           decoration: InputDecoration(
             contentPadding: widget.contentPadding ??
                 const EdgeInsets.only(

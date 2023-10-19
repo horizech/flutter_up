@@ -16,6 +16,7 @@ class UpButton extends StatelessWidget {
   final IconData? icon;
   final Widget? widget;
   final FocusNode? focusNode;
+  final Function(bool)? onFocusChange;
 
   const UpButton({
     Key? key,
@@ -23,6 +24,7 @@ class UpButton extends StatelessWidget {
     this.focusNode,
     required this.onPressed,
     this.child,
+    this.onFocusChange,
     this.colorType,
     this.type = UpButtonType.elevated,
     this.style,
@@ -36,6 +38,7 @@ class UpButton extends StatelessWidget {
     switch (type) {
       case UpButtonType.text:
         return TextButton(
+          onFocusChange: onFocusChange,
           focusNode: focusNode,
           onPressed: () {
             if (!(style?.isDisabled ?? false)) onPressed();
@@ -56,6 +59,7 @@ class UpButton extends StatelessWidget {
         );
       case UpButtonType.outlined:
         return OutlinedButton(
+          onFocusChange: onFocusChange,
           focusNode: focusNode,
           onPressed: () {
             if (!(style?.isDisabled ?? false)) onPressed();
@@ -101,22 +105,25 @@ class UpButton extends StatelessWidget {
           image: image,
           widget: widget,
           focusNode: focusNode,
+          onFocusChange: onFocusChange,
         );
     }
   }
 }
 
 class _upButton extends StatefulWidget {
-  const _upButton(
-      {this.style,
-      this.colorType,
-      this.text,
-      this.isDisabled = false,
-      this.onPressed,
-      this.icon,
-      this.focusNode,
-      this.image,
-      this.widget});
+  const _upButton({
+    this.style,
+    this.colorType,
+    this.text,
+    this.isDisabled = false,
+    this.onPressed,
+    this.icon,
+    this.focusNode,
+    this.image,
+    this.widget,
+    this.onFocusChange,
+  });
 
   final bool isDisabled;
   final UpStyle? style;
@@ -126,6 +133,7 @@ class _upButton extends StatefulWidget {
   final IconData? icon;
   final Widget? widget;
   final FocusNode? focusNode;
+  final Function(bool)? onFocusChange;
 
   final Image? image;
 
@@ -176,6 +184,7 @@ class __upButtonState extends State<_upButton> {
   Widget build(BuildContext context) {
     return Focus(
       focusNode: widget.focusNode,
+      onFocusChange: widget.onFocusChange,
       child: SizedBox(
         width: widget.style != null && widget.style?.buttonWidth != null
             ? UpStyle.getButtonWidth(

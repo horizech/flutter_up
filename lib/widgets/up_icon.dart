@@ -8,23 +8,29 @@ class UpIcon extends StatelessWidget {
   final UpStyle? style;
   final String? semanticLabel;
   final List<Shadow>? shadows;
+  final Function()? onTap;
   const UpIcon({
     Key? key,
     required this.icon,
     this.semanticLabel,
     this.colorType,
+    this.onTap,
     this.style,
     this.shadows,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      icon,
-      color: UpStyle.getIconColor(context, style: style, colorType: colorType),
-      semanticLabel: semanticLabel,
-      shadows: shadows,
-      size: UpStyle.getIconSize(context, style: style, colorType: colorType),
+    return GestureDetector(
+      onTap: onTap,
+      child: Icon(
+        icon,
+        color:
+            UpStyle.getIconColor(context, style: style, colorType: colorType),
+        semanticLabel: semanticLabel,
+        shadows: shadows,
+        size: UpStyle.getIconSize(context, style: style, colorType: colorType),
+      ),
     );
   }
 }
