@@ -1,13 +1,13 @@
-## 3.0.6
+## 3.0.5
 
 - Focus node added in UpButton
 - OnBlur added in UpTextfield
 - Updated UpSecurity
-
-## 3.0.5
-
+- OnTap added in UpIcon
 - Updated UpButton Widget
 - Updated UpText Widget
+- Upcard Border fixed
+- Added text family to Uptext
 
 ## 3.0.4
 
