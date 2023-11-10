@@ -10,8 +10,8 @@ class UpThemeData {
   MaterialColor? linkColor;
   MaterialColor? successColor;
   MaterialColor? basicColor;
-
   MaterialColor baseColor;
+  bool isDark;
 
   UpStyle primaryStyle;
   UpStyle? secondaryStyle;
@@ -38,5 +38,6 @@ class UpThemeData {
     this.warnStyle,
     this.linkStyle,
     this.basicStyle,
+    required this.isDark,
   });
 }

@@ -186,6 +186,7 @@ class UpStyle {
   final Color? circularProgressBarColor;
   final FontWeight? textWeight;
   final FontStyle? textFontStyle;
+  final String? textFontFamily;
   final double? heading1Size;
   final double? heading2Size;
   final double? heading3Size;
@@ -280,6 +281,7 @@ class UpStyle {
     this.textSize,
     this.textWeight,
     this.textFontStyle,
+    this.textFontFamily,
     this.heading1Weight,
     this.heading2Weight,
     this.heading3Weight,
@@ -477,6 +479,7 @@ class UpStyle {
       textSize: override.textSize ?? textSize,
       textWeight: override.textWeight ?? textWeight,
       textFontStyle: override.textFontStyle ?? textFontStyle,
+      textFontFamily: override.textFontFamily ?? textFontFamily,
 
       // Table
       tableBorderColor: override.tableBorderColor ?? tableBorderColor,
@@ -1406,7 +1409,7 @@ class UpStyle {
         style?.buttonTextWeight ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .buttonTextWeight ??
-        FontWeight.bold;
+        FontWeight.normal;
   }
 
   static Color getButtonHoverBackgroundColor(
@@ -2869,6 +2872,17 @@ class UpStyle {
     return override?.textFontStyle ??
         style?.textFontStyle ??
         getStyleByType(UpConfig.of(context).theme, colorType).textFontStyle;
+  }
+
+  static String? getTextFontFamily(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.textFontFamily ??
+        style?.textFontFamily ??
+        getStyleByType(UpConfig.of(context).theme, colorType).textFontFamily;
   }
 
   static FontWeight? getTextFontWeight(

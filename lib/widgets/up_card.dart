@@ -105,16 +105,35 @@ class UpCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: UpStyle.getCardBodyColor(context,
                       style: style, colorType: colorType),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                      UpStyle.getCardRadius(context,
-                          style: style, colorType: colorType),
-                    ),
-                    bottomRight: Radius.circular(
-                      UpStyle.getCardRadius(context,
-                          style: style, colorType: colorType),
-                    ),
-                  ),
+                  borderRadius: header != null
+                      ? BorderRadius.only(
+                          bottomLeft: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                          bottomRight: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                        )
+                      : BorderRadius.only(
+                          bottomLeft: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                          bottomRight: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                          topLeft: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                          topRight: Radius.circular(
+                            UpStyle.getCardRadius(context,
+                                style: style, colorType: colorType),
+                          ),
+                        ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(

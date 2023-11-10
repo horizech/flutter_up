@@ -339,6 +339,7 @@ class UpThemes {
     Color? successColor,
   }) {
     return generateThemeByMaterial(
+      isDark: isDark ? true : false,
       baseColor: isDark
           ? generateLighterMaterialColor(baseColor)
           : generateDarkerMaterialColor(baseColor),
@@ -370,6 +371,7 @@ class UpThemes {
     MaterialColor? successColor,
   }) {
     UpThemeData theme = UpThemeData(
+      isDark: isDark,
       baseColor: baseColor,
       primaryColor: primaryColor,
       secondaryColor: secondaryColor,

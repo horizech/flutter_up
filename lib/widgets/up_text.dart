@@ -65,6 +65,11 @@ class UpText extends StatelessWidget {
                         style: style,
                         colorType: colorType,
                       ),
+                    fontFamily: UpStyle.getTextFontFamily(
+                      context,
+                      style: style,
+                      colorType: colorType,
+                    ),
                   ),
                 ),
                 SelectableText(
@@ -103,6 +108,11 @@ class UpText extends StatelessWidget {
                       colorType: colorType,
                       textType: type,
                     ),
+                    fontFamily: UpStyle.getTextFontFamily(
+                      context,
+                      style: style,
+                      colorType: colorType,
+                    ),
                   ),
                 )
               ],
@@ -130,6 +140,11 @@ class UpText extends StatelessWidget {
                       context,
                       style: style,
                       textType: type,
+                      colorType: colorType,
+                    ),
+                    fontFamily: UpStyle.getTextFontFamily(
+                      context,
+                      style: style,
                       colorType: colorType,
                     ),
                     fontSize: UpStyle.getTextSize(
@@ -188,6 +203,11 @@ class UpText extends StatelessWidget {
                       style: style,
                       colorType: colorType,
                       textType: type,
+                    ),
+                    fontFamily: UpStyle.getTextFontFamily(
+                      context,
+                      style: style,
+                      colorType: colorType,
                     ),
                   ),
                 )
