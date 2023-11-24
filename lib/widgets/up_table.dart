@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/models/up_row.dart';
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/widgets/up_text.dart';
 
 class UpTable extends StatefulWidget {
   final UpColorType? colorType;
@@ -11,17 +12,18 @@ class UpTable extends StatefulWidget {
   final bool isLastRowFooter;
   final bool showCheckboxColumn;
   final Function? onSelectChanged;
+  final MaterialStateProperty<MouseCursor?>? mouseCursor;
 
-  const UpTable({
-    super.key,
-    this.showCheckboxColumn = false,
-    this.isLastRowFooter = false,
-    this.colorType,
-    required this.columns,
-    this.style,
-    this.onSelectChanged,
-    required this.rows,
-  });
+  const UpTable(
+      {super.key,
+      this.showCheckboxColumn = false,
+      this.isLastRowFooter = false,
+      this.colorType,
+      required this.columns,
+      this.style,
+      this.onSelectChanged,
+      required this.rows,
+      this.mouseCursor});
 
   @override
   State<UpTable> createState() => _UpTableState();
@@ -88,29 +90,33 @@ class _UpTableState extends State<UpTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          style: BorderStyle.solid,
-          color: UpStyle.getTableBorderColor(context,
-              style: widget.style, colorType: widget.colorType),
-          width: UpStyle.getButtonBorderWidth(context,
-              style: widget.style, colorType: widget.colorType),
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            UpStyle.getButtonBorderRadius(
-              context,
-              style: widget.style,
-              colorType: widget.colorType,
-            ),
-          ), //                 <--- border radius here
-        ),
-      ),
+    return SizedBox(
       child: DataTable(
+        dividerThickness: 0,
         columnSpacing: 5,
         horizontalMargin: 10,
         showCheckboxColumn: widget.showCheckboxColumn,
+        headingRowHeight: UpStyle.getTableHeadingRowHeight(context,
+            style: widget.style, colorType: widget.colorType),
+        dataRowMaxHeight: UpStyle.getTableRowHeight(context,
+            style: widget.style, colorType: widget.colorType),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: UpStyle.getTableBorderColor(context,
+                style: widget.style, colorType: widget.colorType),
+            width: UpStyle.getButtonBorderWidth(context,
+                style: widget.style, colorType: widget.colorType),
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              UpStyle.getButtonBorderRadius(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+            ), //                 <--- border radius here
+          ),
+        ),
         dataRowColor: MaterialStateColor.resolveWith(
           ((states) => (getDataRowColor(
                 states,
@@ -126,14 +132,15 @@ class _UpTableState extends State<UpTable> {
         columns: <DataColumn>[
           ...widget.columns.map(
             (e) => DataColumn(
-              label: Text(
+              label: UpText(
                 e,
-                style: TextStyle(
-                    color: UpStyle.getTableHeaderTextColor(
-                  context,
-                  style: widget.style,
-                  colorType: widget.colorType,
-                )),
+                style: UpStyle(
+                  textColor: UpStyle.getTableHeaderTextColor(
+                    context,
+                    style: widget.style,
+                    colorType: widget.colorType,
+                  ),
+                ),
               ),
             ),
           )
@@ -141,6 +148,7 @@ class _UpTableState extends State<UpTable> {
         rows: <DataRow>[
           ...widget.rows.asMap().entries.map(
                 (e) => DataRow(
+                  mouseCursor: widget.mouseCursor,
                   color:
                       widget.isLastRowFooter && e.key == widget.rows.length - 1
                           ? MaterialStateColor.resolveWith(_getFooterRowColor)

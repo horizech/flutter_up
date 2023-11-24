@@ -286,8 +286,6 @@ class UpThemes {
         // card
         cardHeaderColor: baseColor.shade200,
         cardRadius: 3,
-        cardWidth: 300,
-        cardHeight: 300,
         cardBodyColor: baseColor.shade50,
 
         // drawer

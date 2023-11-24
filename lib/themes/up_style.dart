@@ -40,6 +40,7 @@ class UpStyle {
 
   // Table
   final Color? tableHeaderTextColor;
+  final double? tableHeaderTextSize;
   final Color? tableHeaderColor;
   final Color? tableRowColor;
   final Color? tableRowPressedColor;
@@ -48,6 +49,8 @@ class UpStyle {
   final Color? tableRowHoverColor;
   final Color? tableFooterColor;
   final Color? tableFooterTextColor;
+  final double? tableHeadingRowHeight;
+  final double? tableRowHeight;
 
   // Toast
   final Color? toastBackgroundColor;
@@ -214,8 +217,14 @@ class UpStyle {
   // card
   final double? cardHeight;
   final double? cardWidth;
+  final Color? cardColor;
+
   final Color? cardHeaderColor;
   final Color? cardBodyColor;
+  final Gradient? cardGradient;
+
+  final Gradient? cardHeaderGradient;
+  final Gradient? cardBodyGradient;
 
   final double? cardRadius;
   final BoxShape? cardShape;
@@ -300,6 +309,9 @@ class UpStyle {
     this.tableFooterColor,
     this.tableHeaderTextColor,
     this.tableFooterTextColor,
+    this.tableHeaderTextSize,
+    this.tableHeadingRowHeight,
+    this.tableRowHeight,
 
     // Appbar
     this.appBarColor,
@@ -428,6 +440,10 @@ class UpStyle {
     this.cardHeight,
     this.cardWidth,
     this.cardHeaderColor,
+    this.cardHeaderGradient,
+    this.cardColor,
+    this.cardGradient,
+    this.cardBodyGradient,
     this.cardRadius,
     this.cardShape,
     this.cardBodyColor,
@@ -814,6 +830,29 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .tableFooterTextColor ??
         Colors.white;
+  }
+
+  static double? getTableHeadingRowHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeadingRowHeight ??
+        style?.tableHeadingRowHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .tableHeadingRowHeight;
+  }
+
+  static double? getTableRowHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowHeight ??
+        style?.tableRowHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableRowHeight;
   }
 
   static Color getTableRowHoverColor(
@@ -3191,7 +3230,7 @@ class UpStyle {
   }
 
   // card
-  static double getCardHeight(
+  static double? getCardHeight(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
@@ -3199,8 +3238,7 @@ class UpStyle {
   }) {
     return override?.cardHeight ??
         style?.cardHeight ??
-        getStyleByType(UpConfig.of(context).theme, colorType).cardHeight ??
-        UpConstants.kDefaultStyleCardHeight;
+        getStyleByType(UpConfig.of(context).theme, colorType).cardHeight;
   }
 
   static Border? getCardBorder(
@@ -3214,7 +3252,7 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType).cardBorder;
   }
 
-  static double getCardWidth(
+  static double? getCardWidth(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
@@ -3222,8 +3260,7 @@ class UpStyle {
   }) {
     return override?.cardWidth ??
         style?.cardWidth ??
-        getStyleByType(UpConfig.of(context).theme, colorType).cardWidth ??
-        UpConstants.kDefaultStyleCardWidth;
+        getStyleByType(UpConfig.of(context).theme, colorType).cardWidth;
   }
 
   static double getCardRadius(
@@ -3260,6 +3297,52 @@ class UpStyle {
         style?.cardHeaderColor ??
         getStyleByType(UpConfig.of(context).theme, colorType).cardHeaderColor ??
         Theme.of(context).primaryColor;
+  }
+
+  static Color getCardColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardColor ??
+        style?.cardColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardColor ??
+        Colors.transparent;
+  }
+
+  static Gradient? getCardHeaderGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardHeaderGradient ??
+        style?.cardHeaderGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .cardHeaderGradient;
+  }
+
+  static Gradient? getCardGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardGradient ??
+        style?.cardGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardGradient;
+  }
+
+  static Gradient? getCardBodyGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.cardBodyGradient ??
+        style?.cardBodyGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType).cardBodyGradient;
   }
 
   // drawer
