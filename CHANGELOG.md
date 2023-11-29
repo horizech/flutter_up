@@ -1,7 +1,7 @@
-## Unreleased version
+## 3.0.6
 
-- Update UpTable
-- Updated UpCard
+- Update UpTable theme
+- Updated UpCard theme
 
 ## 3.0.5
 
