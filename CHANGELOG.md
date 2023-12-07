@@ -1,3 +1,13 @@
+## 3.0.7
+
+- Added UpDateTimePicker
+- Added UpDatePicker
+- Added UpTimePicker
+- Added UpRichTextEditor
+- Added UpRichTextEditorController
+- Added UpRichTextEditorHelper
+- Added path in UpDrawerItem
+
 ## 3.0.6
 
 - Update UpTable theme
