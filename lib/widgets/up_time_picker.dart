@@ -32,8 +32,6 @@ class UpTimePicker extends StatelessWidget {
 
       if (pickedTime != null) {
         controller.text = "${pickedTime.hour}:${pickedTime.minute}";
-      } else {
-        controller.text = "";
       }
     }
 

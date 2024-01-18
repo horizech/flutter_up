@@ -31,6 +31,7 @@ class UpRoute {
               context,
               UpRouterState(
                 params: state.params,
+                extra: state.extra,
                 queryParametersAll: state.queryParametersAll,
                 queryParams: state.queryParams,
               ),

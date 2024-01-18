@@ -53,8 +53,6 @@ class UpDateTimePicker extends StatelessWidget {
         }
 
         controller.text = pickedDate.toString();
-      } else {
-        controller.text = "";
       }
     }
 

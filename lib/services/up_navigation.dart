@@ -10,56 +10,23 @@ class UpNavigationService {
     bool replace = false,
     Map<String, String>? params,
     Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? extra,
   }) {
     if (navigatorKey.currentContext != null) {
       if (replace) {
-        if (params != null && queryParams != null) {
-          navigatorKey.currentContext!.goNamed(
-            routeName,
-            params: params,
-            queryParams: queryParams,
-          );
-        } else {
-          if (params != null) {
-            (navigatorKey.currentContext!).goNamed(
-              routeName,
-              params: params,
-            );
-          } else if (queryParams != null) {
-            (navigatorKey.currentContext!).goNamed(
-              routeName,
-              queryParams: queryParams,
-            );
-          } else {
-            navigatorKey.currentContext!.goNamed(
-              routeName,
-            );
-          }
-        }
+        navigatorKey.currentContext!.goNamed(
+          routeName,
+          extra: extra ?? {},
+          params: params ?? {},
+          queryParams: queryParams ?? {},
+        );
       } else {
-        if (params != null && queryParams != null) {
-          (navigatorKey.currentContext!).goNamed(
-            routeName,
-            params: params,
-            queryParams: queryParams,
-          );
-        } else {
-          if (params != null) {
-            (navigatorKey.currentContext!).goNamed(
-              routeName,
-              params: params,
-            );
-          } else if (queryParams != null) {
-            (navigatorKey.currentContext!).goNamed(
-              routeName,
-              queryParams: queryParams,
-            );
-          } else {
-            (navigatorKey.currentContext!).goNamed(
-              routeName,
-            );
-          }
-        }
+        (navigatorKey.currentContext!).goNamed(
+          routeName,
+          params: params ?? {},
+          queryParams: queryParams ?? {},
+          extra: extra ?? {},
+        );
       }
     }
   }

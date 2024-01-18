@@ -38,6 +38,8 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
     controller.addListener(() {
       widget.controller.text =
           UpRichTextEditorHelper.convertQuillToString(controller);
+      widget.controller.plainText =
+          UpRichTextEditorHelper.convertQuillToPlainString(controller);
     });
   }
 

@@ -48,8 +48,6 @@ class UpDatePicker extends StatelessWidget {
         if (onChange != null) {
           onChange!(pickedDate);
         }
-      } else {
-        controller.text = "";
       }
     }
 

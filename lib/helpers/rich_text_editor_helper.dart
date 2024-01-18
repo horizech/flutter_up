@@ -28,4 +28,8 @@ class UpRichTextEditorHelper {
   static String convertQuillToString(QuillController controller) {
     return jsonEncode(controller.document.toDelta().toJson());
   }
+
+  static String convertQuillToPlainString(QuillController controller) {
+    return controller.document.toPlainText();
+  }
 }
