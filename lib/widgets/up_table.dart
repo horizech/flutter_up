@@ -3,10 +3,7 @@ import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/models/up_row.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/themes/up_themes.dart';
-import 'package:flutter_up/widgets/up_icon.dart';
 import 'package:flutter_up/widgets/up_text.dart';
-import 'package:data_table_2/data_table_2.dart';
 
 class UpTable extends StatefulWidget {
   final UpColorType? colorType;

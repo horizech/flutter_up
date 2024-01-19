@@ -32,4 +32,10 @@ class UpRichTextEditorHelper {
   static String convertQuillToPlainString(QuillController controller) {
     return controller.document.toPlainText();
   }
+
+  static String convertDeltaTextToPlainText(String text) {
+    QuillController controller =
+        UpRichTextEditorHelper.convertStringToQuill(text);
+    return controller.document.toPlainText();
+  }
 }
