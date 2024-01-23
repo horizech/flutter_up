@@ -1,3 +1,9 @@
+## 3.0.8
+
+- Updated UpDateTimePicker
+- Added delta to plain text function in UpRichTextEditorHelper
+- Add sorting in UpTable
+
 ## 3.0.7
 
 - Added UpDateTimePicker
@@ -7,7 +13,6 @@
 - Added UpRichTextEditorController
 - Added UpRichTextEditorHelper
 - Added path in UpDrawerItem
-- Updated UpTable
 
 ## 3.0.6
 
