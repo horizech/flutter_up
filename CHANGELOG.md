@@ -7,6 +7,7 @@
 - Added UpRichTextEditorController
 - Added UpRichTextEditorHelper
 - Added path in UpDrawerItem
+- Updated UpTable
 
 ## 3.0.6
 
