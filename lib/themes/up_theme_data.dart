@@ -40,4 +40,33 @@ class UpThemeData {
     this.basicStyle,
     required this.isDark,
   });
+  UpThemeData updateStyle({
+    UpStyle? primaryStyle,
+    UpStyle? secondaryStyle,
+    UpStyle? tertiaryStyle,
+    UpStyle? warnStyle,
+    UpStyle? linkStyle,
+    UpStyle? successStyle,
+    UpStyle? basicStyle,
+  }) {
+    if (primaryStyle != null) {
+      this.primaryStyle = primaryStyle;
+    }
+    if (basicStyle != null) {
+      this.basicStyle = basicStyle;
+    }
+    if (secondaryStyle != null) {
+      this.secondaryStyle = secondaryStyle;
+    }
+    if (tertiaryStyle != null) {
+      this.tertiaryStyle = tertiaryStyle;
+    }
+    if (warnStyle != null) {
+      this.warnStyle = warnStyle;
+    }
+    if (successStyle != null) {
+      this.successStyle = successStyle;
+    }
+    return this;
+  }
 }

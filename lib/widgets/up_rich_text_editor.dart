@@ -5,7 +5,6 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/helpers/rich_text_editor_helper.dart';
 import 'package:flutter_up/controller/up_rich_text_editor_controller.dart';
-import 'package:flutter_up/themes/up_themes.dart';
 
 class UpRichTextEditor extends StatefulWidget {
   final bool readOnly;
@@ -59,28 +58,45 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
       }
     }
     QuillIconTheme iconTheme = QuillIconTheme(
-      iconSelectedFillColor: UpConfig.of(context).theme.primaryColor,
-      iconUnselectedFillColor:
+      iconButtonSelectedStyle: ButtonStyle(
+        iconColor: MaterialStateProperty.all<Color>(
+          UpConfig.of(context).theme.primaryColor,
+        ),
+        surfaceTintColor: MaterialStateProperty.all<Color>(
+          Colors.blue,
+        ),
+        overlayColor: MaterialStateProperty.all<Color>(
+          Colors.limeAccent,
+        ),
+        backgroundColor: MaterialStateProperty.all<Color>(
           UpConfig.of(context).theme.basicStyle?.buttonBackgroundColor ??
               Colors.transparent,
-      iconUnselectedColor: UpThemes.getContrastColor(
-          UpConfig.of(context).theme.basicStyle?.buttonBackgroundColor ??
-              Colors.transparent),
-      iconSelectedColor: UpThemes.getContrastColor(
-        UpConfig.of(context).theme.primaryColor,
+        ),
       ),
+      iconButtonSelectedData: IconButtonData(
+        color: UpConfig.of(context).theme.primaryColor,
+        disabledColor: Colors.grey,
+        iconSize: 12,
+      ),
+      iconButtonUnselectedData: IconButtonData(
+        color: UpConfig.of(context).theme.baseColor.shade900,
+        disabledColor: Colors.grey,
+        iconSize: 12,
+      ),
+      iconButtonUnselectedStyle: const ButtonStyle(),
     );
     return SizedBox(
-      child: QuillProvider(
-        configurations: QuillConfigurations(
+      child: QuillEditorProvider(
+        editorConfigurations: QuillEditorConfigurations(
           controller: controller,
           sharedConfigurations: QuillSharedConfigurations(
             dialogTheme: QuillDialogTheme(
               dialogBackgroundColor:
                   UpConfig.of(context).theme.baseColor.shade100,
               inputTextStyle: TextStyle(
-                color: UpConfig.of(context).theme.baseColor.shade600,
-                backgroundColor: UpConfig.of(context).theme.baseColor.shade100,
+                color: UpConfig.of(context).theme.baseColor.shade900,
+
+                // backgroundColor: UpConfig.of(context).theme.baseColor.shade100,
               ),
             ),
           ),
@@ -90,189 +106,354 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Visibility(
-              visible: widget.readOnly == false,
-              child: QuillToolbarProvider(
-                  toolbarConfigurations: QuillToolbarConfigurations(
-                    embedButtons: FlutterQuillEmbeds.toolbarButtons(),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                visible: widget.readOnly == false,
+                child: QuillToolbar(
+                  // toolbarConfigurations: const QuillToolbarConfigurations(
+                  // buttonOptions: QuillSimpleToolbarButtonOptions(),
+                  // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(5.0),
+                  // ),
+                  // ),
+                  // configurations: const QuillToolbarConfigurations(
+                  //   buttonOptions: QuillSimpleToolbarButtonOptions(
+                  //       undoHistory: QuillToolbarHistoryButtonOptions()),
+                  // ),
+                  child: Wrap(
+                    children: [
+                      QuillToolbarHistoryButton(
+                        controller: controller,
+                        isUndo: true,
+                        options: QuillToolbarHistoryButtonOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarHistoryButton(
+                        controller: controller,
+                        isUndo: false,
+                        options: QuillToolbarHistoryButtonOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+
+                      QuillToolbarFontSizeButton(
+                          options: QuillToolbarFontSizeButtonOptions(
+                            defaultItemColor:
+                                UpConfig.of(context).theme.baseColor.shade900,
+                          ),
+                          controller: controller),
+                      QuillToolbarFontFamilyButton(
+                          options: QuillToolbarFontFamilyButtonOptions(
+                            iconTheme: iconTheme,
+                          ),
+                          controller: controller),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.bold,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_bold,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.italic,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_italic,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.underline,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_underline,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarClearFormatButton(
+                        controller: controller,
+                        options: QuillToolbarClearFormatButtonOptions(
+                          iconData: Icons.format_clear,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarSelectHeaderStyleButtons(
+                        controller: controller,
+                        options: QuillToolbarSelectHeaderStyleButtonsOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.ol,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_list_numbered,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.ul,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_list_bulleted,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarToggleStyleButton(
+                        attribute: Attribute.blockQuote,
+                        controller: controller,
+                        options: QuillToolbarToggleStyleButtonOptions(
+                          iconData: Icons.format_quote,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+
+                      QuillToolbarIndentButton(
+                          controller: controller,
+                          isIncrease: true,
+                          options: QuillToolbarIndentButtonOptions(
+                            iconData: Icons.format_indent_increase,
+                            iconTheme: iconTheme,
+                          )),
+                      QuillToolbarIndentButton(
+                        controller: controller,
+                        isIncrease: false,
+                        options: QuillToolbarIndentButtonOptions(
+                          iconData: Icons.format_indent_decrease,
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarColorButton(
+                        controller: controller,
+                        isBackground: false,
+                        options: QuillToolbarColorButtonOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarColorButton(
+                        controller: controller,
+                        isBackground: true,
+                        options: QuillToolbarColorButtonOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarLinkStyleButton(
+                        controller: controller,
+                        options: QuillToolbarLinkStyleButtonOptions(
+                          iconTheme: iconTheme,
+                        ),
+                      ),
+                      QuillToolbarSearchButton(
+                        controller: controller,
+                        options: QuillToolbarSearchButtonOptions(
+                          iconTheme: iconTheme,
+                          dialogTheme: QuillDialogTheme(
+                            dialogBackgroundColor:
+                                UpConfig.of(context).theme.baseColor.shade100,
+                            inputTextStyle: TextStyle(
+                              color:
+                                  UpConfig.of(context).theme.baseColor.shade600,
+                              backgroundColor:
+                                  UpConfig.of(context).theme.baseColor.shade100,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      QuillToolbarImageButton(
+                          controller: controller,
+                          options: QuillToolbarImageButtonOptions(
+                            iconTheme: iconTheme,
+                          )),
+                      // QuillToolbarCameraButton(
+                      //   controller: controller,
+                      //   options: QuillToolbarCameraButtonOptions(
+                      //     iconTheme: iconTheme,
+                      //   ),
+                      // ),
+                    ],
                   ),
-                  child: QuillBaseToolbar(
-                    configurations: QuillBaseToolbarConfigurations(
-                      toolbarIconAlignment: WrapAlignment.start,
-                      toolbarIconCrossAlignment: WrapCrossAlignment.start,
-                      multiRowsDisplay: true,
-                      childrenBuilder: (context) {
-                        final controller = context.requireQuillController;
-                        return [
-                          QuillToolbarHistoryButton(
-                            controller: controller,
-                            options: QuillToolbarHistoryButtonOptions(
-                              iconTheme: iconTheme,
-                              isUndo: true,
-                            ),
-                          ),
-                          QuillToolbarHistoryButton(
-                            controller: controller,
-                            options: QuillToolbarHistoryButtonOptions(
-                              isUndo: false,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
+                  // QuillSimpleToolbar(
+                  //   configurations: QuillSimpleToolbarConfigurations(
+                  //     toolbarIconAlignment: WrapAlignment.start,
+                  //     toolbarIconCrossAlignment: WrapCrossAlignment.start,
+                  //     multiRowsDisplay: true,
+                  //     controller: controller,
+                  // buttonOptions: const QuillSimpleToolbarButtonOptions(),
 
-                          QuillToolbarFontSizeButton(
-                              options: QuillToolbarFontSizeButtonOptions(
-                                iconTheme: iconTheme,
-                              ),
-                              controller: controller),
-                          QuillToolbarFontFamilyButton(
-                              options: QuillToolbarFontFamilyButtonOptions(
-                                iconTheme: iconTheme,
-                              ),
-                              controller: controller),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.bold,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_bold,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.italic,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_italic,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.underline,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_underline,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarClearFormatButton(
-                            controller: controller,
-                            options: QuillToolbarClearFormatButtonOptions(
-                              iconData: Icons.format_clear,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarSelectHeaderStyleButtons(
-                            controller: controller,
-                            options:
-                                QuillToolbarSelectHeaderStyleButtonsOptions(
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.ol,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_list_numbered,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.ul,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_list_bulleted,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarToggleStyleButton(
-                            attribute: Attribute.blockQuote,
-                            controller: controller,
-                            options: QuillToolbarToggleStyleButtonOptions(
-                              iconData: Icons.format_quote,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
+                  // childrenBuilder: (context) {
+                  //   final controller = context.requireQuillController;
+                  //   return [
+                  //     QuillToolbarHistoryButton(
+                  //       controller: controller,
+                  //       isUndo: true,
+                  //       options: QuillToolbarHistoryButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarHistoryButton(
+                  //       controller: controller,
+                  //       isUndo: false,
+                  //       options: QuillToolbarHistoryButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
 
-                          QuillToolbarIndentButton(
-                              controller: controller,
-                              isIncrease: true,
-                              options: QuillToolbarIndentButtonOptions(
-                                iconData: Icons.format_indent_increase,
-                                iconTheme: iconTheme,
-                              )),
-                          QuillToolbarIndentButton(
-                            controller: controller,
-                            isIncrease: false,
-                            options: QuillToolbarIndentButtonOptions(
-                              iconData: Icons.format_indent_decrease,
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarColorButton(
-                            controller: controller,
-                            isBackground: false,
-                            options: QuillToolbarColorButtonOptions(
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarColorButton(
-                            controller: controller,
-                            isBackground: true,
-                            options: QuillToolbarColorButtonOptions(
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarLinkStyleButton(
-                            controller: controller,
-                            options: QuillToolbarLinkStyleButtonOptions(
-                              iconTheme: iconTheme,
-                            ),
-                          ),
-                          QuillToolbarSearchButton(
-                            controller: controller,
-                            options: QuillToolbarSearchButtonOptions(
-                              iconTheme: iconTheme,
-                              dialogTheme: QuillDialogTheme(
-                                dialogBackgroundColor: UpConfig.of(context)
-                                    .theme
-                                    .baseColor
-                                    .shade100,
-                                inputTextStyle: TextStyle(
-                                  color: UpConfig.of(context)
-                                      .theme
-                                      .baseColor
-                                      .shade600,
-                                  backgroundColor: UpConfig.of(context)
-                                      .theme
-                                      .baseColor
-                                      .shade100,
-                                ),
-                              ),
-                            ),
-                          ),
+                  //     QuillToolbarFontSizeButton(
+                  //         options: const QuillToolbarFontSizeButtonOptions(
 
-                          QuillToolbarImageButton(
-                              controller: controller,
-                              options: QuillToolbarImageButtonOptions(
-                                iconTheme: iconTheme,
-                              )),
-                          // QuillToolbarCameraButton(
-                          //   controller: controller,
-                          //   options: QuillToolbarCameraButtonOptions(
-                          //     iconTheme: iconTheme,
-                          //   ),
-                          // ),
-                          // QuillToolbarVideoButton(
-                          //     options: QuillToolbarVideoButtonOptions(
-                          //       iconTheme: iconTheme,
-                          //     ),
-                          //     controller: controller),
-                        ];
-                      },
-                    ),
-                  )),
-            ),
+                  //             // iconTheme: iconTheme,
+                  //             ),
+                  //         controller: controller),
+                  //     QuillToolbarFontFamilyButton(
+                  //         options: QuillToolbarFontFamilyButtonOptions(
+                  //           iconTheme: iconTheme,
+                  //         ),
+                  //         controller: controller),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.bold,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_bold,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.italic,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_italic,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.underline,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_underline,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarClearFormatButton(
+                  //       controller: controller,
+                  //       options: QuillToolbarClearFormatButtonOptions(
+                  //         iconData: Icons.format_clear,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarSelectHeaderStyleButtons(
+                  //       controller: controller,
+                  //       options:
+                  //           QuillToolbarSelectHeaderStyleButtonsOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.ol,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_list_numbered,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.ul,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_list_bulleted,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarToggleStyleButton(
+                  //       attribute: Attribute.blockQuote,
+                  //       controller: controller,
+                  //       options: QuillToolbarToggleStyleButtonOptions(
+                  //         iconData: Icons.format_quote,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+
+                  //     QuillToolbarIndentButton(
+                  //         controller: controller,
+                  //         isIncrease: true,
+                  //         options: QuillToolbarIndentButtonOptions(
+                  //           iconData: Icons.format_indent_increase,
+                  //           iconTheme: iconTheme,
+                  //         )),
+                  //     QuillToolbarIndentButton(
+                  //       controller: controller,
+                  //       isIncrease: false,
+                  //       options: QuillToolbarIndentButtonOptions(
+                  //         iconData: Icons.format_indent_decrease,
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarColorButton(
+                  //       controller: controller,
+                  //       isBackground: false,
+                  //       options: QuillToolbarColorButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarColorButton(
+                  //       controller: controller,
+                  //       isBackground: true,
+                  //       options: QuillToolbarColorButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarLinkStyleButton(
+                  //       controller: controller,
+                  //       options: QuillToolbarLinkStyleButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //       ),
+                  //     ),
+                  //     QuillToolbarSearchButton(
+                  //       controller: controller,
+                  //       options: QuillToolbarSearchButtonOptions(
+                  //         iconTheme: iconTheme,
+                  //         dialogTheme: QuillDialogTheme(
+                  //           dialogBackgroundColor: UpConfig.of(context)
+                  //               .theme
+                  //               .baseColor
+                  //               .shade100,
+                  //           inputTextStyle: TextStyle(
+                  //             color: UpConfig.of(context)
+                  //                 .theme
+                  //                 .baseColor
+                  //                 .shade600,
+                  //             backgroundColor: UpConfig.of(context)
+                  //                 .theme
+                  //                 .baseColor
+                  //                 .shade100,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+
+                  //     QuillToolbarImageButton(
+                  //         controller: controller,
+                  //         options: QuillToolbarImageButtonOptions(
+                  //           iconTheme: iconTheme,
+                  //         )),
+                  //     // QuillToolbarCameraButton(
+                  //     //   controller: controller,
+                  //     //   options: QuillToolbarCameraButtonOptions(
+                  //     //     iconTheme: iconTheme,
+                  //     //   ),
+                  //     // ),
+                  //     // QuillToolbarVideoButton(
+                  //     //     options: QuillToolbarVideoButtonOptions(
+                  //     //       iconTheme: iconTheme,
+                  //     //     ),
+                  //     //     controller: controller),
+                  //   ];
+
+                  // },
+                  // ),
+                  // )),)
+                )),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Container(
@@ -284,8 +465,9 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
                   focusNode: FocusNode(),
                   scrollController: ScrollController(),
                   configurations: QuillEditorConfigurations(
+                    controller: controller,
                     embedBuilders: kIsWeb
-                        ? FlutterQuillEmbeds.editorsWebBuilders()
+                        ? FlutterQuillEmbeds.editorWebBuilders()
                         : FlutterQuillEmbeds.editorBuilders(),
                     readOnly: widget.readOnly,
                     scrollable: true,

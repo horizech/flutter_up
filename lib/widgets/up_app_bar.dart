@@ -36,12 +36,52 @@ class _UpAppBarState extends State<UpAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      shape: UpStyle.getAppBarShape(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      foregroundColor: UpStyle.getAppBarForegroundColor(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      shadowColor: UpStyle.getAppBarShadowColor(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      surfaceTintColor: UpStyle.getAppBarSurfaceTintColor(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
       iconTheme: IconThemeData(
         color: UpStyle.getIconColor(
           context,
           style: widget.style,
           colorType: widget.colorType,
         ),
+      ),
+      bottomOpacity: UpStyle.getAppBarBottomOpacity(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      systemOverlayStyle: UpStyle.getAppBarSystemOverlayStyle(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      actionsIconTheme: UpStyle.getAppBarActionsIconTheme(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
+      ),
+      elevation: UpStyle.getAppBarElevation(
+        context,
+        style: widget.style,
+        colorType: widget.colorType,
       ),
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       excludeHeaderSemantics: widget.excludeHeaderSemantics,

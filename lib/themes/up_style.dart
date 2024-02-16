@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_up/config/up_config.dart';
 import 'package:flutter_up/contants.dart';
 import 'package:flutter_up/enums/text_style.dart';
@@ -19,7 +20,6 @@ class UpStyle {
   final Color? borderColor;
   final double? borderRadius;
   final double? borderWidth;
-  final Color? dialogBackgroundColor;
   final Color? foregroundColor;
   final Color? hoverBackgroundColor;
   final Color? hoveredBorderColor;
@@ -36,11 +36,34 @@ class UpStyle {
 
   // drawer
   final Color? drawerHeaderColor;
-  final Color? drawerBodyColor;
+  final Color? drawerColor;
+  final Color? drawerSurfaceTintColor;
+  final Color? drawerShadowColor;
+  final ShapeBorder? drawerShapeBorder;
+  final Gradient? drawerGradient;
+
+  // alert dialog
+
+  final Color? alertDialogBackgroundColor;
+  final Color? alertDialogSurfaceTintColor;
+  final Color? alertDialogShadowColor;
+  final Color? alertDialogIconColor;
+  final TextStyle? alertDialogTitleTextstyle;
+  final TextStyle? alertDialogContentTextStyle;
+  final EdgeInsetsGeometry? alertDialogActionsPadding;
+  final EdgeInsetsGeometry? alertDialogTitlePadding;
+  final EdgeInsetsGeometry? alertDialogContentPadding;
+  final EdgeInsetsGeometry? alertDialogIconPadding;
+  final EdgeInsetsGeometry? alertDialogButtonPadding;
+  final EdgeInsets? alertDialogInsetPadding;
+  final ShapeBorder? alertDialogShapeBorder;
 
   // Table
   final Color? tableHeaderTextColor;
+  final double? tableBorderRadius;
+
   final double? tableHeaderTextSize;
+  final FontWeight? tableHeaderTextWeight;
   final Color? tableHeaderColor;
   final Color? tableRowColor;
   final Color? tableRowPressedColor;
@@ -49,6 +72,8 @@ class UpStyle {
   final Color? tableRowHoverColor;
   final Color? tableFooterColor;
   final Color? tableFooterTextColor;
+  final Color? tableRowDividerColor;
+
   final double? tableHeadingRowHeight;
   final double? tableRowHeight;
 
@@ -90,6 +115,14 @@ class UpStyle {
   // Appbar
   final Color? appBarColor;
   final Color? appBarTitleColor;
+  final Color? appBarSurfaceTintColor;
+  final Color? appBarShadowColor;
+  final Color? appBarForgroundColor;
+  final ShapeBorder? appBarShape;
+  final double? appBarBottomOpacity;
+  final double? appBarElevation;
+  final IconThemeData? appBarActionsIconTheme;
+  final SystemUiOverlayStyle? appBarSystemOverlayStyle;
   final double? appBarTitleSize;
   final double? appBarHeight;
 
@@ -101,6 +134,7 @@ class UpStyle {
   final Color? expansionTileTextColor;
   final Color? expansionTileBackgroundColor;
   final Color? expansionTileCollapsedBackgroundColor;
+  final Color? expansionTileDividerColor;
 
   // Checkbox
   final Color? checkboxBackgroundColor;
@@ -134,22 +168,17 @@ class UpStyle {
   final double? textfieldBorderWidth;
   final double? textfieldBorderRadius;
   final double? textfieldHintSize;
-
   final Color? textfieldFocusedBorderColor;
   final Color? textfieldHintColor;
-
   final Color? textfieldBorderColor;
   final Color? textfieldErrorBorderColor;
   final Color? textfieldLabelColor;
   final Color? textfieldLabelFocusedColor;
-
   final double? textfieldLabelSize;
   final double? textfieldFocusedLabelSize;
-
   final Color? textfieldCursorColor;
   final Color? textfieldFilledColor;
   final Color? textfieldFocusedFilledColor;
-
   final Color? textfieldTextColor;
 
   // Dropdown
@@ -228,8 +257,8 @@ class UpStyle {
 
   final double? cardRadius;
   final BoxShape? cardShape;
-  final bool cardHeaderPadding;
-  final bool cardBodyPadding;
+  final bool? cardHeaderPadding;
+  final bool? cardBodyPadding;
   final Border? cardBorder;
 
   // code
@@ -245,12 +274,16 @@ class UpStyle {
     this.codeTextColor,
 
     //drawer
-    this.drawerBodyColor,
+    this.drawerColor,
     this.drawerHeaderColor,
+    this.drawerSurfaceTintColor,
+    this.drawerShadowColor,
+    this.drawerShapeBorder,
+    this.drawerGradient,
 
     // General
     this.backgroundColor,
-    this.dialogBackgroundColor,
+    // this.dialogBackgroundColor,
     this.circularProgressBarColor,
     this.borderColor,
     this.iconColor,
@@ -268,6 +301,21 @@ class UpStyle {
     this.disabledBorderColor,
     this.disabledBackgroundColor,
     this.disabledForgroundColor,
+
+    // alert dialog
+    this.alertDialogActionsPadding,
+    this.alertDialogBackgroundColor,
+    this.alertDialogButtonPadding,
+    this.alertDialogContentPadding,
+    this.alertDialogContentTextStyle,
+    this.alertDialogIconColor,
+    this.alertDialogIconPadding,
+    this.alertDialogInsetPadding,
+    this.alertDialogShadowColor,
+    this.alertDialogShapeBorder,
+    this.alertDialogSurfaceTintColor,
+    this.alertDialogTitlePadding,
+    this.alertDialogTitleTextstyle,
 
     // Toast
     this.toastBackgroundGradient,
@@ -308,7 +356,10 @@ class UpStyle {
     this.tableHeaderColor,
     this.tableFooterColor,
     this.tableHeaderTextColor,
+    this.tableBorderRadius,
+    this.tableHeaderTextWeight,
     this.tableFooterTextColor,
+    this.tableRowDividerColor,
     this.tableHeaderTextSize,
     this.tableHeadingRowHeight,
     this.tableRowHeight,
@@ -318,6 +369,14 @@ class UpStyle {
     this.appBarHeight,
     this.appBarTitleColor,
     this.appBarTitleSize,
+    this.appBarActionsIconTheme,
+    this.appBarBottomOpacity,
+    this.appBarElevation,
+    this.appBarForgroundColor,
+    this.appBarShadowColor,
+    this.appBarShape,
+    this.appBarSurfaceTintColor,
+    this.appBarSystemOverlayStyle,
 
     // Button
     this.buttonTextSize,
@@ -426,6 +485,7 @@ class UpStyle {
     this.expansionTileCollapsedTextColor,
     this.expansionTileIconColor,
     this.expansionTileTextColor,
+    this.expansionTileDividerColor,
 
     // list tile
     this.listTileColor,
@@ -479,6 +539,58 @@ class UpStyle {
       disabledForgroundColor:
           override.disabledForgroundColor ?? disabledForgroundColor,
 
+      // card
+      cardBodyGradient: override.cardBodyGradient ?? cardBodyGradient,
+      cardBorder: override.cardBorder ?? cardBorder,
+      cardBodyColor: override.cardBodyColor ?? cardBodyColor,
+      cardBodyPadding: override.cardBodyPadding ?? cardBodyPadding,
+      cardColor: override.cardColor ?? cardColor,
+      cardGradient: override.cardGradient ?? cardGradient,
+      cardHeaderColor: override.cardHeaderColor ?? cardHeaderColor,
+      cardHeaderGradient: override.cardHeaderGradient ?? cardHeaderGradient,
+      cardHeaderPadding: override.cardHeaderPadding ?? cardHeaderPadding,
+      cardHeight: override.cardHeight ?? override.cardHeight,
+      cardRadius: override.cardRadius ?? override.cardRadius,
+      cardShape: override.cardShape ?? override.cardShape,
+      cardWidth: override.cardWidth ?? override.cardWidth,
+
+      // Alert dialog
+      alertDialogActionsPadding:
+          override.alertDialogActionsPadding ?? alertDialogActionsPadding,
+      alertDialogBackgroundColor:
+          override.alertDialogBackgroundColor ?? alertDialogBackgroundColor,
+      alertDialogButtonPadding:
+          override.alertDialogButtonPadding ?? alertDialogButtonPadding,
+      alertDialogContentPadding:
+          override.alertDialogContentPadding ?? alertDialogContentPadding,
+      alertDialogContentTextStyle:
+          override.alertDialogContentTextStyle ?? alertDialogContentTextStyle,
+      alertDialogIconColor:
+          override.alertDialogIconColor ?? alertDialogIconColor,
+      alertDialogIconPadding:
+          override.alertDialogIconPadding ?? alertDialogIconPadding,
+      alertDialogInsetPadding:
+          override.alertDialogInsetPadding ?? alertDialogInsetPadding,
+      alertDialogShadowColor:
+          override.alertDialogShadowColor ?? alertDialogShadowColor,
+      alertDialogShapeBorder:
+          override.alertDialogShapeBorder ?? alertDialogShapeBorder,
+      alertDialogSurfaceTintColor:
+          override.alertDialogSurfaceTintColor ?? alertDialogSurfaceTintColor,
+      alertDialogTitlePadding:
+          override.alertDialogTitlePadding ?? alertDialogTitlePadding,
+      alertDialogTitleTextstyle:
+          override.alertDialogTitleTextstyle ?? alertDialogTitleTextstyle,
+
+      // Drawer
+      drawerColor: override.drawerColor ?? drawerColor,
+      drawerHeaderColor: override.drawerHeaderColor ?? drawerHeaderColor,
+      drawerShadowColor: override.drawerShadowColor ?? drawerShadowColor,
+      drawerShapeBorder: override.drawerShapeBorder ?? drawerShapeBorder,
+      drawerSurfaceTintColor:
+          override.drawerSurfaceTintColor ?? drawerSurfaceTintColor,
+      drawerGradient: override.drawerGradient ?? drawerGradient,
+
       // Toast
       toastBackgroundGradient:
           override.toastBackgroundGradient ?? toastBackgroundGradient,
@@ -496,7 +608,23 @@ class UpStyle {
       textWeight: override.textWeight ?? textWeight,
       textFontStyle: override.textFontStyle ?? textFontStyle,
       textFontFamily: override.textFontFamily ?? textFontFamily,
+      heading1Size: override.heading1Size ?? heading1Size,
+      heading2Size: override.heading2Size ?? heading2Size,
+      heading3Size: override.heading3Size ?? heading3Size,
+      heading4Size: override.heading4Size ?? heading4Size,
+      heading5Size: override.heading5Size ?? heading5Size,
+      heading6Size: override.heading6Size ?? heading6Size,
+      heading1Weight: override.heading1Weight ?? heading1Weight,
+      heading2Weight: override.heading2Weight ?? heading2Weight,
+      heading3Weight: override.heading3Weight ?? heading3Weight,
+      heading4Weight: override.heading4Weight ?? heading4Weight,
+      heading5Weight: override.heading5Weight ?? heading5Weight,
+      heading6Weight: override.heading6Weight ?? heading6Weight,
+      textDecoration: override.textDecoration ?? textDecoration,
+      paragraphSize: override.paragraphSize ?? paragraphSize,
+      paragraphWeight: override.paragraphWeight ?? paragraphWeight,
 
+      appBackgroundColor: override.appBackgroundColor,
       // Table
       tableBorderColor: override.tableBorderColor ?? tableBorderColor,
       tableRowColor: override.tableRowColor ?? tableRowColor,
@@ -509,13 +637,54 @@ class UpStyle {
       tableFooterColor: override.tableFooterColor ?? tableFooterColor,
       tableHeaderTextColor:
           override.tableHeaderTextColor ?? tableHeaderTextColor,
+      tableBorderRadius: override.tableBorderRadius ?? tableBorderRadius,
+      tableHeaderTextSize: override.tableHeaderTextSize ?? tableHeaderTextSize,
+      tableHeaderTextWeight:
+          override.tableHeaderTextWeight ?? tableHeaderTextWeight,
       tableFooterTextColor:
           override.tableFooterTextColor ?? tableFooterTextColor,
+      tableRowDividerColor:
+          override.tableRowDividerColor ?? tableRowDividerColor,
+      tableHeadingRowHeight:
+          override.tableHeadingRowHeight ?? tableHeadingRowHeight,
+      tableRowHeight: override.tableRowHeight ?? tableRowHeight,
+
+      // List Tile
+      listTileColor: override.listTileColor ?? listTileColor,
+      listTileFocusedColor:
+          override.listTileFocusedColor ?? listTileFocusedColor,
+      listTileHoveredColor:
+          override.listTileHoveredColor ?? listTileHoveredColor,
+      listTileSelectedColor:
+          override.listTileSelectedColor ?? listTileSelectedColor,
+      listTileIconColor: override.listTileIconColor ?? listTileIconColor,
+      listTileSelectedTileColor:
+          override.listTileSelectedTileColor ?? listTileSelectedTileColor,
+      listTileTextColor: override.listTileTextColor ?? listTileTextColor,
+      buttonTextWeight: override.buttonTextWeight ?? buttonTextWeight,
+
+      // code
+      codeBackgroundColor: override.codeBackgroundColor ?? codeBackgroundColor,
+      codeBorderColor: override.codeBorderColor ?? codeBorderColor,
+      codeTextColor: override.codeTextColor ?? codeTextColor,
 
       // Appbar
       appBarColor: override.appBarColor ?? appBarColor,
       appBarTitleColor: override.appBarTitleColor ?? appBarTitleColor,
       appBarTitleSize: override.appBarTitleSize ?? appBarTitleSize,
+      appBarHeight: override.appBarHeight ?? appBarHeight,
+      appBarActionsIconTheme:
+          override.appBarActionsIconTheme ?? appBarActionsIconTheme,
+      appBarBottomOpacity: override.appBarBottomOpacity ?? appBarBottomOpacity,
+      appBarElevation: override.appBarElevation ?? appBarElevation,
+      appBarForgroundColor:
+          override.appBarForgroundColor ?? appBarForgroundColor,
+      appBarShadowColor: override.appBarShadowColor ?? appBarShadowColor,
+      appBarShape: override.appBarShape ?? appBarShape,
+      appBarSurfaceTintColor:
+          override.appBarSurfaceTintColor ?? appBarSurfaceTintColor,
+      appBarSystemOverlayStyle:
+          override.appBarSystemOverlayStyle ?? appBarSystemOverlayStyle,
 
       // Button
       buttonTextSize: override.buttonTextSize ?? buttonTextSize,
@@ -617,6 +786,17 @@ class UpStyle {
       textfieldCursorColor:
           override.textfieldCursorColor ?? textfieldCursorColor,
       textfieldLabelSize: override.textfieldLabelSize ?? textfieldLabelSize,
+      textfieldFilledColor:
+          override.textfieldFilledColor ?? textfieldFilledColor,
+      textfieldFocusedFilledColor:
+          override.textfieldFocusedFilledColor ?? textfieldFocusedFilledColor,
+      textfieldFocusedLabelSize:
+          override.textfieldFocusedLabelSize ?? textfieldFocusedLabelSize,
+      textfieldHintColor: override.textfieldHintColor ?? textfieldHintColor,
+      textfieldHintSize: override.textfieldHintSize ?? textfieldHintSize,
+      textfieldTextColor: override.textfieldTextColor ?? textfieldTextColor,
+      textfieldLabelFocusedColor:
+          override.textfieldLabelFocusedColor ?? textfieldLabelFocusedColor,
 
       // Drodown
       dropdownBorderWidth: override.dropdownBorderWidth ?? dropdownBorderWidth,
@@ -629,6 +809,15 @@ class UpStyle {
           override.dropdownFocusedBorderColor ?? dropdownFocusedBorderColor,
       dropdownLabelColor: override.dropdownLabelColor ?? dropdownLabelColor,
       dropdownLabelSize: override.dropdownLabelSize ?? dropdownLabelSize,
+      dropdownFilledColor: override.dropdownFilledColor ?? dropdownFilledColor,
+      dropdownFocusedFilledColor:
+          override.dropdownFocusedFilledColor ?? dropdownFocusedFilledColor,
+      dropdownLabelFocusedColor:
+          override.dropdownLabelFocusedColor ?? dropdownLabelFocusedColor,
+      dropdownMenuColor: override.dropdownMenuColor ?? dropdownMenuColor,
+      dropdownMenuTextColor:
+          override.dropdownMenuTextColor ?? dropdownMenuTextColor,
+      dropdownTextColor: override.dropdownTextColor ?? dropdownMenuTextColor,
 
       // Datepicker
       datePickerDialogBackgroundColor:
@@ -655,6 +844,25 @@ class UpStyle {
           override.timePickerPrimaryColor ?? timePickerPrimaryColor,
       timePickerSurfaceColor:
           override.timePickerSurfaceColor ?? timePickerSurfaceColor,
+
+      // Expansion Tile
+      expansionTileBackgroundColor:
+          override.expansionTileBackgroundColor ?? expansionTileBackgroundColor,
+      expansionTileCollapsedBackgroundColor:
+          override.expansionTileCollapsedBackgroundColor ??
+              expansionTileCollapsedBackgroundColor,
+      expansionTileCollapsedIconColor:
+          override.expansionTileCollapsedIconColor ??
+              expansionTileCollapsedIconColor,
+      expansionTileDividerColor:
+          override.expansionTileDividerColor ?? expansionTileDividerColor,
+      expansionTileIconColor:
+          override.expansionTileIconColor ?? expansionTileIconColor,
+      expansionTileTextColor:
+          override.expansionTileTextColor ?? expansionTileTextColor,
+      expansionTileCollapsedTextColor:
+          override.expansionTileCollapsedTextColor ??
+              expansionTileCollapsedTextColor,
     );
   }
 
@@ -819,6 +1027,45 @@ class UpStyle {
         Colors.white;
   }
 
+  static double getTableBorderRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableBorderRadius ??
+        style?.tableBorderRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .tableBorderRadius ??
+        0;
+  }
+
+  static double getTableHeaderTextSize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeaderTextSize ??
+        style?.tableHeaderTextSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .tableHeaderTextSize ??
+        12;
+  }
+
+  static FontWeight getTableHeaderTextWeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeaderTextWeight ??
+        style?.tableHeaderTextWeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .tableHeaderTextWeight ??
+        FontWeight.bold;
+  }
+
   static Color getTableFooterTextColor(
     BuildContext context, {
     UpStyle? override,
@@ -830,6 +1077,19 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .tableFooterTextColor ??
         Colors.white;
+  }
+
+  static Color getTableRowDividerColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowDividerColor ??
+        style?.tableRowDividerColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .tableRowDividerColor ??
+        Colors.transparent;
   }
 
   static double? getTableHeadingRowHeight(
@@ -1096,19 +1356,6 @@ class UpStyle {
         style?.buttonTextFit ??
         getStyleByType(UpConfig.of(context).theme, colorType).buttonTextFit ??
         BoxFit.none;
-  }
-
-  static Color getDialogBackgroundColor(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.dialogBackgroundColor ??
-        style?.dialogBackgroundColor ??
-        getStyleByType(UpConfig.of(context).theme, colorType)
-            .dialogBackgroundColor ??
-        Colors.white;
   }
 
   static Gradient? getButtonBackgroundGradient(
@@ -1727,12 +1974,12 @@ class UpStyle {
               colorType,
             ).radioButtonDisabledLabelColor ??
             UpConstants.kDefaultStyleDisabledForegroundColor
-        : override?.radioButtonBorderColor ??
-            style?.radioButtonBorderColor ??
+        : override?.radioButtonLabelColor ??
+            style?.radioButtonLabelColor ??
             getStyleByType(
               UpConfig.of(context).theme,
               colorType,
-            ).radioButtonBorderColor ??
+            ).radioButtonLabelColor ??
             Theme.of(context).colorScheme.secondary;
   }
 
@@ -2173,7 +2420,7 @@ class UpStyle {
         getStyleByType(
           UpConfig.of(context).theme,
           colorType,
-        ).dropdownFilledColor ??
+        ).dropdownMenuColor ??
         UpConfig.of(context).theme.baseColor.shade50;
   }
 
@@ -2421,7 +2668,122 @@ class UpStyle {
     }
   }
 
-  //app bar
+  //App bar
+  static IconThemeData? getAppBarActionsIconTheme(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarActionsIconTheme ??
+        style?.appBarActionsIconTheme ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarActionsIconTheme;
+  }
+
+  static SystemUiOverlayStyle? getAppBarSystemOverlayStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarSystemOverlayStyle ??
+        style?.appBarSystemOverlayStyle ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarSystemOverlayStyle;
+  }
+
+  static double? getAppBarElevation(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarElevation ??
+        style?.appBarElevation ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarElevation;
+  }
+
+  static double getAppBarBottomOpacity(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarBottomOpacity ??
+        style?.appBarBottomOpacity ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarBottomOpacity ??
+        1.0;
+  }
+
+  static ShapeBorder? getAppBarShape(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarShape ??
+        style?.appBarShape ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarShape;
+  }
+
+  static Color getAppBarForegroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarForgroundColor ??
+        style?.appBarForgroundColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarForgroundColor ??
+        Colors.transparent;
+  }
+
+  static Color? getAppBarShadowColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarShadowColor ??
+        style?.appBarShadowColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarShadowColor ??
+        Colors.transparent;
+  }
+
+  static Color getAppBarSurfaceTintColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarSurfaceTintColor ??
+        style?.appBarSurfaceTintColor ??
+        getStyleByType(
+          UpConfig.of(context).theme,
+          colorType,
+        ).appBarSurfaceTintColor ??
+        Colors.transparent;
+  }
 
   static Color getAppBarColor(
     BuildContext context, {
@@ -3021,6 +3383,20 @@ class UpStyle {
         Colors.transparent;
   }
 
+  //  expansion tile
+  static Color getExpansionTileDividerColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.expansionTileDividerColor ??
+        style?.expansionTileDividerColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .expansionTileDividerColor ??
+        Colors.transparent;
+  }
+
   static Color getExpansionTileCollapsedBackgroundColor(
     BuildContext context, {
     UpStyle? override,
@@ -3359,15 +3735,223 @@ class UpStyle {
         UpConfig.of(context).theme.baseColor.shade200;
   }
 
-  static Color getDrawerBodyColor(
+  static Color getDrawerColor(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
     UpColorType? colorType,
   }) {
-    return override?.drawerBodyColor ??
-        style?.drawerBodyColor ??
-        getStyleByType(UpConfig.of(context).theme, colorType).drawerBodyColor ??
+    return override?.drawerColor ??
+        style?.drawerColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).drawerColor ??
         UpConfig.of(context).theme.baseColor.shade50;
+  }
+
+  static Gradient? getDrawerGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerGradient ??
+        style?.drawerGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType).drawerGradient;
+  }
+
+  static Color getDrawerSurfaceTintColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerSurfaceTintColor ??
+        style?.drawerSurfaceTintColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .drawerSurfaceTintColor ??
+        Colors.transparent;
+  }
+
+  static Color getDrawerShadowColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerShadowColor ??
+        style?.drawerShadowColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .drawerShadowColor ??
+        Colors.transparent;
+  }
+
+  static ShapeBorder? getDrawerShape(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.drawerShapeBorder ??
+        style?.drawerShapeBorder ??
+        getStyleByType(UpConfig.of(context).theme, colorType).drawerShapeBorder;
+  }
+
+  static EdgeInsetsGeometry? getAlertDialogActionsPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogActionsPadding ??
+        style?.alertDialogActionsPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogActionsPadding;
+  }
+
+  static EdgeInsetsGeometry? getAlertDialogTitlePadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogTitlePadding ??
+        style?.alertDialogTitlePadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogTitlePadding;
+  }
+
+  static EdgeInsetsGeometry? getAlertDialogContentPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogContentPadding ??
+        style?.alertDialogContentPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogContentPadding;
+  }
+
+  static EdgeInsets getAlertDialogInsetPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogInsetPadding ??
+        style?.alertDialogInsetPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogInsetPadding ??
+        const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0);
+  }
+
+  static EdgeInsetsGeometry? getAlertDialogButtonPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogButtonPadding ??
+        style?.alertDialogButtonPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogButtonPadding;
+  }
+
+  static EdgeInsetsGeometry? getAlertDialogIconPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogIconPadding ??
+        style?.alertDialogIconPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogIconPadding;
+  }
+
+  static Color? getAlertDialogBackgroundColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogBackgroundColor ??
+        style?.alertDialogBackgroundColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogBackgroundColor;
+  }
+
+  static Color? getAlertDialogShadowColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogShadowColor ??
+        style?.alertDialogShadowColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogShadowColor ??
+        Colors.transparent;
+  }
+
+  static Color? getAlertDialogIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogIconColor ??
+        style?.alertDialogIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogIconColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static Color? getAlertDialogSurfaceTintColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogSurfaceTintColor ??
+        style?.alertDialogSurfaceTintColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogSurfaceTintColor ??
+        Colors.transparent;
+  }
+
+  static ShapeBorder? getAlertDialogShape(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogShapeBorder ??
+        style?.alertDialogShapeBorder ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogShapeBorder;
+  }
+
+  static TextStyle? getAlertDialogTitleTextStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogTitleTextstyle ??
+        style?.alertDialogTitleTextstyle ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogTitleTextstyle;
+  }
+
+  static TextStyle? getAlertDialogContentTextStyle(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.alertDialogContentTextStyle ??
+        style?.alertDialogContentTextStyle ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .alertDialogContentTextStyle;
   }
 }

@@ -104,17 +104,41 @@ class _UpTableState extends State<UpTable> {
   Widget build(BuildContext context) {
     return Theme(
         data: Theme.of(context).copyWith(
+          dividerTheme: DividerThemeData(
+            color: UpStyle.getTableRowDividerColor(
+              context,
+              style: widget.style,
+              colorType: widget.colorType,
+            ),
+          ),
           iconTheme: Theme.of(context).iconTheme.copyWith(
                 color: UpConfig.of(context).theme.baseColor.shade900,
               ),
         ),
-        child: SizedBox(
-          width: widget.width ?? MediaQuery.of(context).size.width,
-          // height: widget.height ?? MediaQuery.of(context).size.width,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              UpStyle.getTableBorderRadius(
+                context,
+                style: widget.style,
+                colorType: widget.colorType,
+              ),
+            ),
+          ),
           child: DataTable(
             sortAscending: widget.sortAscending,
             sortColumnIndex: widget.sortColumnIndex,
-            dividerThickness: 0,
+            // border: TableBorder.all(
+            //   borderRadius: BorderRadius.circular(17),
+            //   // border: Border.all(
+            //   color: Colors.pink,
+            //   // ),
+            // ),
+            // border: TableBorder.symmetric(
+            //   inside: const BorderSide(
+            //     color: Colors.pink,
+            //   ),
+            // ),
             columnSpacing: 5,
             // isHorizontalScrollBarVisible: true,
             horizontalMargin: 10,
@@ -146,6 +170,16 @@ class _UpTableState extends State<UpTable> {
                     e,
                     style: UpStyle(
                       textColor: UpStyle.getTableHeaderTextColor(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                      textSize: UpStyle.getTableHeaderTextSize(
+                        context,
+                        style: widget.style,
+                        colorType: widget.colorType,
+                      ),
+                      textWeight: UpStyle.getTableHeaderTextWeight(
                         context,
                         style: widget.style,
                         colorType: widget.colorType,

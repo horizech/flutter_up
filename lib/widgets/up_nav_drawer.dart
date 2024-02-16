@@ -5,30 +5,55 @@ import 'package:flutter_up/themes/up_style.dart';
 import 'package:flutter_up/widgets/up_text.dart';
 
 class UpNavDrawer extends StatelessWidget {
-  final Widget? header;
-  final List<Widget> body;
+  final List<Widget> children;
   final String? version;
   final UpColorType? colorType;
   final UpStyle? style;
 
   const UpNavDrawer({
     Key? key,
-    this.header,
     this.colorType,
     this.style,
-    required this.body,
+    required this.children,
     this.version,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: UpStyle.getDrawerBodyColor(
+      shadowColor: UpStyle.getDrawerShadowColor(
         context,
         style: style,
         colorType: colorType,
       ),
-      child: SizedBox(
+      shape: UpStyle.getDrawerShape(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+      backgroundColor: UpStyle.getDrawerColor(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+      surfaceTintColor: UpStyle.getDrawerSurfaceTintColor(
+        context,
+        style: style,
+        colorType: colorType,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: UpStyle.getDrawerColor(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+          gradient: UpStyle.getDrawerGradient(
+            context,
+            style: style,
+            colorType: colorType,
+          ),
+        ),
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
@@ -36,17 +61,7 @@ class UpNavDrawer extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  Visibility(
-                      child: header != null
-                          ? Container(
-                              color: UpStyle.getDrawerHeaderColor(
-                                context,
-                                style: style,
-                                colorType: colorType,
-                              ),
-                              child: header)
-                          : const SizedBox()),
-                  ...body,
+                  ...children,
                 ],
               ),
             ),

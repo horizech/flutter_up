@@ -19,6 +19,7 @@ import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/models/up_label_value.dart';
 import 'package:flutter_up/models/up_app_bar_item.dart';
 import 'package:flutter_up/themes/up_style.dart';
+import 'package:flutter_up/widgets/up_alert_dialog.dart';
 import 'package:flutter_up/widgets/up_button.dart';
 import 'package:flutter_up/widgets/up_checkbox.dart';
 import 'package:flutter_up/widgets/up_dropdown.dart';
@@ -59,11 +60,8 @@ class MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return UpAlertDialog(
       title: UpText(widget.document['title']),
-      actionsPadding: const EdgeInsets.all(0),
-      titlePadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       content: Container(),
       actions: <Widget>[
         ElevatedButton(

@@ -151,7 +151,7 @@ class _upDropDownSingleSelectBodyState
   bool isSearching = false;
 
   String? previousInputValue;
-
+  bool isOverlayExist = false;
   @override
   void dispose() {
     super.dispose();
@@ -249,15 +249,18 @@ class _upDropDownSingleSelectBodyState
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         setState(() {
+          isOverlayExist = true;
           searchText.text = displayText.text;
+          searchText.selection =
+              TextSelection.collapsed(offset: searchText.text.length);
           curTextEditingController = searchText;
           _overlayEntry = _createOverlayEntry();
-
           Overlay.of(context).insert(_overlayEntry!);
         });
         // debugPrint("Focused");
       } else {
         setState(() {
+          isOverlayExist = false;
           searchText.clear();
           curTextEditingController = displayText;
           _overlayEntry!.remove();
@@ -402,11 +405,9 @@ class _upDropDownSingleSelectBodyState
                           visible: searchText.text.isNotEmpty,
                           child: GestureDetector(
                             onTap: () {
-                              if (!widget.readOnly) {
-                                setState(() {
-                                  searchText.clear();
-                                });
-                              }
+                              setState(() {
+                                searchText.text = "";
+                              });
                             },
                             child: Icon(
                               Icons.clear,
@@ -428,7 +429,11 @@ class _upDropDownSingleSelectBodyState
                         width: 25,
                         child: IconButton(
                           onPressed: () {
-                            _focusNode.requestFocus();
+                            // if (isOverlayExist) {
+                            //   _focusNode.unfocus();
+                            // } else {
+                            //   _focusNode.requestFocus();
+                            // }
                           },
                           icon: Icon(
                             Icons.arrow_drop_up,
@@ -451,7 +456,13 @@ class _upDropDownSingleSelectBodyState
               ),
               focusNode: _focusNode,
               controller: curTextEditingController ?? displayText,
-              onChanged: (value) {},
+              onChanged: (value) {
+                if (isOverlayExist) {
+                  _overlayEntry!.remove();
+                }
+                _overlayEntry = _createOverlayEntry();
+                Overlay.of(context).insert(_overlayEntry!);
+              },
             ),
           ),
         );

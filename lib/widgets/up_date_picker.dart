@@ -7,7 +7,7 @@ import 'package:flutter_up/validation/up_valdation.dart';
 import 'package:flutter_up/widgets/up_icon.dart';
 import 'package:flutter_up/widgets/up_textfield.dart';
 
-class UpDatePicker extends StatelessWidget {
+class UpDatePicker extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final UpInputType type;
@@ -28,6 +28,11 @@ class UpDatePicker extends StatelessWidget {
   });
 
   @override
+  State<UpDatePicker> createState() => _UpDatePickerState();
+}
+
+class _UpDatePickerState extends State<UpDatePicker> {
+  @override
   Widget build(BuildContext context) {
     datePicker() async {
       DateTime? pickedDate = await UpDateTimeHelper.upDatePicker(
@@ -43,24 +48,39 @@ class UpDatePicker extends StatelessWidget {
           pickedDate.month,
           pickedDate.day,
         );
-        controller.text =
+        widget.controller.text =
             "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-        if (onChange != null) {
-          onChange!(pickedDate);
+        setState(() {});
+        if (widget.onChange != null) {
+          widget.onChange!(pickedDate);
         }
       }
     }
 
     return UpTextField(
-        type: type,
-        controller: controller,
-        style: style,
-        colorType: colorType,
-        validation: validation,
+        type: widget.type,
+        controller: widget.controller,
+        style: widget.style,
+        colorType: widget.colorType,
+        validation: widget.validation,
         prefixIcon: const UpIcon(
           icon: Icons.calendar_today,
         ),
-        label: label,
+        suffixIcon: Visibility(
+          visible: widget.controller.text.isNotEmpty,
+          child: UpIcon(
+            icon: Icons.close,
+            onTap: (() {
+              setState(() {
+                widget.controller.clear();
+              });
+              if (widget.onChange != null) {
+                widget.onChange!("");
+              }
+            }),
+          ),
+        ),
+        label: widget.label,
         readOnly: true,
         onTap: () {
           datePicker();
