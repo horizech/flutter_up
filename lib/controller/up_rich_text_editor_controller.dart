@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 class UpRichTextEditorController extends ChangeNotifier {
-  String text;
+  String deltaText;
   String plainText;
+  String htmlText;
 
-  UpRichTextEditorController({this.text = "", this.plainText = ""});
+  UpRichTextEditorController({
+    this.deltaText = "",
+    this.htmlText = "",
+    this.plainText = "",
+  });
 
-  void updateValue(String text, String plainText) {
-    this.text = text;
+  void updateValue(String deltaText, String plainText, String htmlText) {
+    this.deltaText = deltaText;
     this.plainText = plainText;
+    this.htmlText = htmlText;
     notifyListeners();
   }
 }

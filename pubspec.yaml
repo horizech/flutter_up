@@ -17,6 +17,7 @@ dependencies:
   rxdart: ^0.26.0
   url_launcher: ^6.1.6
   flutter_quill: ^9.2.13
+  vsc_quill_delta_to_html: ^1.0.4
   flutter_quill_extensions: ^9.2.13
   uuid: ^4.1.0
   dart_code_viewer2: ^1.0.0

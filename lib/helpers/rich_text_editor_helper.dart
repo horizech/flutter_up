@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 class UpRichTextEditorHelper {
-  static QuillController convertStringToQuill(String text) {
+  static QuillController convertTextToQuill(String text) {
     if (text.isNotEmpty) {
       if (text.contains("insert")) {
         return QuillController(
@@ -25,17 +26,30 @@ class UpRichTextEditorHelper {
     }
   }
 
-  static String convertQuillToString(QuillController controller) {
+  static String convertQuillToText(QuillController controller) {
     return jsonEncode(controller.document.toDelta().toJson());
   }
 
-  static String convertQuillToPlainString(QuillController controller) {
+  static String convertQuillToPlainText(QuillController controller) {
     return controller.document.toPlainText();
+  }
+
+  static String convertQuillToHtmlText(QuillController controller) {
+    final deltaJson = controller.document.toDelta().toJson();
+    final converter = QuillDeltaToHtmlConverter(
+      List.castFrom(
+        deltaJson,
+      ),
+      ConverterOptions.forEmail(),
+    );
+
+    final html = converter.convert();
+    return html;
   }
 
   static String convertDeltaTextToPlainText(String text) {
     QuillController controller =
-        UpRichTextEditorHelper.convertStringToQuill(text);
+        UpRichTextEditorHelper.convertTextToQuill(text);
     return controller.document.toPlainText();
   }
 }

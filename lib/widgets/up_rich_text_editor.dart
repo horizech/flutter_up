@@ -30,15 +30,17 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
   @override
   void initState() {
     super.initState();
-    if (widget.controller.text.isNotEmpty) {
-      controller =
-          UpRichTextEditorHelper.convertStringToQuill(widget.controller.text);
+    if (widget.controller.deltaText.isNotEmpty) {
+      controller = UpRichTextEditorHelper.convertTextToQuill(
+          widget.controller.deltaText);
     }
     controller.addListener(() {
-      widget.controller.text =
-          UpRichTextEditorHelper.convertQuillToString(controller);
+      widget.controller.deltaText =
+          UpRichTextEditorHelper.convertQuillToText(controller);
       widget.controller.plainText =
-          UpRichTextEditorHelper.convertQuillToPlainString(controller);
+          UpRichTextEditorHelper.convertQuillToPlainText(controller);
+      widget.controller.htmlText =
+          UpRichTextEditorHelper.convertQuillToHtmlText(controller);
     });
   }
 
@@ -52,8 +54,8 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
   @override
   Widget build(BuildContext context) {
     if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
-      if (widget.controller.text.isEmpty) {
-        controller = UpRichTextEditorHelper.convertStringToQuill(
+      if (widget.controller.deltaText.isEmpty) {
+        controller = UpRichTextEditorHelper.convertTextToQuill(
             widget.initialValue ?? "");
       }
     }
