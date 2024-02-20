@@ -61,6 +61,8 @@ class UpStyle {
   // Table
   final Color? tableHeaderTextColor;
   final double? tableBorderRadius;
+  final double? tableHeight;
+  final double? tableWidth;
 
   final double? tableHeaderTextSize;
   final FontWeight? tableHeaderTextWeight;
@@ -73,6 +75,7 @@ class UpStyle {
   final Color? tableFooterColor;
   final Color? tableFooterTextColor;
   final Color? tableRowDividerColor;
+  final Color? tableIconColor;
 
   final double? tableHeadingRowHeight;
   final double? tableRowHeight;
@@ -356,10 +359,13 @@ class UpStyle {
     this.tableHeaderColor,
     this.tableFooterColor,
     this.tableHeaderTextColor,
+    this.tableHeight,
+    this.tableWidth,
     this.tableBorderRadius,
     this.tableHeaderTextWeight,
     this.tableFooterTextColor,
     this.tableRowDividerColor,
+    this.tableIconColor,
     this.tableHeaderTextSize,
     this.tableHeadingRowHeight,
     this.tableRowHeight,
@@ -637,6 +643,8 @@ class UpStyle {
       tableFooterColor: override.tableFooterColor ?? tableFooterColor,
       tableHeaderTextColor:
           override.tableHeaderTextColor ?? tableHeaderTextColor,
+      tableHeight: override.tableHeight ?? tableHeight,
+      tableWidth: override.tableWidth ?? tableWidth,
       tableBorderRadius: override.tableBorderRadius ?? tableBorderRadius,
       tableHeaderTextSize: override.tableHeaderTextSize ?? tableHeaderTextSize,
       tableHeaderTextWeight:
@@ -645,6 +653,7 @@ class UpStyle {
           override.tableFooterTextColor ?? tableFooterTextColor,
       tableRowDividerColor:
           override.tableRowDividerColor ?? tableRowDividerColor,
+      tableIconColor: override.tableIconColor ?? tableIconColor,
       tableHeadingRowHeight:
           override.tableHeadingRowHeight ?? tableHeadingRowHeight,
       tableRowHeight: override.tableRowHeight ?? tableRowHeight,
@@ -1027,6 +1036,28 @@ class UpStyle {
         Colors.white;
   }
 
+  static double? getTableWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableWidth ??
+        style?.tableWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableWidth;
+  }
+
+  static double? getTableHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableHeight ??
+        style?.tableHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableHeight;
+  }
+
   static double getTableBorderRadius(
     BuildContext context, {
     UpStyle? override,
@@ -1090,6 +1121,18 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .tableRowDividerColor ??
         Colors.transparent;
+  }
+
+  static Color getTableIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableIconColor ??
+        style?.tableIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableIconColor ??
+        Theme.of(context).primaryColor;
   }
 
   static double? getTableHeadingRowHeight(
