@@ -1,3 +1,11 @@
+## 4.0.0
+
+- Updated UpDateTimePicker styles
+- Added UplistTile new style properties
+- Added vertical and horizontal scroll in UpTable
+- Added htmlText in UpRichTextEditor
+- Added Routes helper function
+
 ## 3.0.8
 
 - Updated UpDateTimePicker

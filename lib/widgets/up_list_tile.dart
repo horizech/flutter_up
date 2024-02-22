@@ -96,22 +96,24 @@ class UpListTile extends StatelessWidget {
           contentPadding: contentPadding,
           onTap: onTap,
           leading: leading ??
-              UpIcon(
-                icon: leadingIcon ?? Icons.menu,
-                style: UpStyle(
-                  iconColor: isSelected
-                      ? UpStyle.getListTileSelectedColor(
-                          context,
-                          style: style,
-                          colorType: colorType,
-                        )
-                      : UpStyle.getListTileTextColor(
-                          context,
-                          style: style,
-                          colorType: colorType,
-                        ),
-                ),
-              ),
+              (leadingIcon != null
+                  ? UpIcon(
+                      icon: leadingIcon!,
+                      style: UpStyle(
+                        iconColor: isSelected
+                            ? UpStyle.getListTileSelectedColor(
+                                context,
+                                style: style,
+                                colorType: colorType,
+                              )
+                            : UpStyle.getListTileTextColor(
+                                context,
+                                style: style,
+                                colorType: colorType,
+                              ),
+                      ),
+                    )
+                  : null),
           subtitle: subtitle,
           trailing: trailing,
           title: titleWidget ??
