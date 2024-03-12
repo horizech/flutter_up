@@ -1,3 +1,9 @@
+## 4.0.1
+
+- Added table width and height
+- Added externalRoute in UpRoute
+- Added webOnlyWindowName in UpUrl
+
 ## 4.0.0
 
 - Updated UpDateTimePicker styles
