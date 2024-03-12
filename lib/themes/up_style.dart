@@ -68,6 +68,8 @@ class UpStyle {
   final FontWeight? tableHeaderTextWeight;
   final Color? tableHeaderColor;
   final Color? tableRowColor;
+  final double? tableRowMinHeight;
+  final double? tableRowMaxHeight;
   final Color? tableRowPressedColor;
   final Color? tableBorderColor;
   final Color? tableRowFocusedColor;
@@ -353,6 +355,8 @@ class UpStyle {
     // Table
     this.tableBorderColor,
     this.tableRowColor,
+    this.tableRowMinHeight,
+    this.tableRowMaxHeight,
     this.tableRowFocusedColor,
     this.tableRowHoverColor,
     this.tableRowPressedColor,
@@ -634,6 +638,8 @@ class UpStyle {
       // Table
       tableBorderColor: override.tableBorderColor ?? tableBorderColor,
       tableRowColor: override.tableRowColor ?? tableRowColor,
+      tableRowMaxHeight: override.tableRowMaxHeight ?? tableRowMaxHeight,
+      tableRowMinHeight: override.tableRowMinHeight ?? tableRowMinHeight,
       tableRowFocusedColor:
           override.tableRowFocusedColor ?? tableRowFocusedColor,
       tableRowHoverColor: override.tableRowHoverColor ?? tableRowHoverColor,
@@ -946,6 +952,28 @@ class UpStyle {
   //           style?.foregroundColor ??
   //           Theme.of(context).primaryColor;
   // }
+
+  static double? getTableRowMaxHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowMaxHeight ??
+        style?.tableRowMaxHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableRowMaxHeight;
+  }
+
+  static double? getTableRowMinHeight(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.tableRowMaxHeight ??
+        style?.tableRowMaxHeight ??
+        getStyleByType(UpConfig.of(context).theme, colorType).tableRowMaxHeight;
+  }
 
   static Color getTableRowFocusedColor(
     BuildContext context, {

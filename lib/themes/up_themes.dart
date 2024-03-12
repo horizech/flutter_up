@@ -236,6 +236,7 @@ class UpThemes {
       tableHeaderTextColor: baseColor.shade900,
       tableHeaderTextSize: 12,
       tableHeaderTextWeight: FontWeight.bold,
+      tableHeight: null, tableWidth: null,
       tableFooterColor: baseColor.shade100,
 
       //datepicker

@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UpUrlService {
   // openUrl
-  openUrl(String url) async {
+  openUrl(String url, {String webOnlyWindowName = "_blank"}) async {
     String newUrl = url;
 
     // String pattern =
@@ -35,7 +35,10 @@ class UpUrlService {
 
     // Launch if the url is valid
     // if (await launchUrl(Uri.parse(newUrl))) {
-    await launchUrl(Uri.parse(newUrl));
+    await launchUrl(
+      Uri.parse(newUrl),
+      webOnlyWindowName: webOnlyWindowName,
+    );
     // return true;
     // } else {
     // return false;

@@ -140,11 +140,11 @@ class _UpTableState extends State<UpTable> {
                   ),
                 ),
                 child: SizedBox(
-                  height: UpStyle.getTableHeight(
-                    context,
-                    style: widget.style,
-                    colorType: widget.colorType,
-                  ),
+                  // height: UpStyle.getTableHeight(
+                  //   context,
+                  //   style: widget.style,
+                  //   colorType: widget.colorType,
+                  // ),
                   width: UpStyle.getTableWidth(
                     context,
                     style: widget.style,
@@ -153,20 +153,12 @@ class _UpTableState extends State<UpTable> {
                   child: DataTable(
                     sortAscending: widget.sortAscending,
                     sortColumnIndex: widget.sortColumnIndex,
-
-                    // border: TableBorder.all(
-                    //   borderRadius: BorderRadius.circular(17),
-                    //   // border: Border.all(
-                    //   color: Colors.pink,
-                    //   // ),
-                    // ),
-                    // border: TableBorder.symmetric(
-                    //   inside: const BorderSide(
-                    //     color: Colors.pink,
-                    //   ),
-                    // ),
-                    // columnSpacing: 3,
-                    // horizontalMargin: 5,
+                    // columnSpacing: 7,
+                    // horizontalMargin: 24,
+                    dataRowMinHeight: UpStyle.getTableRowMinHeight(context,
+                        style: widget.style, colorType: widget.colorType),
+                    dataRowMaxHeight: UpStyle.getTableRowMaxHeight(context,
+                        style: widget.style, colorType: widget.colorType),
                     showCheckboxColumn: widget.showCheckboxColumn,
                     headingRowHeight: UpStyle.getTableHeadingRowHeight(context,
                         style: widget.style, colorType: widget.colorType),

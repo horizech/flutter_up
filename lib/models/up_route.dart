@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/models/up_router_state.dart';
+import 'package:flutter_up/services/up_url.dart';
 import 'package:go_router/go_router.dart';
 
 class UpRoute {
@@ -8,6 +9,7 @@ class UpRoute {
   final String? name;
   final Function? shouldRedirect;
   final String? redirectRoute;
+  final bool externalRoute;
   final List<UpRoute>? routes;
 
   UpRoute({
@@ -17,6 +19,7 @@ class UpRoute {
     this.shouldRedirect,
     this.redirectRoute,
     this.routes,
+    this.externalRoute = false,
   });
 
   static List<RouteBase> generateRoutes(
@@ -43,16 +46,27 @@ class UpRoute {
                     parentNavigatorKey,
                   )
                 : <RouteBase>[],
-            redirect: (context, state) {
+            redirect: (context, state) async {
               if (e.shouldRedirect != null && e.redirectRoute != null) {
                 if (e.shouldRedirect!()) {
-                  return e.redirectRoute;
+                  Uri uri = Uri.base;
+                  if (!e.externalRoute) {
+                    return " ${e.redirectRoute}?redirecturl=${uri.fragment}";
+                  } else {
+                    if (e.redirectRoute != null) {
+                      UpUrlService().openUrl(
+                          "${e.redirectRoute}?redirecturl=${Uri.parse('${uri.origin}/#${uri.fragment}')}",
+                          webOnlyWindowName: "_self");
+                      return null;
+                    }
+                  }
                 } else {
                   return null;
                 }
               } else {
                 return null;
               }
+              return null;
             },
           ),
         )
