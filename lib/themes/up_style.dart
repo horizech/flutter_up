@@ -266,6 +266,38 @@ class UpStyle {
   final bool? cardBodyPadding;
   final Border? cardBorder;
 
+  // SideBar
+  final double? sideBarDefaultViewWidthPercentage;
+  final double? sideBarCompactViewWidth;
+  final double? sideBarMaximumScreenWidthForCompactView;
+  final double? sideBarLeftSideRadius;
+  final Color? sideBarLeftSideColor;
+  final Gradient? sideBarLeftSideGradient;
+  final bool? sideBarLeftSidePadding;
+
+  final double? sideBarRightSideWidthPercentage;
+  final double? sideBarRightSideRadius;
+  final Color? sideBarRightSideColor;
+  final Gradient? sideBarRightSideGradient;
+  final bool? sideBarRightSidePadding;
+
+  // Scaffold
+  final double? scaffoldFixedDrawerWidthPercentage;
+  final double? scaffoldCompactDrawerWidth;
+  final double? scaffoldMaximumScreenWidthForCompactDrawer;
+  final double? scaffoldBodyWidthPercentage;
+  final Gradient? scaffoldFixedDrawerGradient;
+  final Color? scaffoldFixedDrawerColor;
+  final double? scaffoldFixedDrawerRadius;
+  final Gradient? scaffoldBodyGradient;
+  final Color? scaffoldBodyColor;
+  final double? scaffoldBodyRadius;
+  final bool? showFixedDrawerToggleIcon;
+  final double? appBarToggleIconPadding;
+  final double? appBarToggleIconSize;
+  final IconData? appBarToggleIcon;
+  final Color? appBarToggleIconColor;
+
   // code
   final Color? codeBackgroundColor;
   final Color? codeBorderColor;
@@ -520,6 +552,37 @@ class UpStyle {
     this.cardBodyPadding = true,
     this.cardHeaderPadding = true,
     this.cardBorder,
+
+    // SideBar
+    this.sideBarDefaultViewWidthPercentage,
+    this.sideBarCompactViewWidth,
+    this.sideBarMaximumScreenWidthForCompactView,
+    this.sideBarLeftSideGradient,
+    this.sideBarLeftSideColor,
+    this.sideBarLeftSideRadius,
+    this.sideBarLeftSidePadding = true,
+    this.sideBarRightSideWidthPercentage,
+    this.sideBarRightSideGradient,
+    this.sideBarRightSideColor,
+    this.sideBarRightSideRadius,
+    this.sideBarRightSidePadding = true,
+
+    // Scaffold
+    this.scaffoldFixedDrawerWidthPercentage,
+    this.scaffoldCompactDrawerWidth,
+    this.scaffoldMaximumScreenWidthForCompactDrawer,
+    this.scaffoldBodyWidthPercentage,
+    this.scaffoldFixedDrawerGradient,
+    this.scaffoldFixedDrawerColor,
+    this.scaffoldFixedDrawerRadius,
+    this.scaffoldBodyGradient,
+    this.scaffoldBodyColor,
+    this.scaffoldBodyRadius,
+    this.showFixedDrawerToggleIcon,
+    this.appBarToggleIconPadding,
+    this.appBarToggleIconSize,
+    this.appBarToggleIcon,
+    this.appBarToggleIconColor,
   });
 
   UpStyle copyWith(UpStyle override) {
@@ -878,6 +941,66 @@ class UpStyle {
       expansionTileCollapsedTextColor:
           override.expansionTileCollapsedTextColor ??
               expansionTileCollapsedTextColor,
+
+      //SideBar
+      sideBarDefaultViewWidthPercentage:
+          override.sideBarDefaultViewWidthPercentage ??
+              override.sideBarDefaultViewWidthPercentage,
+      sideBarCompactViewWidth:
+          override.sideBarCompactViewWidth ?? override.sideBarCompactViewWidth,
+      sideBarMaximumScreenWidthForCompactView:
+          override.sideBarMaximumScreenWidthForCompactView ??
+              override.sideBarMaximumScreenWidthForCompactView,
+      sideBarLeftSideRadius:
+          override.sideBarLeftSideRadius ?? sideBarLeftSideRadius,
+      sideBarLeftSideGradient:
+          override.sideBarLeftSideGradient ?? sideBarLeftSideGradient,
+      sideBarLeftSideColor:
+          override.sideBarLeftSideColor ?? sideBarLeftSideColor,
+      sideBarLeftSidePadding:
+          override.sideBarLeftSidePadding ?? sideBarLeftSidePadding,
+
+      sideBarRightSideWidthPercentage:
+          override.sideBarRightSideWidthPercentage ??
+              override.sideBarRightSideWidthPercentage,
+      sideBarRightSideRadius:
+          override.sideBarRightSideRadius ?? sideBarRightSideRadius,
+      sideBarRightSideGradient:
+          override.sideBarRightSideGradient ?? sideBarRightSideGradient,
+      sideBarRightSideColor:
+          override.sideBarRightSideColor ?? sideBarRightSideColor,
+      sideBarRightSidePadding:
+          override.sideBarRightSidePadding ?? sideBarRightSidePadding,
+
+      // Scaffold
+      scaffoldFixedDrawerWidthPercentage:
+          override.scaffoldFixedDrawerWidthPercentage ??
+              override.scaffoldFixedDrawerWidthPercentage,
+      scaffoldCompactDrawerWidth: override.scaffoldCompactDrawerWidth ??
+          override.scaffoldCompactDrawerWidth,
+      scaffoldMaximumScreenWidthForCompactDrawer:
+          override.scaffoldMaximumScreenWidthForCompactDrawer ??
+              override.scaffoldMaximumScreenWidthForCompactDrawer,
+      scaffoldBodyWidthPercentage: override.scaffoldBodyWidthPercentage ??
+          override.scaffoldBodyWidthPercentage,
+      scaffoldFixedDrawerGradient:
+          override.scaffoldFixedDrawerGradient ?? scaffoldFixedDrawerGradient,
+      scaffoldFixedDrawerColor:
+          override.scaffoldFixedDrawerColor ?? scaffoldFixedDrawerColor,
+      scaffoldFixedDrawerRadius:
+          override.scaffoldFixedDrawerRadius ?? scaffoldFixedDrawerRadius,
+      scaffoldBodyGradient:
+          override.scaffoldBodyGradient ?? scaffoldBodyGradient,
+      scaffoldBodyColor: override.scaffoldBodyColor ?? scaffoldBodyColor,
+      scaffoldBodyRadius: override.scaffoldBodyRadius ?? scaffoldBodyRadius,
+      showFixedDrawerToggleIcon:
+          override.showFixedDrawerToggleIcon ?? showFixedDrawerToggleIcon,
+      appBarToggleIconPadding:
+          override.appBarToggleIconPadding ?? appBarToggleIconPadding,
+      appBarToggleIconSize:
+          override.appBarToggleIconSize ?? appBarToggleIconSize,
+      appBarToggleIconColor:
+          override.appBarToggleIconColor ?? appBarToggleIconColor,
     );
   }
 
@@ -4024,5 +4147,315 @@ class UpStyle {
         style?.alertDialogContentTextStyle ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .alertDialogContentTextStyle;
+  }
+
+  // SideBar
+  static double? getSideBarDefaultViewWidthPercentage(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarDefaultViewWidthPercentage ??
+        style?.sideBarDefaultViewWidthPercentage ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarDefaultViewWidthPercentage ??
+        UpConstants.kDefaultStyleSideBarDefaultViewWithPercentage;
+  }
+
+  static double? getSideBarCompactViewWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarCompactViewWidth ??
+        style?.sideBarCompactViewWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarCompactViewWidth ??
+        UpConstants.kDefaultStyleSideBarCompactViewWith;
+  }
+
+  static double? getSideBarMaximumWidthForCompactView(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarMaximumScreenWidthForCompactView ??
+        style?.sideBarMaximumScreenWidthForCompactView ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarMaximumScreenWidthForCompactView ??
+        UpConstants.kDefaultStyleSideBarMaximumScreenWidthForCompactView;
+  }
+
+  static Gradient? getSideBarLeftSideGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarLeftSideGradient ??
+        style?.sideBarLeftSideGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarLeftSideGradient;
+  }
+
+  static Color getSideBarLeftSideColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarLeftSideColor ??
+        style?.sideBarLeftSideColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarLeftSideColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static double getSideBarLeftSideRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarLeftSideRadius ??
+        style?.sideBarLeftSideRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarLeftSideRadius ??
+        UpConstants.kDefaultStyleSideBarRadius;
+  }
+
+  static double? getSideBarRightSideWidthPercentage(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarRightSideWidthPercentage ??
+        style?.sideBarRightSideWidthPercentage ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarRightSideWidthPercentage ??
+        UpConstants.kDefaultStyleSideBarRightSideWidthPercentage;
+  }
+
+  static Gradient? getSideBarRightSideGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarRightSideGradient ??
+        style?.sideBarRightSideGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarRightSideGradient;
+  }
+
+  static Color getSideBarRightSideColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarRightSideColor ??
+        style?.sideBarRightSideColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarRightSideColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static double getSideBarRightSideRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.sideBarRightSideRadius ??
+        style?.sideBarRightSideRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .sideBarRightSideRadius ??
+        UpConstants.kDefaultStyleSideBarRadius;
+  }
+
+  //Scaffold
+  static double? getScaffoldMaximumScreenWidthForCompactDrawer(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldMaximumScreenWidthForCompactDrawer ??
+        style?.scaffoldMaximumScreenWidthForCompactDrawer ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldMaximumScreenWidthForCompactDrawer ??
+        UpConstants.kDefaultStyleSideBarMaximumScreenWidthForCompactView;
+  }
+
+  static double? getScaffoldFixedDrawerWidthPercentage(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldFixedDrawerWidthPercentage ??
+        style?.scaffoldFixedDrawerWidthPercentage ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldFixedDrawerWidthPercentage ??
+        UpConstants.kDefaultStyleSideBarDefaultViewWithPercentage;
+  }
+
+  static double? getScaffoldCompactDrawerWidth(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldCompactDrawerWidth ??
+        style?.scaffoldCompactDrawerWidth ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldCompactDrawerWidth ??
+        UpConstants.kDefaultStyleSideBarCompactViewWith;
+  }
+
+  static double? getScaffoldBodyWidthPercentage(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldBodyWidthPercentage ??
+        style?.scaffoldBodyWidthPercentage ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldBodyWidthPercentage ??
+        UpConstants.kDefaultStyleSideBarRightSideWidthPercentage;
+  }
+
+  static Gradient? getScaffoldFixedDrawerGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldFixedDrawerGradient ??
+        style?.scaffoldFixedDrawerGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldFixedDrawerGradient;
+  }
+
+  static Color getScaffoldFixedDrawerColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldFixedDrawerColor ??
+        style?.scaffoldFixedDrawerColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldFixedDrawerColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static double getScaffoldFixedDrawerRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldFixedDrawerRadius ??
+        style?.scaffoldFixedDrawerRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldFixedDrawerRadius ??
+        UpConstants.kDefaultStyleSideBarRadius;
+  }
+
+  static Gradient? getScaffoldBodyGradient(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldBodyGradient ??
+        style?.scaffoldBodyGradient ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldBodyGradient;
+  }
+
+  static Color getScaffoldBodyColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldBodyColor ??
+        style?.scaffoldBodyColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldBodyColor ??
+        Theme.of(context).primaryColor;
+  }
+
+  static double getScaffoldBodyRadius(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.scaffoldBodyRadius ??
+        style?.scaffoldBodyRadius ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .scaffoldBodyRadius ??
+        UpConstants.kDefaultStyleSideBarRadius;
+  }
+
+  static IconData getAppBarToggleIcon(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarToggleIcon ??
+        style?.appBarToggleIcon ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .appBarToggleIcon ??
+        UpConstants.kDefaultStylefixedDrawerToggleIcon;
+  }
+
+  static double getAppBarToggleIconPadding(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarToggleIconPadding ??
+        style?.appBarToggleIconPadding ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .appBarToggleIconPadding ??
+        UpConstants.kDefaultStyleFixedDrawerToggleIconPadding;
+  }
+
+  static double getAppBarToggleIconSize(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarToggleIconSize ??
+        style?.appBarToggleIconSize ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .appBarToggleIconSize ??
+        UpConstants.kDefaultStyleFixedDrawerToggleIconSize;
+  }
+
+  static Color getAppBarToggleIconColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.appBarToggleIconColor ??
+        style?.appBarToggleIconColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .appBarToggleIconColor ??
+        UpConstants.kDefaultStyleFixedDrawerToggleIconColor;
   }
 }

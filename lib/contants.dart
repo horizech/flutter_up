@@ -30,6 +30,15 @@ class UpConstants {
   static double kDefaultStyleCardWidth = 320.0;
   static double kDefaultStyleCardHeight = 320.0;
   static double kDefaultStyleCardRadius = 6;
+  static double kDefaultStyleSideBarRadius = 0;
+  static double kDefaultStyleSideBarDefaultViewWithPercentage = 25;
+  static double kDefaultStyleSideBarRightSideWidthPercentage = 75;
+  static double kDefaultStyleSideBarCompactViewWith = 60;
+  static double kDefaultStyleSideBarMaximumScreenWidthForCompactView = 900;
+  static IconData kDefaultStylefixedDrawerToggleIcon = Icons.menu;
+  static double kDefaultStyleFixedDrawerToggleIconPadding = 20;
+  static double kDefaultStyleFixedDrawerToggleIconSize = 32;
+  static Color kDefaultStyleFixedDrawerToggleIconColor = Colors.black;
 
   static double kDefaultStyleButtonHeight = 48.0;
   static double kDefaultStyleHeading1Size = 40.0;

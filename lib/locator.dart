@@ -1,3 +1,4 @@
+import 'package:flutter_up/services/key.dart';
 import 'package:flutter_up/services/up_layout.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_up/services/up_dialog.dart';
@@ -47,4 +48,5 @@ setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
       }
     }
   }
+  ServiceManager.registerLazySingleton(() => KeyService());
 }

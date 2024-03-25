@@ -11,6 +11,7 @@ import 'package:flutter_up/helpers/up_console.dart';
 
 import 'package:flutter_up/helpers/up_security.dart';
 import 'package:flutter_up/helpers/up_toast.dart';
+import 'package:flutter_up/services/key.dart';
 import 'package:flutter_up/services/up_navigation.dart';
 import 'package:flutter_up/services/up_dialog.dart';
 import 'package:flutter_up/services/up_url.dart';
@@ -153,6 +154,7 @@ class ServicesExamples {
     ]);
 
     /// Add any extra service that you have created
+    ServiceManager.registerLazySingleton(() => KeyService());
     ServiceManager.registerLazySingleton(() => MyService());
 
     /// Run application
