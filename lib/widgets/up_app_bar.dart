@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
+import 'package:flutter_up/helpers/up_layout.dart';
 import 'package:flutter_up/locator.dart';
 import 'package:flutter_up/services/key.dart';
 import 'package:flutter_up/themes/up_style.dart';
@@ -12,7 +13,7 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Widget? leading;
   final bool excludeHeaderSemantics;
   final bool automaticallyImplyLeading;
-  final bool showToggle;
+  final bool showToggleButton;
   final Widget? titleWidget;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   const UpAppBar(
@@ -25,7 +26,7 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.excludeHeaderSemantics = false,
       this.automaticallyImplyLeading = true,
       this.titleWidget,
-      this.showToggle = true,
+      this.showToggleButton = true,
       this.scaffoldKey})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
@@ -39,9 +40,7 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _UpAppBarState extends State<UpAppBar> {
   Widget _getLeading() {
-    Widget leading = const SizedBox();
-
-    if (widget.showToggle) {
+    if (widget.showToggleButton && !UpLayout.isPortrait(context)) {
       return InkWell(
         onTap: () {
           setState(() {
@@ -57,9 +56,27 @@ class _UpAppBarState extends State<UpAppBar> {
               style: widget.style, colorType: widget.colorType),
         ),
       );
+    } else {
+      return InkWell(
+        onTap: () {
+          if (widget.scaffoldKey!.currentState != null) {
+            if (widget.scaffoldKey!.currentState!.isDrawerOpen) {
+              widget.scaffoldKey!.currentState!.openDrawer();
+            } else {
+              widget.scaffoldKey!.currentState!.openDrawer();
+            }
+          }
+        },
+        child: Icon(
+          UpStyle.getAppBarToggleIcon(context,
+              style: widget.style, colorType: widget.colorType),
+          size: UpStyle.getAppBarToggleIconSize(context,
+              style: widget.style, colorType: widget.colorType),
+          color: UpStyle.getAppBarToggleIconColor(context,
+              style: widget.style, colorType: widget.colorType),
+        ),
+      );
     }
-
-    return leading;
   }
 
   @override
@@ -136,6 +153,7 @@ class _UpAppBarState extends State<UpAppBar> {
         colorType: widget.colorType,
       ),
       leading: _getLeading(),
+      // leading: widget.leading,
       actions: widget.actions,
     );
   }
