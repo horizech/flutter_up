@@ -16,19 +16,19 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showToggleButton;
   final Widget? titleWidget;
   final GlobalKey<ScaffoldState>? scaffoldKey;
-  const UpAppBar(
-      {Key? key,
-      this.title,
-      this.style,
-      this.colorType,
-      this.actions,
-      this.leading,
-      this.excludeHeaderSemantics = false,
-      this.automaticallyImplyLeading = true,
-      this.titleWidget,
-      this.showToggleButton = true,
-      this.scaffoldKey})
-      : preferredSize = const Size.fromHeight(kToolbarHeight),
+  const UpAppBar({
+    Key? key,
+    this.title,
+    this.style,
+    this.colorType,
+    this.actions,
+    this.leading,
+    this.excludeHeaderSemantics = false,
+    this.automaticallyImplyLeading = true,
+    this.titleWidget,
+    this.showToggleButton = false,
+    this.scaffoldKey,
+  })  : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   @override
@@ -39,43 +39,50 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _UpAppBarState extends State<UpAppBar> {
-  Widget _getLeading() {
-    if (widget.showToggleButton && !UpLayout.isPortrait(context)) {
-      return InkWell(
-        onTap: () {
-          setState(() {
-            ServiceManager<KeyService>().toggleFixedDrawerCallback();
-          });
-        },
-        child: Icon(
-          UpStyle.getAppBarToggleIcon(context,
-              style: widget.style, colorType: widget.colorType),
-          size: UpStyle.getAppBarToggleIconSize(context,
-              style: widget.style, colorType: widget.colorType),
-          color: UpStyle.getAppBarToggleIconColor(context,
-              style: widget.style, colorType: widget.colorType),
-        ),
-      );
-    } else {
-      return InkWell(
-        onTap: () {
-          if (widget.scaffoldKey!.currentState != null) {
-            if (widget.scaffoldKey!.currentState!.isDrawerOpen) {
-              widget.scaffoldKey!.currentState!.openDrawer();
-            } else {
-              widget.scaffoldKey!.currentState!.openDrawer();
+  Widget? _getLeading() {
+    if (widget.showToggleButton) {
+      // Scaffold.of(context).
+      // widget.scaffoldKey.currentState.
+      if (!UpLayout.isPortrait(context)) {
+        return InkWell(
+          onTap: () {
+            setState(() {
+              ServiceManager<KeyService>().toggleFixedDrawerCallback();
+            });
+          },
+          child: Icon(
+            UpStyle.getAppBarToggleIcon(context,
+                style: widget.style, colorType: widget.colorType),
+            size: UpStyle.getAppBarToggleIconSize(context,
+                style: widget.style, colorType: widget.colorType),
+            color: UpStyle.getAppBarToggleIconColor(context,
+                style: widget.style, colorType: widget.colorType),
+          ),
+        );
+      } else {
+        return InkWell(
+          onTap: () {
+            if (widget.scaffoldKey != null &&
+                widget.scaffoldKey!.currentState != null) {
+              if (widget.scaffoldKey!.currentState!.isDrawerOpen) {
+                widget.scaffoldKey!.currentState!.openDrawer();
+              } else {
+                widget.scaffoldKey!.currentState!.openDrawer();
+              }
             }
-          }
-        },
-        child: Icon(
-          UpStyle.getAppBarToggleIcon(context,
-              style: widget.style, colorType: widget.colorType),
-          size: UpStyle.getAppBarToggleIconSize(context,
-              style: widget.style, colorType: widget.colorType),
-          color: UpStyle.getAppBarToggleIconColor(context,
-              style: widget.style, colorType: widget.colorType),
-        ),
-      );
+          },
+          child: Icon(
+            UpStyle.getAppBarToggleIcon(context,
+                style: widget.style, colorType: widget.colorType),
+            size: UpStyle.getAppBarToggleIconSize(context,
+                style: widget.style, colorType: widget.colorType),
+            color: UpStyle.getAppBarToggleIconColor(context,
+                style: widget.style, colorType: widget.colorType),
+          ),
+        );
+      }
+    } else {
+      return null;
     }
   }
 

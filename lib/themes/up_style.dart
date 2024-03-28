@@ -285,7 +285,6 @@ class UpStyle {
   final double? scaffoldFixedDrawerWidthPercentage;
   final double? scaffoldCompactDrawerWidth;
   final double? scaffoldMaximumScreenWidthForCompactDrawer;
-  final double? scaffoldBodyWidthPercentage;
   final Gradient? scaffoldFixedDrawerGradient;
   final Color? scaffoldFixedDrawerColor;
   final double? scaffoldFixedDrawerRadius;
@@ -571,7 +570,6 @@ class UpStyle {
     this.scaffoldFixedDrawerWidthPercentage,
     this.scaffoldCompactDrawerWidth,
     this.scaffoldMaximumScreenWidthForCompactDrawer,
-    this.scaffoldBodyWidthPercentage,
     this.scaffoldFixedDrawerGradient,
     this.scaffoldFixedDrawerColor,
     this.scaffoldFixedDrawerRadius,
@@ -981,8 +979,6 @@ class UpStyle {
       scaffoldMaximumScreenWidthForCompactDrawer:
           override.scaffoldMaximumScreenWidthForCompactDrawer ??
               override.scaffoldMaximumScreenWidthForCompactDrawer,
-      scaffoldBodyWidthPercentage: override.scaffoldBodyWidthPercentage ??
-          override.scaffoldBodyWidthPercentage,
       scaffoldFixedDrawerGradient:
           override.scaffoldFixedDrawerGradient ?? scaffoldFixedDrawerGradient,
       scaffoldFixedDrawerColor:
@@ -4292,7 +4288,7 @@ class UpStyle {
         UpConstants.kDefaultStyleSideBarMaximumScreenWidthForCompactView;
   }
 
-  static double? getScaffoldFixedDrawerWidthPercentage(
+  static double getScaffoldFixedDrawerWidthPercentage(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
@@ -4305,7 +4301,7 @@ class UpStyle {
         UpConstants.kDefaultStyleSideBarDefaultViewWithPercentage;
   }
 
-  static double? getScaffoldCompactDrawerWidth(
+  static double getScaffoldCompactDrawerWidth(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
@@ -4316,19 +4312,6 @@ class UpStyle {
         getStyleByType(UpConfig.of(context).theme, colorType)
             .scaffoldCompactDrawerWidth ??
         UpConstants.kDefaultStyleSideBarCompactViewWith;
-  }
-
-  static double? getScaffoldBodyWidthPercentage(
-    BuildContext context, {
-    UpStyle? override,
-    UpStyle? style,
-    UpColorType? colorType,
-  }) {
-    return override?.scaffoldBodyWidthPercentage ??
-        style?.scaffoldBodyWidthPercentage ??
-        getStyleByType(UpConfig.of(context).theme, colorType)
-            .scaffoldBodyWidthPercentage ??
-        UpConstants.kDefaultStyleSideBarRightSideWidthPercentage;
   }
 
   static Gradient? getScaffoldFixedDrawerGradient(

@@ -295,6 +295,10 @@ class UpThemes {
       listTileSelectedTileColor: inputColor[100],
       listTileTextColor: baseColor.shade900,
 
+      // Scaffold
+      scaffoldCompactDrawerWidth: 50,
+      scaffoldFixedDrawerWidthPercentage: 20,
+
       // card
       cardHeaderColor: baseColor.shade200,
       cardRadius: 3,

@@ -31,7 +31,7 @@ class UpConstants {
   static double kDefaultStyleCardHeight = 320.0;
   static double kDefaultStyleCardRadius = 6;
   static double kDefaultStyleSideBarRadius = 0;
-  static double kDefaultStyleSideBarDefaultViewWithPercentage = 25;
+  static double kDefaultStyleSideBarDefaultViewWithPercentage = 20;
   static double kDefaultStyleSideBarRightSideWidthPercentage = 75;
   static double kDefaultStyleSideBarCompactViewWith = 60;
   static double kDefaultStyleSideBarMaximumScreenWidthForCompactView = 900;

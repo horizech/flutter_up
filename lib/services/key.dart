@@ -4,7 +4,7 @@ import 'package:rxdart/subjects.dart';
 // import 'package:rxdart/rxdart.dart';
 
 class KeyService {
-  final BehaviorSubject<bool> toggleFixedDrawer = BehaviorSubject.seeded(false);
+  final BehaviorSubject<bool> toggleFixedDrawer = BehaviorSubject.seeded(true);
   Stream get toggleFixedDrawerstream$ => toggleFixedDrawer.stream;
   bool get currentToggleFixedDrawer =>
       toggleFixedDrawer.valueWrapper?.value ?? false;

@@ -54,7 +54,6 @@ class UpNavDrawer extends StatelessWidget {
             colorType: colorType,
           ),
         ),
-        height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
             SizedBox(
