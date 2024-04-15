@@ -4,9 +4,9 @@ import 'package:flutter_up/enums/up_toast_type.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpToast {
-  bool _isVisible = false;
+  static bool _isVisible = false;
 
-  void showToast({
+  static void showToast({
     required BuildContext context,
     required String text,
     UpStyle? style,

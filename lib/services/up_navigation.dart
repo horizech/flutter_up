@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 class UpNavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  // late final String initialRoute;
 
   navigateToNamed(
     String routeName, {
@@ -14,7 +13,7 @@ class UpNavigationService {
   }) {
     if (navigatorKey.currentContext != null) {
       if (replace) {
-        navigatorKey.currentContext!.goNamed(
+        navigatorKey.currentContext!.pushReplacementNamed(
           routeName,
           extra: extra ?? {},
           params: params ?? {},
@@ -31,18 +30,17 @@ class UpNavigationService {
     }
   }
 
-  navigateTo({
-    required String path,
-    bool replace = false,
-  }) {
+  navigate({required String path, bool replace = false, Object? extra}) {
     if (navigatorKey.currentContext != null) {
       if (replace) {
         navigatorKey.currentContext!.replace(
           path,
+          extra: extra,
         );
       } else {
         (navigatorKey.currentContext!).go(
           path,
+          extra: extra,
         );
       }
     }
@@ -54,14 +52,5 @@ class UpNavigationService {
         navigatorKey.currentContext!.pop();
       }
     }
-    /*
-    if (result != null) {
-      // navigatorKey.currentState!.popUntil(ModalRoute.withName(initialRoute));
-      // navigatorKey.currentContext!.pop();
-
-    } else {
-      navigatorKey.currentContext!.pop();
-    }
-    */
   }
 }

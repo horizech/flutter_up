@@ -11,6 +11,6 @@ class UpSearchService {
   }
 
   remove() {
-    update("");
+    update(null);
   }
 }

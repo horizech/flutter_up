@@ -27,7 +27,6 @@ class UpRoute {
     List<RouteBase> routes = upRoutes
         .map(
           (e) => GoRoute(
-            // parentNavigatorKey: parentNavigatorKey,
             path: e.path,
             builder: (BuildContext context, GoRouterState state) =>
                 e.pageBuilder(

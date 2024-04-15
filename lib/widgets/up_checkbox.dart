@@ -6,7 +6,7 @@ import 'package:flutter_up/themes/up_style.dart';
 
 class UpCheckbox extends StatefulWidget {
   final UpColorType? colorType;
-  final UpCheckBoxController? controller;
+  final UpCheckboxController? controller;
   final UpStyle? style;
   final String? label;
   final Function? onChange;

@@ -117,7 +117,7 @@ class UpStyle {
   final double? buttonHeight;
   final BoxFit? buttonTextFit;
 
-  // Appbar
+  // AppBar
   final Color? appBarColor;
   final Color? appBarTitleColor;
   final Color? appBarSurfaceTintColor;
@@ -244,8 +244,10 @@ class UpStyle {
   final Color? listTileTextColor;
   final Color? listTileFocusedColor;
   final Color? listTileHoveredColor;
-  final Color? listTileSelectedColor;
   final Color? listTileColor;
+  final Color? listTileSelectedTextColor;
+  final Color? listTileSelectedIconColor;
+
   final Color? listTileSelectedTileColor;
 
   // card
@@ -291,7 +293,6 @@ class UpStyle {
   final Gradient? scaffoldBodyGradient;
   final Color? scaffoldBodyColor;
   final double? scaffoldBodyRadius;
-  final bool? showFixedDrawerToggleIcon;
   final double? appBarToggleIconPadding;
   final double? appBarToggleIconSize;
   final IconData? appBarToggleIcon;
@@ -405,7 +406,7 @@ class UpStyle {
     this.tableHeadingRowHeight,
     this.tableRowHeight,
 
-    // Appbar
+    // AppBar
     this.appBarColor,
     this.appBarHeight,
     this.appBarTitleColor,
@@ -533,7 +534,8 @@ class UpStyle {
     this.listTileFocusedColor,
     this.listTileHoveredColor,
     this.listTileIconColor,
-    this.listTileSelectedColor,
+    this.listTileSelectedTextColor,
+    this.listTileSelectedIconColor,
     this.listTileSelectedTileColor,
     this.listTileTextColor,
 
@@ -576,7 +578,6 @@ class UpStyle {
     this.scaffoldBodyGradient,
     this.scaffoldBodyColor,
     this.scaffoldBodyRadius,
-    this.showFixedDrawerToggleIcon,
     this.appBarToggleIconPadding,
     this.appBarToggleIconSize,
     this.appBarToggleIcon,
@@ -731,8 +732,10 @@ class UpStyle {
           override.listTileFocusedColor ?? listTileFocusedColor,
       listTileHoveredColor:
           override.listTileHoveredColor ?? listTileHoveredColor,
-      listTileSelectedColor:
-          override.listTileSelectedColor ?? listTileSelectedColor,
+      listTileSelectedTextColor:
+          override.listTileSelectedTextColor ?? listTileSelectedTextColor,
+      listTileSelectedIconColor:
+          override.listTileSelectedIconColor ?? listTileSelectedIconColor,
       listTileIconColor: override.listTileIconColor ?? listTileIconColor,
       listTileSelectedTileColor:
           override.listTileSelectedTileColor ?? listTileSelectedTileColor,
@@ -744,7 +747,7 @@ class UpStyle {
       codeBorderColor: override.codeBorderColor ?? codeBorderColor,
       codeTextColor: override.codeTextColor ?? codeTextColor,
 
-      // Appbar
+      // AppBar
       appBarColor: override.appBarColor ?? appBarColor,
       appBarTitleColor: override.appBarTitleColor ?? appBarTitleColor,
       appBarTitleSize: override.appBarTitleSize ?? appBarTitleSize,
@@ -989,8 +992,6 @@ class UpStyle {
           override.scaffoldBodyGradient ?? scaffoldBodyGradient,
       scaffoldBodyColor: override.scaffoldBodyColor ?? scaffoldBodyColor,
       scaffoldBodyRadius: override.scaffoldBodyRadius ?? scaffoldBodyRadius,
-      showFixedDrawerToggleIcon:
-          override.showFixedDrawerToggleIcon ?? showFixedDrawerToggleIcon,
       appBarToggleIconPadding:
           override.appBarToggleIconPadding ?? appBarToggleIconPadding,
       appBarToggleIconSize:
@@ -1928,7 +1929,7 @@ class UpStyle {
   }
 
   //checkbox
-  // static Color getCheckBoxLabelColor(
+  // static Color getCheckboxLabelColor(
   //   BuildContext context, {
   //   UpStyle? override,
   //   UpStyle? style,
@@ -3756,16 +3757,29 @@ class UpStyle {
         Colors.transparent;
   }
 
-  static Color getListTileSelectedColor(
+  static Color getListTileSelectedIconColor(
     BuildContext context, {
     UpStyle? override,
     UpStyle? style,
     UpColorType? colorType,
   }) {
-    return override?.listTileSelectedColor ??
-        style?.listTileSelectedColor ??
+    return override?.listTileSelectedIconColor ??
+        style?.listTileSelectedIconColor ??
         getStyleByType(UpConfig.of(context).theme, colorType)
-            .listTileSelectedColor ??
+            .listTileSelectedIconColor ??
+        Colors.transparent;
+  }
+
+  static Color getListTileSelectedTextColor(
+    BuildContext context, {
+    UpStyle? override,
+    UpStyle? style,
+    UpColorType? colorType,
+  }) {
+    return override?.listTileSelectedTextColor ??
+        style?.listTileSelectedTextColor ??
+        getStyleByType(UpConfig.of(context).theme, colorType)
+            .listTileSelectedTextColor ??
         Colors.transparent;
   }
 
@@ -3826,7 +3840,8 @@ class UpStyle {
   }) {
     return override?.cardWidth ??
         style?.cardWidth ??
-        getStyleByType(UpConfig.of(context).theme, colorType).cardWidth;
+        getStyleByType(UpConfig.of(context).theme, colorType).cardWidth ??
+        MediaQuery.of(context).size.width;
   }
 
   static double getCardRadius(
@@ -4374,7 +4389,7 @@ class UpStyle {
         style?.scaffoldBodyColor ??
         getStyleByType(UpConfig.of(context).theme, colorType)
             .scaffoldBodyColor ??
-        Theme.of(context).primaryColor;
+        UpConfig.of(context).theme.baseColor;
   }
 
   static double getScaffoldBodyRadius(

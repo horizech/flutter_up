@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/helpers/up_layout.dart';
 import 'package:flutter_up/locator.dart';
-import 'package:flutter_up/services/key.dart';
+import 'package:flutter_up/services/up_scaffold.dart';
 import 'package:flutter_up/themes/up_style.dart';
-import 'package:flutter_up/widgets/up_text.dart';
 
 class UpScaffold extends StatefulWidget {
   final Widget? body;
@@ -36,7 +35,6 @@ class UpScaffold extends StatefulWidget {
   final void Function(bool)? onDrawerChanged;
   final bool primary;
   final bool fixedDrawer;
-  final bool showFixedDrawerToggleIcon;
   const UpScaffold({
     super.key,
     this.appBar,
@@ -67,7 +65,6 @@ class UpScaffold extends StatefulWidget {
     this.persistentFooterAlignment = AlignmentDirectional.centerEnd,
     this.primary = true,
     this.fixedDrawer = false,
-    this.showFixedDrawerToggleIcon = true,
   });
 
   @override
@@ -111,20 +108,35 @@ class _UpScaffoldState extends State<UpScaffold> {
       backgroundColor: UpStyle.getAppBackgroundColor(context,
           style: widget.style, colorType: widget.colorType),
       body: StreamBuilder(
-        stream: ServiceManager<KeyService>().toggleFixedDrawerstream$,
+        stream: ServiceManager<UpScaffoldService>().toggleFixedDrawerstream$,
         builder: (context, snapshot) {
           return widget.fixedDrawer && !UpLayout.isPortrait(context)
-              ? (widget.compactDrawer != null
-                  ? snapshot.data == false
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: UpStyle.getScaffoldCompactDrawerWidth(
-                                  context,
+              ? (widget.compactDrawer != null && snapshot.data == false
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: UpStyle.getScaffoldCompactDrawerWidth(context,
+                              style: widget.style, colorType: widget.colorType),
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                              color: UpStyle.getScaffoldBodyColor(context,
                                   style: widget.style,
                                   colorType: widget.colorType),
-                              height: MediaQuery.of(context).size.height,
+                              gradient: UpStyle.getScaffoldBodyGradient(context,
+                                  style: widget.style,
+                                  colorType: widget.colorType),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  UpStyle.getScaffoldBodyRadius(context,
+                                      style: widget.style,
+                                      colorType: widget.colorType),
+                                ),
+                              )),
+                          child: widget.compactDrawer ?? const SizedBox(),
+                        ),
+                        Expanded(
+                          child: Container(
                               decoration: BoxDecoration(
                                   color: UpStyle.getScaffoldBodyColor(context,
                                       style: widget.style,
@@ -140,31 +152,12 @@ class _UpScaffoldState extends State<UpScaffold> {
                                           colorType: widget.colorType),
                                     ),
                                   )),
-                              child: widget.compactDrawer ?? const SizedBox(),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      color: UpStyle.getScaffoldBodyColor(
-                                          context,
-                                          style: widget.style,
-                                          colorType: widget.colorType),
-                                      gradient: UpStyle.getScaffoldBodyGradient(
-                                          context,
-                                          style: widget.style,
-                                          colorType: widget.colorType),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          UpStyle.getScaffoldBodyRadius(context,
-                                              style: widget.style,
-                                              colorType: widget.colorType),
-                                        ),
-                                      )),
-                                  child: widget.body ?? const SizedBox()),
-                            )
-                          ],
+                              child: widget.body ?? const SizedBox()),
                         )
-                      : Row(
+                      ],
+                    )
+                  : snapshot.data == true
+                      ? Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
@@ -214,55 +207,31 @@ class _UpScaffoldState extends State<UpScaffold> {
                             )
                           ],
                         )
-                  : Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width *
-                              (UpStyle.getScaffoldFixedDrawerWidthPercentage(
-                                      context,
-                                      style: widget.style,
-                                      colorType: widget.colorType) /
-                                  100),
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                              color: UpStyle.getScaffoldBodyColor(context,
-                                  style: widget.style,
-                                  colorType: widget.colorType),
-                              gradient: UpStyle.getScaffoldBodyGradient(context,
-                                  style: widget.style,
-                                  colorType: widget.colorType),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  UpStyle.getScaffoldBodyRadius(context,
-                                      style: widget.style,
-                                      colorType: widget.colorType),
-                                ),
-                              )),
-                          child: widget.drawer ?? const SizedBox(),
-                        ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: UpStyle.getScaffoldBodyColor(context,
-                                    style: widget.style,
-                                    colorType: widget.colorType),
-                                gradient: UpStyle.getScaffoldBodyGradient(
-                                    context,
-                                    style: widget.style,
-                                    colorType: widget.colorType),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    UpStyle.getScaffoldBodyRadius(context,
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: UpStyle.getScaffoldBodyColor(context,
                                         style: widget.style,
                                         colorType: widget.colorType),
-                                  ),
-                                )),
-                            child: widget.body ?? const SizedBox(),
-                          ),
-                        )
-                      ],
-                    ))
+                                    gradient: UpStyle.getScaffoldBodyGradient(
+                                        context,
+                                        style: widget.style,
+                                        colorType: widget.colorType),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        UpStyle.getScaffoldBodyRadius(context,
+                                            style: widget.style,
+                                            colorType: widget.colorType),
+                                      ),
+                                    )),
+                                child: widget.body ?? const SizedBox(),
+                              ),
+                            )
+                          ],
+                        ))
               : widget.body ?? const SizedBox();
         },
       ),

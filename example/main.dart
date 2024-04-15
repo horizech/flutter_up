@@ -11,7 +11,7 @@ import 'package:flutter_up/helpers/up_console.dart';
 
 import 'package:flutter_up/helpers/up_security.dart';
 import 'package:flutter_up/helpers/up_toast.dart';
-import 'package:flutter_up/services/key.dart';
+import 'package:flutter_up/services/up_scaffold.dart';
 import 'package:flutter_up/services/up_navigation.dart';
 import 'package:flutter_up/services/up_dialog.dart';
 import 'package:flutter_up/services/up_url.dart';
@@ -88,8 +88,8 @@ class MyDialog extends UpBaseDialog {
   void show(BuildContext context, String completerId, {dynamic data}) {
     showDialog(
         context: context,
-        builder: (context) => const MyWidget(
-            completerId: "CompleterId", document: {'title': 'MyWidget'}));
+        builder: (context) => MyWidget(
+            completerId: completerId, document: const {'title': 'MyWidget'}));
   }
 }
 
@@ -148,13 +148,13 @@ class ServicesExamples {
     setupFlutterUpLocators([
       FlutterUpLocators.upDialogService,
       FlutterUpLocators.upNavigationService,
-      FlutterUpLocators.upScaffoldHelperService,
+      FlutterUpLocators.upScaffoldService,
       FlutterUpLocators.upSearchService,
       FlutterUpLocators.upUrlService
     ]);
 
     /// Add any extra service that you have created
-    ServiceManager.registerLazySingleton(() => KeyService());
+    ServiceManager.registerLazySingleton(() => UpScaffoldService());
     ServiceManager.registerLazySingleton(() => MyService());
 
     /// Run application
@@ -222,7 +222,7 @@ helpersExample(BuildContext context) {
   upConsole(UpConsoleLevel.info, 'Hello World!');
 
   /// Toast
-  UpToast().showToast(
+  UpToast.showToast(
     context: context,
     text: "Not implemented yet!",
   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class RoutesHelper {
+class UpRoutesHelper {
   static Uri getCurrentUri(BuildContext context) {
     return GoRouter.of(context).routeInformationProvider.value.uri;
   }

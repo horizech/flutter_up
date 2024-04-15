@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:rxdart/subjects.dart';
-// import 'package:rxdart/rxdart.dart';
 
-class KeyService {
+class UpScaffoldService {
   final BehaviorSubject<bool> toggleFixedDrawer = BehaviorSubject.seeded(true);
   Stream get toggleFixedDrawerstream$ => toggleFixedDrawer.stream;
   bool get currentToggleFixedDrawer =>

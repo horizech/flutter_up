@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_up/enums/up_color_type.dart';
 import 'package:flutter_up/helpers/up_layout.dart';
 import 'package:flutter_up/locator.dart';
-import 'package:flutter_up/services/key.dart';
+import 'package:flutter_up/services/up_scaffold.dart';
 import 'package:flutter_up/themes/up_style.dart';
 
 class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -40,14 +40,15 @@ class UpAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _UpAppBarState extends State<UpAppBar> {
   Widget? _getLeading() {
+    if (widget.leading != null) {
+      return widget.leading;
+    }
     if (widget.showToggleButton) {
-      // Scaffold.of(context).
-      // widget.scaffoldKey.currentState.
       if (!UpLayout.isPortrait(context)) {
         return InkWell(
           onTap: () {
             setState(() {
-              ServiceManager<KeyService>().toggleFixedDrawerCallback();
+              ServiceManager<UpScaffoldService>().toggleFixedDrawerCallback();
             });
           },
           child: Icon(
@@ -60,30 +61,31 @@ class _UpAppBarState extends State<UpAppBar> {
           ),
         );
       } else {
-        return InkWell(
-          onTap: () {
-            if (widget.scaffoldKey != null &&
-                widget.scaffoldKey!.currentState != null) {
-              if (widget.scaffoldKey!.currentState!.isDrawerOpen) {
-                widget.scaffoldKey!.currentState!.openDrawer();
-              } else {
-                widget.scaffoldKey!.currentState!.openDrawer();
+        if (widget.scaffoldKey != null) {
+          return InkWell(
+            onTap: () {
+              if (widget.scaffoldKey != null &&
+                  widget.scaffoldKey!.currentState != null) {
+                if (widget.scaffoldKey!.currentState!.isDrawerOpen) {
+                  widget.scaffoldKey!.currentState!.openDrawer();
+                } else {
+                  widget.scaffoldKey!.currentState!.openDrawer();
+                }
               }
-            }
-          },
-          child: Icon(
-            UpStyle.getAppBarToggleIcon(context,
-                style: widget.style, colorType: widget.colorType),
-            size: UpStyle.getAppBarToggleIconSize(context,
-                style: widget.style, colorType: widget.colorType),
-            color: UpStyle.getAppBarToggleIconColor(context,
-                style: widget.style, colorType: widget.colorType),
-          ),
-        );
+            },
+            child: Icon(
+              UpStyle.getAppBarToggleIcon(context,
+                  style: widget.style, colorType: widget.colorType),
+              size: UpStyle.getAppBarToggleIconSize(context,
+                  style: widget.style, colorType: widget.colorType),
+              color: UpStyle.getAppBarToggleIconColor(context,
+                  style: widget.style, colorType: widget.colorType),
+            ),
+          );
+        }
       }
-    } else {
-      return null;
     }
+    return null;
   }
 
   @override

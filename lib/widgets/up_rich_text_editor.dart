@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_up/config/up_config.dart';
-import 'package:flutter_up/helpers/rich_text_editor_helper.dart';
+import 'package:flutter_up/helpers/up_rich_text_editor_helper.dart';
 import 'package:flutter_up/controller/up_rich_text_editor_controller.dart';
 
 class UpRichTextEditor extends StatefulWidget {

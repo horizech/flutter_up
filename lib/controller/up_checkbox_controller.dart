@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class UpCheckBoxController extends ChangeNotifier {
+class UpCheckboxController extends ChangeNotifier {
   bool value;
 
-  UpCheckBoxController({this.value = false});
+  UpCheckboxController({this.value = false});
 
   void updateValue(bool value) {
     this.value = value;

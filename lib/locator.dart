@@ -1,8 +1,7 @@
-import 'package:flutter_up/services/key.dart';
+import 'package:flutter_up/services/up_scaffold.dart';
 import 'package:flutter_up/services/up_layout.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_up/services/up_dialog.dart';
-import 'package:flutter_up/services/up_scaffold_helper.dart';
 import 'package:flutter_up/services/up_navigation.dart';
 import 'package:flutter_up/services/up_search.dart';
 import 'package:flutter_up/services/up_url.dart';
@@ -14,11 +13,11 @@ GetIt get ServiceManager => _locator;
 
 enum FlutterUpLocators {
   upUrlService,
-  upScaffoldHelperService,
   upNavigationService,
   upDialogService,
   upSearchService,
   upLayoutService,
+  upScaffoldService
 }
 
 setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
@@ -26,10 +25,6 @@ setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
     for (var locator in locators) {
       if (locator == FlutterUpLocators.upUrlService) {
         _locator.registerLazySingleton(() => UpUrlService());
-      }
-
-      if (locator == FlutterUpLocators.upScaffoldHelperService) {
-        _locator.registerLazySingleton(() => UpScaffoldHelperService());
       }
 
       if (locator == FlutterUpLocators.upNavigationService) {
@@ -46,7 +41,9 @@ setupFlutterUpLocators(List<FlutterUpLocators>? locators) {
       if (locator == FlutterUpLocators.upLayoutService) {
         _locator.registerLazySingleton(() => UpLayoutService());
       }
+      if (locator == FlutterUpLocators.upScaffoldService) {
+        _locator.registerLazySingleton(() => UpScaffoldService());
+      }
     }
   }
-  ServiceManager.registerLazySingleton(() => KeyService());
 }

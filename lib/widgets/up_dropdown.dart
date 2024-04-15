@@ -518,7 +518,7 @@ class _upDropDownMultipleSelectBodyState
   final TextEditingController valuesController = TextEditingController();
   List<UpLabelValuePair>? filteredProducts = [];
   List<String> multipleSelectionsList = [];
-  Map<String, bool> checkBoxValues = {};
+  Map<String, bool> checkboxValues = {};
 
   String? previousInputValue;
   bool isOverlayCreated = false;
@@ -647,7 +647,7 @@ class _upDropDownMultipleSelectBodyState
   }
 
   onClick(String key, bool newCheck) {
-    checkBoxValues[key] = newCheck;
+    checkboxValues[key] = newCheck;
     if (newCheck) {
       if (!multipleSelectionsList.contains(key)) {
         multipleSelectionsList.add(key);
@@ -666,9 +666,9 @@ class _upDropDownMultipleSelectBodyState
   void initState() {
     super.initState();
     filteredProducts = widget.itemList;
-    if (checkBoxValues.isEmpty) {
+    if (checkboxValues.isEmpty) {
       for (var element in widget.itemList) {
-        checkBoxValues[element.value] = false;
+        checkboxValues[element.value] = false;
       }
     }
     if (widget.values != null && widget.values!.isNotEmpty) {
@@ -680,7 +680,7 @@ class _upDropDownMultipleSelectBodyState
 
     for (var element in widget.itemList) {
       if (multipleSelectionsList.contains(element.value)) {
-        checkBoxValues[element.value] = true;
+        checkboxValues[element.value] = true;
       }
     }
     // _focusNode.addListener(() {

@@ -291,7 +291,8 @@ class UpThemes {
       listTileFocusedColor: baseColor.shade200,
       listTileHoveredColor: baseColor.shade100,
       listTileIconColor: baseColor.shade900,
-      listTileSelectedColor: inputColor[300],
+      listTileSelectedTextColor: inputColor[500],
+      listTileSelectedIconColor: inputColor[500],
       listTileSelectedTileColor: inputColor[100],
       listTileTextColor: baseColor.shade900,
 

@@ -38,15 +38,16 @@ class UpAboutAppDialog extends UpBaseDialog {
         builder: (context) => UpAlertDialog(
               title: _getHeader(data['title']),
               content: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                  padding: const EdgeInsets.only(
+                      left: 8.0, top: 15.0, bottom: 15.0, right: 8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: data['text']
                         .split('\n')
                         .map<Widget>(
                           (text) => Padding(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(5),
                             child: UpText(text),
                           ),
                         )

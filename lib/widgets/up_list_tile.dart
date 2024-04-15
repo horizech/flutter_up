@@ -75,7 +75,7 @@ class UpListTile extends StatelessWidget {
             style: style,
             colorType: colorType,
           ),
-          selectedColor: UpStyle.getListTileSelectedColor(
+          selectedColor: UpStyle.getListTileSelectedTileColor(
             context,
             style: style,
             colorType: colorType,
@@ -101,12 +101,12 @@ class UpListTile extends StatelessWidget {
                       icon: leadingIcon!,
                       style: UpStyle(
                         iconColor: isSelected
-                            ? UpStyle.getListTileSelectedColor(
+                            ? UpStyle.getListTileSelectedIconColor(
                                 context,
                                 style: style,
                                 colorType: colorType,
                               )
-                            : UpStyle.getListTileTextColor(
+                            : UpStyle.getListTileIconColor(
                                 context,
                                 style: style,
                                 colorType: colorType,
@@ -115,13 +115,31 @@ class UpListTile extends StatelessWidget {
                     )
                   : null),
           subtitle: subtitle,
-          trailing: trailing,
+          trailing: trailing ??
+              (trailingIcon != null
+                  ? UpIcon(
+                      icon: trailingIcon!,
+                      style: UpStyle(
+                        iconColor: isSelected
+                            ? UpStyle.getListTileSelectedIconColor(
+                                context,
+                                style: style,
+                                colorType: colorType,
+                              )
+                            : UpStyle.getListTileIconColor(
+                                context,
+                                style: style,
+                                colorType: colorType,
+                              ),
+                      ),
+                    )
+                  : null),
           title: titleWidget ??
               UpText(
                 title ?? "",
                 style: UpStyle(
                   textColor: isSelected
-                      ? UpStyle.getListTileSelectedColor(
+                      ? UpStyle.getListTileSelectedTextColor(
                           context,
                           style: style,
                           colorType: colorType,

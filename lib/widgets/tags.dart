@@ -42,7 +42,7 @@
 
               //                           // GestureDetector(
               //                           //   onTap: () {
-              //                           //     checkBoxValues[e] = false;
+              //                           //     checkboxValues[e] = false;
               //                           //     if (multipleSelectionsList
               //                           //         .contains(e)) {
               //                           //       multipleSelectionsList

@@ -1,3 +1,19 @@
+## 5.0.0(unreleased)
+
+- Added UpScaffoldService Locator
+- Updated UpDrawerItem
+- Updated UpRichTextEditor widget
+- Added fixed and compact drawer in UpScaffold
+- updated UpAppBar
+- Added webOnlyWindowName in OpenUrl method
+- Added UpRoutesHelper class
+- Updated UpSearchHelper Service update method
+- Updated UpToast method
+- Updated UpDilogs (UpInfo, UpAction, UpAboutApp)
+- Updated UpCheckboxController
+- Updated UpAppBarItem
+- Updated UpToast
+
 ## 4.0.1
 
 - Added table width and height
