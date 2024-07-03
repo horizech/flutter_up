@@ -86,7 +86,7 @@ class _UpDateTimePickerState extends State<UpDateTimePicker> {
                 widget.controller.clear();
               });
               if (widget.onChange != null) {
-                widget.onChange!("");
+                widget.onChange!(null);
               }
             }),
           ),

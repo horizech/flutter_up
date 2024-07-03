@@ -34,6 +34,14 @@ class UpRichTextEditorHelper {
     return controller.document.toPlainText();
   }
 
+  static String convertDeltaToHtml(dynamic deltaJson) {
+    QuillController controller = QuillController(
+      document: Document.fromJson(deltaJson),
+      selection: const TextSelection.collapsed(offset: 0),
+    );
+    return convertQuillToHtmlText(controller);
+  }
+
   static String convertQuillToHtmlText(QuillController controller) {
     final deltaJson = controller.document.toDelta().toJson();
     final converter = QuillDeltaToHtmlConverter(

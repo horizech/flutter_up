@@ -1,5 +1,7 @@
 ## 5.0.0(unreleased)
 
+- Updated flutter quill version
+- Added convertDeltaToHtml function in Richtext editor helper
 - Added UpScaffoldService Locator
 - Updated UpDrawerItem
 - Updated UpRichTextEditor widget

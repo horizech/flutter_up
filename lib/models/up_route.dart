@@ -51,7 +51,7 @@ class UpRoute {
                   Uri uri = Uri.base;
                   if (!e.externalRoute) {
                     String route = e.redirectRoute!;
-                    if (uri.fragment.isNotEmpty) {
+                    if (uri.fragment.isNotEmpty && !route.contains("redirecturl")) {
                       route += "?redirecturl=${uri.fragment}";
                     }
                     return route;

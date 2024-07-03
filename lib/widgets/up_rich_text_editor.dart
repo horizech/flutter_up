@@ -60,21 +60,22 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
       }
     }
     QuillIconTheme iconTheme = QuillIconTheme(
-      iconButtonSelectedStyle: ButtonStyle(
-        iconColor: MaterialStateProperty.all<Color>(
-          UpConfig.of(context).theme.primaryColor,
-        ),
-        surfaceTintColor: MaterialStateProperty.all<Color>(
-          Colors.blue,
-        ),
-        overlayColor: MaterialStateProperty.all<Color>(
-          Colors.limeAccent,
-        ),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          UpConfig.of(context).theme.basicStyle?.buttonBackgroundColor ??
-              Colors.transparent,
-        ),
-      ),
+      // iconButtonSelectedStyle: ButtonStyle(
+      //   iconColor: MaterialStateProperty.all<Color>(
+      //     UpConfig.of(context).theme.primaryColor,
+      //   ),
+      //   surfaceTintColor: MaterialStateProperty.all<Color>(
+      //     Colors.blue,
+      //   ),
+      //   overlayColor: MaterialStateProperty.all<Color>(
+      //     Colors.limeAccent,
+      //   ),
+      //   backgroundColor: MaterialStateProperty.all<Color>(
+      //     UpConfig.of(context).theme.basicStyle?.buttonBackgroundColor ??
+      //         Colors.transparent,
+      //   ),
+      // ),
+
       iconButtonSelectedData: IconButtonData(
         color: UpConfig.of(context).theme.primaryColor,
         disabledColor: Colors.grey,
@@ -85,7 +86,6 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
         disabledColor: Colors.grey,
         iconSize: 12,
       ),
-      iconButtonUnselectedStyle: const ButtonStyle(),
     );
     return SizedBox(
       child: QuillEditorProvider(
@@ -464,6 +464,7 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: QuillEditor.basic(
+                  // readOnly: widget.readOnly,
                   focusNode: FocusNode(),
                   scrollController: ScrollController(),
                   configurations: QuillEditorConfigurations(
@@ -471,7 +472,6 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
                     embedBuilders: kIsWeb
                         ? FlutterQuillEmbeds.editorWebBuilders()
                         : FlutterQuillEmbeds.editorBuilders(),
-                    readOnly: widget.readOnly,
                     scrollable: true,
                     autoFocus: false,
                     padding: const EdgeInsets.all(8.0),
