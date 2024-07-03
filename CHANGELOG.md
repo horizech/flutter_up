@@ -1,4 +1,6 @@
-## 5.0.0(unreleased)
+## unreleased
+
+## 5.0.0
 
 - Updated flutter quill version
 - Added convertDeltaToHtml function in Richtext editor helper
