@@ -12,7 +12,7 @@ class UpTable extends StatefulWidget {
   final bool isLastRowFooter;
   final bool showCheckboxColumn;
   final Function? onSelectChanged;
-  final MaterialStateProperty<MouseCursor?>? mouseCursor;
+  final WidgetStateProperty<MouseCursor?>? mouseCursor;
   final Function(int, bool)? onSortChange;
   final int? sortColumnIndex;
   final bool sortAscending;
@@ -37,7 +37,7 @@ class UpTable extends StatefulWidget {
 }
 
 class _UpTableState extends State<UpTable> {
-  Color _getFooterRowColor(Set<MaterialState> states) {
+  Color _getFooterRowColor(Set<WidgetState> states) {
     return UpStyle.getTableFooterColor(
       context,
       style: widget.style,
@@ -45,7 +45,7 @@ class _UpTableState extends State<UpTable> {
     );
   }
 
-  Color getDataRowColor(Set<MaterialState> states, {Color? rowColor}) {
+  Color getDataRowColor(Set<WidgetState> states, {Color? rowColor}) {
     Color? color;
     if (rowColor != null) {
       color = rowColor;
@@ -56,8 +56,8 @@ class _UpTableState extends State<UpTable> {
         colorType: widget.colorType,
       );
     }
-    if (states.any(<MaterialState>{
-      MaterialState.pressed,
+    if (states.any(<WidgetState>{
+      WidgetState.pressed,
     }.contains)) {
       color = UpStyle.getTableRowPressedColor(
         context,
@@ -65,8 +65,8 @@ class _UpTableState extends State<UpTable> {
         colorType: widget.colorType,
       );
     }
-    if (states.any(<MaterialState>{
-      MaterialState.hovered,
+    if (states.any(<WidgetState>{
+      WidgetState.hovered,
     }.contains)) {
       color = UpStyle.getTableRowHoverColor(
         context,
@@ -74,8 +74,8 @@ class _UpTableState extends State<UpTable> {
         colorType: widget.colorType,
       );
     }
-    if (states.any(<MaterialState>{
-      MaterialState.focused,
+    if (states.any(<WidgetState>{
+      WidgetState.focused,
     }.contains)) {
       color = UpStyle.getTableRowFocusedColor(
         context,
@@ -83,8 +83,8 @@ class _UpTableState extends State<UpTable> {
         colorType: widget.colorType,
       );
     }
-    if (states.any(<MaterialState>{
-      MaterialState.hovered,
+    if (states.any(<WidgetState>{
+      WidgetState.hovered,
     }.contains)) {
       color = UpStyle.getTableRowHoverColor(
         context,
@@ -162,12 +162,12 @@ class _UpTableState extends State<UpTable> {
                     showCheckboxColumn: widget.showCheckboxColumn,
                     headingRowHeight: UpStyle.getTableHeadingRowHeight(context,
                         style: widget.style, colorType: widget.colorType),
-                    dataRowColor: MaterialStateColor.resolveWith(
+                    dataRowColor: WidgetStateColor.resolveWith(
                       ((states) => (getDataRowColor(
                             states,
                           ))),
                     ),
-                    headingRowColor: MaterialStateColor.resolveWith(
+                    headingRowColor: WidgetStateColor.resolveWith(
                       (states) => UpStyle.getTableHeaderColor(
                         context,
                         style: widget.style,
@@ -211,9 +211,9 @@ class _UpTableState extends State<UpTable> {
                               mouseCursor: widget.mouseCursor,
                               color: widget.isLastRowFooter &&
                                       e.key == widget.rows.length - 1
-                                  ? MaterialStateColor.resolveWith(
+                                  ? WidgetStateColor.resolveWith(
                                       _getFooterRowColor)
-                                  : MaterialStateColor.resolveWith(
+                                  : WidgetStateColor.resolveWith(
                                       ((states) => (getDataRowColor(
                                             states,
                                             rowColor: e.value.rowColor,

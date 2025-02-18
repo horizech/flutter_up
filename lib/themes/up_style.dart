@@ -1524,16 +1524,16 @@ class UpStyle {
     UpColorType? colorType,
   }) {
     return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(
+      backgroundColor: WidgetStateProperty.all<Color>(
         getButtonBackgroundColor(context, style: style, colorType: colorType),
       ),
-      foregroundColor: MaterialStateProperty.all<Color>(
+      foregroundColor: WidgetStateProperty.all<Color>(
         getButtonTextColor(context, style: style, colorType: colorType),
       ),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         getRoundedRectangleBorder(context, style: style, colorType: colorType),
       ),
-      elevation: MaterialStateProperty.all<double>(16),
+      elevation: WidgetStateProperty.all<double>(16),
     );
   }
 
@@ -3042,8 +3042,7 @@ class UpStyle {
   }) {
     return ThemeData(
       colorScheme: ColorScheme(
-        onBackground: Colors.transparent,
-        background: Colors.transparent,
+        onSurfaceVariant: Colors.transparent,
         onError: Colors.pink,
         error: Colors.red,
         onSecondary: Colors.transparent,
@@ -3162,8 +3161,7 @@ class UpStyle {
   }) {
     return ThemeData(
         colorScheme: ColorScheme(
-          onBackground: Colors.transparent,
-          background: Colors.transparent,
+          onSurfaceVariant: Colors.transparent,
           onError: Colors.pink,
           error: Colors.red,
           onSecondary: Colors.transparent,
