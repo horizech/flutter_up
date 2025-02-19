@@ -1,5 +1,10 @@
 ## unreleased
 
+## 5.0.1
+
+- Updated flutter quill version
+- Updated flutter quill extensions version
+
 ## 5.0.0
 
 - Updated flutter quill version
