@@ -1,5 +1,7 @@
 ## unreleased
 
+- Updated Up rich text editor
+
 ## 5.0.1
 
 - Updated flutter quill version

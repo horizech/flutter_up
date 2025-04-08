@@ -26,8 +26,10 @@ class UpRichTextEditor extends StatefulWidget {
 class _UpRichTextEditorState extends State<UpRichTextEditor> {
   QuillController controller = QuillController(
       document: Document(),
+      readOnly: false,
       selection: const TextSelection.collapsed(offset: 0));
-
+  FocusNode focusNode = FocusNode();
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -229,73 +231,117 @@ class _UpRichTextEditorState extends State<UpRichTextEditor> {
             iconTheme: iconTheme,
           )),
     ];
-
-    return SizedBox(
-      child: QuillEditor(
-        focusNode: FocusNode(),
-        scrollController: ScrollController(),
-        controller: controller,
-        config: QuillEditorConfig(
-          dialogTheme: QuillDialogTheme(
-            dialogBackgroundColor:
-                UpConfig.of(context).theme.baseColor.shade100,
-            inputTextStyle: TextStyle(
-              color: UpConfig.of(context).theme.baseColor.shade900,
+    try {
+      return Column(
+        children: [
+          QuillSimpleToolbar(
+            controller: controller,
+            config: QuillSimpleToolbarConfig(
+              iconTheme: iconTheme,
             ),
           ),
-          contextMenuBuilder: (context, rawEditorState) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Visibility(
-                  visible: widget.readOnly == false,
-                  child: Column(children: buttonsList),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: UpConfig.of(context).theme.baseColor.shade100,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: QuillEditor.basic(
-                      // readOnly: widget.readOnly,
-                      controller: controller,
-                      focusNode: FocusNode(),
-                      scrollController: ScrollController(),
-                      config: QuillEditorConfig(
-                        embedBuilders: kIsWeb
-                            ? FlutterQuillEmbeds.editorWebBuilders()
-                            : FlutterQuillEmbeds.editorBuilders(),
-                        scrollable: true,
-                        autoFocus: false,
-                        padding: const EdgeInsets.all(8.0),
-                        expands: false,
-                        placeholder: "Enter ${widget.label}",
-                        showCursor: true,
-                        minHeight: 150,
-                        customStyles: DefaultStyles(
-                            paragraph: DefaultTextBlockStyle(
-                                TextStyle(
-                                  color: UpConfig.of(context)
-                                      .theme
-                                      .baseColor
-                                      .shade900,
-                                ),
-                                const HorizontalSpacing(0, 0),
-                                const VerticalSpacing(0, 0),
-                                const VerticalSpacing(0, 0),
-                                null)),
-                      ),
+          Container(
+            height: 300,
+            color: UpConfig.of(context).theme.baseColor.shade100,
+            child: QuillEditor.basic(
+              focusNode: focusNode,
+              scrollController: scrollController,
+              controller: controller,
+              config: QuillEditorConfig(
+                  dialogTheme: QuillDialogTheme(
+                    dialogBackgroundColor:
+                        UpConfig.of(context).theme.baseColor.shade100,
+                    inputTextStyle: TextStyle(
+                      color: UpConfig.of(context).theme.baseColor.shade900,
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
+                  enableSelectionToolbar: true,
+                  autoFocus: true,
+                  minHeight: 200,
+                  maxHeight: 300,
+                  contextMenuBuilder: (BuildContext context,
+                      QuillRawEditorState rawEditorState) {
+                    print("rawEditorState: $rawEditorState");
+                    return Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.abc,
+                            color: Colors.blueAccent,
+                          ),
+                          onPressed: () {
+                            print('Bold button pressed');
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                  // contextMenuBuilder: (context, rawEditorState) {
+                  //   return Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       // IconButton(
+                  //       //   icon: Icon(Icons.),
+                  //       //   onPressed: () {
+                  //       //     print('Bold button pressed');
+                  //       //   },
+                  //       // ),
+                  //       // Visibility(
+                  //       // visible: widget.readOnly == false,
+                  //       // child:
+                  //       // SizedBox(child: Column(children: buttonsList)),
+                  //       // ),
+                  //       // Padding(
+                  //       //   padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  //       //   child: Container(
+                  //       //     decoration: BoxDecoration(
+                  //       //       color: UpConfig.of(context).theme.baseColor.shade100,
+                  //       //       borderRadius: BorderRadius.circular(5.0),
+                  //       //     ),
+                  //       //     child: QuillEditor.basic(
+                  //       //       // readOnly: widget.readOnly,
+                  //       //       controller: controller,
+                  //       //       focusNode: FocusNode(),
+                  //       //       scrollController: ScrollController(),
+                  //       //       config: QuillEditorConfig(
+                  //       //         embedBuilders: kIsWeb
+                  //       //             ? FlutterQuillEmbeds.editorWebBuilders()
+                  //       //             : FlutterQuillEmbeds.editorBuilders(),
+                  //       //         scrollable: true,
+                  //       //         autoFocus: false,
+                  //       //         padding: const EdgeInsets.all(8.0),
+                  //       //         expands: false,
+                  //       //         placeholder: "Enter ${widget.label}",
+                  //       //         showCursor: true,
+                  //       //         minHeight: 150,
+                  //       //         customStyles: DefaultStyles(
+                  //       //             paragraph: DefaultTextBlockStyle(
+                  //       //                 TextStyle(
+                  //       //                   color: UpConfig.of(context)
+                  //       //                       .theme
+                  //       //                       .baseColor
+                  //       //                       .shade900,
+                  //       //                 ),
+                  //       //                 const HorizontalSpacing(0, 0),
+                  //       //                 const VerticalSpacing(0, 0),
+                  //       //                 const VerticalSpacing(0, 0),
+                  //       //                 null)),
+                  //       //       ),
+                  //       //     ),
+                  //       //   ),
+                  //       // ),
+                  //     ],
+                  //   );
+                  // },
+
+                  ),
+            ),
+          ),
+        ],
+      );
+    } catch (e) {
+      return Text(e.toString());
+    }
   }
 }
