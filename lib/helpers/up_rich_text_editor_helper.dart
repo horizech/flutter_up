@@ -5,15 +5,17 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 class UpRichTextEditorHelper {
-  static QuillController convertTextToQuill(String text) {
+  static QuillController convertTextToQuill(String text, bool readOnly) {
     if (text.isNotEmpty) {
       if (text.contains("insert")) {
         return QuillController(
+          readOnly: readOnly,
           document: Document.fromJson(jsonDecode(text)),
           selection: const TextSelection.collapsed(offset: 0),
         );
       } else {
         return QuillController(
+            readOnly: readOnly,
             document: Document.fromJson([
               {'insert': '$text\n'}
             ]),
@@ -21,6 +23,7 @@ class UpRichTextEditorHelper {
       }
     } else {
       return QuillController(
+          readOnly: readOnly,
           document: Document(),
           selection: const TextSelection.collapsed(offset: 0));
     }
@@ -34,9 +37,10 @@ class UpRichTextEditorHelper {
     return controller.document.toPlainText();
   }
 
-  static String convertDeltaToHtml(dynamic deltaJson) {
+  static String convertDeltaToHtml(dynamic deltaJson, bool readOnly) {
     QuillController controller = QuillController(
       document: Document.fromJson(deltaJson),
+      readOnly: readOnly,
       selection: const TextSelection.collapsed(offset: 0),
     );
     return convertQuillToHtmlText(controller);
@@ -55,9 +59,9 @@ class UpRichTextEditorHelper {
     return html;
   }
 
-  static String convertDeltaTextToPlainText(String text) {
+  static String convertDeltaTextToPlainText(String text, bool readOnly) {
     QuillController controller =
-        UpRichTextEditorHelper.convertTextToQuill(text);
+        UpRichTextEditorHelper.convertTextToQuill(text, readOnly);
     return controller.document.toPlainText();
   }
 }
