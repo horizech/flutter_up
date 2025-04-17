@@ -321,7 +321,7 @@ class _upDropDownSingleSelectBodyState
                 if (widget.validation != null &&
                     (widget.validation!.isRequired ?? false)) {
                   if (value == null || value == "" || value.isEmpty) {
-                    return 'Please enter ${widget.label}';
+                    return 'Please enter ${(widget.label)?.toLowerCase()}';
                   }
                 }
                 return null;
@@ -729,7 +729,7 @@ class _upDropDownMultipleSelectBodyState
             if (widget.validation != null &&
                 (widget.validation!.isRequired ?? false)) {
               if (value == null || value == "" || value.isEmpty) {
-                return 'Please enter ${widget.label}';
+                return 'Please enter ${(widget.label)?.toLowerCase()}';
               }
             }
             return null;
